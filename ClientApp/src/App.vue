@@ -1,0 +1,63 @@
+<template>
+  <div>
+
+    <b-container fluid>
+
+      <b-navbar toggleable="md" type="dark" variant="primary">
+
+        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+        <b-navbar-brand to="/">
+            MKE Alerts
+        </b-navbar-brand>
+
+        <b-collapse is-nav id="nav_collapse">
+
+          <b-navbar-nav>
+            <b-nav-item to="/property">Properties</b-nav-item>
+            <b-nav-item to="/applicationUser">Users</b-nav-item>
+            <b-nav-item to="/about">About</b-nav-item>
+          </b-navbar-nav>
+
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item-dropdown right>
+              <template slot="button-content">
+                Debug
+              </template>
+              <b-dropdown-item href="/hangfire" target="_blank">Hangfire Dashboard</b-dropdown-item>
+              <b-dropdown-item href="/swagger" target="_blank">Swagger UI</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <b-nav-item-dropdown right>
+              <template slot="button-content">
+                {{$root.$data.authenticatedUser.username ? $root.$data.authenticatedUser.username : 'Not Logged In'}}
+              </template>
+              <b-dropdown-item to="/login" v-if="!$root.$data.authenticatedUser.username">Log In</b-dropdown-item>
+              <b-dropdown-item to="/logout" v-if="$root.$data.authenticatedUser.username">Log Out</b-dropdown-item>
+            </b-nav-item-dropdown>
+            <img src="./assets/Milwaukee_Flag_60px.png" style="max-height: 36px; border: 1px solid white;" />
+          </b-navbar-nav>
+
+        </b-collapse>
+      </b-navbar>
+
+      <!-- Ths if/else here clears the keep-alive when a user logs in/out: https://stackoverflow.com/questions/52967418/refresh-pages-in-vue-js-keep-alive-section -->
+      <keep-alive v-if="$root.$data.authenticatedUser.username">
+        <router-view :key="$route.fullPath"></router-view>
+      </keep-alive>
+      <router-view v-else></router-view>
+
+    </b-container>
+
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: 'app',
+  methods: {
+      showToast: function (text, options) {
+        this.$bvToast.toast(text, options);
+      }
+  }
+}
+</script>
