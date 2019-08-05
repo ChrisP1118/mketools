@@ -51,6 +51,22 @@ namespace MkeAlerts.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DispatchCalls",
+                columns: table => new
+                {
+                    CallNumber = table.Column<string>(maxLength: 12, nullable: false),
+                    DateTime = table.Column<DateTime>(nullable: false),
+                    Location = table.Column<string>(maxLength: 60, nullable: false),
+                    District = table.Column<int>(nullable: false),
+                    NatureOfCall = table.Column<string>(maxLength: 20, nullable: false),
+                    Status = table.Column<string>(maxLength: 60, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DispatchCalls", x => x.CallNumber);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Properties",
                 columns: table => new
                 {
@@ -257,12 +273,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "a9de8910-53b3-4610-9a9c-5130eb65ec0d", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "96036cc9-97ce-4db8-9a71-3be8fb56e3e2", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "484b3728-afe6-4ddd-a53a-240f5b17407e", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAECQBY4XdYQ4dodQi8fFUpo4KY6VwSRfW4K2rp+Pezuu1h3MN2G+fZjhX65+J+nXfjA==", null, false, "", false, "siteadmin" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "abdb1f39-6901-4d20-afaf-885631c5a7ef", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEAfNpqrE//KGds1ask+GOaSQEX8ClEOPP3OdGaFNA+FV72LHKdhX3lpC72RN+MpanQ==", null, false, "", false, "siteadmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -309,6 +325,12 @@ namespace MkeAlerts.Web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DispatchCalls_CallNumber",
+                table: "DispatchCalls",
+                column: "CallNumber",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Properties_TAXKEY",
                 table: "Properties",
                 column: "TAXKEY",
@@ -331,6 +353,9 @@ namespace MkeAlerts.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "DispatchCalls");
 
             migrationBuilder.DropTable(
                 name: "Properties");

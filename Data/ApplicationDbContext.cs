@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using MkeAlerts.Web.Models.Data;
 using MkeAlerts.Web.Models.Data.Properties;
+using MkeAlerts.Web.Models.Data.DispatchCalls;
 
 namespace MkeAlerts.Web.Data
 {
@@ -15,6 +16,7 @@ namespace MkeAlerts.Web.Data
     {
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Property> Properties { get; set; }
+        public DbSet<DispatchCall> DispatchCalls { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -27,6 +29,10 @@ namespace MkeAlerts.Web.Data
 
             modelBuilder.Entity<Property>()
                 .HasIndex(x => x.TAXKEY)
+                .IsUnique();
+
+            modelBuilder.Entity<DispatchCall>()
+                .HasIndex(x => x.CallNumber)
                 .IsUnique();
 
             //modelBuilder.Entity<Role>()

@@ -31,6 +31,8 @@ using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Filters;
 using Hangfire;
 using MkeAlerts.Web.Models.Data.Properties;
+using MkeAlerts.Web.Models.Data.DispatchCalls;
+using MkeAlerts.Web.Jobs;
 
 namespace MkeAlerts.Web
 {
@@ -184,8 +186,11 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityReadService<ApplicationUser, Guid>, ApplicationUserService>();
             services.AddTransient<IEntityReadService<Property, string>, PropertyService>();
             services.AddTransient<IEntityWriteService<Property, string>, PropertyService>();
+            services.AddTransient<IEntityReadService<DispatchCall, string>, DispatchCallService>();
+            services.AddTransient<IEntityWriteService<DispatchCall, string>, DispatchCallService>();
 
             services.AddSingleton<IValidator<Property>, PropertyValidator>();
+            services.AddSingleton<IValidator<DispatchCall>, DispatchCallValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -243,6 +248,10 @@ Note that not all fields can be sorted.
             });
 
             dbContext.Database.EnsureCreated();
+
+            //RecurringJob.AddOrUpdate(() => Console.Write("Powerful!"), "* * * * *");
+            //BackgroundJob.Enqueue<ImportDispatchCallsJob>(x => x.Run());
+            RecurringJob.AddOrUpdate<ImportDispatchCallsJob>(x => x.Run(), "* * * * *");
         }
     }
 }

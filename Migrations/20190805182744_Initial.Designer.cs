@@ -11,7 +11,7 @@ using MkeAlerts.Web.Data;
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190805121005_Initial")]
+    [Migration("20190805182744_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,7 +139,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "a9de8910-53b3-4610-9a9c-5130eb65ec0d",
+                            ConcurrencyStamp = "96036cc9-97ce-4db8-9a71-3be8fb56e3e2",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -206,18 +206,47 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "484b3728-afe6-4ddd-a53a-240f5b17407e",
+                            ConcurrencyStamp = "abdb1f39-6901-4d20-afaf-885631c5a7ef",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAECQBY4XdYQ4dodQi8fFUpo4KY6VwSRfW4K2rp+Pezuu1h3MN2G+fZjhX65+J+nXfjA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAfNpqrE//KGds1ask+GOaSQEX8ClEOPP3OdGaFNA+FV72LHKdhX3lpC72RN+MpanQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
                             UserName = "siteadmin"
                         });
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.DispatchCalls.DispatchCall", b =>
+                {
+                    b.Property<string>("CallNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(12);
+
+                    b.Property<DateTime>("DateTime");
+
+                    b.Property<int>("District");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(60);
+
+                    b.Property<string>("NatureOfCall")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Status")
+                        .HasMaxLength(60);
+
+                    b.HasKey("CallNumber");
+
+                    b.HasIndex("CallNumber")
+                        .IsUnique();
+
+                    b.ToTable("DispatchCalls");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Property", b =>
