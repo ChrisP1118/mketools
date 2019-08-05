@@ -40,6 +40,26 @@ namespace MkeAlerts.Web.Services
             return dataModel;
         }
 
+        public async Task<IEnumerable<TDataModel>> Create(ClaimsPrincipal user, IEnumerable<TDataModel> dataModels)
+        {
+            var applicationUser = await GetApplicationUser(user);
+
+            foreach (TDataModel dataModel in dataModels)
+            {
+
+                if (!await CanCreate(applicationUser, dataModel))
+                    throw new ForbiddenException();
+
+                _validator.ValidateAndThrow(dataModel);
+
+                _dbContext.Set<TDataModel>().Add(dataModel);
+            }
+
+            await _dbContext.SaveChangesAsync();
+
+            return dataModels;
+        }
+
         public async Task<TDataModel> Update(ClaimsPrincipal user, TDataModel dataModel)
         {
             var applicationUser = await GetApplicationUser(user);

@@ -41,8 +41,10 @@ namespace MkeAlerts.Web.Jobs
 
             Debug.WriteLine("Started: " + DateTime.Now.ToString());
 
+            List<Property> properties = new List<Property>();
+
             int i = 0;
-            while (i < 1000000 && coll.MoveNext())
+            while (coll.MoveNext())
             {
                 try
                 {
@@ -154,7 +156,13 @@ namespace MkeAlerts.Web.Jobs
 
                     property.Parcel = transformedGeometry;
 
-                    await _propertyWriteService.Create(user, property);
+                    properties.Add(property);
+
+                    if (i % 100 == 0)
+                    {
+                        await _propertyWriteService.Create(user, properties);
+                        properties = new List<Property>();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -164,205 +172,10 @@ namespace MkeAlerts.Web.Jobs
                     //throw new Exception("Error creating property", ex);
                 }
 
-                //var ellipsoid = /*Ellipsoid.Clarke1866;*/
-                //            CoordinateSystemFactory.CreateFlattenedSphere("Clarke 1866", 20925832.16, 294.97470, LinearUnit.USSurveyFoot);
-
-                //var datum = CoordinateSystemFactory.CreateHorizontalDatum("Clarke 1866", DatumType.HD_Geocentric, ellipsoid, null);
-                //var gcs = CoordinateSystemFactory.CreateGeographicCoordinateSystem("Clarke 1866", AngularUnit.Degrees, datum,
-                //    PrimeMeridian.Greenwich, new AxisInfo("Lon", AxisOrientationEnum.East),
-                //    new AxisInfo("Lat", AxisOrientationEnum.North));
-                //var parameters = new List<ProjectionParameter>(5)
-                //                 {
-                //                     new ProjectionParameter("latitude_of_origin", 27.833333333),
-                //                     new ProjectionParameter("central_meridian", -99),
-                //                     new ProjectionParameter("standard_parallel_1", 28.3833333333),
-                //                     new ProjectionParameter("standard_parallel_2", 30.2833333333),
-                //                     new ProjectionParameter("false_easting", 2000000/LinearUnit.USSurveyFoot.MetersPerUnit),
-                //                     new ProjectionParameter("false_northing", 0)
-                //                 };
-                //var projection = CoordinateSystemFactory.CreateProjection("Lambert Conic Conformal (2SP)", "lambert_conformal_conic_2sp", parameters);
-
-                //var coordsys = CoordinateSystemFactory.CreateProjectedCoordinateSystem("NAD27 / Texas South Central", gcs, projection, LinearUnit.USSurveyFoot, new AxisInfo("East", AxisOrientationEnum.East), new AxisInfo("North", AxisOrientationEnum.North));
-
-                //var trans = CoordinateTransformationFactory.CreateFromCoordinateSystems(gcs, coordsys);
-
-                //double[] pGeo = new[] { -96, 28.5 };
-                //double[] pUtm = trans.MathTransform.Transform(pGeo);
-                //double[] pGeo2 = trans.MathTransform.Inverse().Transform(pUtm);
-
-                //double[] expected = new[] { 2963503.91 / LinearUnit.USSurveyFoot.MetersPerUnit, 254759.80 / LinearUnit.USSurveyFoot.MetersPerUnit };
-                //Assert.IsTrue(ToleranceLessThan(pUtm, expected, 0.05), TransformationError("LambertConicConformal2SP", expected, pUtm));
-                //Assert.IsTrue(ToleranceLessThan(pGeo, pGeo2, 0.0000001), TransformationError("LambertConicConformal2SP", pGeo, pGeo2, true));
-
-
-                /*
-                string lambertConformalConicWkt = @"" +
-                    @"PROJCS[""North_America_Lambert_Conformal_Conic""," +
-                    @"    GEOGCS[""GCS_North_American_1983""," +
-                    @"        DATUM[""North_American_Datum_1983""," +
-                    @"            SPHEROID[""GRS_1980"",6378137,298.257222101]]," +
-                    @"        PRIMEM[""Greenwich"",0]," +
-                    @"        UNIT[""Degree"",0.017453292519943295]]," +
-                    @"    PROJECTION[""Lambert_Conformal_Conic_2SP""]," +
-                    @"    PARAMETER[""False_Easting"",0]," +
-                    @"    PARAMETER[""False_Northing"",0]," +
-                    @"    PARAMETER[""Central_Meridian"",-96]," +
-                    @"    PARAMETER[""Standard_Parallel_1"",20]," +
-                    @"    PARAMETER[""Standard_Parallel_2"",60]," +
-                    @"    PARAMETER[""Latitude_Of_Origin"",40]," +
-                    @"    UNIT[""Meter"",1]," +
-                    @"    AUTHORITY[""EPSG"",""102009""]]";
-
-                string gcsNorthAmerican1927wkt = @"GEOGCS[""GCS_North_American_1927"",DATUM[""D_North_American_1927"",SPHEROID[""Clarke_1866"",6378206.4,294.9786982]],PRIMEM[""Greenwich"",0.0],UNIT[""Degree"",0.0174532925199433]]";
-
-                string webMercatorWkt = @"" +
-                    @"PROJCS[""WGS 84 / Pseudo-Mercator""," +
-                    @"    GEOGCS[""WGS 84""," +
-                    @"        DATUM[""WGS_1984""," +
-                    @"            SPHEROID[""WGS 84"",6378137,298.257223563," +
-                    @"                AUTHORITY[""EPSG"",""7030""]]," +
-                    @"            AUTHORITY[""EPSG"",""6326""]]," +
-                    @"        PRIMEM[""Greenwich"",0," +
-                    @"            AUTHORITY[""EPSG"",""8901""]]," +
-                    @"        UNIT[""degree"",0.0174532925199433," +
-                    @"            AUTHORITY[""EPSG"",""9122""]]," +
-                    @"            AUTHORITY[""EPSG"",""9122""]]," +
-                    @"        AUTHORITY[""EPSG"",""4326""]]," +
-                    @"    PROJECTION[""Mercator_1SP""]," +
-                    @"    PARAMETER[""central_meridian"",0]," +
-                    @"    PARAMETER[""scale_factor"",1]," +
-                    @"    PARAMETER[""false_easting"",0]," +
-                    @"    PARAMETER[""false_northing"",0]," +
-                    @"    UNIT[""metre"",1," +
-                    @"        AUTHORITY[""EPSG"",""9001""]]," +
-                    @"    AXIS[""X"",EAST]," +
-                    @"    AXIS[""Y"",NORTH]," +
-                    @"    EXTENSION[""PROJ4"",""+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext  +no_defs""]," +
-                    @"    AUTHORITY[""EPSG"",""3857""]]";
-                */
-
-
-                /*
-                CoordinateSystemFactory csFact = new CoordinateSystemFactory();
-                CoordinateTransformationFactory ctFact = new CoordinateTransformationFactory();
-
-                //ICoordinateSystem sourceSystem = csFact.CreateFromWkt(lambertConformalConicWkt);
-                ICoordinateSystem sourceSystem = csFact.CreateFromWkt(gcsNorthAmerican1927wkt);
-                //ICoordinateSystem targetSystem = csFact.CreateFromWkt(webMercatorWkt);
-                IProjectedCoordinateSystem targetSystem = ProjectedCoordinateSystem.WGS84_UTM(33, true);
-
-                ICoordinateTransformation trans = ctFact.CreateFromCoordinateSystems(sourceSystem, targetSystem);
-
-                Coordinate[] tpoints = trans.MathTransform.TransformList(coll.Current.Geometry.Coordinates).ToArray();
-                */
-
-                /*
-                CoordinateSystemFactory csFact = new CoordinateSystemFactory();
-                CoordinateTransformationFactory ctFact = new CoordinateTransformationFactory();
-
-                ICoordinateSystem utm35ETRS = csFact.CreateFromWkt(
-                        "PROJCS[\"ETRS89 / ETRS-TM35\",GEOGCS[\"ETRS89\",DATUM[\"D_ETRS_1989\",SPHEROID[\"GRS_1980\",6378137,298.257222101]],PRIMEM[\"Greenwich\",0],UNIT[\"Degree\",0.017453292519943295]],PROJECTION[\"Transverse_Mercator\"],PARAMETER[\"latitude_of_origin\",0],PARAMETER[\"central_meridian\",27],PARAMETER[\"scale_factor\",0.9996],PARAMETER[\"false_easting\",500000],PARAMETER[\"false_northing\",0],UNIT[\"Meter\",1]]");
-
-                IProjectedCoordinateSystem utm33 = ProjectedCoordinateSystem.WGS84_UTM(33, true);
-
-                ICoordinateTransformation trans = ctFact.CreateFromCoordinateSystems(utm35ETRS, utm33);
-
-                //Coordinate[] points = new Coordinate[]
-                //{
-                //    new Coordinate(290586.087, 6714000), new Coordinate(290586.392, 6713996.224),
-                //    new Coordinate(290590.133, 6713973.772), new Coordinate(290594.111, 6713957.416),
-                //    new Coordinate(290596.615, 6713943.567), new Coordinate(290596.701, 6713939.485)
-                //};
-
-                Coordinate[] tpoints = trans.MathTransform.TransformList(coll.Current.Geometry.Coordinates).ToArray();
-                //for (int i = 0; i < points.Length; i++)
-                //    Assert.That(tpoints[i].Equals(trans.MathTransform.Transform(points[i])));
-                */
-
-
-                /*
-                GeoAPI.Geometries.Coordinate PinPnt = new GeoAPI.Geometries.Coordinate();
-                 NetTopologySuite.IO.WKBReader reader = new NetTopologySuite.IO.WKBReader();
-                 var wkb = (byte[])Row["the_geom"];
-                 Geometry geom = (Geometry)reader.Read(wkb);
-                 var p = new GeometryFeatureProvider(geom);
-                 myLayer.DataSource = p;
-                 myLayer.Style.Fill = new System.Drawing.SolidBrush(fillcolor);
-                ProjNet.CoordinateSystems.Transformations.CoordinateTransformationFactory ctFact = new ProjNet.CoordinateSystems.Transformations.CoordinateTransformationFactory();
-                myLayer.CoordinateTransformation = ctFact.CreateFromCoordinateSystems(ProjNet.CoordinateSystems.GeographicCoordinateSystem.WGS84, ProjNet.CoordinateSystems.ProjectedCoordinateSystem.WebMercator);
-                myLayer.ReverseCoordinateTransformation = ctFact.CreateFromCoordinateSystems(ProjNet.CoordinateSystems.ProjectedCoordinateSystem.WebMercator, ProjNet.CoordinateSystems.GeographicCoordinateSystem.WGS84);
-                _map.Layers.Add(myLayer);
-                */
-
-                /*
-                CoordinateTransformationFactory coordinateTransformationFactory = new ProjNet.CoordinateSystems.Transformations.CoordinateTransformationFactory();
-                var coordinateTransformation = coordinateTransformationFactory.CreateFromCoordinateSystems(ProjNet.CoordinateSystems.GeographicCoordinateSystem.WGS84, ProjNet.CoordinateSystems.ProjectedCoordinateSystem.WebMercator);
-                var reverseCoordinateTransformation = coordinateTransformationFactory.CreateFromCoordinateSystems(ProjNet.CoordinateSystems.ProjectedCoordinateSystem.WebMercator, ProjNet.CoordinateSystems.GeographicCoordinateSystem.WGS84);
-
-                var cf = new ProjNet.CoordinateSystems.CoordinateSystemFactory();
-
-                const string wkt4326 = "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.01745329251994328,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]]";
-                const string wkt3857 = "PROJCS[\"Popular Visualisation CRS / Mercator\", GEOGCS[\"Popular Visualisation CRS\", DATUM[\"Popular Visualisation Datum\", SPHEROID[\"Popular Visualisation Sphere\", 6378137, 0, AUTHORITY[\"EPSG\",\"7059\"]], TOWGS84[0, 0, 0, 0, 0, 0, 0], AUTHORITY[\"EPSG\",\"6055\"] ], PRIMEM[\"Greenwich\", 0, AUTHORITY[\"EPSG\", \"8901\"]], UNIT[\"degree\", 0.0174532925199433, AUTHORITY[\"EPSG\", \"9102\"]], AXIS[\"E\", EAST], AXIS[\"N\", NORTH], AUTHORITY[\"EPSG\",\"4055\"] ], PROJECTION[\"Mercator\"], PARAMETER[\"False_Easting\", 0], PARAMETER[\"False_Northing\", 0], PARAMETER[\"Central_Meridian\", 0], PARAMETER[\"Latitude_of_origin\", 0], UNIT[\"metre\", 1, AUTHORITY[\"EPSG\", \"9001\"]], AXIS[\"East\", EAST], AXIS[\"North\", NORTH], AUTHORITY[\"EPSG\",\"3785\"]]";
-                const string wkt3395 = "PROJCS[\"WGS 84 / World Mercator\",GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.01745329251994328,AUTHORITY[\"EPSG\",\"9122\"]],AUTHORITY[\"EPSG\",\"4326\"]],UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]],PROJECTION[\"Mercator_1SP\"],PARAMETER[\"central_meridian\",0],PARAMETER[\"scale_factor\",1],PARAMETER[\"false_easting\",0],PARAMETER[\"false_northing\",0],AUTHORITY[\"EPSG\",\"3395\"],AXIS[\"Easting\",EAST],AXIS[\"Northing\",NORTH]]";
-
-                var sys4326 = cf.CreateFromWkt(wkt4326);
-                var sys3857 = cf.CreateFromWkt(wkt3857);
-                var sys3395 = cf.CreateFromWkt(wkt3395);
-                var transformTo3875 = coordinateTransformationFactory.CreateFromCoordinateSystems(sys4326, sys3857);
-                var transformTo3395 = coordinateTransformationFactory.CreateFromCoordinateSystems(sys4326, sys3395);
-
-                */
-
-                //Property property = new Property()
-                //{
-                //    Id = Guid.NewGuid(),
-                //    TAXKEY = coll.Current.Attributes["TAXKEY"].ToString(),
-                //    HOUSE_NR_LO = int.Parse(coll.Current.Attributes["HOUSE_NR_L"].ToString()),
-                //    HOUSE_NR_HI = int.Parse(coll.Current.Attributes["HOUSE_NR_H"].ToString()),
-                //    HOUSE_NR_SFX = coll.Current.Attributes["HOUSE_NR_S"].ToString(),
-                //    DIR = coll.Current.Attributes["SDIR"].ToString(),
-                //    STREET = coll.Current.Attributes["STREET"].ToString(),
-                //    STTYPE = coll.Current.Attributes["STTYPE"].ToString()
-                //};
-
-                //await _propertyWriteService.Create(user, property);
-
-                /*
-                //if (coll.Current.Attributes["HOUSE_NR_L"].ToString() == "2100" && coll.Current.Attributes["STREET"].ToString() == "WEBSTER")
-                if (i % 10000 == 0)
-                {
-                    //Console.WriteLine(coll.Current);
-
-                    ////ProjectionInfo source = KnownCoordinateSystems.Geographic.NorthAmerica.NAD1927CGQ77; //new ProjectionInfo("+proj=tmerc +lat_0=0 +lon_0=18 +k=0.9999 +x_0=6500000 +y_0=0 +ellps=bessel +towgs84=550.499,164.116,475.142,5.80967,2.07902,-11.62386,0.99999445824 +units=m");
-                    //ProjectionInfo source = projectionInfo;
-                    ////ProjectionInfo target = KnownCoordinateSystems.Geographic.World.WGS1984;
-                    ////ProjectionInfo target = KnownCoordinateSystems.Projected.UtmWgs1984.WGS1984UTMZone33N;
-                    //ProjectionInfo target = KnownCoordinateSystems.Geographic.World.ITRF2000;
-
-                    //double[] xy = new double[2]
-                    //{
-                    //    coll.Current.Geometry.Centroid.X,
-                    //    coll.Current.Geometry.Centroid.Y
-                    //};
-                    //double[] z = new double[1] { 1 };
-                    //Reproject.ReprojectPoints(xy, z, source, target, 0, 1);
-
-                    //Console.WriteLine("Latitude: " + xy[0].ToString());
-                    //Console.WriteLine("Longitude: " + xy[1].ToString());
-
-                    foreach (var c in coll.Current.Geometry.Coordinates)
-                    {
-                        Tuple<double, double> coordinates = ReprojectCoordinates(projectionInfo, c.X, c.Y);
-                        Debug.WriteLine(coordinates.Item2.ToString() + "," + coordinates.Item1.ToString());
-                    }
-
-                    Debug.WriteLine("Done");
-
-                }
-                */
-
                 ++i;
             }
+
+            await _propertyWriteService.Create(user, properties);
 
             Debug.WriteLine("Finished: " + DateTime.Now.ToString());
         }
