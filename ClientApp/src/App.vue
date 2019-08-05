@@ -14,6 +14,7 @@
 
           <b-navbar-nav>
             <b-nav-item to="/property">Properties</b-nav-item>
+            <b-nav-item to="/dispatchCall">Dispatch Calls</b-nav-item>
             <b-nav-item to="/applicationUser">Users</b-nav-item>
             <b-nav-item to="/about">About</b-nav-item>
           </b-navbar-nav>

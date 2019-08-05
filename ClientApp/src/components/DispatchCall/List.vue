@@ -30,7 +30,7 @@ export default {
             filter: 'text'
           },
           {
-            key: 'DateTime',
+            key: 'ReportedDateTime',
             name: 'Date/Time',
             visible: true,
             sortable: true,

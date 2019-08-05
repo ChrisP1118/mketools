@@ -49,15 +49,15 @@ export default {
         console.log(response);
         if (response.status == 200) {
 
-          axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.jwtToken;
-          this.$root.$data.authenticatedUser.username = response.data.userName;
-          this.$root.$data.authenticatedUser.id = response.data.id;
-          this.$root.$data.authenticatedUser.roles = response.data.roles;
+          axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.JwtToken;
+          this.$root.$data.authenticatedUser.username = response.data.UserName;
+          this.$root.$data.authenticatedUser.id = response.data.Id;
+          this.$root.$data.authenticatedUser.roles = response.data.Roles;
 
-          localStorage.setItem('jwt', response.data.jwtToken);
-          localStorage.setItem('username', response.data.userName);
-          localStorage.setItem('id', response.data.id);
-          localStorage.setItem('roles', response.data.roles);
+          localStorage.setItem('jwt', response.data.JwtToken);
+          localStorage.setItem('username', response.data.UserName);
+          localStorage.setItem('id', response.data.Id);
+          localStorage.setItem('roles', response.data.Roles);
 
           if (this.$route.query.redirect)
             this.$router.push(this.$route.query.redirect);
