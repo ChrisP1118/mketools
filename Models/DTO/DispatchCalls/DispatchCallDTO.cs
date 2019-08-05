@@ -9,7 +9,7 @@ namespace MkeAlerts.Web.Models.DTO.DispatchCalls
     {
         public string CallNumber { get; set; }
 
-        public DateTime DateTime { get; set; }
+        public DateTime ReportedDateTime { get; set; }
         public string Location { get; set; }
         public int District { get; set; }
         public string NatureOfCall { get; set; }

@@ -11,7 +11,7 @@ using MkeAlerts.Web.Data;
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190805182744_Initial")]
+    [Migration("20190805200052_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,7 +139,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "96036cc9-97ce-4db8-9a71-3be8fb56e3e2",
+                            ConcurrencyStamp = "ae060ae6-c3ff-4c9e-b451-5846e8119f36",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -206,13 +206,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "abdb1f39-6901-4d20-afaf-885631c5a7ef",
+                            ConcurrencyStamp = "1fcb17bc-5c23-47de-8d8f-88f24616f956",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAfNpqrE//KGds1ask+GOaSQEX8ClEOPP3OdGaFNA+FV72LHKdhX3lpC72RN+MpanQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF/SSflIOGMPIra6/dqmE3Vo3Vq+O0OdcNJicJpXAEuCrudTiHqKVYf8P88/1arbQA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -226,8 +226,6 @@ namespace MkeAlerts.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(12);
 
-                    b.Property<DateTime>("DateTime");
-
                     b.Property<int>("District");
 
                     b.Property<string>("Location")
@@ -237,6 +235,8 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<string>("NatureOfCall")
                         .IsRequired()
                         .HasMaxLength(20);
+
+                    b.Property<DateTime>("ReportedDateTime");
 
                     b.Property<string>("Status")
                         .HasMaxLength(60);

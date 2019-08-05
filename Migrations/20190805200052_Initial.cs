@@ -55,7 +55,7 @@ namespace MkeAlerts.Web.Migrations
                 columns: table => new
                 {
                     CallNumber = table.Column<string>(maxLength: 12, nullable: false),
-                    DateTime = table.Column<DateTime>(nullable: false),
+                    ReportedDateTime = table.Column<DateTime>(nullable: false),
                     Location = table.Column<string>(maxLength: 60, nullable: false),
                     District = table.Column<int>(nullable: false),
                     NatureOfCall = table.Column<string>(maxLength: 20, nullable: false),
@@ -273,12 +273,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "96036cc9-97ce-4db8-9a71-3be8fb56e3e2", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "ae060ae6-c3ff-4c9e-b451-5846e8119f36", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "abdb1f39-6901-4d20-afaf-885631c5a7ef", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEAfNpqrE//KGds1ask+GOaSQEX8ClEOPP3OdGaFNA+FV72LHKdhX3lpC72RN+MpanQ==", null, false, "", false, "siteadmin" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "1fcb17bc-5c23-47de-8d8f-88f24616f956", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEF/SSflIOGMPIra6/dqmE3Vo3Vq+O0OdcNJicJpXAEuCrudTiHqKVYf8P88/1arbQA==", null, false, "", false, "siteadmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

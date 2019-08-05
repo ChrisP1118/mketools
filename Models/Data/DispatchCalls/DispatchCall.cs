@@ -17,7 +17,7 @@ namespace MkeAlerts.Web.Models.Data.DispatchCalls
         public string CallNumber { get; set; }
 
         [Required]
-        public DateTime DateTime { get; set; }
+        public DateTime ReportedDateTime { get; set; }
 
         [Required]
         [MaxLength(60)]

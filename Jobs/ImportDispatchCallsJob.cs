@@ -52,7 +52,7 @@ namespace MkeAlerts.Web.Jobs
                         dispatchCall = new DispatchCall()
                         {
                             CallNumber = cols[0].InnerText,
-                            DateTime = DateTime.Parse(cols[1].InnerText),
+                            ReportedDateTime = DateTime.Parse(cols[1].InnerText),
                             Location = cols[2].InnerText,
                             District = int.Parse(cols[3].InnerText),
                             NatureOfCall = cols[4].InnerText,

@@ -32,6 +32,7 @@ import PropertyView from './components/Property/View.vue'
 import ApplicationUserList from './components/ApplicationUser/List.vue'
 import ApplicationUserFields from './components/ApplicationUser/Fields.vue'
 import ApplicationUserEdit from './components/ApplicationUser/Edit.vue'
+import DispatchCallList from './components/DispatchCall/List.vue'
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -62,6 +63,7 @@ const routes = [
   { path: '/property/:id', component: PropertyView, props: true },
   { path: '/applicationUser', component: ApplicationUserList },
   { path: '/applicationUser/:id', component: ApplicationUserEdit, props: true },
+  { path: '/dispatchCall', component: DispatchCallList },
 ];
 
 const router = new VueRouter({
