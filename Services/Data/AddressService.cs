@@ -16,7 +16,8 @@ namespace MkeAlerts.Web.Services.Data
 
         protected override async Task<IQueryable<Address>> ApplyIdFilter(IQueryable<Address> queryable, string id)
         {
-            return queryable.Where(x => x.FormattedAddress == id);
+            //return queryable.Where(x => x.FormattedAddress == id);
+            return queryable.Where(x => x.RCD_NBR == id);
         }
 
         protected override async Task<IQueryable<Address>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<Address> queryable)

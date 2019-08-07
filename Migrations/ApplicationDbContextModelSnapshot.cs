@@ -137,7 +137,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "e23590f6-2845-43b8-b4ad-1e0b507c36f9",
+                            ConcurrencyStamp = "03d95355-2682-49f3-9fbd-e41f420b6e71",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +204,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "51f598cd-e107-4509-bd9b-5ddf2fe4d2f0",
+                            ConcurrencyStamp = "406b2494-0c15-4b2b-970b-708777a2af5c",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMWXGJjZD6BMwSDqePrtN1uX65fOIE6msGnX4DxSxormaOezzES5SEHiDgFkS3sLwA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENwOY61tQKKPS8qDZfMz3uJEAoQm5bUUS9Rj9h+cs2qZJo9BAwhfhFtVQs195RL8OA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -249,9 +249,9 @@ namespace MkeAlerts.Web.Migrations
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Address", b =>
                 {
-                    b.Property<string>("FormattedAddress")
+                    b.Property<string>("RCD_NBR")
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(60);
+                        .HasMaxLength(10);
 
                     b.Property<string>("DIR")
                         .HasMaxLength(1);
@@ -264,8 +264,6 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<string>("MAIL_STATUS")
                         .HasMaxLength(1);
-
-                    b.Property<int>("RCD_NBR");
 
                     b.Property<string>("RES_COM_FLAG")
                         .HasMaxLength(1);
@@ -292,9 +290,9 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<string>("ZIP_CODE")
                         .HasMaxLength(9);
 
-                    b.HasKey("FormattedAddress");
+                    b.HasKey("RCD_NBR");
 
-                    b.HasIndex("FormattedAddress")
+                    b.HasIndex("RCD_NBR")
                         .IsUnique();
 
                     b.ToTable("Addresses");

@@ -59,8 +59,8 @@ namespace MkeAlerts.Web.Jobs
                 while (coll.MoveNext())
                 {
                     ++i;
-                    if (i < 11000)
-                        continue;
+                    //if (i < 11000)
+                    //    continue;
 
                     try
                     {
@@ -186,7 +186,7 @@ namespace MkeAlerts.Web.Jobs
 
                         if (i % 100 == 0)
                         {
-                            await _propertyWriteService.BulkCreate(claimsPrincipal, properties, true);
+                            await _propertyWriteService.BulkCreate(claimsPrincipal, properties, true, false);
                             properties.Clear();
                         }
                     }
@@ -199,9 +199,9 @@ namespace MkeAlerts.Web.Jobs
                     }
                 }
 
-                results.AppendLine("Start: " + DateTime.Now.ToString());
+                await _propertyWriteService.BulkCreate(claimsPrincipal, properties, true, false);
 
-                await _propertyWriteService.BulkCreate(claimsPrincipal, properties, true);
+                results.AppendLine("Done: " + DateTime.Now.ToString());
             }
 
             return results.ToString();

@@ -75,7 +75,7 @@ namespace MkeAlerts.Web.Jobs
                                 address.LAND_USE = int.Parse(xmlReader.Value);
                                 break;
                             case "RCD_NBR":
-                                address.RCD_NBR = int.Parse(xmlReader.Value);
+                                address.RCD_NBR = xmlReader.Value;
                                 break;
                             case "UPD_DATE":
                                 address.UPD_DATE = int.Parse(xmlReader.Value);
@@ -99,7 +99,7 @@ namespace MkeAlerts.Web.Jobs
                     {
                         if (xmlReader.Name == "element")
                         {
-                            address.BuildFormattedAddress();
+                            //address.BuildFormattedAddress();
                             addresses.Add(address);
 
                             ++i;

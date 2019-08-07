@@ -13,7 +13,7 @@ namespace MkeAlerts.Web.Migrations
                 name: "Addresses",
                 columns: table => new
                 {
-                    FormattedAddress = table.Column<string>(maxLength: 60, nullable: false),
+                    RCD_NBR = table.Column<string>(maxLength: 10, nullable: false),
                     TAXKEY = table.Column<string>(maxLength: 10, nullable: true),
                     HSE_NBR = table.Column<int>(nullable: false),
                     SFX = table.Column<string>(maxLength: 3, nullable: true),
@@ -23,7 +23,6 @@ namespace MkeAlerts.Web.Migrations
                     UNIT_NBR = table.Column<string>(maxLength: 5, nullable: true),
                     ZIP_CODE = table.Column<string>(maxLength: 9, nullable: true),
                     LAND_USE = table.Column<int>(nullable: false),
-                    RCD_NBR = table.Column<int>(nullable: false),
                     UPD_DATE = table.Column<int>(nullable: false),
                     WARD = table.Column<int>(nullable: false),
                     MAIL_ERROR_COUNT = table.Column<int>(nullable: false),
@@ -32,7 +31,7 @@ namespace MkeAlerts.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Addresses", x => x.FormattedAddress);
+                    table.PrimaryKey("PK_Addresses", x => x.RCD_NBR);
                 });
 
             migrationBuilder.CreateTable(
@@ -299,12 +298,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "e23590f6-2845-43b8-b4ad-1e0b507c36f9", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "03d95355-2682-49f3-9fbd-e41f420b6e71", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "51f598cd-e107-4509-bd9b-5ddf2fe4d2f0", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEMWXGJjZD6BMwSDqePrtN1uX65fOIE6msGnX4DxSxormaOezzES5SEHiDgFkS3sLwA==", null, false, "", false, "siteadmin" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "406b2494-0c15-4b2b-970b-708777a2af5c", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAENwOY61tQKKPS8qDZfMz3uJEAoQm5bUUS9Rj9h+cs2qZJo9BAwhfhFtVQs195RL8OA==", null, false, "", false, "siteadmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -312,9 +311,9 @@ namespace MkeAlerts.Web.Migrations
                 values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157") });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Addresses_FormattedAddress",
+                name: "IX_Addresses_RCD_NBR",
                 table: "Addresses",
-                column: "FormattedAddress",
+                column: "RCD_NBR",
                 unique: true);
 
             migrationBuilder.CreateIndex(

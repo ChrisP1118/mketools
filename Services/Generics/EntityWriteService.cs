@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using EFCore.BulkExtensions;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MkeAlerts.Web.Data;
@@ -7,6 +8,7 @@ using MkeAlerts.Web.Models.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -40,7 +42,7 @@ namespace MkeAlerts.Web.Services
             return dataModel;
         }
 
-        public async Task<IEnumerable<TDataModel>> BulkCreate(ClaimsPrincipal user, IEnumerable<TDataModel> dataModels, bool skipErrors = true)
+        public async Task<IEnumerable<TDataModel>> BulkCreate(ClaimsPrincipal user, IList<TDataModel> dataModels, bool skipErrors = true, bool useBulkInsert = true)
         {
             var applicationUser = await GetApplicationUser(user);
 
@@ -53,49 +55,79 @@ namespace MkeAlerts.Web.Services
                 _validator.ValidateAndThrow(dataModel);
             }
 
-            foreach (TDataModel dataModel in dataModels)
-                _dbContext.Set<TDataModel>().Add(dataModel);
-
-            try
-            {
-                await _dbContext.SaveChangesAsync();
-            }
-            catch (Exception ex)
+            if (useBulkInsert)
             {
                 try
                 {
-                    // Detach all the entities we added
+                    await _dbContext.BulkInsertAsync<TDataModel>(dataModels);
+                }
+                catch (Exception ex)
+                {
+                    if (!skipErrors)
+                        throw;
+
                     foreach (TDataModel dataModel in dataModels)
                     {
                         try
                         {
-                            _dbContext.Entry<TDataModel>(dataModel).State = EntityState.Detached;
+                            await _dbContext.BulkInsertAsync<TDataModel>(new List<TDataModel>() { dataModel });
                         }
-                        catch (Exception ex3)
+                        catch (Exception ex2)
                         {
-                            throw;
+                            Debug.WriteLine(ex2.Message);
                         }
                     }
                 }
-                catch (Exception ex4)
-                {
-                    throw;
-                }
+            }
+            else
+            {
+                _dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
 
-                if (!skipErrors)
-                    throw;
-
-                // Now try adding them one at a time
                 foreach (TDataModel dataModel in dataModels)
-                {
                     _dbContext.Set<TDataModel>().Add(dataModel);
+
+                try
+                {
+                    await _dbContext.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
                     try
                     {
-                        await _dbContext.SaveChangesAsync();
+                        // Detach all the entities we added
+                        foreach (TDataModel dataModel in dataModels)
+                        {
+                            try
+                            {
+                                _dbContext.Entry<TDataModel>(dataModel).State = EntityState.Detached;
+                            }
+                            catch (Exception ex3)
+                            {
+                                throw;
+                            }
+                        }
                     }
-                    catch (Exception ex2)
+                    catch (Exception ex4)
                     {
-                        _dbContext.Entry<TDataModel>(dataModel).State = EntityState.Detached;
+                        throw;
+                    }
+
+                    if (!skipErrors)
+                        throw;
+
+                    // Now try adding them one at a time
+                    foreach (TDataModel dataModel in dataModels)
+                    {
+                        _dbContext.Set<TDataModel>().Add(dataModel);
+                        try
+                        {
+                            await _dbContext.SaveChangesAsync();
+                        }
+                        catch (Exception ex2)
+                        {
+                            Debug.WriteLine(ex2.Message);
+                            _dbContext.Entry<TDataModel>(dataModel).State = EntityState.Detached;
+                        }
                     }
                 }
             }

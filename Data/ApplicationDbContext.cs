@@ -33,7 +33,8 @@ namespace MkeAlerts.Web.Data
                 .IsUnique();
 
             modelBuilder.Entity<Address>()
-                .HasIndex(x => x.FormattedAddress)
+                //.HasIndex(x => x.FormattedAddress)
+                .HasIndex(x => x.RCD_NBR)
                 .IsUnique();
 
             modelBuilder.Entity<DispatchCall>()
