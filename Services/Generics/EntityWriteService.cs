@@ -40,25 +40,110 @@ namespace MkeAlerts.Web.Services
             return dataModel;
         }
 
-        public async Task<IEnumerable<TDataModel>> Create(ClaimsPrincipal user, IEnumerable<TDataModel> dataModels)
+        public async Task<IEnumerable<TDataModel>> BulkCreate(ClaimsPrincipal user, IEnumerable<TDataModel> dataModels, bool skipErrors = true)
         {
             var applicationUser = await GetApplicationUser(user);
 
+            // Throw any errors first before adding these to our context
             foreach (TDataModel dataModel in dataModels)
             {
-
                 if (!await CanCreate(applicationUser, dataModel))
                     throw new ForbiddenException();
 
                 _validator.ValidateAndThrow(dataModel);
-
-                _dbContext.Set<TDataModel>().Add(dataModel);
             }
 
-            await _dbContext.SaveChangesAsync();
+            foreach (TDataModel dataModel in dataModels)
+                _dbContext.Set<TDataModel>().Add(dataModel);
+
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    // Detach all the entities we added
+                    foreach (TDataModel dataModel in dataModels)
+                    {
+                        try
+                        {
+                            _dbContext.Entry<TDataModel>(dataModel).State = EntityState.Detached;
+                        }
+                        catch (Exception ex3)
+                        {
+                            throw;
+                        }
+                    }
+                }
+                catch (Exception ex4)
+                {
+                    throw;
+                }
+
+                if (!skipErrors)
+                    throw;
+
+                // Now try adding them one at a time
+                foreach (TDataModel dataModel in dataModels)
+                {
+                    _dbContext.Set<TDataModel>().Add(dataModel);
+                    try
+                    {
+                        await _dbContext.SaveChangesAsync();
+                    }
+                    catch (Exception ex2)
+                    {
+                        _dbContext.Entry<TDataModel>(dataModel).State = EntityState.Detached;
+                    }
+                }
+            }
 
             return dataModels;
         }
+
+        //public async Task<IEnumerable<TDataModel>> Create(ClaimsPrincipal user, IEnumerable<TDataModel> dataModels)
+        //{
+        //    var applicationUser = await GetApplicationUser(user);
+
+        //    foreach (TDataModel dataModel in dataModels)
+        //    {
+        //        if (!await CanCreate(applicationUser, dataModel))
+        //            throw new ForbiddenException();
+
+        //        _validator.ValidateAndThrow(dataModel);
+
+        //        _dbContext.Set<TDataModel>().Add(dataModel);
+        //    }
+
+        //    await _dbContext.SaveChangesAsync();
+
+        //    return dataModels;
+        //}
+
+        ///// <summary>
+        ///// Removes an entity from any pending SaveChanges operation. This does not delete the entity
+        ///// </summary>
+        ///// <param name="user"></param>
+        ///// <param name="dataModels"></param>
+        ///// <returns></returns>
+        //public async Task Detach(ClaimsPrincipal user, TDataModel dataModel)
+        //{
+        //    _dbContext.Entry<TDataModel>(dataModel).State = EntityState.Detached;
+        //}
+
+        ///// <summary>
+        ///// Removes entities from any pending SaveChanges operation. This does not delete entities
+        ///// </summary>
+        ///// <param name="user"></param>
+        ///// <param name="dataModels"></param>
+        ///// <returns></returns>
+        //public async Task Detach(ClaimsPrincipal user, IEnumerable<TDataModel> dataModels)
+        //{
+        //    foreach (TDataModel dataModel in dataModels)
+        //        await Detach(user, dataModel);
+        //}
 
         public async Task<TDataModel> Update(ClaimsPrincipal user, TDataModel dataModel)
         {

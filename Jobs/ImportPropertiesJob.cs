@@ -2,6 +2,10 @@
 using GeoAPI.CoordinateSystems;
 using GeoAPI.CoordinateSystems.Transformations;
 using GeoAPI.Geometries;
+using Hangfire;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Properties;
 using MkeAlerts.Web.Services;
 using NetTopologySuite;
@@ -14,21 +18,29 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Jobs
 {
-    public class ImportPropertiesJob
+    public class ImportPropertiesJob : ImportJob
     {
         private readonly IEntityWriteService<Property, string> _propertyWriteService;
 
-        public ImportPropertiesJob(IEntityWriteService<Property, string> propertyWriteService)
+        public ImportPropertiesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEntityWriteService<Property, string> propertyWriteService)
+            : base(configuration, signInManager, userManager)
         {
             _propertyWriteService = propertyWriteService;
         }
 
-        public async Task Run(ClaimsPrincipal user)
+        [AutomaticRetry(Attempts = 0)]
+        public async Task<string> Run(bool includeGeographicData = true)
         {
+            StringBuilder results = new StringBuilder();
+            Stopwatch stopwatch = new Stopwatch();
+
+            ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
+
             string path = @"M:\My Documents\GitHub\mkealerts\DataSources\parcelbase_mprop_full\parcelbase_mprop_full.shp";
 
             var projectionInfo = ProjectionInfo.Open(path.Replace(".shp", ".prj"));
@@ -39,15 +51,22 @@ namespace MkeAlerts.Web.Jobs
                 var result = reader.ReadByMBRFilter(mbr);
                 var coll = result.GetEnumerator();
 
-                Debug.WriteLine("Started: " + DateTime.Now.ToString());
-
                 List<Property> properties = new List<Property>();
+
+                results.AppendLine("Start: " + DateTime.Now.ToString());
 
                 int i = 0;
                 while (coll.MoveNext())
                 {
+                    ++i;
+                    if (i < 11000)
+                        continue;
+
                     try
                     {
+                        stopwatch.Restart();
+                        results.AppendLine(stopwatch.ElapsedMilliseconds.ToString() + ": Item " + i.ToString());
+
                         Property property = new Property();
                         property.TAXKEY = coll.Current.Attributes["TAXKEY"].ToString();
 
@@ -141,27 +160,71 @@ namespace MkeAlerts.Web.Jobs
                         property.YR_BUILT = coll.Current.Attributes["YR_BUILT"].ToString();
                         property.ZONING = coll.Current.Attributes["ZONING"].ToString();
 
-                        IGeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+                        results.AppendLine(stopwatch.ElapsedMilliseconds.ToString() + ": Properties added");
 
-                        IPoint projectedCentroid = ReprojectCoordinates(projectionInfo, coll.Current.Geometry.Centroid);
-                        IPoint transformedCentroid = geometryFactory.CreatePoint(new Coordinate(projectedCentroid.X, projectedCentroid.Y));
-                        property.Centroid = transformedCentroid;
+                        if (includeGeographicData)
+                        {
+                            IGeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
 
-                        Coordinate[] projectedCoordinates = ReprojectCoordinates(projectionInfo, coll.Current.Geometry.Coordinates);
-                        Polygon transformedGeometry = (Polygon)geometryFactory.CreatePolygon(projectedCoordinates);
+                            IPoint projectedCentroid = ReprojectCoordinates(projectionInfo, coll.Current.Geometry.Centroid);
+                            IPoint transformedCentroid = geometryFactory.CreatePoint(new Coordinate(projectedCentroid.X, projectedCentroid.Y));
+                            property.Centroid = transformedCentroid;
 
-                        // https://gis.stackexchange.com/questions/289545/using-sqlgeometry-makevalid-to-get-a-counter-clockwise-polygon-in-sql-server
-                        if (!transformedGeometry.Shell.IsCCW)
-                            transformedGeometry = (Polygon)transformedGeometry.Reverse();
+                            Coordinate[] projectedCoordinates = ReprojectCoordinates(projectionInfo, coll.Current.Geometry.Coordinates);
+                            Polygon transformedGeometry = (Polygon)geometryFactory.CreatePolygon(projectedCoordinates);
 
-                        property.Parcel = transformedGeometry;
+                            // https://gis.stackexchange.com/questions/289545/using-sqlgeometry-makevalid-to-get-a-counter-clockwise-polygon-in-sql-server
+                            if (!transformedGeometry.Shell.IsCCW)
+                                transformedGeometry = (Polygon)transformedGeometry.Reverse();
+
+                            property.Parcel = transformedGeometry;
+
+                            results.AppendLine(stopwatch.ElapsedMilliseconds.ToString() + ": Geography set");
+                        }
 
                         properties.Add(property);
 
                         if (i % 100 == 0)
                         {
-                            await _propertyWriteService.Create(user, properties);
-                            properties = new List<Property>();
+                            await _propertyWriteService.BulkCreate(claimsPrincipal, properties, true);
+                            properties.Clear();
+
+                            //try
+                            //{
+                            //    await _propertyWriteService.Create(claimsPrincipal, properties);
+                            //    results.AppendLine(stopwatch.ElapsedMilliseconds.ToString() + ": Created");
+                            //}
+                            //catch (Exception ex)
+                            //{
+                            //    try
+                            //    {
+                            //        await _propertyWriteService.Detach(claimsPrincipal, properties);
+                            //    }
+                            //    catch (Exception ex2)
+                            //    {
+                            //        throw;
+                            //    }
+
+                            //    foreach (Property p in properties)
+                            //    {
+                            //        try
+                            //        {
+                            //            await _propertyWriteService.Create(claimsPrincipal, p);
+                            //            results.AppendLine(stopwatch.ElapsedMilliseconds.ToString() + ": Individual created");
+                            //        }
+                            //        catch (Exception ex2)
+                            //        {
+                            //            await _propertyWriteService.Detach(claimsPrincipal, p);
+
+                            //            Debug.WriteLine("Errored: " + DateTime.Now.ToString());
+                            //            Debug.WriteLine("Error at " + i.ToString());
+                            //            Debug.WriteLine(ex2.Message);
+                            //            //throw new Exception("Error creating property", ex);
+                            //        }
+                            //    }
+                            //}
+
+                            //properties = new List<Property>();
                         }
                     }
                     catch (Exception ex)
@@ -171,14 +234,14 @@ namespace MkeAlerts.Web.Jobs
                         Debug.WriteLine(ex.Message);
                         //throw new Exception("Error creating property", ex);
                     }
-
-                    ++i;
                 }
 
-                await _propertyWriteService.Create(user, properties);
+                results.AppendLine("Start: " + DateTime.Now.ToString());
+
+                await _propertyWriteService.BulkCreate(claimsPrincipal, properties, true);
             }
 
-            Debug.WriteLine("Finished: " + DateTime.Now.ToString());
+            return results.ToString();
         }
 
         public Tuple<double, double> ReprojectCoordinates(ProjectionInfo source, double x, double y)

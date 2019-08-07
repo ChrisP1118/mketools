@@ -15,25 +15,19 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Jobs
 {
-    public class ImportDispatchCallsJob
+    public class ImportDispatchCallsJob : ImportJob
     {
-        private readonly IConfiguration _configuration;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;
 
         public ImportDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEntityWriteService<DispatchCall, string> dispatchCallWriteService)
+            : base(configuration, signInManager, userManager)
         {
-            _configuration = configuration;
-            _signInManager = signInManager;
-            _userManager = userManager;
             _dispatchCallWriteService = dispatchCallWriteService;
         }
 
         public async Task Run()
         {
-            ApplicationUser applicationUser = await _userManager.FindByIdAsync(_configuration["JobUserId"]);
-            ClaimsPrincipal claimsPrincipal = await _signInManager.CreateUserPrincipalAsync(applicationUser);
+            ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
             string url = @"https://itmdapps.milwaukee.gov/MPDCallData/index.jsp?district=All";
             var web = new HtmlWeb();

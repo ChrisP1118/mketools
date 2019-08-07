@@ -10,6 +10,32 @@ namespace MkeAlerts.Web.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    FormattedAddress = table.Column<string>(maxLength: 60, nullable: false),
+                    TAXKEY = table.Column<string>(maxLength: 10, nullable: true),
+                    HSE_NBR = table.Column<int>(nullable: false),
+                    SFX = table.Column<string>(maxLength: 3, nullable: true),
+                    DIR = table.Column<string>(maxLength: 1, nullable: true),
+                    STREET = table.Column<string>(maxLength: 18, nullable: true),
+                    STTYPE = table.Column<string>(maxLength: 2, nullable: true),
+                    UNIT_NBR = table.Column<string>(maxLength: 5, nullable: true),
+                    ZIP_CODE = table.Column<string>(maxLength: 9, nullable: true),
+                    LAND_USE = table.Column<int>(nullable: false),
+                    RCD_NBR = table.Column<int>(nullable: false),
+                    UPD_DATE = table.Column<int>(nullable: false),
+                    WARD = table.Column<int>(nullable: false),
+                    MAIL_ERROR_COUNT = table.Column<int>(nullable: false),
+                    MAIL_STATUS = table.Column<string>(maxLength: 1, nullable: true),
+                    RES_COM_FLAG = table.Column<string>(maxLength: 1, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.FormattedAddress);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -273,17 +299,23 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "ae060ae6-c3ff-4c9e-b451-5846e8119f36", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "e23590f6-2845-43b8-b4ad-1e0b507c36f9", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "1fcb17bc-5c23-47de-8d8f-88f24616f956", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEF/SSflIOGMPIra6/dqmE3Vo3Vq+O0OdcNJicJpXAEuCrudTiHqKVYf8P88/1arbQA==", null, false, "", false, "siteadmin" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "51f598cd-e107-4509-bd9b-5ddf2fe4d2f0", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEMWXGJjZD6BMwSDqePrtN1uX65fOIE6msGnX4DxSxormaOezzES5SEHiDgFkS3sLwA==", null, false, "", false, "siteadmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
                 values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157") });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_FormattedAddress",
+                table: "Addresses",
+                column: "FormattedAddress",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -339,6 +371,9 @@ namespace MkeAlerts.Web.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Addresses");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 

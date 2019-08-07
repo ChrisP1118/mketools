@@ -137,7 +137,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "ae060ae6-c3ff-4c9e-b451-5846e8119f36",
+                            ConcurrencyStamp = "e23590f6-2845-43b8-b4ad-1e0b507c36f9",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +204,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1fcb17bc-5c23-47de-8d8f-88f24616f956",
+                            ConcurrencyStamp = "51f598cd-e107-4509-bd9b-5ddf2fe4d2f0",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF/SSflIOGMPIra6/dqmE3Vo3Vq+O0OdcNJicJpXAEuCrudTiHqKVYf8P88/1arbQA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMWXGJjZD6BMwSDqePrtN1uX65fOIE6msGnX4DxSxormaOezzES5SEHiDgFkS3sLwA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -245,6 +245,59 @@ namespace MkeAlerts.Web.Migrations
                         .IsUnique();
 
                     b.ToTable("DispatchCalls");
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Address", b =>
+                {
+                    b.Property<string>("FormattedAddress")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(60);
+
+                    b.Property<string>("DIR")
+                        .HasMaxLength(1);
+
+                    b.Property<int>("HSE_NBR");
+
+                    b.Property<int>("LAND_USE");
+
+                    b.Property<int>("MAIL_ERROR_COUNT");
+
+                    b.Property<string>("MAIL_STATUS")
+                        .HasMaxLength(1);
+
+                    b.Property<int>("RCD_NBR");
+
+                    b.Property<string>("RES_COM_FLAG")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("SFX")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("STREET")
+                        .HasMaxLength(18);
+
+                    b.Property<string>("STTYPE")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("TAXKEY")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("UNIT_NBR")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("UPD_DATE");
+
+                    b.Property<int>("WARD");
+
+                    b.Property<string>("ZIP_CODE")
+                        .HasMaxLength(9);
+
+                    b.HasKey("FormattedAddress");
+
+                    b.HasIndex("FormattedAddress")
+                        .IsUnique();
+
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Property", b =>

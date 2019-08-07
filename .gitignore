@@ -341,3 +341,4 @@ healthchecksdb
 
 # Custom exclusions
 DataSources/parcelbase_mprop_full/
+DataSources/*/

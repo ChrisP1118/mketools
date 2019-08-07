@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Hangfire;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,7 @@ namespace MkeAlerts.Web.Controllers.Data
         protected readonly UserManager<ApplicationUser> _userManager;
 
         protected readonly IEntityWriteService<Property, string> _propertyWriteService;
+        protected readonly IEntityWriteService<Address, string> _addressWriteService;
         protected readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;
 
         public JobsController(
@@ -33,6 +35,7 @@ namespace MkeAlerts.Web.Controllers.Data
             UserManager<ApplicationUser> userManager,
             IMapper mapper,
             IEntityWriteService<Property, string> propertyWriteService,
+            IEntityWriteService<Address, string> addressWriteService,
             IEntityWriteService<DispatchCall, string> dispatchCallWriteService)
         {
             _configuration = configuration;
@@ -41,6 +44,7 @@ namespace MkeAlerts.Web.Controllers.Data
             _mapper = mapper;
 
             _propertyWriteService = propertyWriteService;
+            _addressWriteService = addressWriteService;
             _dispatchCallWriteService = dispatchCallWriteService;
         }
 
@@ -53,10 +57,27 @@ namespace MkeAlerts.Web.Controllers.Data
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportProperties()
         {
-            ImportPropertiesJob job = new ImportPropertiesJob(_propertyWriteService);
-            await job.Run(HttpContext.User);
+            //BackgroundJob.Enqueue<ImportPropertiesJob>(x => x.Run(true));
 
-            return Ok();
+            ImportPropertiesJob job = new ImportPropertiesJob(_configuration, _signInManager, _userManager, _propertyWriteService);
+            string results = await job.Run();
+
+            return Ok("Started");
+        }
+
+        /// <summary>
+        /// Imports properties
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("ImportAddresses")]
+        [ActionName("ImportAddresses")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ImportAddresses()
+        {
+            ImportAddressesJob job = new ImportAddressesJob(_configuration, _signInManager, _userManager, _addressWriteService);
+            string results = await job.Run();
+
+            return Ok(results);
         }
 
         /// <summary>

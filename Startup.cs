@@ -186,10 +186,13 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityReadService<ApplicationUser, Guid>, ApplicationUserService>();
             services.AddTransient<IEntityReadService<Property, string>, PropertyService>();
             services.AddTransient<IEntityWriteService<Property, string>, PropertyService>();
+            services.AddTransient<IEntityReadService<Address, string>, AddressService>();
+            services.AddTransient<IEntityWriteService<Address, string>, AddressService>();
             services.AddTransient<IEntityReadService<DispatchCall, string>, DispatchCallService>();
             services.AddTransient<IEntityWriteService<DispatchCall, string>, DispatchCallService>();
 
             services.AddSingleton<IValidator<Property>, PropertyValidator>();
+            services.AddSingleton<IValidator<Address>, AddressValidator>();
             services.AddSingleton<IValidator<DispatchCall>, DispatchCallValidator>();
         }
 
@@ -249,9 +252,8 @@ Note that not all fields can be sorted.
 
             dbContext.Database.EnsureCreated();
 
-            //RecurringJob.AddOrUpdate(() => Console.Write("Powerful!"), "* * * * *");
-            //BackgroundJob.Enqueue<ImportDispatchCallsJob>(x => x.Run());
-            RecurringJob.AddOrUpdate<ImportDispatchCallsJob>(x => x.Run(), "* * * * *");
+            // Run every 5 minutes
+            //RecurringJob.AddOrUpdate<ImportDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
         }
     }
 }
