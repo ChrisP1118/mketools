@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Jobs;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.DispatchCalls;
@@ -25,6 +26,8 @@ namespace MkeAlerts.Web.Controllers.Data
         protected readonly SignInManager<ApplicationUser> _signInManager;
         protected readonly UserManager<ApplicationUser> _userManager;
 
+        protected readonly ILogger<ImportDispatchCallsJob> _importDispatchCallsJobLogger;
+
         protected readonly IEntityWriteService<Property, string> _propertyWriteService;
         protected readonly IEntityWriteService<Address, string> _addressWriteService;
         protected readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;
@@ -34,6 +37,9 @@ namespace MkeAlerts.Web.Controllers.Data
             SignInManager<ApplicationUser> signInManager, 
             UserManager<ApplicationUser> userManager,
             IMapper mapper,
+
+            ILogger<ImportDispatchCallsJob> importDispatchCallsJobLogger,
+
             IEntityWriteService<Property, string> propertyWriteService,
             IEntityWriteService<Address, string> addressWriteService,
             IEntityWriteService<DispatchCall, string> dispatchCallWriteService)
@@ -42,6 +48,8 @@ namespace MkeAlerts.Web.Controllers.Data
             _signInManager = signInManager;
             _userManager = userManager;
             _mapper = mapper;
+
+            _importDispatchCallsJobLogger = importDispatchCallsJobLogger;
 
             _propertyWriteService = propertyWriteService;
             _addressWriteService = addressWriteService;
@@ -89,7 +97,7 @@ namespace MkeAlerts.Web.Controllers.Data
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportDispatchCalls()
         {
-            ImportDispatchCallsJob job = new ImportDispatchCallsJob(_configuration, _signInManager, _userManager, _dispatchCallWriteService);
+            ImportDispatchCallsJob job = new ImportDispatchCallsJob(_configuration, _signInManager, _userManager, _importDispatchCallsJobLogger, _dispatchCallWriteService);
             await job.Run();
 
             return Ok();

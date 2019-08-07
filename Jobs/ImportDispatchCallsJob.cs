@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.DispatchCalls;
 using MkeAlerts.Web.Services;
@@ -17,21 +18,28 @@ namespace MkeAlerts.Web.Jobs
 {
     public class ImportDispatchCallsJob : ImportJob
     {
+        private readonly ILogger<ImportDispatchCallsJob> _logger;
         private readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;
 
-        public ImportDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEntityWriteService<DispatchCall, string> dispatchCallWriteService)
+        public ImportDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportDispatchCallsJob> logger, IEntityWriteService<DispatchCall, string> dispatchCallWriteService)
             : base(configuration, signInManager, userManager)
         {
             _dispatchCallWriteService = dispatchCallWriteService;
+            _logger = logger;
         }
 
         public async Task Run()
         {
+            _logger.LogInformation("Starting job");
+
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
             string url = @"https://itmdapps.milwaukee.gov/MPDCallData/index.jsp?district=All";
             var web = new HtmlWeb();
             var doc = web.Load(url);
+
+            int success = 0;
+            int failure = 0;
 
             foreach (var row in doc.DocumentNode.SelectNodes("//table/tbody/tr"))
             {
@@ -54,19 +62,25 @@ namespace MkeAlerts.Web.Jobs
                         };
 
                         await _dispatchCallWriteService.Create(claimsPrincipal, dispatchCall);
+                        ++success;
                     }
                     else
                     {
                         dispatchCall.Status = cols[5].InnerText;
 
                         await _dispatchCallWriteService.Update(claimsPrincipal, dispatchCall);
+                        ++success;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    _logger.LogError(ex, "Error importing DispatchCall");
+                    ++failure;
                 }
             }
+
+            _logger.LogInformation("Import results: " + success.ToString() + " success, " + failure.ToString() + " failure");
+            _logger.LogInformation("Finishing job");
         }
     }
 }
