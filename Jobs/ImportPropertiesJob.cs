@@ -71,7 +71,7 @@ namespace MkeAlerts.Web.Jobs
                         property.TAXKEY = coll.Current.Attributes["TAXKEY"].ToString();
 
                         // There are a handful of records without a TAXKEY -- we'll just treat those as invalid, since they may have other weird data
-                        if (string.IsNullOrEmpty(property.TAXKEY))
+                        if (string.IsNullOrEmpty(property.TAXKEY) || property.TAXKEY == "<Null>")
                             continue;
 
                         property.AIR_CONDIT = coll.Current.Attributes["AIR_CONDIT"].ToString();
@@ -188,43 +188,6 @@ namespace MkeAlerts.Web.Jobs
                         {
                             await _propertyWriteService.BulkCreate(claimsPrincipal, properties, true);
                             properties.Clear();
-
-                            //try
-                            //{
-                            //    await _propertyWriteService.Create(claimsPrincipal, properties);
-                            //    results.AppendLine(stopwatch.ElapsedMilliseconds.ToString() + ": Created");
-                            //}
-                            //catch (Exception ex)
-                            //{
-                            //    try
-                            //    {
-                            //        await _propertyWriteService.Detach(claimsPrincipal, properties);
-                            //    }
-                            //    catch (Exception ex2)
-                            //    {
-                            //        throw;
-                            //    }
-
-                            //    foreach (Property p in properties)
-                            //    {
-                            //        try
-                            //        {
-                            //            await _propertyWriteService.Create(claimsPrincipal, p);
-                            //            results.AppendLine(stopwatch.ElapsedMilliseconds.ToString() + ": Individual created");
-                            //        }
-                            //        catch (Exception ex2)
-                            //        {
-                            //            await _propertyWriteService.Detach(claimsPrincipal, p);
-
-                            //            Debug.WriteLine("Errored: " + DateTime.Now.ToString());
-                            //            Debug.WriteLine("Error at " + i.ToString());
-                            //            Debug.WriteLine(ex2.Message);
-                            //            //throw new Exception("Error creating property", ex);
-                            //        }
-                            //    }
-                            //}
-
-                            //properties = new List<Property>();
                         }
                     }
                     catch (Exception ex)

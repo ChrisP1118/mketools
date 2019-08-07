@@ -10,9 +10,6 @@ namespace MkeAlerts.Web.Services
     {
         Task<TDataModel> Create(ClaimsPrincipal user, TDataModel dataModel);
         Task<IEnumerable<TDataModel>> BulkCreate(ClaimsPrincipal user, IEnumerable<TDataModel> dataModels, bool skipErrors = true);
-        //Task<IEnumerable<TDataModel>> Create(ClaimsPrincipal user, IEnumerable<TDataModel> dataModels);
-        //Task Detach(ClaimsPrincipal user, TDataModel dataModels);
-        //Task Detach(ClaimsPrincipal user, IEnumerable<TDataModel> dataModels);
         Task<TDataModel> Update(ClaimsPrincipal user, TDataModel dataModel);
         Task<TDataModel> Delete(ClaimsPrincipal user, TIdType id);
     }
