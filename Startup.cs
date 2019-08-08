@@ -195,6 +195,8 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityReadService<DispatchCall, string>, DispatchCallService>();
             services.AddTransient<IEntityWriteService<DispatchCall, string>, DispatchCallService>();
 
+            services.AddTransient<IGeocodingService, GeocodingService>();
+
             services.AddSingleton<IValidator<Property>, PropertyValidator>();
             services.AddSingleton<IValidator<Address>, AddressValidator>();
             services.AddSingleton<IValidator<Location>, LocationValidator>();

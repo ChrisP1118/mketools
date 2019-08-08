@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeoAPI.Geometries;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -31,5 +32,10 @@ namespace MkeAlerts.Web.Models.Data.DispatchCalls
 
         [MaxLength(60)]
         public string Status { get; set; }
+
+        public IGeometry Geometry { get; set; }
+
+        public GeometryAccuracy Accuracy { get; set; }
+        public GeometrySource Source { get; set; }
     }
 }

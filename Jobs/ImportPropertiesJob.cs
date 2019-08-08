@@ -169,6 +169,9 @@ namespace MkeAlerts.Web.Jobs
                 success += results2.Item1.Count();
                 failure += results2.Item2.Count();
             }
+
+            _logger.LogInformation("Import results: " + success.ToString() + " success, " + failure.ToString() + " failure");
+            _logger.LogInformation("Finishing job");
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿using HtmlAgilityPack;
+﻿using GeoAPI.Geometries;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.DispatchCalls;
+using MkeAlerts.Web.Models.Internal;
 using MkeAlerts.Web.Services;
 using System;
 using System.Collections.Generic;
@@ -20,12 +22,14 @@ namespace MkeAlerts.Web.Jobs
     {
         private readonly ILogger<ImportDispatchCallsJob> _logger;
         private readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;
+        private readonly IGeocodingService _geocodingService;
 
-        public ImportDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportDispatchCallsJob> logger, IEntityWriteService<DispatchCall, string> dispatchCallWriteService)
+        public ImportDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportDispatchCallsJob> logger, IEntityWriteService<DispatchCall, string> dispatchCallWriteService, IGeocodingService geocodingService)
             : base(configuration, signInManager, userManager)
         {
             _dispatchCallWriteService = dispatchCallWriteService;
             _logger = logger;
+            _geocodingService = geocodingService;
         }
 
         public async Task Run()
@@ -60,6 +64,11 @@ namespace MkeAlerts.Web.Jobs
                             NatureOfCall = cols[4].InnerText,
                             Status = cols[5].InnerText
                         };
+
+                        GeocodeResults geocodeResults = await _geocodingService.Geocode(dispatchCall.Location);
+                        dispatchCall.Geometry = geocodeResults.Geometry;
+                        dispatchCall.Accuracy = geocodeResults.Accuracy;
+                        dispatchCall.Source = geocodeResults.Source;
 
                         await _dispatchCallWriteService.Create(claimsPrincipal, dispatchCall);
                         ++success;

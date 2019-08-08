@@ -38,6 +38,8 @@ namespace MkeAlerts.Web.Controllers.Data
         protected readonly IEntityWriteService<Street, string> _streetWriteService;
         protected readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;
 
+        protected readonly IGeocodingService _geocodingService;
+
         public JobsController(
             IConfiguration configuration,
             SignInManager<ApplicationUser> signInManager, 
@@ -54,7 +56,9 @@ namespace MkeAlerts.Web.Controllers.Data
             IEntityWriteService<Location, string> locationWriteService,
             IEntityWriteService<Address, string> addressWriteService,
             IEntityWriteService<Street, string> streetWriteService,
-            IEntityWriteService<DispatchCall, string> dispatchCallWriteService)
+            IEntityWriteService<DispatchCall, string> dispatchCallWriteService,
+
+            IGeocodingService geocodingService)
         {
             _configuration = configuration;
             _signInManager = signInManager;
@@ -72,6 +76,8 @@ namespace MkeAlerts.Web.Controllers.Data
             _addressWriteService = addressWriteService;
             _streetWriteService = streetWriteService;
             _dispatchCallWriteService = dispatchCallWriteService;
+
+            _geocodingService = geocodingService;
         }
 
         /// <summary>
@@ -145,7 +151,7 @@ namespace MkeAlerts.Web.Controllers.Data
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportDispatchCalls()
         {
-            ImportDispatchCallsJob job = new ImportDispatchCallsJob(_configuration, _signInManager, _userManager, _importDispatchCallsJobLogger, _dispatchCallWriteService);
+            ImportDispatchCallsJob job = new ImportDispatchCallsJob(_configuration, _signInManager, _userManager, _importDispatchCallsJobLogger, _dispatchCallWriteService, _geocodingService);
             await job.Run();
 
             return Ok();
