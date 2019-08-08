@@ -96,7 +96,7 @@ namespace MkeAlerts.Web.Migrations
                 columns: table => new
                 {
                     TAXKEY = table.Column<string>(maxLength: 10, nullable: false),
-                    Parcel = table.Column<IGeometry>(nullable: true),
+                    Outline = table.Column<IGeometry>(nullable: true),
                     Centroid = table.Column<IPoint>(nullable: true)
                 },
                 constraints: table =>
@@ -201,6 +201,178 @@ namespace MkeAlerts.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Properties", x => x.TAXKEY);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Streets",
+                columns: table => new
+                {
+                    NEWDIME_ID = table.Column<string>(maxLength: 10, nullable: false),
+                    Outline = table.Column<IGeometry>(nullable: true),
+                    Centroid = table.Column<IPoint>(nullable: true),
+                    FNODE = table.Column<int>(nullable: false),
+                    TNODE = table.Column<int>(nullable: false),
+                    LPOLY = table.Column<int>(nullable: false),
+                    RPOLY = table.Column<int>(nullable: false),
+                    LENGTH = table.Column<double>(nullable: false),
+                    NEWDIMENR = table.Column<int>(nullable: false),
+                    RCD_NBR = table.Column<int>(nullable: false),
+                    TRANS_ID = table.Column<int>(nullable: false),
+                    SQUAD_L = table.Column<int>(nullable: false),
+                    BOILER_L = table.Column<int>(nullable: false),
+                    BI_CONST_L = table.Column<int>(nullable: false),
+                    BI_ELECT_L = table.Column<int>(nullable: false),
+                    BI_ELEV_L = table.Column<int>(nullable: false),
+                    BI_PLUMB_L = table.Column<int>(nullable: false),
+                    BI_SPRINK_ = table.Column<int>(nullable: false),
+                    BI_CNDMN_L = table.Column<int>(nullable: false),
+                    CNTYNAME_L = table.Column<string>(maxLength: 15, nullable: true),
+                    CNTY_L = table.Column<int>(nullable: false),
+                    MUNI_L = table.Column<string>(maxLength: 15, nullable: true),
+                    FMCD_L = table.Column<int>(nullable: false),
+                    FBLOCK_L = table.Column<string>(maxLength: 4, nullable: true),
+                    FTRACT_L = table.Column<string>(maxLength: 6, nullable: true),
+                    ZIP_L = table.Column<int>(nullable: false),
+                    QTR_SECT_L = table.Column<string>(maxLength: 5, nullable: true),
+                    WW_PRES_L = table.Column<int>(nullable: false),
+                    WW_SERV_L = table.Column<int>(nullable: false),
+                    MPS_ELEM_L = table.Column<int>(nullable: false),
+                    MPS_MS_L = table.Column<int>(nullable: false),
+                    MPS_HS_L = table.Column<int>(nullable: false),
+                    POLICE_L = table.Column<int>(nullable: false),
+                    ST_MAIN_L = table.Column<string>(maxLength: 10, nullable: true),
+                    SAN_DIST_L = table.Column<string>(maxLength: 2, nullable: true),
+                    FOR_TR_L = table.Column<int>(nullable: false),
+                    FOR_BL_L = table.Column<int>(nullable: false),
+                    SUM_RT_L = table.Column<string>(maxLength: 12, nullable: true),
+                    SUM_DA_L = table.Column<string>(maxLength: 3, nullable: true),
+                    WARD2K_L = table.Column<int>(nullable: false),
+                    TRACT2K_L = table.Column<int>(nullable: false),
+                    BLOCK2K_L = table.Column<string>(maxLength: 4, nullable: true),
+                    CONGR2K_L = table.Column<int>(nullable: false),
+                    STSEN2K_L = table.Column<int>(nullable: false),
+                    STASS2K_L = table.Column<int>(nullable: false),
+                    CSUP2K_L = table.Column<int>(nullable: false),
+                    FIREBAT_L = table.Column<int>(nullable: false),
+                    SCHOOL2K_L = table.Column<int>(nullable: false),
+                    POLRD_L = table.Column<int>(nullable: false),
+                    ALD2004_L = table.Column<int>(nullable: false),
+                    WIN_RT_L = table.Column<string>(maxLength: 12, nullable: true),
+                    RECYC_SM_L = table.Column<string>(maxLength: 20, nullable: true),
+                    MUNICODE_L = table.Column<string>(maxLength: 3, nullable: true),
+                    WW_ROUT_L = table.Column<int>(nullable: false),
+                    RECYC_DA_L = table.Column<string>(maxLength: 3, nullable: true),
+                    RECYC_WN_L = table.Column<string>(maxLength: 20, nullable: true),
+                    WTR16TH_L = table.Column<string>(maxLength: 5, nullable: true),
+                    SANLEAF_L = table.Column<string>(maxLength: 5, nullable: true),
+                    SANPLOW_L = table.Column<string>(maxLength: 3, nullable: true),
+                    BROOM_L = table.Column<string>(maxLength: 5, nullable: true),
+                    BROOMALL_L = table.Column<string>(maxLength: 5, nullable: true),
+                    LOCDIST_L = table.Column<string>(maxLength: 8, nullable: true),
+                    FOODINSP_L = table.Column<int>(nullable: false),
+                    CIPAREA_L = table.Column<string>(maxLength: 15, nullable: true),
+                    TRACT_L = table.Column<int>(nullable: false),
+                    ALD_L = table.Column<int>(nullable: false),
+                    WARD_L = table.Column<int>(nullable: false),
+                    SCHOOL_L = table.Column<int>(nullable: false),
+                    BLOCK_L = table.Column<string>(maxLength: 4, nullable: true),
+                    STASS_L = table.Column<int>(nullable: false),
+                    STSEN_L = table.Column<int>(nullable: false),
+                    CNTYSUP_L = table.Column<int>(nullable: false),
+                    COMBSEW_L = table.Column<string>(maxLength: 3, nullable: true),
+                    SANBIZPL_L = table.Column<string>(maxLength: 10, nullable: true),
+                    ST_OP_L = table.Column<int>(nullable: false),
+                    FOR_PM_L = table.Column<int>(nullable: false),
+                    CONSERVE_L = table.Column<string>(maxLength: 50, nullable: true),
+                    SQUAD_R = table.Column<int>(nullable: false),
+                    BOILER_R = table.Column<int>(nullable: false),
+                    BI_CONST_R = table.Column<int>(nullable: false),
+                    BI_ELECT_R = table.Column<int>(nullable: false),
+                    BI_ELEV_R = table.Column<int>(nullable: false),
+                    BI_PLUMB_R = table.Column<int>(nullable: false),
+                    SPRINK_R = table.Column<int>(nullable: false),
+                    BI_CNDMN_R = table.Column<int>(nullable: false),
+                    CNTYNAME_R = table.Column<string>(maxLength: 15, nullable: true),
+                    CNTY_R = table.Column<int>(nullable: false),
+                    MUNI_R = table.Column<string>(maxLength: 15, nullable: true),
+                    FMCD_R = table.Column<int>(nullable: false),
+                    FBLOCK_R = table.Column<string>(maxLength: 4, nullable: true),
+                    FTRACT_R = table.Column<string>(maxLength: 6, nullable: true),
+                    ZIP_R = table.Column<int>(nullable: false),
+                    QTR_SECT_R = table.Column<string>(maxLength: 5, nullable: true),
+                    WW_PRES_R = table.Column<int>(nullable: false),
+                    WW_SERV_R = table.Column<int>(nullable: false),
+                    MPS_ELEM_R = table.Column<int>(nullable: false),
+                    MPS_MS_R = table.Column<int>(nullable: false),
+                    MPS_HS_R = table.Column<int>(nullable: false),
+                    POLICE_R = table.Column<int>(nullable: false),
+                    ST_MAIN_R = table.Column<string>(maxLength: 10, nullable: true),
+                    SAN_DIST_R = table.Column<string>(maxLength: 2, nullable: true),
+                    FOR_TR_R = table.Column<int>(nullable: false),
+                    FOR_BL_R = table.Column<int>(nullable: false),
+                    SUM_RT_R = table.Column<string>(maxLength: 12, nullable: true),
+                    SUM_DA_R = table.Column<string>(maxLength: 3, nullable: true),
+                    WARD2K_R = table.Column<int>(nullable: false),
+                    TRACT2K_R = table.Column<int>(nullable: false),
+                    BLOCK2K_R = table.Column<string>(maxLength: 4, nullable: true),
+                    CONGR2K_R = table.Column<int>(nullable: false),
+                    STSEN2K_R = table.Column<int>(nullable: false),
+                    STASS2K_R = table.Column<int>(nullable: false),
+                    CSUP2K_R = table.Column<int>(nullable: false),
+                    FIREBAT_R = table.Column<int>(nullable: false),
+                    SCHOOL2K_R = table.Column<int>(nullable: false),
+                    POLRD_R = table.Column<int>(nullable: false),
+                    ALD2004_R = table.Column<int>(nullable: false),
+                    WIN_RT_R = table.Column<string>(maxLength: 12, nullable: true),
+                    RECYC_SM_R = table.Column<string>(maxLength: 20, nullable: true),
+                    MUNICODE_R = table.Column<string>(maxLength: 3, nullable: true),
+                    WW_ROUT_R = table.Column<int>(nullable: false),
+                    RECYC_DA_R = table.Column<string>(maxLength: 3, nullable: true),
+                    RECYC_WN_R = table.Column<string>(maxLength: 20, nullable: true),
+                    WTR16TH_R = table.Column<string>(maxLength: 5, nullable: true),
+                    SANLEAF_R = table.Column<string>(maxLength: 5, nullable: true),
+                    SANPLOW_R = table.Column<string>(maxLength: 3, nullable: true),
+                    BROOM_R = table.Column<string>(maxLength: 5, nullable: true),
+                    BROOMALL_R = table.Column<string>(maxLength: 5, nullable: true),
+                    LOCDIST_R = table.Column<string>(maxLength: 8, nullable: true),
+                    FOODINSP_R = table.Column<int>(nullable: false),
+                    CIPAREA_R = table.Column<string>(maxLength: 15, nullable: true),
+                    TRACT_R = table.Column<int>(nullable: false),
+                    ALD_R = table.Column<int>(nullable: false),
+                    WARD_R = table.Column<int>(nullable: false),
+                    SCHOOL_R = table.Column<int>(nullable: false),
+                    BLOCK_R = table.Column<string>(maxLength: 4, nullable: true),
+                    STASS_R = table.Column<int>(nullable: false),
+                    STSEN_R = table.Column<int>(nullable: false),
+                    CNTYSUP_R = table.Column<int>(nullable: false),
+                    COMBSEW_R = table.Column<string>(maxLength: 3, nullable: true),
+                    SANBIZPL_R = table.Column<string>(maxLength: 10, nullable: true),
+                    ST_OP_R = table.Column<int>(nullable: false),
+                    FOR_PM_R = table.Column<int>(nullable: false),
+                    CONSERVE_R = table.Column<string>(maxLength: 50, nullable: true),
+                    SEG_L_TYPE = table.Column<string>(maxLength: 10, nullable: true),
+                    LEVEL = table.Column<int>(nullable: false),
+                    DIR = table.Column<string>(maxLength: 1, nullable: true),
+                    STREET = table.Column<string>(maxLength: 18, nullable: true),
+                    STTYPE = table.Column<string>(maxLength: 2, nullable: true),
+                    LO_ADD_L = table.Column<int>(nullable: false),
+                    HI_ADD_L = table.Column<int>(nullable: false),
+                    LO_ADD_R = table.Column<int>(nullable: false),
+                    HI_ADD_R = table.Column<int>(nullable: false),
+                    BUS_L = table.Column<string>(maxLength: 10, nullable: true),
+                    BUS_R = table.Column<string>(maxLength: 10, nullable: true),
+                    STCLASS = table.Column<int>(nullable: false),
+                    CFCC = table.Column<string>(maxLength: 3, nullable: true),
+                    FROM_NODE = table.Column<int>(nullable: false),
+                    TO_NODE = table.Column<int>(nullable: false),
+                    LOW_X = table.Column<double>(nullable: false),
+                    LOW_Y = table.Column<double>(nullable: false),
+                    HIGH_X = table.Column<double>(nullable: false),
+                    HIGH_Y = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Streets", x => x.NEWDIME_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -312,12 +484,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "2da8e871-33f5-432f-86c3-71aa990ac131", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "0cf1c807-6734-443d-afe0-7322a1e07202", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "6fc05253-6b65-49dc-b021-b06426e6a1e9", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEJBPal9SAJI9VEuqBDwbXWBNpU3H+wnFO7Q899oYmeEmyPwD3uIaMYCrfF60Hw6GAQ==", null, false, "", false, "siteadmin" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "afa46765-a248-4948-a816-e93d58970550", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEEcE98CMjwAKK/oobIhe1/IPvjmDxm0ggUnaXrIk/rhagjrGWy0kuZVCS7ztEf+Uww==", null, false, "", false, "siteadmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -386,6 +558,12 @@ namespace MkeAlerts.Web.Migrations
                 table: "Properties",
                 column: "TAXKEY",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Streets_NEWDIME_ID",
+                table: "Streets",
+                column: "NEWDIME_ID",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -416,6 +594,9 @@ namespace MkeAlerts.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Properties");
+
+            migrationBuilder.DropTable(
+                name: "Streets");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

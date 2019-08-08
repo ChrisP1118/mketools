@@ -12,7 +12,7 @@ namespace MkeAlerts.Web.Models.Data.Properties
     {
         public string GetId() => this.TAXKEY;
 
-        public IGeometry Parcel { get; set; }
+        public IGeometry Outline { get; set; }
         public IPoint Centroid { get; set; }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]

@@ -29,11 +29,13 @@ namespace MkeAlerts.Web.Controllers.Data
         protected readonly ILogger<ImportPropertiesJob> _importPropertiesJobLogger;
         protected readonly ILogger<ImportLocationsJob> _importLocationsJobLogger;
         protected readonly ILogger<ImportAddressesJob> _importAddressesJobLogger;
+        protected readonly ILogger<ImportStreetsJob> _importStreetsJobLogger;
         protected readonly ILogger<ImportDispatchCallsJob> _importDispatchCallsJobLogger;
 
         protected readonly IEntityWriteService<Property, string> _propertyWriteService;
         protected readonly IEntityWriteService<Location, string> _locationWriteService;
         protected readonly IEntityWriteService<Address, string> _addressWriteService;
+        protected readonly IEntityWriteService<Street, string> _streetWriteService;
         protected readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;
 
         public JobsController(
@@ -45,11 +47,13 @@ namespace MkeAlerts.Web.Controllers.Data
             ILogger<ImportPropertiesJob> importPropertiesJobLogger,
             ILogger<ImportLocationsJob> importLocationsJobLogger,
             ILogger<ImportAddressesJob> importAddressesJobLogger,
+            ILogger<ImportStreetsJob> importStreetsJobLogger,
             ILogger<ImportDispatchCallsJob> importDispatchCallsJobLogger,
 
             IEntityWriteService<Property, string> propertyWriteService,
             IEntityWriteService<Location, string> locationWriteService,
             IEntityWriteService<Address, string> addressWriteService,
+            IEntityWriteService<Street, string> streetWriteService,
             IEntityWriteService<DispatchCall, string> dispatchCallWriteService)
         {
             _configuration = configuration;
@@ -60,11 +64,13 @@ namespace MkeAlerts.Web.Controllers.Data
             _importPropertiesJobLogger = importPropertiesJobLogger;
             _importLocationsJobLogger = importLocationsJobLogger;
             _importAddressesJobLogger = importAddressesJobLogger;
+            _importStreetsJobLogger = importStreetsJobLogger;
             _importDispatchCallsJobLogger = importDispatchCallsJobLogger;
 
             _propertyWriteService = propertyWriteService;
             _locationWriteService = locationWriteService;
             _addressWriteService = addressWriteService;
+            _streetWriteService = streetWriteService;
             _dispatchCallWriteService = dispatchCallWriteService;
         }
 
@@ -110,6 +116,21 @@ namespace MkeAlerts.Web.Controllers.Data
         public async Task<ActionResult> ImportAddresses()
         {
             ImportAddressesJob job = new ImportAddressesJob(_configuration, _signInManager, _userManager, _importAddressesJobLogger, _addressWriteService);
+            await job.Run();
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Imports streets
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("ImportStreets")]
+        [ActionName("ImportStreets")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ImportStreets()
+        {
+            ImportStreetsJob job = new ImportStreetsJob(_configuration, _signInManager, _userManager, _importStreetsJobLogger, _streetWriteService);
             await job.Run();
 
             return Ok();

@@ -17,8 +17,9 @@ namespace MkeAlerts.Web.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Property> Properties { get; set; }
         public DbSet<Location> Locations { get; set; }
-        public DbSet<DispatchCall> DispatchCalls { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Street> Streets { get; set; }
+        public DbSet<DispatchCall> DispatchCalls { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -39,6 +40,10 @@ namespace MkeAlerts.Web.Data
 
             modelBuilder.Entity<Address>()
                 .HasIndex(x => x.RCD_NBR)
+                .IsUnique();
+
+            modelBuilder.Entity<Street>()
+                .HasIndex(x => x.NEWDIME_ID)
                 .IsUnique();
 
             modelBuilder.Entity<DispatchCall>()

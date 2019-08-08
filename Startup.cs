@@ -186,17 +186,20 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityReadService<ApplicationUser, Guid>, ApplicationUserService>();
             services.AddTransient<IEntityReadService<Property, string>, PropertyService>();
             services.AddTransient<IEntityWriteService<Property, string>, PropertyService>();
-            services.AddTransient<IEntityReadService<Address, string>, AddressService>();
-            services.AddTransient<IEntityWriteService<Address, string>, AddressService>();
-            services.AddTransient<IEntityReadService<DispatchCall, string>, DispatchCallService>();
-            services.AddTransient<IEntityWriteService<DispatchCall, string>, DispatchCallService>();
             services.AddTransient<IEntityReadService<Location, string>, LocationService>();
             services.AddTransient<IEntityWriteService<Location, string>, LocationService>();
+            services.AddTransient<IEntityReadService<Address, string>, AddressService>();
+            services.AddTransient<IEntityWriteService<Address, string>, AddressService>();
+            services.AddTransient<IEntityReadService<Street, string>, StreetService>();
+            services.AddTransient<IEntityWriteService<Street, string>, StreetService>();
+            services.AddTransient<IEntityReadService<DispatchCall, string>, DispatchCallService>();
+            services.AddTransient<IEntityWriteService<DispatchCall, string>, DispatchCallService>();
 
             services.AddSingleton<IValidator<Property>, PropertyValidator>();
             services.AddSingleton<IValidator<Address>, AddressValidator>();
-            services.AddSingleton<IValidator<DispatchCall>, DispatchCallValidator>();
             services.AddSingleton<IValidator<Location>, LocationValidator>();
+            services.AddSingleton<IValidator<Street>, StreetValidator>();
+            services.AddSingleton<IValidator<DispatchCall>, DispatchCallValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

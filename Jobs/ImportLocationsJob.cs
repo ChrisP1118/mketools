@@ -91,7 +91,7 @@ namespace MkeAlerts.Web.Jobs
                         if (!transformedGeometry.Shell.IsCCW)
                             transformedGeometry = (Polygon)transformedGeometry.Reverse();
 
-                        location.Parcel = transformedGeometry;
+                        location.Outline = transformedGeometry;
 
                         locations.Add(location);
 

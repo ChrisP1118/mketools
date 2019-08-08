@@ -137,7 +137,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "2da8e871-33f5-432f-86c3-71aa990ac131",
+                            ConcurrencyStamp = "0cf1c807-6734-443d-afe0-7322a1e07202",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +204,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6fc05253-6b65-49dc-b021-b06426e6a1e9",
+                            ConcurrencyStamp = "afa46765-a248-4948-a816-e93d58970550",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJBPal9SAJI9VEuqBDwbXWBNpU3H+wnFO7Q899oYmeEmyPwD3uIaMYCrfF60Hw6GAQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEcE98CMjwAKK/oobIhe1/IPvjmDxm0ggUnaXrIk/rhagjrGWy0kuZVCS7ztEf+Uww==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -303,7 +303,7 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<IPoint>("Centroid");
 
-                    b.Property<IGeometry>("Parcel");
+                    b.Property<IGeometry>("Outline");
 
                     b.HasKey("TAXKEY");
 
@@ -540,6 +540,400 @@ namespace MkeAlerts.Web.Migrations
                         .IsUnique();
 
                     b.ToTable("Properties");
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Street", b =>
+                {
+                    b.Property<string>("NEWDIME_ID")
+                        .HasMaxLength(10);
+
+                    b.Property<int>("ALD2004_L");
+
+                    b.Property<int>("ALD2004_R");
+
+                    b.Property<int>("ALD_L");
+
+                    b.Property<int>("ALD_R");
+
+                    b.Property<int>("BI_CNDMN_L");
+
+                    b.Property<int>("BI_CNDMN_R");
+
+                    b.Property<int>("BI_CONST_L");
+
+                    b.Property<int>("BI_CONST_R");
+
+                    b.Property<int>("BI_ELECT_L");
+
+                    b.Property<int>("BI_ELECT_R");
+
+                    b.Property<int>("BI_ELEV_L");
+
+                    b.Property<int>("BI_ELEV_R");
+
+                    b.Property<int>("BI_PLUMB_L");
+
+                    b.Property<int>("BI_PLUMB_R");
+
+                    b.Property<int>("BI_SPRINK_");
+
+                    b.Property<string>("BLOCK2K_L")
+                        .HasMaxLength(4);
+
+                    b.Property<string>("BLOCK2K_R")
+                        .HasMaxLength(4);
+
+                    b.Property<string>("BLOCK_L")
+                        .HasMaxLength(4);
+
+                    b.Property<string>("BLOCK_R")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("BOILER_L");
+
+                    b.Property<int>("BOILER_R");
+
+                    b.Property<string>("BROOMALL_L")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("BROOMALL_R")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("BROOM_L")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("BROOM_R")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("BUS_L")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("BUS_R")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("CFCC")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("CIPAREA_L")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("CIPAREA_R")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("CNTYNAME_L")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("CNTYNAME_R")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("CNTYSUP_L");
+
+                    b.Property<int>("CNTYSUP_R");
+
+                    b.Property<int>("CNTY_L");
+
+                    b.Property<int>("CNTY_R");
+
+                    b.Property<string>("COMBSEW_L")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("COMBSEW_R")
+                        .HasMaxLength(3);
+
+                    b.Property<int>("CONGR2K_L");
+
+                    b.Property<int>("CONGR2K_R");
+
+                    b.Property<string>("CONSERVE_L")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("CONSERVE_R")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("CSUP2K_L");
+
+                    b.Property<int>("CSUP2K_R");
+
+                    b.Property<IPoint>("Centroid");
+
+                    b.Property<string>("DIR")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("FBLOCK_L")
+                        .HasMaxLength(4);
+
+                    b.Property<string>("FBLOCK_R")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("FIREBAT_L");
+
+                    b.Property<int>("FIREBAT_R");
+
+                    b.Property<int>("FMCD_L");
+
+                    b.Property<int>("FMCD_R");
+
+                    b.Property<int>("FNODE");
+
+                    b.Property<int>("FOODINSP_L");
+
+                    b.Property<int>("FOODINSP_R");
+
+                    b.Property<int>("FOR_BL_L");
+
+                    b.Property<int>("FOR_BL_R");
+
+                    b.Property<int>("FOR_PM_L");
+
+                    b.Property<int>("FOR_PM_R");
+
+                    b.Property<int>("FOR_TR_L");
+
+                    b.Property<int>("FOR_TR_R");
+
+                    b.Property<int>("FROM_NODE");
+
+                    b.Property<string>("FTRACT_L")
+                        .HasMaxLength(6);
+
+                    b.Property<string>("FTRACT_R")
+                        .HasMaxLength(6);
+
+                    b.Property<double>("HIGH_X");
+
+                    b.Property<double>("HIGH_Y");
+
+                    b.Property<int>("HI_ADD_L");
+
+                    b.Property<int>("HI_ADD_R");
+
+                    b.Property<double>("LENGTH");
+
+                    b.Property<int>("LEVEL");
+
+                    b.Property<string>("LOCDIST_L")
+                        .HasMaxLength(8);
+
+                    b.Property<string>("LOCDIST_R")
+                        .HasMaxLength(8);
+
+                    b.Property<double>("LOW_X");
+
+                    b.Property<double>("LOW_Y");
+
+                    b.Property<int>("LO_ADD_L");
+
+                    b.Property<int>("LO_ADD_R");
+
+                    b.Property<int>("LPOLY");
+
+                    b.Property<int>("MPS_ELEM_L");
+
+                    b.Property<int>("MPS_ELEM_R");
+
+                    b.Property<int>("MPS_HS_L");
+
+                    b.Property<int>("MPS_HS_R");
+
+                    b.Property<int>("MPS_MS_L");
+
+                    b.Property<int>("MPS_MS_R");
+
+                    b.Property<string>("MUNICODE_L")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("MUNICODE_R")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("MUNI_L")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("MUNI_R")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("NEWDIMENR");
+
+                    b.Property<IGeometry>("Outline");
+
+                    b.Property<int>("POLICE_L");
+
+                    b.Property<int>("POLICE_R");
+
+                    b.Property<int>("POLRD_L");
+
+                    b.Property<int>("POLRD_R");
+
+                    b.Property<string>("QTR_SECT_L")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("QTR_SECT_R")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("RCD_NBR");
+
+                    b.Property<string>("RECYC_DA_L")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("RECYC_DA_R")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("RECYC_SM_L")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("RECYC_SM_R")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("RECYC_WN_L")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("RECYC_WN_R")
+                        .HasMaxLength(20);
+
+                    b.Property<int>("RPOLY");
+
+                    b.Property<string>("SANBIZPL_L")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("SANBIZPL_R")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("SANLEAF_L")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("SANLEAF_R")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("SANPLOW_L")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("SANPLOW_R")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("SAN_DIST_L")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("SAN_DIST_R")
+                        .HasMaxLength(2);
+
+                    b.Property<int>("SCHOOL2K_L");
+
+                    b.Property<int>("SCHOOL2K_R");
+
+                    b.Property<int>("SCHOOL_L");
+
+                    b.Property<int>("SCHOOL_R");
+
+                    b.Property<string>("SEG_L_TYPE")
+                        .HasMaxLength(10);
+
+                    b.Property<int>("SPRINK_R");
+
+                    b.Property<int>("SQUAD_L");
+
+                    b.Property<int>("SQUAD_R");
+
+                    b.Property<int>("STASS2K_L");
+
+                    b.Property<int>("STASS2K_R");
+
+                    b.Property<int>("STASS_L");
+
+                    b.Property<int>("STASS_R");
+
+                    b.Property<int>("STCLASS");
+
+                    b.Property<string>("STREET")
+                        .HasMaxLength(18);
+
+                    b.Property<int>("STSEN2K_L");
+
+                    b.Property<int>("STSEN2K_R");
+
+                    b.Property<int>("STSEN_L");
+
+                    b.Property<int>("STSEN_R");
+
+                    b.Property<string>("STTYPE")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("ST_MAIN_L")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("ST_MAIN_R")
+                        .HasMaxLength(10);
+
+                    b.Property<int>("ST_OP_L");
+
+                    b.Property<int>("ST_OP_R");
+
+                    b.Property<string>("SUM_DA_L")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("SUM_DA_R")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("SUM_RT_L")
+                        .HasMaxLength(12);
+
+                    b.Property<string>("SUM_RT_R")
+                        .HasMaxLength(12);
+
+                    b.Property<int>("TNODE");
+
+                    b.Property<int>("TO_NODE");
+
+                    b.Property<int>("TRACT2K_L");
+
+                    b.Property<int>("TRACT2K_R");
+
+                    b.Property<int>("TRACT_L");
+
+                    b.Property<int>("TRACT_R");
+
+                    b.Property<int>("TRANS_ID");
+
+                    b.Property<int>("WARD2K_L");
+
+                    b.Property<int>("WARD2K_R");
+
+                    b.Property<int>("WARD_L");
+
+                    b.Property<int>("WARD_R");
+
+                    b.Property<string>("WIN_RT_L")
+                        .HasMaxLength(12);
+
+                    b.Property<string>("WIN_RT_R")
+                        .HasMaxLength(12);
+
+                    b.Property<string>("WTR16TH_L")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("WTR16TH_R")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("WW_PRES_L");
+
+                    b.Property<int>("WW_PRES_R");
+
+                    b.Property<int>("WW_ROUT_L");
+
+                    b.Property<int>("WW_ROUT_R");
+
+                    b.Property<int>("WW_SERV_L");
+
+                    b.Property<int>("WW_SERV_R");
+
+                    b.Property<int>("ZIP_L");
+
+                    b.Property<int>("ZIP_R");
+
+                    b.HasKey("NEWDIME_ID");
+
+                    b.HasIndex("NEWDIME_ID")
+                        .IsUnique();
+
+                    b.ToTable("Streets");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
