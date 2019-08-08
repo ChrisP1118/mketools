@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Properties;
@@ -10,7 +11,7 @@ namespace MkeAlerts.Web.Services.Data
 {
     public class AddressService : EntityWriteService<Address, string>
     {
-        public AddressService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Address> validator) : base(dbContext, userManager, validator)
+        public AddressService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Address> validator, ILogger<Address> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 

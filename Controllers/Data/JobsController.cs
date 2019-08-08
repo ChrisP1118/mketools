@@ -26,9 +26,13 @@ namespace MkeAlerts.Web.Controllers.Data
         protected readonly SignInManager<ApplicationUser> _signInManager;
         protected readonly UserManager<ApplicationUser> _userManager;
 
+        protected readonly ILogger<ImportPropertiesJob> _importPropertiesJobLogger;
+        protected readonly ILogger<ImportLocationsJob> _importLocationsJobLogger;
+        protected readonly ILogger<ImportAddressesJob> _importAddressesJobLogger;
         protected readonly ILogger<ImportDispatchCallsJob> _importDispatchCallsJobLogger;
 
         protected readonly IEntityWriteService<Property, string> _propertyWriteService;
+        protected readonly IEntityWriteService<Location, string> _locationWriteService;
         protected readonly IEntityWriteService<Address, string> _addressWriteService;
         protected readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;
 
@@ -38,9 +42,13 @@ namespace MkeAlerts.Web.Controllers.Data
             UserManager<ApplicationUser> userManager,
             IMapper mapper,
 
+            ILogger<ImportPropertiesJob> importPropertiesJobLogger,
+            ILogger<ImportLocationsJob> importLocationsJobLogger,
+            ILogger<ImportAddressesJob> importAddressesJobLogger,
             ILogger<ImportDispatchCallsJob> importDispatchCallsJobLogger,
 
             IEntityWriteService<Property, string> propertyWriteService,
+            IEntityWriteService<Location, string> locationWriteService,
             IEntityWriteService<Address, string> addressWriteService,
             IEntityWriteService<DispatchCall, string> dispatchCallWriteService)
         {
@@ -49,9 +57,13 @@ namespace MkeAlerts.Web.Controllers.Data
             _userManager = userManager;
             _mapper = mapper;
 
+            _importPropertiesJobLogger = importPropertiesJobLogger;
+            _importLocationsJobLogger = importLocationsJobLogger;
+            _importAddressesJobLogger = importAddressesJobLogger;
             _importDispatchCallsJobLogger = importDispatchCallsJobLogger;
 
             _propertyWriteService = propertyWriteService;
+            _locationWriteService = locationWriteService;
             _addressWriteService = addressWriteService;
             _dispatchCallWriteService = dispatchCallWriteService;
         }
@@ -67,10 +79,25 @@ namespace MkeAlerts.Web.Controllers.Data
         {
             //BackgroundJob.Enqueue<ImportPropertiesJob>(x => x.Run(true));
 
-            ImportPropertiesJob job = new ImportPropertiesJob(_configuration, _signInManager, _userManager, _propertyWriteService);
-            string results = await job.Run();
+            ImportPropertiesJob job = new ImportPropertiesJob(_configuration, _signInManager, _userManager, _importPropertiesJobLogger, _propertyWriteService);
+            await job.Run();
 
-            return Ok("Started");
+            return Ok();
+        }
+
+        /// <summary>
+        /// Imports locations
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("ImportLocations")]
+        [ActionName("ImportLocations")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ImportLocations()
+        {
+            ImportLocationsJob job = new ImportLocationsJob(_configuration, _signInManager, _userManager, _importLocationsJobLogger, _locationWriteService);
+            await job.Run();
+
+            return Ok();
         }
 
         /// <summary>
@@ -82,10 +109,10 @@ namespace MkeAlerts.Web.Controllers.Data
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportAddresses()
         {
-            ImportAddressesJob job = new ImportAddressesJob(_configuration, _signInManager, _userManager, _addressWriteService);
-            string results = await job.Run();
+            ImportAddressesJob job = new ImportAddressesJob(_configuration, _signInManager, _userManager, _importAddressesJobLogger, _addressWriteService);
+            await job.Run();
 
-            return Ok(results);
+            return Ok();
         }
 
         /// <summary>

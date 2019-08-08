@@ -137,7 +137,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "03d95355-2682-49f3-9fbd-e41f420b6e71",
+                            ConcurrencyStamp = "2da8e871-33f5-432f-86c3-71aa990ac131",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +204,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "406b2494-0c15-4b2b-970b-708777a2af5c",
+                            ConcurrencyStamp = "6fc05253-6b65-49dc-b021-b06426e6a1e9",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAENwOY61tQKKPS8qDZfMz3uJEAoQm5bUUS9Rj9h+cs2qZJo9BAwhfhFtVQs195RL8OA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJBPal9SAJI9VEuqBDwbXWBNpU3H+wnFO7Q899oYmeEmyPwD3uIaMYCrfF60Hw6GAQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -221,7 +221,6 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.DispatchCalls.DispatchCall", b =>
                 {
                     b.Property<string>("CallNumber")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(12);
 
                     b.Property<int>("District");
@@ -250,7 +249,6 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Address", b =>
                 {
                     b.Property<string>("RCD_NBR")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(10);
 
                     b.Property<string>("DIR")
@@ -298,16 +296,32 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Location", b =>
+                {
+                    b.Property<string>("TAXKEY")
+                        .HasMaxLength(10);
+
+                    b.Property<IPoint>("Centroid");
+
+                    b.Property<IGeometry>("Parcel");
+
+                    b.HasKey("TAXKEY");
+
+                    b.HasIndex("TAXKEY")
+                        .IsUnique();
+
+                    b.ToTable("Locations");
+                });
+
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Property", b =>
                 {
                     b.Property<string>("TAXKEY")
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(10);
 
-                    b.Property<string>("AIR_CONDIT")
+                    b.Property<string>("AIR_CONDITIONING")
                         .HasMaxLength(3);
 
-                    b.Property<float>("ANGLE");
+                    b.Property<int>("ANGLE");
 
                     b.Property<string>("ATTIC")
                         .HasMaxLength(1);
@@ -333,26 +347,26 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<string>("CHK_DIGIT")
                         .HasMaxLength(1);
 
-                    b.Property<DateTime?>("CONVEY_DAT");
+                    b.Property<DateTime>("CONVEY_DATE");
 
                     b.Property<float>("CONVEY_FEE");
 
-                    b.Property<string>("CONVEY_TYP")
+                    b.Property<string>("CONVEY_TYPE")
                         .HasMaxLength(2);
 
                     b.Property<string>("CORNER_LOT")
-                        .HasMaxLength(1);
+                        .HasMaxLength(2);
 
                     b.Property<string>("C_A_CLASS")
                         .HasMaxLength(1);
 
-                    b.Property<int>("C_A_EXM_IM");
+                    b.Property<int>("C_A_EXM_IMPRV");
 
-                    b.Property<int>("C_A_EXM_LA");
+                    b.Property<int>("C_A_EXM_LAND");
 
-                    b.Property<int>("C_A_EXM_TO");
+                    b.Property<int>("C_A_EXM_TOTAL");
 
-                    b.Property<string>("C_A_EXM_TY")
+                    b.Property<string>("C_A_EXM_TYPE")
                         .HasMaxLength(3);
 
                     b.Property<int>("C_A_IMPRV");
@@ -364,71 +378,63 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<int>("C_A_TOTAL");
 
-                    b.Property<IPoint>("Centroid");
-
                     b.Property<int>("DIV_DROP");
 
                     b.Property<int>("DIV_ORG");
 
-                    b.Property<string>("DPW_SANITA")
+                    b.Property<string>("DPW_SANITATION")
                         .HasMaxLength(2);
 
-                    b.Property<float>("EXM_ACREAG");
+                    b.Property<float>("EXM_ACREAGE");
 
-                    b.Property<float>("EXM_PER_CT");
+                    b.Property<float>("EXM_PER_CT_IMPRV");
 
-                    b.Property<float>("EXM_PER__1");
+                    b.Property<float>("EXM_PER_CT_LAND");
 
                     b.Property<string>("FIREPLACE")
                         .HasMaxLength(1);
 
-                    b.Property<string>("GEO_ALDER")
+                    b.Property<string>("GARAGE_TYPE")
                         .HasMaxLength(2);
 
-                    b.Property<string>("GEO_ALDER_")
-                        .HasMaxLength(2);
+                    b.Property<int>("GEO_ALDER");
 
-                    b.Property<string>("GEO_BI_MAI")
-                        .HasMaxLength(2);
+                    b.Property<int>("GEO_ALDER_OLD");
+
+                    b.Property<int>("GEO_BI_MAINT");
 
                     b.Property<string>("GEO_BLOCK")
                         .HasMaxLength(4);
 
-                    b.Property<string>("GEO_FIRE")
-                        .HasMaxLength(2);
+                    b.Property<int>("GEO_FIRE");
 
-                    b.Property<string>("GEO_POLICE")
-                        .HasMaxLength(2);
+                    b.Property<int>("GEO_POLICE");
 
-                    b.Property<string>("GEO_TRACT")
-                        .HasMaxLength(6);
+                    b.Property<int>("GEO_TRACT");
 
-                    b.Property<string>("GEO_ZIP_CO")
-                        .HasMaxLength(9);
+                    b.Property<int>("GEO_ZIP_CODE");
 
                     b.Property<string>("HIST_CODE")
                         .HasMaxLength(1);
 
-                    b.Property<int>("HOUSE_NR_H");
+                    b.Property<int>("HOUSE_NR_HI");
 
-                    b.Property<int>("HOUSE_NR_L");
+                    b.Property<int>("HOUSE_NR_LO");
 
-                    b.Property<string>("HOUSE_NR_S")
+                    b.Property<string>("HOUSE_NR_SFX")
                         .HasMaxLength(3);
 
-                    b.Property<string>("LAND_USE")
-                        .HasMaxLength(4);
+                    b.Property<int>("LAND_USE");
 
-                    b.Property<string>("LAND_USE_G")
-                        .HasMaxLength(2);
+                    b.Property<int>("LAND_USE_GP");
 
-                    b.Property<DateTime?>("LAST_NAME_");
+                    b.Property<DateTime>("LAST_NAME_CHG");
 
-                    b.Property<DateTime?>("LAST_VALUE");
+                    b.Property<DateTime>("LAST_VALUE_CHG");
 
                     b.Property<int>("LOT_AREA");
 
-                    b.Property<string>("NEIGHBORHO")
+                    b.Property<string>("NEIGHBORHOOD")
                         .HasMaxLength(4);
 
                     b.Property<string>("NR_ROOMS")
@@ -438,19 +444,21 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<int>("NR_UNITS");
 
-                    b.Property<string>("OWNER_CITY")
-                        .HasMaxLength(23);
+                    b.Property<int>("NUMBER_OF_SPACES");
 
-                    b.Property<string>("OWNER_MAIL")
+                    b.Property<string>("OWNER_CITY_STATE")
                         .HasMaxLength(28);
 
-                    b.Property<string>("OWNER_NAME")
+                    b.Property<string>("OWNER_MAIL_ADDR")
                         .HasMaxLength(28);
 
-                    b.Property<string>("OWNER_NA_1")
+                    b.Property<string>("OWNER_NAME_1")
                         .HasMaxLength(28);
 
-                    b.Property<string>("OWNER_NA_2")
+                    b.Property<string>("OWNER_NAME_2")
+                        .HasMaxLength(28);
+
+                    b.Property<string>("OWNER_NAME_3")
                         .HasMaxLength(28);
 
                     b.Property<string>("OWNER_ZIP")
@@ -459,28 +467,25 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<string>("OWN_OCPD")
                         .HasMaxLength(1);
 
-                    b.Property<float>("PARCEL_TYP");
+                    b.Property<int>("PARKING_SPACES");
 
-                    b.Property<float>("PARKING_SP");
-
-                    b.Property<string>("PARKING_TY")
+                    b.Property<string>("PARKING_TYPE")
                         .HasMaxLength(2);
 
-                    b.Property<string>("PLAT_PAGE")
-                        .HasMaxLength(5);
+                    b.Property<int>("PLAT_PAGE");
 
-                    b.Property<int>("POWDER_ROO");
+                    b.Property<int>("POWDER_ROOMS");
 
                     b.Property<string>("P_A_CLASS")
                         .HasMaxLength(1);
 
-                    b.Property<int>("P_A_EXM_IM");
+                    b.Property<int>("P_A_EXM_IMPRV");
 
-                    b.Property<int>("P_A_EXM_LA");
+                    b.Property<int>("P_A_EXM_LAND");
 
-                    b.Property<int>("P_A_EXM_TO");
+                    b.Property<int>("P_A_EXM_TOTAL");
 
-                    b.Property<string>("P_A_EXM_TY")
+                    b.Property<string>("P_A_EXM_TYPE")
                         .HasMaxLength(3);
 
                     b.Property<int>("P_A_IMPRV");
@@ -492,12 +497,9 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<int>("P_A_TOTAL");
 
-                    b.Property<IGeometry>("Parcel");
+                    b.Property<int>("RAZE_STATUS");
 
-                    b.Property<string>("RAZE_STATU")
-                        .HasMaxLength(1);
-
-                    b.Property<string>("REASON_FOR")
+                    b.Property<string>("REASON_FOR_CHG")
                         .HasMaxLength(3);
 
                     b.Property<string>("SDIR")
@@ -509,22 +511,25 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<string>("STTYPE")
                         .HasMaxLength(2);
 
-                    b.Property<string>("SUB_ACCT")
-                        .HasMaxLength(1);
+                    b.Property<int>("SUB_ACCT");
 
                     b.Property<string>("SWIM_POOL")
                         .HasMaxLength(1);
 
                     b.Property<int>("TAX_DELQ");
 
-                    b.Property<string>("TAX_RATE_C")
+                    b.Property<string>("TAX_RATE_CD")
                         .HasMaxLength(2);
+
+                    b.Property<string>("TOT_UNABATED")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("YEARS_DELQ");
 
                     b.Property<string>("YR_ASSMT")
                         .HasMaxLength(4);
 
-                    b.Property<string>("YR_BUILT")
-                        .HasMaxLength(4);
+                    b.Property<int>("YR_BUILT");
 
                     b.Property<string>("ZONING")
                         .HasMaxLength(7);

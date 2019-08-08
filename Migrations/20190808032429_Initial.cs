@@ -92,14 +92,24 @@ namespace MkeAlerts.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Properties",
+                name: "Locations",
                 columns: table => new
                 {
                     TAXKEY = table.Column<string>(maxLength: 10, nullable: false),
                     Parcel = table.Column<IGeometry>(nullable: true),
-                    Centroid = table.Column<IPoint>(nullable: true),
-                    AIR_CONDIT = table.Column<string>(maxLength: 3, nullable: true),
-                    ANGLE = table.Column<float>(nullable: false),
+                    Centroid = table.Column<IPoint>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.TAXKEY);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Properties",
+                columns: table => new
+                {
+                    TAXKEY = table.Column<string>(maxLength: 10, nullable: false),
+                    AIR_CONDITIONING = table.Column<string>(maxLength: 3, nullable: true),
                     ATTIC = table.Column<string>(maxLength: 1, nullable: true),
                     BASEMENT = table.Column<string>(maxLength: 1, nullable: true),
                     BATHS = table.Column<int>(nullable: false),
@@ -107,82 +117,86 @@ namespace MkeAlerts.Web.Migrations
                     BLDG_AREA = table.Column<int>(nullable: false),
                     BLDG_TYPE = table.Column<string>(maxLength: 9, nullable: true),
                     C_A_CLASS = table.Column<string>(maxLength: 1, nullable: true),
-                    C_A_EXM_IM = table.Column<int>(nullable: false),
-                    C_A_EXM_LA = table.Column<int>(nullable: false),
-                    C_A_EXM_TO = table.Column<int>(nullable: false),
-                    C_A_EXM_TY = table.Column<string>(maxLength: 3, nullable: true),
+                    C_A_EXM_IMPRV = table.Column<int>(nullable: false),
+                    C_A_EXM_LAND = table.Column<int>(nullable: false),
+                    C_A_EXM_TOTAL = table.Column<int>(nullable: false),
+                    C_A_EXM_TYPE = table.Column<string>(maxLength: 3, nullable: true),
                     C_A_IMPRV = table.Column<int>(nullable: false),
                     C_A_LAND = table.Column<int>(nullable: false),
                     C_A_SYMBOL = table.Column<string>(maxLength: 1, nullable: true),
                     C_A_TOTAL = table.Column<int>(nullable: false),
                     CHG_NR = table.Column<string>(maxLength: 6, nullable: true),
                     CHK_DIGIT = table.Column<string>(maxLength: 1, nullable: true),
-                    CONVEY_DAT = table.Column<DateTime>(nullable: true),
+                    CONVEY_DATE = table.Column<DateTime>(nullable: false),
                     CONVEY_FEE = table.Column<float>(nullable: false),
-                    CONVEY_TYP = table.Column<string>(maxLength: 2, nullable: true),
-                    CORNER_LOT = table.Column<string>(maxLength: 1, nullable: true),
+                    CONVEY_TYPE = table.Column<string>(maxLength: 2, nullable: true),
                     SDIR = table.Column<string>(maxLength: 1, nullable: true),
                     DIV_DROP = table.Column<int>(nullable: false),
                     DIV_ORG = table.Column<int>(nullable: false),
-                    DPW_SANITA = table.Column<string>(maxLength: 2, nullable: true),
-                    EXM_ACREAG = table.Column<float>(nullable: false),
-                    EXM_PER__1 = table.Column<float>(nullable: false),
-                    EXM_PER_CT = table.Column<float>(nullable: false),
+                    DPW_SANITATION = table.Column<string>(maxLength: 2, nullable: true),
+                    EXM_ACREAGE = table.Column<float>(nullable: false),
+                    EXM_PER_CT_IMPRV = table.Column<float>(nullable: false),
+                    EXM_PER_CT_LAND = table.Column<float>(nullable: false),
                     FIREPLACE = table.Column<string>(maxLength: 1, nullable: true),
-                    GEO_ALDER = table.Column<string>(maxLength: 2, nullable: true),
-                    GEO_ALDER_ = table.Column<string>(maxLength: 2, nullable: true),
-                    GEO_BI_MAI = table.Column<string>(maxLength: 2, nullable: true),
+                    GARAGE_TYPE = table.Column<string>(maxLength: 2, nullable: true),
+                    GEO_ALDER = table.Column<int>(nullable: false),
+                    GEO_ALDER_OLD = table.Column<int>(nullable: false),
+                    GEO_BI_MAINT = table.Column<int>(nullable: false),
                     GEO_BLOCK = table.Column<string>(maxLength: 4, nullable: true),
-                    GEO_FIRE = table.Column<string>(maxLength: 2, nullable: true),
-                    GEO_POLICE = table.Column<string>(maxLength: 2, nullable: true),
-                    GEO_TRACT = table.Column<string>(maxLength: 6, nullable: true),
-                    GEO_ZIP_CO = table.Column<string>(maxLength: 9, nullable: true),
+                    GEO_FIRE = table.Column<int>(nullable: false),
+                    GEO_POLICE = table.Column<int>(nullable: false),
+                    GEO_TRACT = table.Column<int>(nullable: false),
+                    GEO_ZIP_CODE = table.Column<int>(nullable: false),
                     HIST_CODE = table.Column<string>(maxLength: 1, nullable: true),
-                    HOUSE_NR_H = table.Column<int>(nullable: false),
-                    HOUSE_NR_L = table.Column<int>(nullable: false),
-                    HOUSE_NR_S = table.Column<string>(maxLength: 3, nullable: true),
-                    LAND_USE = table.Column<string>(maxLength: 4, nullable: true),
-                    LAND_USE_G = table.Column<string>(maxLength: 2, nullable: true),
-                    LAST_NAME_ = table.Column<DateTime>(nullable: true),
-                    LAST_VALUE = table.Column<DateTime>(nullable: true),
+                    HOUSE_NR_HI = table.Column<int>(nullable: false),
+                    HOUSE_NR_LO = table.Column<int>(nullable: false),
+                    HOUSE_NR_SFX = table.Column<string>(maxLength: 3, nullable: true),
+                    LAND_USE = table.Column<int>(nullable: false),
+                    LAND_USE_GP = table.Column<int>(nullable: false),
+                    LAST_NAME_CHG = table.Column<DateTime>(nullable: false),
+                    LAST_VALUE_CHG = table.Column<DateTime>(nullable: false),
                     LOT_AREA = table.Column<int>(nullable: false),
-                    NEIGHBORHO = table.Column<string>(maxLength: 4, nullable: true),
+                    NEIGHBORHOOD = table.Column<string>(maxLength: 4, nullable: true),
                     NR_ROOMS = table.Column<string>(maxLength: 4, nullable: true),
                     NR_STORIES = table.Column<float>(nullable: false),
                     NR_UNITS = table.Column<int>(nullable: false),
-                    OWNER_CITY = table.Column<string>(maxLength: 23, nullable: true),
-                    OWNER_MAIL = table.Column<string>(maxLength: 28, nullable: true),
-                    OWNER_NA_1 = table.Column<string>(maxLength: 28, nullable: true),
-                    OWNER_NA_2 = table.Column<string>(maxLength: 28, nullable: true),
-                    OWNER_NAME = table.Column<string>(maxLength: 28, nullable: true),
+                    NUMBER_OF_SPACES = table.Column<int>(nullable: false),
+                    OWNER_CITY_STATE = table.Column<string>(maxLength: 28, nullable: true),
+                    OWNER_MAIL_ADDR = table.Column<string>(maxLength: 28, nullable: true),
+                    OWNER_NAME_1 = table.Column<string>(maxLength: 28, nullable: true),
+                    OWNER_NAME_2 = table.Column<string>(maxLength: 28, nullable: true),
+                    OWNER_NAME_3 = table.Column<string>(maxLength: 28, nullable: true),
                     OWNER_ZIP = table.Column<string>(maxLength: 9, nullable: true),
                     OWN_OCPD = table.Column<string>(maxLength: 1, nullable: true),
                     P_A_CLASS = table.Column<string>(maxLength: 1, nullable: true),
-                    P_A_EXM_IM = table.Column<int>(nullable: false),
-                    P_A_EXM_LA = table.Column<int>(nullable: false),
-                    P_A_EXM_TO = table.Column<int>(nullable: false),
-                    P_A_EXM_TY = table.Column<string>(maxLength: 3, nullable: true),
+                    P_A_EXM_IMPRV = table.Column<int>(nullable: false),
+                    P_A_EXM_LAND = table.Column<int>(nullable: false),
+                    P_A_EXM_TOTAL = table.Column<int>(nullable: false),
+                    P_A_EXM_TYPE = table.Column<string>(maxLength: 3, nullable: true),
                     P_A_IMPRV = table.Column<int>(nullable: false),
                     P_A_LAND = table.Column<int>(nullable: false),
                     P_A_SYMBOL = table.Column<string>(maxLength: 1, nullable: true),
                     P_A_TOTAL = table.Column<int>(nullable: false),
-                    PARCEL_TYP = table.Column<float>(nullable: false),
-                    PARKING_SP = table.Column<float>(nullable: false),
-                    PARKING_TY = table.Column<string>(maxLength: 2, nullable: true),
-                    PLAT_PAGE = table.Column<string>(maxLength: 5, nullable: true),
-                    POWDER_ROO = table.Column<int>(nullable: false),
-                    RAZE_STATU = table.Column<string>(maxLength: 1, nullable: true),
-                    REASON_FOR = table.Column<string>(maxLength: 3, nullable: true),
+                    PLAT_PAGE = table.Column<int>(nullable: false),
+                    POWDER_ROOMS = table.Column<int>(nullable: false),
+                    RAZE_STATUS = table.Column<int>(nullable: false),
+                    REASON_FOR_CHG = table.Column<string>(maxLength: 3, nullable: true),
                     STREET = table.Column<string>(maxLength: 18, nullable: true),
                     STTYPE = table.Column<string>(maxLength: 2, nullable: true),
-                    SUB_ACCT = table.Column<string>(maxLength: 1, nullable: true),
+                    SUB_ACCT = table.Column<int>(nullable: false),
                     SWIM_POOL = table.Column<string>(maxLength: 1, nullable: true),
-                    TAX_RATE_C = table.Column<string>(maxLength: 2, nullable: true),
-                    BI_VIOL = table.Column<string>(maxLength: 4, nullable: true),
-                    TAX_DELQ = table.Column<int>(nullable: false),
+                    TAX_RATE_CD = table.Column<string>(maxLength: 2, nullable: true),
+                    TOT_UNABATED = table.Column<string>(maxLength: 4, nullable: true),
+                    YEARS_DELQ = table.Column<int>(nullable: false),
                     YR_ASSMT = table.Column<string>(maxLength: 4, nullable: true),
-                    YR_BUILT = table.Column<string>(maxLength: 4, nullable: true),
-                    ZONING = table.Column<string>(maxLength: 7, nullable: true)
+                    YR_BUILT = table.Column<int>(nullable: false),
+                    ZONING = table.Column<string>(maxLength: 7, nullable: true),
+                    PARKING_SPACES = table.Column<int>(nullable: false),
+                    PARKING_TYPE = table.Column<string>(maxLength: 2, nullable: true),
+                    CORNER_LOT = table.Column<string>(maxLength: 2, nullable: true),
+                    ANGLE = table.Column<int>(nullable: false),
+                    TAX_DELQ = table.Column<int>(nullable: false),
+                    BI_VIOL = table.Column<string>(maxLength: 4, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -298,12 +312,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "03d95355-2682-49f3-9fbd-e41f420b6e71", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "2da8e871-33f5-432f-86c3-71aa990ac131", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "406b2494-0c15-4b2b-970b-708777a2af5c", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAENwOY61tQKKPS8qDZfMz3uJEAoQm5bUUS9Rj9h+cs2qZJo9BAwhfhFtVQs195RL8OA==", null, false, "", false, "siteadmin" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "6fc05253-6b65-49dc-b021-b06426e6a1e9", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEJBPal9SAJI9VEuqBDwbXWBNpU3H+wnFO7Q899oYmeEmyPwD3uIaMYCrfF60Hw6GAQ==", null, false, "", false, "siteadmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -362,6 +376,12 @@ namespace MkeAlerts.Web.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Locations_TAXKEY",
+                table: "Locations",
+                column: "TAXKEY",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Properties_TAXKEY",
                 table: "Properties",
                 column: "TAXKEY",
@@ -390,6 +410,9 @@ namespace MkeAlerts.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "DispatchCalls");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
 
             migrationBuilder.DropTable(
                 name: "Properties");

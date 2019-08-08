@@ -11,7 +11,7 @@ namespace MkeAlerts.Web.Models.Data.DispatchCalls
     {
         public string GetId() => this.CallNumber;
 
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
         [MaxLength(12)]
         public string CallNumber { get; set; }

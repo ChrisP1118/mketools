@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Properties;
 using MkeAlerts.Web.Services;
@@ -14,16 +15,20 @@ namespace MkeAlerts.Web.Jobs
 {
     public class ImportAddressesJob : ImportJob
     {
+        private readonly ILogger<ImportAddressesJob> _logger;
         private readonly IEntityWriteService<Address, string> _addressWriteService;
 
-        public ImportAddressesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEntityWriteService<Address, string> addressWriteService)
+        public ImportAddressesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportAddressesJob> logger, IEntityWriteService<Address, string> addressWriteService)
             : base(configuration, signInManager, userManager)
         {
+            _logger = logger;
             _addressWriteService = addressWriteService;
         }
 
-        public async Task<string> Run()
+        public async Task Run()
         {
+            _logger.LogInformation("Starting job");
+
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
             string file = @"M:\My Documents\GitHub\mkealerts\DataSources\mai\mai.xml";
@@ -33,6 +38,9 @@ namespace MkeAlerts.Web.Jobs
             Address address = null;
             string currentElement = null;
             int i = 0;
+
+            int success = 0;
+            int failure = 0;
 
             using (XmlTextReader xmlReader = new XmlTextReader(file))
             {
@@ -99,24 +107,25 @@ namespace MkeAlerts.Web.Jobs
                     {
                         if (xmlReader.Name == "element")
                         {
-                            //address.BuildFormattedAddress();
                             addresses.Add(address);
 
                             ++i;
 
                             if (i % 100 == 0)
                             {
-                                await _addressWriteService.BulkCreate(claimsPrincipal, addresses, true);
+                                Tuple<IEnumerable<Address>, IEnumerable<Address>> results1 = await _addressWriteService.BulkCreate(claimsPrincipal, addresses, true);
+                                success += results1.Item1.Count();
+                                failure += results1.Item2.Count();
                                 addresses.Clear();
                             }
                         }
                     }
                 }
 
-                await _addressWriteService.BulkCreate(claimsPrincipal, addresses, true);
+                Tuple<IEnumerable<Address>, IEnumerable<Address>> results2 = await _addressWriteService.BulkCreate(claimsPrincipal, addresses, true);
+                success += results2.Item1.Count();
+                failure += results2.Item2.Count();
             }
-
-            return null;
         }
     }
 }

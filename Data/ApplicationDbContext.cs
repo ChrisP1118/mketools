@@ -16,6 +16,7 @@ namespace MkeAlerts.Web.Data
     {
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Property> Properties { get; set; }
+        public DbSet<Location> Locations { get; set; }
         public DbSet<DispatchCall> DispatchCalls { get; set; }
         public DbSet<Address> Addresses { get; set; }
 
@@ -32,8 +33,11 @@ namespace MkeAlerts.Web.Data
                 .HasIndex(x => x.TAXKEY)
                 .IsUnique();
 
+            modelBuilder.Entity<Location>()
+                .HasIndex(x => x.TAXKEY)
+                .IsUnique();
+
             modelBuilder.Entity<Address>()
-                //.HasIndex(x => x.FormattedAddress)
                 .HasIndex(x => x.RCD_NBR)
                 .IsUnique();
 

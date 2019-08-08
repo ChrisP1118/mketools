@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.DispatchCalls;
@@ -10,7 +11,7 @@ namespace MkeAlerts.Web.Services.Data
 {
     public class DispatchCallService : EntityWriteService<DispatchCall, string>
     {
-        public DispatchCallService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<DispatchCall> validator) : base(dbContext, userManager, validator)
+        public DispatchCallService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<DispatchCall> validator, ILogger<DispatchCall> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 

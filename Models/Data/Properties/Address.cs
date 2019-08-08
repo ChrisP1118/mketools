@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,21 +9,10 @@ namespace MkeAlerts.Web.Models.Data.Properties
 {
     public class Address : IHasId<string>
     {
-        //public string GetId() => this.FormattedAddress;
         public string GetId() => this.RCD_NBR;
-
-        //public void BuildFormattedAddress()
-        //{
-        //    FormattedAddress = HSE_NBR + SFX + " " + DIR + " " + STREET + " " + STTYPE + " " + UNIT_NBR + " " + ZIP_CODE;
-        //}
 
         [MaxLength(10)]
         public string TAXKEY { get; set; }
-
-        //[Key]
-        //[Required]
-        //[MaxLength(60)]
-        //public string FormattedAddress { get; set; }
 
         public int HSE_NBR { get; set; }
 
@@ -46,7 +36,7 @@ namespace MkeAlerts.Web.Models.Data.Properties
 
         public int LAND_USE { get; set; }
 
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
         [MaxLength(10)]
         public string RCD_NBR { get; set; }

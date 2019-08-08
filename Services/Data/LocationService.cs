@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Services.Data
 {
-    public class PropertyService : EntityWriteService<Property, string>
+    public class LocationService : EntityWriteService<Location, string>
     {
-        public PropertyService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Property> validator, ILogger<Property> logger) : base(dbContext, userManager, validator, logger)
+        public LocationService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Location> validator, ILogger<Location> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 
-        protected override async Task<IQueryable<Property>> ApplyIdFilter(IQueryable<Property> queryable, string id)
+        protected override async Task<IQueryable<Location>> ApplyIdFilter(IQueryable<Location> queryable, string id)
         {
             return queryable.Where(x => x.TAXKEY == id);
         }
 
-        protected override async Task<IQueryable<Property>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<Property> queryable)
+        protected override async Task<IQueryable<Location>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<Location> queryable)
         {
             return queryable;
         }
 
-        protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Property dataModel)
+        protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Location dataModel)
         {
             // Site admins can write
             if (await _userManager.IsInRoleAsync(applicationUser, ApplicationRole.SiteAdminRole))

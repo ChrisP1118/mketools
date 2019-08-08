@@ -2,6 +2,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Exceptions;
 using MkeAlerts.Web.Models.Data;
@@ -18,10 +19,12 @@ namespace MkeAlerts.Web.Services
     public abstract class EntityWriteService<TDataModel, TIdType> : EntityReadService<TDataModel, TIdType>, IEntityWriteService<TDataModel, TIdType>
         where TDataModel : class, IHasId<TIdType>
     {
+        protected readonly ILogger<TDataModel> _logger;
         protected readonly IValidator<TDataModel> _validator;
 
-        public EntityWriteService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<TDataModel> validator) : base(dbContext, userManager)
+        public EntityWriteService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<TDataModel> validator, ILogger<TDataModel> logger) : base(dbContext, userManager)
         {
+            _logger = logger;
             _validator = validator;
         }
 
@@ -42,7 +45,7 @@ namespace MkeAlerts.Web.Services
             return dataModel;
         }
 
-        public async Task<IEnumerable<TDataModel>> BulkCreate(ClaimsPrincipal user, IList<TDataModel> dataModels, bool skipErrors = true, bool useBulkInsert = true)
+        public async Task<Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>>> BulkCreate(ClaimsPrincipal user, IList<TDataModel> dataModels, bool useBulkInsert = true)
         {
             var applicationUser = await GetApplicationUser(user);
 
@@ -55,26 +58,29 @@ namespace MkeAlerts.Web.Services
                 _validator.ValidateAndThrow(dataModel);
             }
 
+            IList<TDataModel> success = new List<TDataModel>();
+            IList<TDataModel> failure = new List<TDataModel>();
+
             if (useBulkInsert)
             {
                 try
                 {
-                    await _dbContext.BulkInsertAsync<TDataModel>(dataModels);
+                    await _dbContext.BulkInsertOrUpdateAsync<TDataModel>(dataModels);
+                    success = dataModels;
                 }
                 catch (Exception ex)
                 {
-                    if (!skipErrors)
-                        throw;
-
                     foreach (TDataModel dataModel in dataModels)
                     {
                         try
                         {
-                            await _dbContext.BulkInsertAsync<TDataModel>(new List<TDataModel>() { dataModel });
+                            await _dbContext.BulkInsertOrUpdateAsync<TDataModel>(new List<TDataModel>() { dataModel });
+                            success.Add(dataModel);
                         }
                         catch (Exception ex2)
                         {
-                            Debug.WriteLine(ex2.Message);
+                            _logger.LogError(ex, "Error bulk inserting item");
+                            failure.Add(dataModel);
                         }
                     }
                 }
@@ -84,11 +90,30 @@ namespace MkeAlerts.Web.Services
                 _dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
 
                 foreach (TDataModel dataModel in dataModels)
+                {
+                    try
+                    {
+                        await _dbContext
+                            .Set<TDataModel>()
+                            .Upsert(dataModel)
+                            .RunAsync();
+                        success.Add(dataModel);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Error upserting item");
+                        failure.Add(dataModel);
+                    }
+                }
+
+                /*
+                foreach (TDataModel dataModel in dataModels)
                     _dbContext.Set<TDataModel>().Add(dataModel);
 
                 try
                 {
                     await _dbContext.SaveChangesAsync();
+                    success = dataModels;
                 }
                 catch (Exception ex)
                 {
@@ -103,17 +128,16 @@ namespace MkeAlerts.Web.Services
                             }
                             catch (Exception ex3)
                             {
+                                _logger.LogError(ex3, "Error detaching item");
                                 throw;
                             }
                         }
                     }
                     catch (Exception ex4)
                     {
+                        _logger.LogError(ex4, "Error interating items");
                         throw;
                     }
-
-                    if (!skipErrors)
-                        throw;
 
                     // Now try adding them one at a time
                     foreach (TDataModel dataModel in dataModels)
@@ -122,17 +146,21 @@ namespace MkeAlerts.Web.Services
                         try
                         {
                             await _dbContext.SaveChangesAsync();
+                            success.Add(dataModel);
                         }
                         catch (Exception ex2)
                         {
-                            Debug.WriteLine(ex2.Message);
                             _dbContext.Entry<TDataModel>(dataModel).State = EntityState.Detached;
+                            _logger.LogError(ex2, "Error adding item");
+                            failure.Add(dataModel);
+                            
                         }
                     }
                 }
+                */
             }
 
-            return dataModels;
+            return new Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>>(success, failure);
         }
 
         public async Task<TDataModel> Update(ClaimsPrincipal user, TDataModel dataModel)
