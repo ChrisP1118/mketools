@@ -1,6 +1,8 @@
-﻿using System;
+﻿using GeoAPI.Geometries;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,8 +12,11 @@ namespace MkeAlerts.Web.Models.Data.Incidents
     {
         public string GetId() => this.IncidentNum;
 
+        public IPoint Point { get; set; }
+
         [MaxLength(20)]
         [Required]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string IncidentNum { get; set; }
 
         public DateTime ReportedDateTime { get; set; }

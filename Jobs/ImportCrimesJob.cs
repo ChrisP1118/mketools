@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using DotSpatial.Projections;
+using GeoAPI.Geometries;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Services;
+using MkeAlerts.Web.Utilities;
+using NetTopologySuite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +20,21 @@ namespace MkeAlerts.Web.Jobs
 {
     public class ImportCrimesJob : ImportXmlJob<Crime>
     {
+        protected ProjectionInfo _projectionInfo;
+
         public ImportCrimesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportXmlJob<Crime>> logger, IEntityWriteService<Crime, string> writeService) :
             base(configuration, signInManager, userManager, logger, writeService)
         {
+            string path = @"M:\My Documents\GitHub\mkealerts\DataSources\parcelbase_mprop_full\parcelbase_mprop_full.shp";
+            _projectionInfo = ProjectionInfo.Open(path.Replace(".shp", ".prj"));
         }
 
         protected override string GetFileName()
         {
             return @"M:\My Documents\GitHub\mkealerts\DataSources\wibr\wibr.xml";
         }
+
+        protected override bool UseBulkInsert => false;
 
         protected override void ProcessElement(Crime item, string elementName, string elementValue)
         {
@@ -55,6 +65,16 @@ namespace MkeAlerts.Web.Jobs
                 case "Theft": item.Theft = int.Parse(elementValue); break;
                 case "VehicleTheft": item.VehicleTheft = int.Parse(elementValue); break;
             }
+        }
+
+        protected override async Task BeforeSaveElement(Crime item)
+        {
+            IGeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+
+            Tuple<double, double> projectedCoordinates = GeographicUtilities.ReprojectCoordinates(_projectionInfo, item.RoughX, item.RoughY);
+            IPoint projectedPoint = geometryFactory.CreatePoint(new Coordinate(projectedCoordinates.Item1, projectedCoordinates.Item2));
+
+            item.Point = projectedPoint;
         }
     }
 }

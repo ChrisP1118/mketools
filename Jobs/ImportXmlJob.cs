@@ -30,6 +30,12 @@ namespace MkeAlerts.Web.Jobs
 
         protected abstract void ProcessElement(TDataModel item, string elementName, string elementValue);
 
+        protected virtual async Task BeforeSaveElement(TDataModel item)
+        {
+        }
+
+        protected virtual bool UseBulkInsert => true;
+
         public async Task Run()
         {
             _logger.LogInformation("Starting job");
@@ -63,13 +69,14 @@ namespace MkeAlerts.Web.Jobs
                     {
                         if (xmlReader.Name == "element")
                         {
+                            await BeforeSaveElement(item);
                             items.Add(item);
 
                             ++i;
 
                             if (i % 100 == 0)
                             {
-                                Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results1 = await _writeService.BulkCreate(claimsPrincipal, items, true);
+                                Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results1 = await _writeService.BulkCreate(claimsPrincipal, items, UseBulkInsert);
                                 success += results1.Item1.Count();
                                 failure += results1.Item2.Count();
                                 items.Clear();
@@ -78,7 +85,7 @@ namespace MkeAlerts.Web.Jobs
                     }
                 }
 
-                Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results2 = await _writeService.BulkCreate(claimsPrincipal, items, true);
+                Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results2 = await _writeService.BulkCreate(claimsPrincipal, items, UseBulkInsert);
                 success += results2.Item1.Count();
                 failure += results2.Item2.Count();
             }

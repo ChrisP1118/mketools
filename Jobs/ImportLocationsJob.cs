@@ -93,7 +93,6 @@ namespace MkeAlerts.Web.Jobs
                         }
                         else if (coll.Current.Geometry.GeometryType == "MultiPolygon")
                         {
-                            Debug.WriteLine("foo");
                             List<IPolygon> polygons = new List<IPolygon>();
                             foreach (IPolygon polygon in ((MultiPolygon)coll.Current.Geometry).Geometries)
                             {
