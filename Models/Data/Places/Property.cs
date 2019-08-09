@@ -21,7 +21,6 @@ namespace MkeAlerts.Web.Models.Data.Places
         public Location Location { get; set; }
 
         [MaxLength(3)] public string AIR_CONDITIONING { get; set; }
-
         [MaxLength(1)] public string ATTIC { get; set; }
         [MaxLength(1)] public string BASEMENT { get; set; }
         public int BATHS { get; set; }
@@ -42,12 +41,10 @@ namespace MkeAlerts.Web.Models.Data.Places
         public DateTime CONVEY_DATE { get; set; }
         public float CONVEY_FEE { get; set; }
         [MaxLength(2)] public string CONVEY_TYPE { get; set; }
-
         [MaxLength(1)] public string SDIR { get; set; }
         public int DIV_DROP { get; set; }
         public int DIV_ORG { get; set; }
         [MaxLength(2)] public string DPW_SANITATION { get; set; }
-
         public float EXM_ACREAGE { get; set; }
         public float EXM_PER_CT_IMPRV { get; set; }
         public float EXM_PER_CT_LAND { get; set; }
@@ -61,7 +58,6 @@ namespace MkeAlerts.Web.Models.Data.Places
         public int GEO_POLICE { get; set; }
         public int GEO_TRACT { get; set; }
         public int GEO_ZIP_CODE { get; set; }
-
         [MaxLength(1)] public string HIST_CODE { get; set; }
         public int HOUSE_NR_HI { get; set; }
         public int HOUSE_NR_LO { get; set; }
@@ -71,13 +67,6 @@ namespace MkeAlerts.Web.Models.Data.Places
         public DateTime LAST_NAME_CHG { get; set; }
         public DateTime LAST_VALUE_CHG { get; set; }
         public int LOT_AREA { get; set; }
-
-
-
-
-
-
-
         [MaxLength(4)] public string NEIGHBORHOOD { get; set; }
         [MaxLength(4)] public string NR_ROOMS { get; set; }
         public float NR_STORIES { get; set; }
@@ -99,15 +88,10 @@ namespace MkeAlerts.Web.Models.Data.Places
         public int P_A_LAND { get; set; }
         [MaxLength(1)] public string P_A_SYMBOL { get; set; }
         public int P_A_TOTAL { get; set; }
-
-
-
         public int PLAT_PAGE { get; set; }
         public int POWDER_ROOMS { get; set; }
         public int RAZE_STATUS { get; set; }
         [MaxLength(3)] public string REASON_FOR_CHG { get; set; }
-
-
         [MaxLength(18)] public string STREET { get; set; }
         [MaxLength(2)] public string STTYPE { get; set; }
         public int SUB_ACCT { get; set; }
@@ -124,6 +108,5 @@ namespace MkeAlerts.Web.Models.Data.Places
         public int ANGLE { get; set; }
         public int TAX_DELQ { get; set; }
         [MaxLength(4)] public string BI_VIOL { get; set; }
-
     }
 }
