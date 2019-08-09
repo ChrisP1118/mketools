@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.DTO.Properties
+namespace MkeAlerts.Web.Models.Data.Places
 {
-    public class AddressDTO
+    public class Address : IHasId<string>
     {
+        public string GetId() => this.RCD_NBR;
+
+        public Property Property { get; set; }
+
         [MaxLength(10)]
         public string TAXKEY { get; set; }
-
-        [MaxLength(60)]
-        public string FormattedAddress { get; set; }
 
         public int HSE_NBR { get; set; }
 
@@ -36,7 +38,10 @@ namespace MkeAlerts.Web.Models.DTO.Properties
 
         public int LAND_USE { get; set; }
 
-        public int RCD_NBR { get; set; }
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Required]
+        [MaxLength(10)]
+        public string RCD_NBR { get; set; }
 
         public int UPD_DATE { get; set; }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.DTO.DispatchCalls
+namespace MkeAlerts.Web.Models.DTO.Incidents
 {
     public class DispatchCallDTO
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
-using MkeAlerts.Web.Models.Data.Properties;
-using MkeAlerts.Web.Models.DTO.Properties;
+using MkeAlerts.Web.Models.Data.Places;
+using MkeAlerts.Web.Models.DTO.Places;
 using MkeAlerts.Web.Services;
 
 namespace MkeAlerts.Web.Controllers.Data

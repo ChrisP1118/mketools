@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.DispatchCalls;
+using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Models.Internal;
 using MkeAlerts.Web.Services;
 using System;

@@ -7,8 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Models.Data.Properties;
-using MkeAlerts.Web.Models.Data.DispatchCalls;
+using MkeAlerts.Web.Models.Data.Places;
+using MkeAlerts.Web.Models.Data.Incidents;
 
 namespace MkeAlerts.Web.Data
 {
@@ -20,6 +20,7 @@ namespace MkeAlerts.Web.Data
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Street> Streets { get; set; }
         public DbSet<DispatchCall> DispatchCalls { get; set; }
+        public DbSet<Crime> Crimes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -55,6 +56,9 @@ namespace MkeAlerts.Web.Data
 
             modelBuilder.Entity<DispatchCall>()
                 .HasKey(x => x.CallNumber);
+
+            modelBuilder.Entity<Crime>()
+                .HasKey(x => x.IncidentNum);
 
             //modelBuilder.Entity<Role>()
             //    .HasKey(x => new { x.ApplicationUserId, x.StationId });

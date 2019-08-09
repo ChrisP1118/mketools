@@ -1,23 +1,13 @@
-﻿using GeoAPI.Geometries;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.Properties
+namespace MkeAlerts.Web.Models.DTO.Places
 {
-    public class Street : IHasId<string>
+    public class StreetDTO
     {
-        public string GetId() => this.NEWDIME_ID;
-
-        public IGeometry Outline { get; set; }
-        public IPoint Centroid { get; set; }
-
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Required]
-        [MaxLength(10)]
         public string NEWDIME_ID { get; set; }
 
         public int FNODE { get; set; }
@@ -180,6 +170,5 @@ namespace MkeAlerts.Web.Models.Data.Properties
         public double LOW_Y { get; set; }
         public double HIGH_X { get; set; }
         public double HIGH_Y { get; set; }
-
     }
 }

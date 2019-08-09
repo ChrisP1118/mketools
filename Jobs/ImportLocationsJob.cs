@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.Properties;
+using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Utilities;
 using NetTopologySuite;
@@ -22,7 +22,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Location = MkeAlerts.Web.Models.Data.Properties.Location;
+using Location = MkeAlerts.Web.Models.Data.Places.Location;
 
 namespace MkeAlerts.Web.Jobs
 {
@@ -84,11 +84,27 @@ namespace MkeAlerts.Web.Jobs
                         IPoint transformedCentroid = geometryFactory.CreatePoint(new Coordinate(projectedCentroid.X, projectedCentroid.Y));
                         location.Centroid = transformedCentroid;
 
-                        Coordinate[] projectedCoordinates = GeographicUtilities.ReprojectCoordinates(projectionInfo, coll.Current.Geometry.Coordinates);
-                        Polygon transformedGeometry = (Polygon)geometryFactory.CreatePolygon(projectedCoordinates);
+                        Polygon transformedGeometry = null;
+
+                        if (coll.Current.Geometry.GeometryType == "Polygon")
+                        {
+                            Coordinate[] projectedCoordinates = GeographicUtilities.ReprojectCoordinates(projectionInfo, coll.Current.Geometry.Coordinates);
+                            transformedGeometry = (Polygon)geometryFactory.CreatePolygon(projectedCoordinates);
+                        }
+                        else if (coll.Current.Geometry.GeometryType == "MultiPolygon")
+                        {
+                            Debug.WriteLine("foo");
+                            List<IPolygon> polygons = new List<IPolygon>();
+                            foreach (IPolygon polygon in ((MultiPolygon)coll.Current.Geometry).Geometries)
+                            {
+                                Coordinate[] projectedCoordinates = GeographicUtilities.ReprojectCoordinates(projectionInfo, polygon.Coordinates);
+                                polygons.Add((Polygon)geometryFactory.CreatePolygon(projectedCoordinates));
+                            }
+                            geometryFactory.CreateMultiPolygon(polygons.ToArray());
+                        }
 
                         // https://gis.stackexchange.com/questions/289545/using-sqlgeometry-makevalid-to-get-a-counter-clockwise-polygon-in-sql-server
-                        if (!transformedGeometry.Shell.IsCCW)
+                        if (transformedGeometry != null && !transformedGeometry.Shell.IsCCW)
                             transformedGeometry = (Polygon)transformedGeometry.Reverse();
 
                         location.Outline = transformedGeometry;

@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.DispatchCalls
+namespace MkeAlerts.Web.Models.Data.Incidents
 {
     public class DispatchCall : IHasId<string>
     {

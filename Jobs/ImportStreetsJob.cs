@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.Properties;
+using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Utilities;
 using NetTopologySuite;

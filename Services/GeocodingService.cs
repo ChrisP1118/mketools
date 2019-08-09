@@ -5,14 +5,14 @@ using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Models;
 using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.Properties;
+using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Models.Internal;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Location = MkeAlerts.Web.Models.Data.Properties.Location;
+using Location = MkeAlerts.Web.Models.Data.Places.Location;
 
 namespace MkeAlerts.Web.Services
 {

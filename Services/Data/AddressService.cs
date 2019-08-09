@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.Properties;
+using MkeAlerts.Web.Models.Data.Places;
 using System.Linq;
 using System.Threading.Tasks;
 

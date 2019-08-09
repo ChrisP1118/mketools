@@ -51,6 +51,40 @@ namespace MkeAlerts.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Crimes",
+                columns: table => new
+                {
+                    IncidentNum = table.Column<string>(maxLength: 20, nullable: false),
+                    ReportedDateTime = table.Column<DateTime>(nullable: false),
+                    ReportedYear = table.Column<decimal>(nullable: false),
+                    ReportedMonth = table.Column<decimal>(nullable: false),
+                    Location = table.Column<string>(maxLength: 128, nullable: true),
+                    WeaponUsed = table.Column<string>(maxLength: 128, nullable: true),
+                    ALD = table.Column<decimal>(nullable: false),
+                    NSP = table.Column<decimal>(nullable: false),
+                    POLICE = table.Column<decimal>(nullable: false),
+                    TRACT = table.Column<decimal>(nullable: false),
+                    WARD = table.Column<decimal>(nullable: false),
+                    ZIP = table.Column<decimal>(nullable: false),
+                    RoughX = table.Column<double>(nullable: false),
+                    RoughY = table.Column<double>(nullable: false),
+                    Arson = table.Column<int>(nullable: false),
+                    AssaultOffense = table.Column<int>(nullable: false),
+                    Burglary = table.Column<int>(nullable: false),
+                    CriminalDamage = table.Column<int>(nullable: false),
+                    Homicide = table.Column<int>(nullable: false),
+                    LockedVehicle = table.Column<int>(nullable: false),
+                    Robbery = table.Column<int>(nullable: false),
+                    SexOffense = table.Column<int>(nullable: false),
+                    Theft = table.Column<int>(nullable: false),
+                    VehicleTheft = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Crimes", x => x.IncidentNum);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DispatchCalls",
                 columns: table => new
                 {
@@ -499,12 +533,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "75f8d0d8-2db3-4b41-88bc-a4fe060dae23", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "3d9ef2eb-d7ea-41ff-a67d-60693bd2fec4", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "9370c1d6-7c52-48d9-836f-3992d5eed030", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEO0tW+bI5kFQLEPADn/74SvzTd4dpeVVxj5lJT34JaOijGtBMYoqs5DUT+w0TInCOQ==", null, false, "", false, "siteadmin" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "7313fc0c-afd1-4f17-9b4e-105a8b0a2cfd", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEOBEKbnrjkYVec5jXxlG+aw/ebVrsu4v3qEok1s5AY/bWiRl4H0AYtF8j3fRYqpSiQ==", null, false, "", false, "siteadmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -575,6 +609,9 @@ namespace MkeAlerts.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Crimes");
 
             migrationBuilder.DropTable(
                 name: "DispatchCalls");

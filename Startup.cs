@@ -30,8 +30,8 @@ using MkeAlerts.Web.Middleware.Exceptions;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Filters;
 using Hangfire;
-using MkeAlerts.Web.Models.Data.Properties;
-using MkeAlerts.Web.Models.Data.DispatchCalls;
+using MkeAlerts.Web.Models.Data.Places;
+using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Jobs;
 
 namespace MkeAlerts.Web
@@ -194,6 +194,8 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityWriteService<Street, string>, StreetService>();
             services.AddTransient<IEntityReadService<DispatchCall, string>, DispatchCallService>();
             services.AddTransient<IEntityWriteService<DispatchCall, string>, DispatchCallService>();
+            services.AddTransient<IEntityReadService<Crime, string>, CrimeService>();
+            services.AddTransient<IEntityWriteService<Crime, string>, CrimeService>();
 
             services.AddTransient<IGeocodingService, GeocodingService>();
 
@@ -202,6 +204,7 @@ Note that not all fields can be sorted.
             services.AddSingleton<IValidator<Location>, LocationValidator>();
             services.AddSingleton<IValidator<Street>, StreetValidator>();
             services.AddSingleton<IValidator<DispatchCall>, DispatchCallValidator>();
+            services.AddSingleton<IValidator<Crime>, CrimeValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
