@@ -31,24 +31,30 @@ namespace MkeAlerts.Web.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Property>()
-                .HasIndex(x => x.TAXKEY)
-                .IsUnique();
+                .HasKey(x => x.TAXKEY);
+
+            modelBuilder.Entity<Property>()
+                .HasMany(x => x.Addresses)
+                .WithOne(y => y.Property)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Property>()
+                .HasOne(x => x.Location)
+                .WithOne(y => y.Property)
+                .HasForeignKey<Location>(y => y.TAXKEY)
+                .IsRequired(false);
 
             modelBuilder.Entity<Location>()
-                .HasIndex(x => x.TAXKEY)
-                .IsUnique();
+                .HasKey(x => x.TAXKEY);
 
             modelBuilder.Entity<Address>()
-                .HasIndex(x => x.RCD_NBR)
-                .IsUnique();
+                .HasKey(x => x.RCD_NBR);
 
             modelBuilder.Entity<Street>()
-                .HasIndex(x => x.NEWDIME_ID)
-                .IsUnique();
+                .HasKey(x => x.NEWDIME_ID);
 
             modelBuilder.Entity<DispatchCall>()
-                .HasIndex(x => x.CallNumber)
-                .IsUnique();
+                .HasKey(x => x.CallNumber);
 
             //modelBuilder.Entity<Role>()
             //    .HasKey(x => new { x.ApplicationUserId, x.StationId });

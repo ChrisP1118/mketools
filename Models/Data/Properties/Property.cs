@@ -17,6 +17,9 @@ namespace MkeAlerts.Web.Models.Data.Properties
         [MaxLength(10)]
         public string TAXKEY { get; set; }
 
+        public List<Address> Addresses { get; set; }
+        public Location Location { get; set; }
+
         [MaxLength(3)] public string AIR_CONDITIONING { get; set; }
 
         [MaxLength(1)] public string ATTIC { get; set; }

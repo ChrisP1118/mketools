@@ -11,7 +11,7 @@ using MkeAlerts.Web.Data;
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190808040736_Initial")]
+    [Migration("20190808165338_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,7 +139,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "0cf1c807-6734-443d-afe0-7322a1e07202",
+                            ConcurrencyStamp = "75f8d0d8-2db3-4b41-88bc-a4fe060dae23",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -206,13 +206,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "afa46765-a248-4948-a816-e93d58970550",
+                            ConcurrencyStamp = "9370c1d6-7c52-48d9-836f-3992d5eed030",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEcE98CMjwAKK/oobIhe1/IPvjmDxm0ggUnaXrIk/rhagjrGWy0kuZVCS7ztEf+Uww==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO0tW+bI5kFQLEPADn/74SvzTd4dpeVVxj5lJT34JaOijGtBMYoqs5DUT+w0TInCOQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -225,7 +225,11 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<string>("CallNumber")
                         .HasMaxLength(12);
 
+                    b.Property<int>("Accuracy");
+
                     b.Property<int>("District");
+
+                    b.Property<IGeometry>("Geometry");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -237,13 +241,12 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<DateTime>("ReportedDateTime");
 
+                    b.Property<int>("Source");
+
                     b.Property<string>("Status")
                         .HasMaxLength(60);
 
                     b.HasKey("CallNumber");
-
-                    b.HasIndex("CallNumber")
-                        .IsUnique();
 
                     b.ToTable("DispatchCalls");
                 });
@@ -292,8 +295,7 @@ namespace MkeAlerts.Web.Migrations
 
                     b.HasKey("RCD_NBR");
 
-                    b.HasIndex("RCD_NBR")
-                        .IsUnique();
+                    b.HasIndex("TAXKEY");
 
                     b.ToTable("Addresses");
                 });
@@ -308,9 +310,6 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<IGeometry>("Outline");
 
                     b.HasKey("TAXKEY");
-
-                    b.HasIndex("TAXKEY")
-                        .IsUnique();
 
                     b.ToTable("Locations");
                 });
@@ -537,9 +536,6 @@ namespace MkeAlerts.Web.Migrations
                         .HasMaxLength(7);
 
                     b.HasKey("TAXKEY");
-
-                    b.HasIndex("TAXKEY")
-                        .IsUnique();
 
                     b.ToTable("Properties");
                 });
@@ -932,9 +928,6 @@ namespace MkeAlerts.Web.Migrations
 
                     b.HasKey("NEWDIME_ID");
 
-                    b.HasIndex("NEWDIME_ID")
-                        .IsUnique();
-
                     b.ToTable("Streets");
                 });
 
@@ -980,6 +973,21 @@ namespace MkeAlerts.Web.Migrations
                     b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Address", b =>
+                {
+                    b.HasOne("MkeAlerts.Web.Models.Data.Properties.Property", "Property")
+                        .WithMany("Addresses")
+                        .HasForeignKey("TAXKEY");
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Location", b =>
+                {
+                    b.HasOne("MkeAlerts.Web.Models.Data.Properties.Property", "Property")
+                        .WithOne("Location")
+                        .HasForeignKey("MkeAlerts.Web.Models.Data.Properties.Location", "TAXKEY")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

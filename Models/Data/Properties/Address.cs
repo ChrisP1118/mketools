@@ -11,6 +11,8 @@ namespace MkeAlerts.Web.Models.Data.Properties
     {
         public string GetId() => this.RCD_NBR;
 
+        public Property Property { get; set; }
+
         [MaxLength(10)]
         public string TAXKEY { get; set; }
 

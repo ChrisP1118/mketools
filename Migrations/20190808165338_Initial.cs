@@ -10,31 +10,6 @@ namespace MkeAlerts.Web.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    RCD_NBR = table.Column<string>(maxLength: 10, nullable: false),
-                    TAXKEY = table.Column<string>(maxLength: 10, nullable: true),
-                    HSE_NBR = table.Column<int>(nullable: false),
-                    SFX = table.Column<string>(maxLength: 3, nullable: true),
-                    DIR = table.Column<string>(maxLength: 1, nullable: true),
-                    STREET = table.Column<string>(maxLength: 18, nullable: true),
-                    STTYPE = table.Column<string>(maxLength: 2, nullable: true),
-                    UNIT_NBR = table.Column<string>(maxLength: 5, nullable: true),
-                    ZIP_CODE = table.Column<string>(maxLength: 9, nullable: true),
-                    LAND_USE = table.Column<int>(nullable: false),
-                    UPD_DATE = table.Column<int>(nullable: false),
-                    WARD = table.Column<int>(nullable: false),
-                    MAIL_ERROR_COUNT = table.Column<int>(nullable: false),
-                    MAIL_STATUS = table.Column<string>(maxLength: 1, nullable: true),
-                    RES_COM_FLAG = table.Column<string>(maxLength: 1, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.RCD_NBR);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -84,24 +59,14 @@ namespace MkeAlerts.Web.Migrations
                     Location = table.Column<string>(maxLength: 60, nullable: false),
                     District = table.Column<int>(nullable: false),
                     NatureOfCall = table.Column<string>(maxLength: 20, nullable: false),
-                    Status = table.Column<string>(maxLength: 60, nullable: true)
+                    Status = table.Column<string>(maxLength: 60, nullable: true),
+                    Geometry = table.Column<IGeometry>(nullable: true),
+                    Accuracy = table.Column<int>(nullable: false),
+                    Source = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DispatchCalls", x => x.CallNumber);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Locations",
-                columns: table => new
-                {
-                    TAXKEY = table.Column<string>(maxLength: 10, nullable: false),
-                    Outline = table.Column<IGeometry>(nullable: true),
-                    Centroid = table.Column<IPoint>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Locations", x => x.TAXKEY);
                 });
 
             migrationBuilder.CreateTable(
@@ -481,15 +446,65 @@ namespace MkeAlerts.Web.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    RCD_NBR = table.Column<string>(maxLength: 10, nullable: false),
+                    TAXKEY = table.Column<string>(maxLength: 10, nullable: true),
+                    HSE_NBR = table.Column<int>(nullable: false),
+                    SFX = table.Column<string>(maxLength: 3, nullable: true),
+                    DIR = table.Column<string>(maxLength: 1, nullable: true),
+                    STREET = table.Column<string>(maxLength: 18, nullable: true),
+                    STTYPE = table.Column<string>(maxLength: 2, nullable: true),
+                    UNIT_NBR = table.Column<string>(maxLength: 5, nullable: true),
+                    ZIP_CODE = table.Column<string>(maxLength: 9, nullable: true),
+                    LAND_USE = table.Column<int>(nullable: false),
+                    UPD_DATE = table.Column<int>(nullable: false),
+                    WARD = table.Column<int>(nullable: false),
+                    MAIL_ERROR_COUNT = table.Column<int>(nullable: false),
+                    MAIL_STATUS = table.Column<string>(maxLength: 1, nullable: true),
+                    RES_COM_FLAG = table.Column<string>(maxLength: 1, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.RCD_NBR);
+                    table.ForeignKey(
+                        name: "FK_Addresses_Properties_TAXKEY",
+                        column: x => x.TAXKEY,
+                        principalTable: "Properties",
+                        principalColumn: "TAXKEY",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    TAXKEY = table.Column<string>(maxLength: 10, nullable: false),
+                    Outline = table.Column<IGeometry>(nullable: true),
+                    Centroid = table.Column<IPoint>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.TAXKEY);
+                    table.ForeignKey(
+                        name: "FK_Locations_Properties_TAXKEY",
+                        column: x => x.TAXKEY,
+                        principalTable: "Properties",
+                        principalColumn: "TAXKEY",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "0cf1c807-6734-443d-afe0-7322a1e07202", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "75f8d0d8-2db3-4b41-88bc-a4fe060dae23", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "afa46765-a248-4948-a816-e93d58970550", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEEcE98CMjwAKK/oobIhe1/IPvjmDxm0ggUnaXrIk/rhagjrGWy0kuZVCS7ztEf+Uww==", null, false, "", false, "siteadmin" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "9370c1d6-7c52-48d9-836f-3992d5eed030", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEO0tW+bI5kFQLEPADn/74SvzTd4dpeVVxj5lJT34JaOijGtBMYoqs5DUT+w0TInCOQ==", null, false, "", false, "siteadmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -497,10 +512,9 @@ namespace MkeAlerts.Web.Migrations
                 values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157") });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Addresses_RCD_NBR",
+                name: "IX_Addresses_TAXKEY",
                 table: "Addresses",
-                column: "RCD_NBR",
-                unique: true);
+                column: "TAXKEY");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -540,30 +554,6 @@ namespace MkeAlerts.Web.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DispatchCalls_CallNumber",
-                table: "DispatchCalls",
-                column: "CallNumber",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Locations_TAXKEY",
-                table: "Locations",
-                column: "TAXKEY",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Properties_TAXKEY",
-                table: "Properties",
-                column: "TAXKEY",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Streets_NEWDIME_ID",
-                table: "Streets",
-                column: "NEWDIME_ID",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -593,9 +583,6 @@ namespace MkeAlerts.Web.Migrations
                 name: "Locations");
 
             migrationBuilder.DropTable(
-                name: "Properties");
-
-            migrationBuilder.DropTable(
                 name: "Streets");
 
             migrationBuilder.DropTable(
@@ -603,6 +590,9 @@ namespace MkeAlerts.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Properties");
         }
     }
 }

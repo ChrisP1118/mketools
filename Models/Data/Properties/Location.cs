@@ -15,6 +15,8 @@ namespace MkeAlerts.Web.Models.Data.Properties
         public IGeometry Outline { get; set; }
         public IPoint Centroid { get; set; }
 
+        public Property Property { get; set; }
+
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Required]
         [MaxLength(10)]

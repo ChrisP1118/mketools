@@ -137,7 +137,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "baad8cd9-f0a6-44f5-9b4e-570504b981c3",
+                            ConcurrencyStamp = "75f8d0d8-2db3-4b41-88bc-a4fe060dae23",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +204,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1970d04d-1eee-4e7c-a5b0-ccd4d6c2e23d",
+                            ConcurrencyStamp = "9370c1d6-7c52-48d9-836f-3992d5eed030",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDHquZ/gA6BUS5rCV9AApLDQcfl0ri2s/ZjCsiDDj8gkcO9Pj30a47SuAd0wvgbPGA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO0tW+bI5kFQLEPADn/74SvzTd4dpeVVxj5lJT34JaOijGtBMYoqs5DUT+w0TInCOQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -245,9 +245,6 @@ namespace MkeAlerts.Web.Migrations
                         .HasMaxLength(60);
 
                     b.HasKey("CallNumber");
-
-                    b.HasIndex("CallNumber")
-                        .IsUnique();
 
                     b.ToTable("DispatchCalls");
                 });
@@ -296,8 +293,7 @@ namespace MkeAlerts.Web.Migrations
 
                     b.HasKey("RCD_NBR");
 
-                    b.HasIndex("RCD_NBR")
-                        .IsUnique();
+                    b.HasIndex("TAXKEY");
 
                     b.ToTable("Addresses");
                 });
@@ -312,9 +308,6 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<IGeometry>("Outline");
 
                     b.HasKey("TAXKEY");
-
-                    b.HasIndex("TAXKEY")
-                        .IsUnique();
 
                     b.ToTable("Locations");
                 });
@@ -541,9 +534,6 @@ namespace MkeAlerts.Web.Migrations
                         .HasMaxLength(7);
 
                     b.HasKey("TAXKEY");
-
-                    b.HasIndex("TAXKEY")
-                        .IsUnique();
 
                     b.ToTable("Properties");
                 });
@@ -936,9 +926,6 @@ namespace MkeAlerts.Web.Migrations
 
                     b.HasKey("NEWDIME_ID");
 
-                    b.HasIndex("NEWDIME_ID")
-                        .IsUnique();
-
                     b.ToTable("Streets");
                 });
 
@@ -984,6 +971,21 @@ namespace MkeAlerts.Web.Migrations
                     b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Address", b =>
+                {
+                    b.HasOne("MkeAlerts.Web.Models.Data.Properties.Property", "Property")
+                        .WithMany("Addresses")
+                        .HasForeignKey("TAXKEY");
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Properties.Location", b =>
+                {
+                    b.HasOne("MkeAlerts.Web.Models.Data.Properties.Property", "Property")
+                        .WithOne("Location")
+                        .HasForeignKey("MkeAlerts.Web.Models.Data.Properties.Location", "TAXKEY")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

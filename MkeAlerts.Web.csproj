@@ -46,6 +46,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190808164452_Property_NavigationProperties.cs" />
+    <Compile Remove="Migrations\20190808164452_Property_NavigationProperties.Designer.cs" />
+    <Compile Remove="Migrations\20190808164624_Property_NavigationProperties.cs" />
+    <Compile Remove="Migrations\20190808164624_Property_NavigationProperties.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

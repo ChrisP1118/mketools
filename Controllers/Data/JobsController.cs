@@ -81,6 +81,32 @@ namespace MkeAlerts.Web.Controllers.Data
         }
 
         /// <summary>
+        /// Imports baseline
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("ImportBaselines")]
+        [ActionName("ImportBaselines")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ImportBaselines()
+        {
+            ImportPropertiesJob importPropertiesJob = new ImportPropertiesJob(_configuration, _signInManager, _userManager, _importPropertiesJobLogger, _propertyWriteService);
+            ImportLocationsJob importLocationsJob = new ImportLocationsJob(_configuration, _signInManager, _userManager, _importLocationsJobLogger, _locationWriteService);
+            ImportAddressesJob importAddressesJob = new ImportAddressesJob(_configuration, _signInManager, _userManager, _importAddressesJobLogger, _addressWriteService);
+            ImportStreetsJob importStreetsJob = new ImportStreetsJob(_configuration, _signInManager, _userManager, _importStreetsJobLogger, _streetWriteService);
+
+            await importPropertiesJob.Run();
+
+            List<Task> tasks = new List<Task>();
+            tasks.Add(importLocationsJob.Run());
+            tasks.Add(importAddressesJob.Run());
+            tasks.Add(importStreetsJob.Run());
+
+            await Task.WhenAll(tasks);
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Imports properties
         /// </summary>
         /// <returns></returns>
