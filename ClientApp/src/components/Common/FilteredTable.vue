@@ -1,75 +1,83 @@
 <template>
   <div>
-    <b-table striped hover :items="items" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked">
-      <template slot="table-caption">
-        <b-row>
-          <b-col>
-            <b-button-toolbar>
-              <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) !== 'function'">
-                <b-button :to="settings.newUrl"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
-              </b-button-group>
-              <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) === 'function'">
-                <b-button :to="settings.newUrl()"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
-              </b-button-group>
-              <b-button-group class="mx-2">
-                <b-dropdown>
-                  <template slot="button-content">
-                    <font-awesome-icon icon="table" />
-                  </template>
-                  <b-dropdown-item-button v-for="column in settings.columns" v-bind:key="column.key" v-on:click="toggleColumn(column)">
-                    <font-awesome-icon icon="square" v-if="!column.visible" />
-                    <font-awesome-icon icon="check-square" v-if="column.visible" />
-                    {{column.name}}
-                    </b-dropdown-item-button>
-                </b-dropdown>
-                <b-dropdown :text="limit.toString()">
-                  <b-dropdown-item-button v-for="limit in limits" v-bind:key="limit" v-on:click="setLimit(limit)">{{limit}}</b-dropdown-item-button>
-                </b-dropdown>
-              </b-button-group>
-            </b-button-toolbar>
-          </b-col>
-          <b-col class="text-right">
-            <span v-if="total > 0">
-              {{page * limit - limit + 1}}-{{page * limit > total ? total : page * limit}} of {{total}} results
-            </span>
-            <span v-if="total == 0">
-              No results
-            </span>
-          </b-col>
-        </b-row>
-      </template>
-      <template slot="thead-top">
-        <tr>
-          <th v-for="column in visibleColumns" v-bind:key="column.key" v-on:click="setSortColumn(column)">
-            {{column.name}}
-            <span v-if="column.key == sortColumn">
-              <font-awesome-icon :icon="sortOrder == 'asc' ? 'sort-amount-down' : 'sort-amount-up'" />
-            </span>
-          </th>
-        </tr>
-        <tr>
-          <th v-for="column in visibleColumns" v-bind:key="column.key">
-            <b-form-input v-model="filters[column.key]" v-if="column.filter == 'text'" @keyup="refreshData(true)"></b-form-input>
-            <b-form-input v-model="filters[column.key]" v-if="column.filter == 'date'" type="date" @change="refreshData(true)"></b-form-input>
-            <b-form-select v-model="filters[column.key]" v-if="column.filter == 'select'" :options="column.selectOptions" @change="refreshData()"></b-form-select>
-          </th>
-        </tr>
-      </template>
-      <template slot="actions" slot-scope="data">
-        <b-button-group>
-          <b-button variant="default" v-for="action in data.value.actions" v-bind:key="action.key">
-            <router-link :to="action.getUrl(rawItems[data.index])"><font-awesome-icon :icon="action.icon" /></router-link>
-          </b-button>
-        </b-button-group>
-      </template>
-    </b-table>
-    <span v-if="total > 0">
-      {{page * limit - limit + 1}}-{{page * limit > total ? total : page * limit}} of {{total}} results
-    </span>
-    <span v-if="total == 0">
-      No results
-    </span>
-    <b-pagination v-model="page" :total-rows="total" :per-page="limit" @input="refreshData"></b-pagination>
+    <b-row>
+      <b-col>
+        <b-table striped hover :items="items" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked">
+          <template slot="table-caption">
+            <b-row>
+              <b-col>
+                <b-button-toolbar>
+                  <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) !== 'function'">
+                    <b-button :to="settings.newUrl"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
+                  </b-button-group>
+                  <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) === 'function'">
+                    <b-button :to="settings.newUrl()"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
+                  </b-button-group>
+                  <b-button-group class="mx-2">
+                    <b-dropdown>
+                      <template slot="button-content">
+                        <font-awesome-icon icon="table" />
+                      </template>
+                      <b-dropdown-item-button v-for="column in settings.columns" v-bind:key="column.key" v-on:click="toggleColumn(column)">
+                        <font-awesome-icon icon="square" v-if="!column.visible" />
+                        <font-awesome-icon icon="check-square" v-if="column.visible" />
+                        {{column.name}}
+                        </b-dropdown-item-button>
+                    </b-dropdown>
+                    <b-dropdown :text="limit.toString()">
+                      <b-dropdown-item-button v-for="limit in limits" v-bind:key="limit" v-on:click="setLimit(limit)">{{limit}}</b-dropdown-item-button>
+                    </b-dropdown>
+                  </b-button-group>
+                </b-button-toolbar>
+              </b-col>
+              <b-col class="text-right">
+                <span v-if="total > 0">
+                  {{page * limit - limit + 1}}-{{page * limit > total ? total : page * limit}} of {{total}} results
+                </span>
+                <span v-if="total == 0">
+                  No results
+                </span>
+              </b-col>
+            </b-row>
+          </template>
+          <template slot="thead-top">
+            <tr>
+              <th v-for="column in visibleColumns" v-bind:key="column.key" v-on:click="setSortColumn(column)">
+                {{column.name}}
+                <span v-if="column.key == sortColumn">
+                  <font-awesome-icon :icon="sortOrder == 'asc' ? 'sort-amount-down' : 'sort-amount-up'" />
+                </span>
+              </th>
+            </tr>
+            <tr>
+              <th v-for="column in visibleColumns" v-bind:key="column.key">
+                <b-form-input v-model="filters[column.key]" v-if="column.filter == 'text'" @keyup="refreshData(true)"></b-form-input>
+                <b-form-input v-model="filters[column.key]" v-if="column.filter == 'date'" type="date" @change="refreshData(true)"></b-form-input>
+                <b-form-select v-model="filters[column.key]" v-if="column.filter == 'select'" :options="column.selectOptions" @change="refreshData()"></b-form-select>
+              </th>
+            </tr>
+          </template>
+          <template slot="actions" slot-scope="data">
+            <b-button-group>
+              <b-button variant="default" v-for="action in data.value.actions" v-bind:key="action.key">
+                <router-link :to="action.getUrl(rawItems[data.index])"><font-awesome-icon :icon="action.icon" /></router-link>
+              </b-button>
+            </b-button-group>
+          </template>
+        </b-table>
+        <span v-if="total > 0">
+          {{page * limit - limit + 1}}-{{page * limit > total ? total : page * limit}} of {{total}} results
+        </span>
+        <span v-if="total == 0">
+          No results
+        </span>
+        <b-pagination v-model="page" :total-rows="total" :per-page="limit" @input="refreshData"></b-pagination>
+      </b-col>
+      <b-col>
+        <filtered-table-map :items="items">
+        </filtered-table-map>
+      </b-col>
+    </b-row>
   </div>
 </template>
 

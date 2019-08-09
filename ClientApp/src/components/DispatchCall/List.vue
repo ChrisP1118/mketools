@@ -6,6 +6,10 @@
         <filtered-table :settings="tableSettings">
         </filtered-table>
       </b-col>
+      <b-col>
+        <filtered-table-map>
+        </filtered-table-map>
+      </b-col>
     </b-row>
   </div>
 </template>
