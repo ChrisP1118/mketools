@@ -136,6 +136,8 @@ export default {
     }
   },
   async mounted() {
+    let boundsChangedTimeout = null;
+
     try {
       this.google = await gmapsInit();
       //const geocoder = new google.maps.Geocoder();
@@ -143,6 +145,31 @@ export default {
 
       this.map.setCenter({lat: 43.0315528, lng: -87.9730566});
       this.map.fitBounds(new google.maps.LatLngBounds({lat: 43.191766, lng: -88.062779}, {lat: 42.916096, lng: -87.880899}));
+
+      this.map.addListener('bounds_changed', e => {
+
+        if (boundsChangedTimeout != null)
+          clearTimeout(boundsChangedTimeout);
+
+        boundsChangedTimeout = setTimeout(() => {
+          let bounds = this.map.getBounds();
+
+          this.$emit('bounds-changed', {
+            ne: {
+              lat: bounds.na.j,
+              lng: bounds.ga.j
+            },
+            sw: {
+              lat: bounds.na.l,
+              lng: bounds.ga.l
+            }
+          });
+
+          //console.log(x);
+          //console.log(x.getNorthEast());
+          //console.log(x.getSouthWest());
+        }, 500);
+      });      
 
       //console.log(this.items);
 

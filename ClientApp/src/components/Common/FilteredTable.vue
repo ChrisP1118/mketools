@@ -75,7 +75,7 @@
         <b-pagination v-model="page" :total-rows="total" :per-page="limit" @input="refreshData"></b-pagination>
       </b-col>
       <b-col>
-        <filtered-table-map :items="items">
+        <filtered-table-map :items="items" v-on:bounds-changed="boundsChanged">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -113,6 +113,10 @@ export default {
     }
   },
   methods: {
+    boundsChanged: function (bounds) {
+      console.log('boundsChanged');
+      console.log(bounds);
+    },
     rowClicked: function (item, index, event) {
       if (!this.settings.rowClicked)
         return;
