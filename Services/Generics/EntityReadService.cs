@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using GeoAPI.Geometries;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.DynamicLinq;
@@ -6,6 +7,7 @@ using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Exceptions;
 using MkeAlerts.Web.Models.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
+using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +44,7 @@ namespace MkeAlerts.Web.Services
 
         #region CRUD Operations
 
-        public async Task<List<TDataModel>> GetAll(ClaimsPrincipal user, int offset, int limit, string order, string filter)
+        public async Task<List<TDataModel>> GetAll(ClaimsPrincipal user, int offset, int limit, string order, string filter, double? northBound, double? southBound, double? eastBound, double? westBound)
         {
             var applicationUser = await GetApplicationUser(user);
 
@@ -50,6 +52,9 @@ namespace MkeAlerts.Web.Services
 
             if (!string.IsNullOrEmpty(filter))
                 queryable = queryable.Where(GetParsingConfig(), filter);
+
+            if (northBound.HasValue && southBound.HasValue && eastBound.HasValue && westBound.HasValue)
+                queryable = await ApplyBounds(queryable, northBound.Value, southBound.Value, eastBound.Value, westBound.Value);
 
             if (!string.IsNullOrEmpty(order))
                 queryable = queryable.OrderBy(order);
@@ -63,7 +68,7 @@ namespace MkeAlerts.Web.Services
             return dataModelItems;
         }
 
-        public async Task<long> GetAllCount(ClaimsPrincipal user, string filter)
+        public async Task<long> GetAllCount(ClaimsPrincipal user, string filter, double? northBound, double? southBound, double? eastBound, double? westBound)
         {
             var applicationUser = await GetApplicationUser(user);
 
@@ -71,6 +76,9 @@ namespace MkeAlerts.Web.Services
 
             if (!string.IsNullOrEmpty(filter))
                 queryable = queryable.Where(GetParsingConfig(), filter);
+
+            if (northBound.HasValue && southBound.HasValue && eastBound.HasValue && westBound.HasValue)
+                queryable = await ApplyBounds(queryable, northBound.Value, southBound.Value, eastBound.Value, westBound.Value);
 
             long count = await queryable.LongCountAsync();
             return count;
@@ -145,5 +153,25 @@ namespace MkeAlerts.Web.Services
         }
 
         protected abstract Task<IQueryable<TDataModel>> ApplyIdFilter(IQueryable<TDataModel> queryable, TIdType id);
+
+        protected async Task<IQueryable<TDataModel>> ApplyBounds(IQueryable<TDataModel> queryable, double northBound, double southBound, double eastBound, double westBound)
+        {
+            Polygon bounds = new Polygon(new LinearRing(new Coordinate[]
+            {
+                new Coordinate(westBound, northBound), // NW
+                new Coordinate(westBound, southBound), // SW
+                new Coordinate(eastBound, southBound), // SE
+                new Coordinate(eastBound, northBound), // NE
+                new Coordinate(westBound, northBound), // NW
+            }));
+            bounds.SRID = 4326;
+
+            return await ApplyBounds(queryable, bounds);
+        }
+
+        protected virtual async Task<IQueryable<TDataModel>> ApplyBounds(IQueryable<TDataModel> queryable, Polygon bounds)
+        {
+            return queryable;
+        }
     }
 }
