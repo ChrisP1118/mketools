@@ -30,16 +30,51 @@ export default {
             filter: 'text'
           },
           {
-            key: 'OWNER_NAME',
-            name: 'OWNER_NAME',
+            key: 'HOUSE_NR_HI',
+            name: 'HOUSE_NR_HI',
+            visible: true,
+            sortable: true,
+            filter: 'number'
+          },
+          {
+            key: 'HOUSE_NR_LO',
+            name: 'HOUSE_NR_LO',
+            visible: true,
+            sortable: true,
+            filter: 'number'
+          },
+          {
+            key: 'SDIR',
+            name: 'SDIR',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'OWNER_MAIL',
-            name: 'OWNER_MAIL',
+            key: 'STREET',
+            name: 'STREET',
             visible: true,
+            sortable: true,
+            filter: 'text'
+          },
+          {
+            key: 'STTYPE',
+            name: 'STTYPE',
+            visible: true,
+            sortable: true,
+            filter: 'text'
+          },
+          {
+            key: 'OWNER_NAME_1',
+            name: 'OWNER_NAME_1',
+            visible: false,
+            sortable: true,
+            filter: 'text'
+          },
+          {
+            key: 'OWNER_MAIL_ADDR',
+            name: 'OWNER_MAIL_ADDR',
+            visible: false,
             sortable: true,
             filter: 'text'
           }

@@ -2,7 +2,7 @@
   <div>
     <b-row>
       <b-col>
-        <b-table striped hover :items="items" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked">
+        <b-table striped hover :items="items" :fields="visibleFields" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked">
           <template slot="table-caption">
             <b-row>
               <b-col>
@@ -52,6 +52,7 @@
             <tr>
               <th v-for="column in visibleColumns" v-bind:key="column.key">
                 <b-form-input v-model="filters[column.key]" v-if="column.filter == 'text'" @keyup="refreshData(true)"></b-form-input>
+                <b-form-input v-model="filters[column.key]" v-if="column.filter == 'number'" type="number" @keyup="refreshData(true)"></b-form-input>
                 <b-form-input v-model="filters[column.key]" v-if="column.filter == 'date'" type="date" @change="refreshData(true)"></b-form-input>
                 <b-form-select v-model="filters[column.key]" v-if="column.filter == 'select'" :options="column.selectOptions" @change="refreshData()"></b-form-select>
               </th>
@@ -106,6 +107,9 @@ export default {
   computed: {
     visibleColumns: function () {
       return this.settings.columns.filter(c => c.visible);
+    },
+    visibleFields: function () {
+      return this.settings.columns.filter(c => c.visible && !c.key.startsWith('_')).map(c => c.key);
     }
   },
   methods: {
@@ -163,6 +167,7 @@ export default {
                 item[col.key] = v;
             }
           }
+          item['_raw'] = row;
         });
 
         this.items.push(item);
@@ -204,6 +209,8 @@ export default {
           if (col.filter == 'text')
             //filters.push('DbFunctionsExtensions.Like(EF.Functions, ' + col.key +', "%' + f + '%")');
             filters.push(col.key + '.Contains("' + f + '")');
+          else if (col.filter == 'number')
+            filters.push(col.key + '=' + f);
           else if (col.filter == 'select')
             filters.push(col.key + '="' + f + '"');
           else if (col.filter == 'date')

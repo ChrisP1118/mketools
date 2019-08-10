@@ -13,6 +13,7 @@ export default {
   ],
   data() {
     return {
+      /*
       locations: [
         {
           position: {
@@ -127,20 +128,49 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      */
+      polygons: [],
+      google: null,
+      map: null
     }
   },
   async mounted() {
     try {
-      const google = await gmapsInit();
-      const geocoder = new google.maps.Geocoder();
-      const map = new google.maps.Map(this.$el);
+      this.google = await gmapsInit();
+      //const geocoder = new google.maps.Geocoder();
+      this.map = new google.maps.Map(this.$el);
 
-      map.setCenter({lat: 43.0315528, lng: -87.9730566});
-      map.fitBounds(new google.maps.LatLngBounds({lat: 43.191766, lng: -88.062779}, {lat: 42.916096, lng: -87.880899}));
+      this.map.setCenter({lat: 43.0315528, lng: -87.9730566});
+      this.map.fitBounds(new google.maps.LatLngBounds({lat: 43.191766, lng: -88.062779}, {lat: 42.916096, lng: -87.880899}));
 
-      console.log(this.items);
-      
+      //console.log(this.items);
+
+      // let polygons = [];
+
+      // this.items.forEach(i => {
+      //   let coords = [];
+      //   let x = i.Location.Outline.coordinates[0][0].forEach(y => {
+      //     coords.add({
+      //       lat: y[1],
+      //       lng: y[0]
+      //     });
+      //   })
+      //   let polygon = new google.maps.Polygon({
+      //     paths: x,
+      //     strokeColor: '#FF0000',
+      //     strokeOpacity: 0.8,
+      //     strokeWeight: 2,
+      //     fillColor: '#FF0000',
+      //     fillOpacity: 0.35
+      //   });
+      //   polygon.setMap(map);
+      //   polygon.addListener('click', () => {
+      //     console.log(i.TAXKEY);
+      //   })
+      // });
+
+      /*
       this.polygons.forEach(p => {
         let polygon = new google.maps.Polygon({
           paths: p.coordinates,
@@ -155,9 +185,11 @@ export default {
           console.log(p.name);
         })
       })
+      */
 
       // // Construct the polygon.
 
+      /*
       const markerClickHandler = (marker) => {
         console.log(this.locations);
         map.setZoom(13);
@@ -170,10 +202,74 @@ export default {
 
         return marker;
       });
+      */
     } catch (error) {
       console.error(error);
     }
   },
+  watch: {
+    async items() {
+      console.log('items changed');
+
+      let polygons = [];
+
+      let map = this.map;
+
+      this.polygons.forEach(p => {
+        p.setMap(null);
+      });
+      this.polygons = [];
+
+      this.items.forEach(i => {
+
+        /*
+        if (i._raw.Location) {
+          let marker = new google.maps.Marker({
+            position: {
+              lat: i._raw.Location.Centroid.coordinates[1],
+              lng: i._raw.Location.Centroid.coordinates[0]
+            },
+            map: map
+          });
+        }
+        */
+
+        let coords = [];
+        if (i._raw.Location) {
+          let x = i._raw.Location.Outline.coordinates[0].forEach(y => {
+            coords.push({
+              lat: y[1],
+              lng: y[0]
+            });
+          })
+          let polygon = new google.maps.Polygon({
+            paths: coords,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35
+          });
+          polygon.setMap(this.map);
+
+          this.google.maps.event.addListener(polygon, 'click', e => {
+            let infowindow = new google.maps.InfoWindow({
+              content: i._raw.HOUSE_NR_LO + ' ' + i._raw.SDIR + ' ' + i._raw.STREET + ' ' + i._raw.STTYPE
+            });
+            infowindow.setPosition(e.latLng);
+            infowindow.open(map);
+          });
+
+          // polygon.addListener('click', () => {
+          //   infowindow.open(map, polygon);
+          //   console.log(i._raw.HOUSE_NR_LO + ' ' + i._raw.SDIR + ' ' + i._raw.STREET + ' ' + i._raw.STTYPE);
+          // })
+
+          this.polygons.push(polygon);
+        }
+      });      
+    }
+  }
 };
 </script>
 
