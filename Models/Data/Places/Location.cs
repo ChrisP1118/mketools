@@ -1,4 +1,5 @@
 ﻿using GeoAPI.Geometries;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,7 @@ namespace MkeAlerts.Web.Models.Data.Places
         public string GetId() => this.TAXKEY;
 
         public IGeometry Outline { get; set; }
+
         public IPoint Centroid { get; set; }
 
         public Property Property { get; set; }
@@ -21,5 +23,7 @@ namespace MkeAlerts.Web.Models.Data.Places
         [Required]
         [MaxLength(10)]
         public string TAXKEY { get; set; }
+
+
     }
 }

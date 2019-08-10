@@ -125,7 +125,7 @@ namespace MkeAlerts.Web.Services
         /// </summary>
         /// <param name="applicationUser"></param>
         /// <returns></returns>
-        protected async Task<IQueryable<TDataModel>> GetDataSet(ApplicationUser applicationUser)
+        protected virtual async Task<IQueryable<TDataModel>> GetDataSet(ApplicationUser applicationUser)
         {
             IQueryable<TDataModel> queryable = _dbContext.Set<TDataModel>();
             return await ApplyReadSecurity(applicationUser, queryable);

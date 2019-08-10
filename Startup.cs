@@ -33,6 +33,7 @@ using Hangfire;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Jobs;
+using NetTopologySuite.IO.Converters;
 
 namespace MkeAlerts.Web
 {
@@ -102,6 +103,9 @@ namespace MkeAlerts.Web
                 {
                     options.SerializerSettings.Formatting = Formatting.Indented;
                     options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+
+                    // This is required for NetTopologySuite.IO.Converters.GeometryConverter to work correctly
+                    options.SerializerSettings.Converters.Add(new CoordinateConverter());
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
