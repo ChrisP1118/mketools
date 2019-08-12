@@ -1,24 +1,31 @@
 <template>
   <div>
+    <hr />
     <b-row>
       <b-col>
         <b-button-toolbar>
+          <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) !== 'function'">
+            <b-button :to="settings.newUrl"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
+          </b-button-group>
+          <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) === 'function'">
+            <b-button :to="settings.newUrl()"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
+          </b-button-group>
           <b-button-group class="mx-2">
             <b-dropdown>
               <template slot="button-content">
                 <font-awesome-icon icon="globe" />
               </template>
-              <b-dropdown-item-button>
+              <b-dropdown-item-button @click="showMap = 'top'">
                 <font-awesome-icon icon="square" v-if="showMap != 'top'" />
                 <font-awesome-icon icon="check-square" v-if="showMap == 'top'" />
                   Show map on top
               </b-dropdown-item-button>
-              <b-dropdown-item-button>
+              <b-dropdown-item-button @click="showMap = 'right'">
                 <font-awesome-icon icon="square" v-if="showMap != 'right'" />
                 <font-awesome-icon icon="check-square" v-if="showMap == 'right'" />
                   Show map on right
               </b-dropdown-item-button>
-              <b-dropdown-item-button>
+              <b-dropdown-item-button @click="showMap = ''">
                 <font-awesome-icon icon="square" v-if="showMap != ''" />
                 <font-awesome-icon icon="check-square" v-if="showMap == ''" />
                   Hide map
@@ -31,10 +38,33 @@
               </b-dropdown-item-button>
             </b-dropdown>
           </b-button-group>
-        </b-button-toolbar>        
+          <b-button-group class="mx-2">
+            <b-dropdown>
+              <template slot="button-content">
+                <font-awesome-icon icon="table" />
+              </template>
+              <b-dropdown-item-button v-for="column in settings.columns" v-bind:key="column.key" v-on:click="toggleColumn(column)">
+                <font-awesome-icon icon="square" v-if="!column.visible" />
+                <font-awesome-icon icon="check-square" v-if="column.visible" />
+                {{column.name}}
+                </b-dropdown-item-button>
+            </b-dropdown>
+            <b-dropdown :text="limit.toString()">
+              <b-dropdown-item-button v-for="limit in limits" v-bind:key="limit" v-on:click="setLimit(limit)">{{limit}}</b-dropdown-item-button>
+            </b-dropdown>
+          </b-button-group>
+        </b-button-toolbar>
+      </b-col>
+      <b-col class="text-right">
+        <span v-if="total > 0">
+          {{page * limit - limit + 1}}-{{page * limit > total ? total : page * limit}} of {{total}} results
+        </span>
+        <span v-if="total == 0">
+          No results
+        </span>
       </b-col>
     </b-row>
-    <b-row>
+    <b-row v-if="showMap == 'top'">
       <b-col>
         <filtered-table-map :items="items" @bounds-changed="boundsChanged">
         </filtered-table-map>
@@ -44,41 +74,6 @@
       <b-col>
         <b-table striped hover :items="items" :fields="visibleFields" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked">
           <template slot="table-caption">
-            <b-row>
-              <b-col>
-                <b-button-toolbar>
-                  <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) !== 'function'">
-                    <b-button :to="settings.newUrl"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
-                  </b-button-group>
-                  <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) === 'function'">
-                    <b-button :to="settings.newUrl()"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
-                  </b-button-group>
-                  <b-button-group class="mx-2">
-                    <b-dropdown>
-                      <template slot="button-content">
-                        <font-awesome-icon icon="table" />
-                      </template>
-                      <b-dropdown-item-button v-for="column in settings.columns" v-bind:key="column.key" v-on:click="toggleColumn(column)">
-                        <font-awesome-icon icon="square" v-if="!column.visible" />
-                        <font-awesome-icon icon="check-square" v-if="column.visible" />
-                        {{column.name}}
-                        </b-dropdown-item-button>
-                    </b-dropdown>
-                    <b-dropdown :text="limit.toString()">
-                      <b-dropdown-item-button v-for="limit in limits" v-bind:key="limit" v-on:click="setLimit(limit)">{{limit}}</b-dropdown-item-button>
-                    </b-dropdown>
-                  </b-button-group>
-                </b-button-toolbar>
-              </b-col>
-              <b-col class="text-right">
-                <span v-if="total > 0">
-                  {{page * limit - limit + 1}}-{{page * limit > total ? total : page * limit}} of {{total}} results
-                </span>
-                <span v-if="total == 0">
-                  No results
-                </span>
-              </b-col>
-            </b-row>
           </template>
           <template slot="thead-top">
             <tr>
@@ -114,6 +109,10 @@
         </span>
         <b-pagination v-model="page" :total-rows="total" :per-page="limit" @input="refreshData"></b-pagination>
       </b-col>
+      <b-col v-if="showMap == 'right'">
+        <filtered-table-map :items="items" @bounds-changed="boundsChanged">
+        </filtered-table-map>
+      </b-col>
     </b-row>
   </div>
 </template>
@@ -141,7 +140,7 @@ export default {
       bounds: null,
       filterBasedOnMap: false,
       canFilterBasedOnMap: true,
-      showMap: 'top'
+      showMap: 'right'
     }
   },
   computed: {
