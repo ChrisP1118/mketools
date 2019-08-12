@@ -7,7 +7,7 @@ import './custom.scss'
 
 // Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSquare, faCheckSquare, faTable, faEdit, faSortAmountUp, faSortAmountDown, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faSquare, faCheckSquare, faTable, faEdit, faSortAmountUp, faSortAmountDown, faTrash, faPlus, faGlobe } from '@fortawesome/free-solid-svg-icons'
 //import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -38,7 +38,7 @@ import DispatchCallList from './components/DispatchCall/List.vue'
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 
-library.add(faSquare, faCheckSquare, faTable, faEdit, faSortAmountUp, faSortAmountDown, faTrash, faPlus);
+library.add(faSquare, faCheckSquare, faTable, faEdit, faSortAmountUp, faSortAmountDown, faTrash, faPlus, faGlobe);
 //library.add(fas);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

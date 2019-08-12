@@ -2,6 +2,46 @@
   <div>
     <b-row>
       <b-col>
+        <b-button-toolbar>
+          <b-button-group class="mx-2">
+            <b-dropdown>
+              <template slot="button-content">
+                <font-awesome-icon icon="globe" />
+              </template>
+              <b-dropdown-item-button>
+                <font-awesome-icon icon="square" v-if="showMap != 'top'" />
+                <font-awesome-icon icon="check-square" v-if="showMap == 'top'" />
+                  Show map on top
+              </b-dropdown-item-button>
+              <b-dropdown-item-button>
+                <font-awesome-icon icon="square" v-if="showMap != 'right'" />
+                <font-awesome-icon icon="check-square" v-if="showMap == 'right'" />
+                  Show map on right
+              </b-dropdown-item-button>
+              <b-dropdown-item-button>
+                <font-awesome-icon icon="square" v-if="showMap != ''" />
+                <font-awesome-icon icon="check-square" v-if="showMap == ''" />
+                  Hide map
+              </b-dropdown-item-button>
+              <b-dropdown-divider></b-dropdown-divider>
+              <b-dropdown-item-button :disabled="!canFilterBasedOnMap" @click="filterBasedOnMap = !filterBasedOnMap">
+                <font-awesome-icon icon="square" v-if="!filterBasedOnMap" />
+                <font-awesome-icon icon="check-square" v-if="filterBasedOnMap" />
+                  Filter based on map {{!canFilterBasedOnMap ? '(Zoom in to filter based on the map)' : ''}}
+              </b-dropdown-item-button>
+            </b-dropdown>
+          </b-button-group>
+        </b-button-toolbar>        
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
+        <filtered-table-map :items="items" @bounds-changed="boundsChanged">
+        </filtered-table-map>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col>
         <b-table striped hover :items="items" :fields="visibleFields" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked">
           <template slot="table-caption">
             <b-row>
@@ -74,10 +114,6 @@
         </span>
         <b-pagination v-model="page" :total-rows="total" :per-page="limit" @input="refreshData"></b-pagination>
       </b-col>
-      <b-col>
-        <filtered-table-map :items="items" v-on:bounds-changed="boundsChanged">
-        </filtered-table-map>
-      </b-col>
     </b-row>
   </div>
 </template>
@@ -93,7 +129,7 @@ export default {
   data() {
     return {
       limit: 10,
-      limits: [1, 2, 5, 10, 25, 50, 100],
+      limits: [1, 2, 5, 10, 25, 50, 100, 1000],
       filters: {},
       rawItems: [],
       items: [],
@@ -102,7 +138,10 @@ export default {
       sortColumn: null,
       sortOrder: 'asc',
       refreshDataTimeout: null,
-      bounds: null
+      bounds: null,
+      filterBasedOnMap: false,
+      canFilterBasedOnMap: true,
+      showMap: 'top'
     }
   },
   computed: {
@@ -117,6 +156,9 @@ export default {
     boundsChanged: function (bounds) {
       console.log('boundsChanged');
       console.log(bounds);
+      this.canFilterBasedOnMap = (bounds.sw.lat - bounds.ne.lat) < 0.02 && Math.abs(bounds.ne.lng - bounds.sw.lng) < 0.05;
+      if (!this.canFilterBasedOnMap)
+        this.filterBasedOnMap = false;
       this.bounds = bounds;
       this.refreshData();
     },
@@ -229,7 +271,7 @@ export default {
       if (filter.length > 0)
         url += '&filter=' + encodeURIComponent(filter);
 
-      if (this.bounds) {
+      if (this.filterBasedOnMap && this.bounds) {
         url += 
           '&northBound=' + this.bounds.ne.lat +
           '&southBound=' + this.bounds.sw.lat +
