@@ -12,6 +12,7 @@ namespace MkeAlerts.Web.Models.Data.Incidents
     {
         public string GetId() => this.IncidentNum;
 
+        [Column(TypeName = "geometry")]
         public IPoint Point { get; set; }
 
         [MaxLength(20)]

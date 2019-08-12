@@ -168,7 +168,7 @@ export default {
           //console.log(x);
           //console.log(x.getNorthEast());
           //console.log(x.getSouthWest());
-        }, 500);
+        }, 1000);
       });      
 
       //console.log(this.items);

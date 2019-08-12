@@ -33,6 +33,7 @@ namespace MkeAlerts.Web.Models.Data.Incidents
         [MaxLength(60)]
         public string Status { get; set; }
 
+        [Column(TypeName = "geometry")]
         public IGeometry Geometry { get; set; }
 
         public GeometryAccuracy Accuracy { get; set; }

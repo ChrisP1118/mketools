@@ -101,7 +101,8 @@ export default {
       page: 1,
       sortColumn: null,
       sortOrder: 'asc',
-      refreshDataTimeout: null
+      refreshDataTimeout: null,
+      bounds: null
     }
   },
   computed: {
@@ -116,6 +117,8 @@ export default {
     boundsChanged: function (bounds) {
       console.log('boundsChanged');
       console.log(bounds);
+      this.bounds = bounds;
+      this.refreshData();
     },
     rowClicked: function (item, index, event) {
       if (!this.settings.rowClicked)
@@ -225,6 +228,14 @@ export default {
       let filter = filters.join(' AND ');
       if (filter.length > 0)
         url += '&filter=' + encodeURIComponent(filter);
+
+      if (this.bounds) {
+        url += 
+          '&northBound=' + this.bounds.ne.lat +
+          '&southBound=' + this.bounds.sw.lat +
+          '&eastBound=' + this.bounds.ne.lng +
+          '&westBound=' + this.bounds.sw.lng
+      }
 
       axios
         .get(url)

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Places;
+using NetTopologySuite.Geometries;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,6 +25,13 @@ namespace MkeAlerts.Web.Services.Data
         protected override async Task<IQueryable<Property>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<Property> queryable)
         {
             return queryable;
+        }
+
+        protected override async Task<IQueryable<Property>> ApplyBounds(IQueryable<Property> queryable, Polygon bounds)
+        {
+            return queryable
+                .Where(x => x.Location != null)
+                .Where(x => x.Location.Outline.Intersects(bounds));
         }
 
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Property dataModel)

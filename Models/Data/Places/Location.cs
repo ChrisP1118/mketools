@@ -13,9 +13,8 @@ namespace MkeAlerts.Web.Models.Data.Places
     {
         public string GetId() => this.TAXKEY;
 
+        [Column(TypeName = "geometry")]
         public IGeometry Outline { get; set; }
-
-        public IPoint Centroid { get; set; }
 
         public Property Property { get; set; }
 
