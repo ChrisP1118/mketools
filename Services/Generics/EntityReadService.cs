@@ -166,10 +166,10 @@ namespace MkeAlerts.Web.Services
             }));
             bounds.SRID = 4326;
 
-            return await ApplyBounds(queryable, bounds);
+            return await ApplyBounds(queryable, northBound, southBound, eastBound, westBound, bounds);
         }
 
-        protected virtual async Task<IQueryable<TDataModel>> ApplyBounds(IQueryable<TDataModel> queryable, Polygon bounds)
+        protected virtual async Task<IQueryable<TDataModel>> ApplyBounds(IQueryable<TDataModel> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
         {
             return queryable;
         }

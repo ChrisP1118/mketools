@@ -12,7 +12,7 @@ namespace MkeAlerts.Web.Models.Data.Places
     {
         public string GetId() => this.NEWDIME_ID;
 
-        [Column(TypeName = "geometry")]
+        //[Column(TypeName = "geometry")]
         public IGeometry Outline { get; set; }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]

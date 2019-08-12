@@ -27,9 +27,18 @@ namespace MkeAlerts.Web.Services.Data
             return queryable;
         }
 
-        protected override async Task<IQueryable<Location>> ApplyBounds(IQueryable<Location> queryable, Polygon bounds)
+        protected override async Task<IQueryable<Location>> ApplyBounds(IQueryable<Location> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
         {
-            return queryable.Where(x => x.Outline.Intersects(bounds));
+            return queryable
+                .Where(x =>
+                    (x.MinLat <= northBound && x.MaxLat >= northBound) ||
+                    (x.MinLat <= southBound && x.MaxLat >= southBound) ||
+                    (x.MinLat >= northBound && x.MaxLat <= southBound))
+                .Where(x =>
+                    (x.MinLng <= westBound && x.MaxLng >= westBound) ||
+                    (x.MinLng <= eastBound && x.MaxLng >= eastBound) ||
+                    (x.MinLng >= westBound && x.MaxLng <= eastBound))
+                .Where(x => x.Outline.Intersects(bounds));
         }
 
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Location dataModel)

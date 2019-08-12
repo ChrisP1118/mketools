@@ -108,6 +108,13 @@ namespace MkeAlerts.Web.Jobs
 
                         location.Outline = transformedGeometry;
 
+                        // Two digits after the decimal
+                        double adjustment = Math.Pow(10, 2);
+                        location.MinLat = Math.Floor(transformedGeometry.Coordinates.Select(x => x.Y).Min() * adjustment) / adjustment;
+                        location.MaxLat = Math.Ceiling(transformedGeometry.Coordinates.Select(x => x.Y).Max() * adjustment) / adjustment;
+                        location.MinLng = Math.Floor(transformedGeometry.Coordinates.Select(x => x.X).Min() * adjustment) / adjustment;
+                        location.MaxLng = Math.Ceiling(transformedGeometry.Coordinates.Select(x => x.X).Max() * adjustment) / adjustment;
+
                         locations.Add(location);
 
                         if (i % 100 == 0)

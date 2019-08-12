@@ -48,6 +48,18 @@ namespace MkeAlerts.Web.Data
             modelBuilder.Entity<Location>()
                 .HasKey(x => x.TAXKEY);
 
+            modelBuilder.Entity<Location>()
+                .HasIndex(x => x.MinLat);
+
+            modelBuilder.Entity<Location>()
+                .HasIndex(x => x.MaxLat);
+
+            modelBuilder.Entity<Location>()
+                .HasIndex(x => x.MinLng);
+
+            modelBuilder.Entity<Location>()
+                .HasIndex(x => x.MaxLng);
+
             modelBuilder.Entity<Address>()
                 .HasKey(x => x.RCD_NBR);
 
