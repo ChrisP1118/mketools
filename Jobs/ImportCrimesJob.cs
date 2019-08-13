@@ -75,6 +75,8 @@ namespace MkeAlerts.Web.Jobs
             IPoint projectedPoint = geometryFactory.CreatePoint(new Coordinate(projectedCoordinates.Item1, projectedCoordinates.Item2));
 
             item.Point = projectedPoint;
+
+            GeographicUtilities.SetBounds(item, item.Point);
         }
     }
 }

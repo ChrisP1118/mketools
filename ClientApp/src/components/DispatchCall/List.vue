@@ -6,10 +6,6 @@
         <filtered-table :settings="tableSettings">
         </filtered-table>
       </b-col>
-      <b-col>
-        <filtered-table-map>
-        </filtered-table-map>
-      </b-col>
     </b-row>
   </div>
 </template>
@@ -73,6 +69,18 @@ export default {
         },
         rowClicked: function (item, context) {
           context.$router.push('/dispatchCall/' + item.TAXKEY)
+        },
+        getItemInfoWindowText: function (item) {
+          let raw = item._raw;
+          return raw.Location + '<br />' +
+            raw.NatureOfCall + '<br />' +
+            raw.Status;
+        },
+        getItemMarkerGeometry: function (item) {
+          if (!item || !item._raw)
+            return null;
+            
+          return item._raw.Geometry;
         }
       }
     }

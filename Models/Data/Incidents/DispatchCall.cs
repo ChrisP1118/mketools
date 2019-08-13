@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data.Incidents
 {
-    public class DispatchCall : IHasId<string>
+    public class DispatchCall : IHasId<string>, IHasBounds
     {
         public string GetId() => this.CallNumber;
 
@@ -35,6 +35,18 @@ namespace MkeAlerts.Web.Models.Data.Incidents
 
         //[Column(TypeName = "geometry")]
         public IGeometry Geometry { get; set; }
+
+        [Column(TypeName = "decimal(5, 2)")]
+        public double MinLat { get; set; }
+
+        [Column(TypeName = "decimal(5, 2)")]
+        public double MaxLat { get; set; }
+
+        [Column(TypeName = "decimal(5, 2)")]
+        public double MinLng { get; set; }
+
+        [Column(TypeName = "decimal(5, 2)")]
+        public double MaxLng { get; set; }
 
         public GeometryAccuracy Accuracy { get; set; }
         public GeometrySource Source { get; set; }

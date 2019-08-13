@@ -66,7 +66,7 @@
     </b-row>
     <b-row v-if="showMap == 'top'">
       <b-col>
-        <filtered-table-map :items="items" @bounds-changed="boundsChanged">
+        <filtered-table-map :items="items" @bounds-changed="boundsChanged" class="mt-2">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -110,7 +110,10 @@
         <b-pagination v-model="page" :total-rows="total" :per-page="limit" @input="refreshData"></b-pagination>
       </b-col>
       <b-col v-if="showMap == 'right'">
-        <filtered-table-map :items="items" @bounds-changed="boundsChanged" :get-info-window-text="settings.getInfoWindowText">
+        <filtered-table-map :items="items" @bounds-changed="boundsChanged" 
+          :get-item-info-window-text="settings.getItemInfoWindowText"
+          :get-item-polygon-geometry="settings.getItemPolygonGeometry"
+          :get-item-marker-geometry="settings.getItemMarkerGeometry">
         </filtered-table-map>
       </b-col>
     </b-row>

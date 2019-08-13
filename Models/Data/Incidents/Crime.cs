@@ -8,12 +8,24 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data.Incidents
 {
-    public class Crime : IHasId<string>
+    public class Crime : IHasId<string>, IHasBounds
     {
         public string GetId() => this.IncidentNum;
 
         //[Column(TypeName = "geometry")]
         public IPoint Point { get; set; }
+
+        [Column(TypeName = "decimal(5, 2)")]
+        public double MinLat { get; set; }
+
+        [Column(TypeName = "decimal(5, 2)")]
+        public double MaxLat { get; set; }
+
+        [Column(TypeName = "decimal(5, 2)")]
+        public double MinLng { get; set; }
+
+        [Column(TypeName = "decimal(5, 2)")]
+        public double MaxLng { get; set; }
 
         [MaxLength(20)]
         [Required]

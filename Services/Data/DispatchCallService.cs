@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Incidents;
+using NetTopologySuite.Geometries;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,6 +24,22 @@ namespace MkeAlerts.Web.Services.Data
         protected override async Task<IQueryable<DispatchCall>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<DispatchCall> queryable)
         {
             return queryable;
+        }
+
+        protected override async Task<IQueryable<DispatchCall>> ApplyBounds(IQueryable<DispatchCall> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
+        {
+            return queryable
+                .Where(x =>
+                    (x.MinLat <= northBound && x.MaxLat >= northBound) ||
+                    (x.MinLat <= southBound && x.MaxLat >= southBound) ||
+                    (x.MinLat >= northBound && x.MaxLat <= southBound) ||
+                    (x.MinLat >= southBound && x.MaxLat <= southBound))
+                .Where(x =>
+                    (x.MinLng <= westBound && x.MaxLng >= westBound) ||
+                    (x.MinLng <= eastBound && x.MaxLng >= eastBound) ||
+                    (x.MinLng >= westBound && x.MaxLng <= eastBound) ||
+                    (x.MinLng >= eastBound && x.MaxLng <= westBound))
+                .Where(x => x.Geometry.Intersects(bounds));
         }
 
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, DispatchCall dataModel)

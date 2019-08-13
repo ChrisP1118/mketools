@@ -9,13 +9,17 @@ export default {
   name: 'FilteredTableMap',
   props: [
     'items',
-    'getInfoWindowText'
+    'getItemInfoWindowText',
+    'getItemPolygonGeometry',
+    'getItemMarkerGeometry'
   ],
   data() {
     return {
+      markers: [],
       polygons: [],
       google: null,
-      map: null
+      map: null,
+      openInfoWindow: null
     }
   },
   async mounted() {
@@ -55,14 +59,49 @@ export default {
       console.error(error);
     }
   },
-  watch: {
-    async items() {
-      console.log('items changed');
-
-      let polygons = [];
-
+  methods: {
+    drawMarkers() {
+      let markers = [];
       let map = this.map;
-      let getInfoWindowText = this.getInfoWindowText;
+
+      this.markers.forEach(m => {
+        m.setMap(null);
+      });
+      this.markers = [];
+
+      this.items.forEach(i => {
+
+        let geometry = this.getItemMarkerGeometry(i);
+
+        if (!geometry)
+          return;
+
+        let point = geometry.coordinates[0][0];
+
+        let marker = new google.maps.Marker({
+          position: {
+            lat: point[1],
+            lng: point[0]
+          },
+          map: map
+        });
+
+        marker.addListener('click', e => {
+          if (this.openInfoWindow)
+            this.openInfoWindow.close();
+
+          this.openInfoWindow = new google.maps.InfoWindow({
+            content: this.getItemInfoWindowText(i)
+          });
+          this.openInfoWindow.open(map, marker);
+        });
+
+        this.markers.push(marker);
+      });
+    },
+    drawPolygons() {
+      let polygons = [];
+      let map = this.map;
 
       this.polygons.forEach(p => {
         p.setMap(null);
@@ -71,52 +110,52 @@ export default {
 
       this.items.forEach(i => {
 
-        /*
-        if (i._raw.Location) {
-          let marker = new google.maps.Marker({
-            position: {
-              lat: i._raw.Location.Centroid.coordinates[1],
-              lng: i._raw.Location.Centroid.coordinates[0]
-            },
-            map: map
-          });
-        }
-        */
+        let geometry = this.getItemPolygonGeometry(i);
+
+        if (!geometry)
+          return;
 
         let coords = [];
-        if (i._raw.Parcel) {
-          let x = i._raw.Parcel.Outline.coordinates[0].forEach(y => {
-            coords.push({
-              lat: y[1],
-              lng: y[0]
-            });
-          })
-          let polygon = new google.maps.Polygon({
-            paths: coords,
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35
+
+        let x = geometry.coordinates[0].forEach(y => {
+          coords.push({
+            lat: y[1],
+            lng: y[0]
           });
-          polygon.setMap(this.map);
+        })
+        let polygon = new google.maps.Polygon({
+          paths: coords,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+        });
+        polygon.setMap(this.map);
 
-          this.google.maps.event.addListener(polygon, 'click', e => {
-            let infoWindow = new google.maps.InfoWindow({
-              content: getInfoWindowText(i)
-            });
-            infoWindow.setPosition(e.latLng);
-            infoWindow.open(map);
+        polygon.addListener('click', e => {
+          if (this.openInfoWindow)
+            this.openInfoWindow.close();
+            
+          this.openInfoWindow = new google.maps.InfoWindow({
+            content: this.getItemInfoWindowText(i)
           });
+          this.openInfoWindow.setPosition(e.latLng);
+          this.openInfoWindow.open(map);
+        });
 
-          // polygon.addListener('click', () => {
-          //   infowindow.open(map, polygon);
-          //   console.log(i._raw.HOUSE_NR_LO + ' ' + i._raw.SDIR + ' ' + i._raw.STREET + ' ' + i._raw.STTYPE);
-          // })
+        this.polygons.push(polygon);
+      });
+    }
+  },
+  watch: {
+    async items() {
 
-          this.polygons.push(polygon);
-        }
-      });      
+      if (typeof this.getItemPolygonGeometry === 'function')
+        this.drawPolygons();
+
+      if (typeof this.getItemMarkerGeometry === 'function')
+        this.drawMarkers();
     }
   }
 };

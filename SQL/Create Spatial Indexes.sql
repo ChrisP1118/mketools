@@ -26,6 +26,6 @@ GO
 CREATE SPATIAL INDEX [SpatialIndex-Outline] 
    ON Locations(Outline)  
    WITH ( BOUNDING_BOX = ( 42.4, -88.0, 43.2, -87.6),
-        GRIDS = ( LEVEL_1 = LOW, LEVEL_2 = LOW, LEVEL_3 = HIGH, LEVEL_4 = HIGH ),
-		CELLS_PER_OBJECT = 128
+        GRIDS = ( LEVEL_1 = LOW, LEVEL_2 = MEDIUM, LEVEL_3 = MEDIUM, LEVEL_4 = HIGH ),
+		CELLS_PER_OBJECT = 256
         );  
