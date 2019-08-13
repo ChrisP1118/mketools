@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data.Places
 {
-    public class Location : IHasId<string>
+    public class Parcel : IHasId<string>, IHasBounds
     {
         public string GetId() => this.TAXKEY;
 

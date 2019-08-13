@@ -22,20 +22,20 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Location = MkeAlerts.Web.Models.Data.Places.Location;
+using Parcel = MkeAlerts.Web.Models.Data.Places.Parcel;
 
 namespace MkeAlerts.Web.Jobs
 {
-    public class ImportLocationsJob : ImportJob
+    public class ImportParcelsJob : ImportJob
     {
-        private readonly ILogger<ImportLocationsJob> _logger;
-        private readonly IEntityWriteService<Location, string> _locationWriteService;
+        private readonly ILogger<ImportParcelsJob> _logger;
+        private readonly IEntityWriteService<Parcel, string> _parcelWriteService;
 
-        public ImportLocationsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportLocationsJob> logger, IEntityWriteService<Location, string> locationWriteService)
+        public ImportParcelsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportParcelsJob> logger, IEntityWriteService<Parcel, string> parcelWriteService)
             : base(configuration, signInManager, userManager)
         {
             _logger = logger;
-            _locationWriteService = locationWriteService;
+            _parcelWriteService = parcelWriteService;
         }
 
         [AutomaticRetry(Attempts = 0)]
@@ -58,7 +58,7 @@ namespace MkeAlerts.Web.Jobs
                 var result = reader.ReadByMBRFilter(mbr);
                 var coll = result.GetEnumerator();
 
-                List<Location> locations = new List<Location>();
+                List<Parcel> parcels = new List<Parcel>();
 
                 int i = 0;
                 while (coll.MoveNext())
@@ -67,11 +67,11 @@ namespace MkeAlerts.Web.Jobs
 
                     try
                     {
-                        Location location = new Location();
-                        location.TAXKEY = coll.Current.Attributes["TAXKEY"].ToString();
+                        Parcel parcel = new Parcel();
+                        parcel.TAXKEY = coll.Current.Attributes["TAXKEY"].ToString();
 
                         // There are a handful of records without a TAXKEY -- we'll just treat those as invalid, since they may have other weird data
-                        if (string.IsNullOrEmpty(location.TAXKEY) || location.TAXKEY == "<Null>")
+                        if (string.IsNullOrEmpty(parcel.TAXKEY) || parcel.TAXKEY == "<Null>")
                         {
                             _logger.LogTrace("Skipping record " + i.ToString() + " - Invalid TAXKEY");
                             ++failure;
@@ -106,23 +106,17 @@ namespace MkeAlerts.Web.Jobs
                         if (transformedGeometry != null && !transformedGeometry.Shell.IsCCW)
                             transformedGeometry = (Polygon)transformedGeometry.Reverse();
 
-                        location.Outline = transformedGeometry;
+                        parcel.Outline = transformedGeometry;
+                        GeographicUtilities.SetBounds(parcel, parcel.Outline);
 
-                        // Two digits after the decimal
-                        double adjustment = Math.Pow(10, 2);
-                        location.MinLat = Math.Floor(transformedGeometry.Coordinates.Select(x => x.Y).Min() * adjustment) / adjustment;
-                        location.MaxLat = Math.Ceiling(transformedGeometry.Coordinates.Select(x => x.Y).Max() * adjustment) / adjustment;
-                        location.MinLng = Math.Floor(transformedGeometry.Coordinates.Select(x => x.X).Min() * adjustment) / adjustment;
-                        location.MaxLng = Math.Ceiling(transformedGeometry.Coordinates.Select(x => x.X).Max() * adjustment) / adjustment;
-
-                        locations.Add(location);
+                        parcels.Add(parcel);
 
                         if (i % 100 == 0)
                         {
-                            Tuple<IEnumerable<Location>, IEnumerable<Location>> results1 = await _locationWriteService.BulkCreate(claimsPrincipal, locations, false);
+                            Tuple<IEnumerable<Parcel>, IEnumerable<Parcel>> results1 = await _parcelWriteService.BulkCreate(claimsPrincipal, parcels, false);
                             success += results1.Item1.Count();
                             failure += results1.Item2.Count();
-                            locations.Clear();
+                            parcels.Clear();
                         }
                     }
                     catch (Exception ex)
@@ -131,7 +125,7 @@ namespace MkeAlerts.Web.Jobs
                     }
                 }
 
-                Tuple<IEnumerable<Location>, IEnumerable<Location>> results2 = await _locationWriteService.BulkCreate(claimsPrincipal, locations, false);
+                Tuple<IEnumerable<Parcel>, IEnumerable<Parcel>> results2 = await _parcelWriteService.BulkCreate(claimsPrincipal, parcels, false);
                 success += results2.Item1.Count();
                 failure += results2.Item2.Count();
             }

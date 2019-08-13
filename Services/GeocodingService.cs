@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Location = MkeAlerts.Web.Models.Data.Places.Location;
+using Location = MkeAlerts.Web.Models.Data.Places.Parcel;
 
 namespace MkeAlerts.Web.Services
 {
@@ -234,7 +234,7 @@ namespace MkeAlerts.Web.Services
 
             if (address != null)
             {
-                request.Results.Geometry = address.Property.Location.Outline;
+                request.Results.Geometry = address.Property.Parcel.Outline;
                 request.Results.Accuracy = GeometryAccuracy.High;
                 request.Results.Source = GeometrySource.AddressAndLocation;
 
@@ -245,7 +245,7 @@ namespace MkeAlerts.Web.Services
 
             if (address != null)
             {
-                request.Results.Geometry = address.Property.Location.Outline;
+                request.Results.Geometry = address.Property.Parcel.Outline;
                 request.Results.Accuracy = GeometryAccuracy.Medium;
                 request.Results.Source = GeometrySource.AddressBlock;
 
@@ -268,13 +268,13 @@ namespace MkeAlerts.Web.Services
         {
             return await _dbContext.Addresses
                 .Include(a => a.Property)
-                .Include(a => a.Property.Location)
+                .Include(a => a.Property.Parcel)
                 .Where(a => a.HSE_NBR == request.HouseNumber)
                 .Where(a => a.DIR == request.Direction)
                 .Where(a => a.STREET == request.Street)
                 .Where(a => a.STTYPE == request.StreetType || request.StreetType == "")
                 .Where(a => a.Property != null)
-                .Where(a => a.Property.Location != null)
+                .Where(a => a.Property.Parcel != null)
                 .FirstOrDefaultAsync();
         }
 
@@ -289,14 +289,14 @@ namespace MkeAlerts.Web.Services
 
             var addresses = await _dbContext.Addresses
                 .Include(a => a.Property)
-                .Include(a => a.Property.Location)
+                .Include(a => a.Property.Parcel)
                 .Where(a => a.HSE_NBR >= houseNumberLow)
                 .Where(a => a.HSE_NBR < houseNumberHigh)
                 .Where(a => a.DIR == request.Direction)
                 .Where(a => a.STREET == request.Street)
                 .Where(a => a.STTYPE == request.StreetType || request.StreetType == "")
                 .Where(a => a.Property != null)
-                .Where(a => a.Property.Location != null)
+                .Where(a => a.Property.Parcel != null)
                 .ToListAsync();
 
             if (addresses.Count() == 0)

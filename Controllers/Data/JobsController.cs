@@ -27,14 +27,14 @@ namespace MkeAlerts.Web.Controllers.Data
         protected readonly UserManager<ApplicationUser> _userManager;
 
         protected readonly ILogger<ImportPropertiesJob> _importPropertiesJobLogger;
-        protected readonly ILogger<ImportLocationsJob> _importLocationsJobLogger;
+        protected readonly ILogger<ImportParcelsJob> _importParcelsJobLogger;
         protected readonly ILogger<ImportAddressesJob> _importAddressesJobLogger;
         protected readonly ILogger<ImportStreetsJob> _importStreetsJobLogger;
         protected readonly ILogger<ImportDispatchCallsJob> _importDispatchCallsJobLogger;
         protected readonly ILogger<ImportCrimesJob> _importCrimesJobLogger;
 
         protected readonly IEntityWriteService<Property, string> _propertyWriteService;
-        protected readonly IEntityWriteService<Location, string> _locationWriteService;
+        protected readonly IEntityWriteService<Parcel, string> _parcelWriteService;
         protected readonly IEntityWriteService<Address, string> _addressWriteService;
         protected readonly IEntityWriteService<Street, string> _streetWriteService;
         protected readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;
@@ -49,14 +49,14 @@ namespace MkeAlerts.Web.Controllers.Data
             IMapper mapper,
 
             ILogger<ImportPropertiesJob> importPropertiesJobLogger,
-            ILogger<ImportLocationsJob> importLocationsJobLogger,
+            ILogger<ImportParcelsJob> importParcelsJobLogger,
             ILogger<ImportAddressesJob> importAddressesJobLogger,
             ILogger<ImportStreetsJob> importStreetsJobLogger,
             ILogger<ImportDispatchCallsJob> importDispatchCallsJobLogger,
             ILogger<ImportCrimesJob> importCrimesJobLogger,
 
             IEntityWriteService<Property, string> propertyWriteService,
-            IEntityWriteService<Location, string> locationWriteService,
+            IEntityWriteService<Parcel, string> parcelWriteService,
             IEntityWriteService<Address, string> addressWriteService,
             IEntityWriteService<Street, string> streetWriteService,
             IEntityWriteService<DispatchCall, string> dispatchCallWriteService,
@@ -70,14 +70,14 @@ namespace MkeAlerts.Web.Controllers.Data
             _mapper = mapper;
 
             _importPropertiesJobLogger = importPropertiesJobLogger;
-            _importLocationsJobLogger = importLocationsJobLogger;
+            _importParcelsJobLogger = importParcelsJobLogger;
             _importAddressesJobLogger = importAddressesJobLogger;
             _importStreetsJobLogger = importStreetsJobLogger;
             _importDispatchCallsJobLogger = importDispatchCallsJobLogger;
             _importCrimesJobLogger = importCrimesJobLogger;
 
             _propertyWriteService = propertyWriteService;
-            _locationWriteService = locationWriteService;
+            _parcelWriteService = parcelWriteService;
             _addressWriteService = addressWriteService;
             _streetWriteService = streetWriteService;
             _dispatchCallWriteService = dispatchCallWriteService;
@@ -96,7 +96,7 @@ namespace MkeAlerts.Web.Controllers.Data
         public async Task<ActionResult> ImportBaselines()
         {
             ImportPropertiesJob importPropertiesJob = new ImportPropertiesJob(_configuration, _signInManager, _userManager, _importPropertiesJobLogger, _propertyWriteService);
-            ImportLocationsJob importLocationsJob = new ImportLocationsJob(_configuration, _signInManager, _userManager, _importLocationsJobLogger, _locationWriteService);
+            ImportParcelsJob importParcelsJob = new ImportParcelsJob(_configuration, _signInManager, _userManager, _importParcelsJobLogger, _parcelWriteService);
             ImportAddressesJob importAddressesJob = new ImportAddressesJob(_configuration, _signInManager, _userManager, _importAddressesJobLogger, _addressWriteService);
             ImportStreetsJob importStreetsJob = new ImportStreetsJob(_configuration, _signInManager, _userManager, _importStreetsJobLogger, _streetWriteService);
             ImportCrimesJob importCrimesJob = new ImportCrimesJob(_configuration, _signInManager, _userManager, _importCrimesJobLogger, _crimeWriteService);
@@ -104,7 +104,7 @@ namespace MkeAlerts.Web.Controllers.Data
             await importPropertiesJob.Run();
 
             List<Task> tasks = new List<Task>();
-            tasks.Add(importLocationsJob.Run());
+            tasks.Add(importParcelsJob.Run());
             tasks.Add(importAddressesJob.Run());
             tasks.Add(importStreetsJob.Run());
             tasks.Add(importCrimesJob.Run());
@@ -132,15 +132,15 @@ namespace MkeAlerts.Web.Controllers.Data
         }
 
         /// <summary>
-        /// Imports locations
+        /// Imports parcels
         /// </summary>
         /// <returns></returns>
-        [HttpPost("ImportLocations")]
-        [ActionName("ImportLocations")]
+        [HttpPost("ImportParcels")]
+        [ActionName("ImportParcels")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> ImportLocations()
+        public async Task<ActionResult> ImportParcels()
         {
-            ImportLocationsJob job = new ImportLocationsJob(_configuration, _signInManager, _userManager, _importLocationsJobLogger, _locationWriteService);
+            ImportParcelsJob job = new ImportParcelsJob(_configuration, _signInManager, _userManager, _importParcelsJobLogger, _parcelWriteService);
             await job.Run();
 
             return Ok();

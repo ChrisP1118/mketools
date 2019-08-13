@@ -254,6 +254,7 @@ namespace MkeAlerts.Web.Jobs
                         //    transformedGeometry = (Polygon)transformedGeometry.Reverse();
 
                         street.Outline = transformedGeometry;
+                        GeographicUtilities.SetBounds(street, street.Outline);
 
                         streets.Add(street);
 

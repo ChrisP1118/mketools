@@ -16,7 +16,7 @@ namespace MkeAlerts.Web.Data
     {
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Property> Properties { get; set; }
-        public DbSet<Location> Locations { get; set; }
+        public DbSet<Parcel> Parcels { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Street> Streets { get; set; }
         public DbSet<DispatchCall> DispatchCalls { get; set; }
@@ -40,24 +40,24 @@ namespace MkeAlerts.Web.Data
                 .IsRequired(false);
 
             modelBuilder.Entity<Property>()
-                .HasOne(x => x.Location)
+                .HasOne(x => x.Parcel)
                 .WithOne(y => y.Property)
-                .HasForeignKey<Location>(y => y.TAXKEY)
+                .HasForeignKey<Parcel>(y => y.TAXKEY)
                 .IsRequired(false);
 
-            modelBuilder.Entity<Location>()
+            modelBuilder.Entity<Parcel>()
                 .HasKey(x => x.TAXKEY);
 
-            modelBuilder.Entity<Location>()
+            modelBuilder.Entity<Parcel>()
                 .HasIndex(x => x.MinLat);
 
-            modelBuilder.Entity<Location>()
+            modelBuilder.Entity<Parcel>()
                 .HasIndex(x => x.MaxLat);
 
-            modelBuilder.Entity<Location>()
+            modelBuilder.Entity<Parcel>()
                 .HasIndex(x => x.MinLng);
 
-            modelBuilder.Entity<Location>()
+            modelBuilder.Entity<Parcel>()
                 .HasIndex(x => x.MaxLng);
 
             modelBuilder.Entity<Address>()

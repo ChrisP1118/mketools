@@ -84,8 +84,8 @@ export default {
         */
 
         let coords = [];
-        if (i._raw.Location) {
-          let x = i._raw.Location.Outline.coordinates[0].forEach(y => {
+        if (i._raw.Parcel) {
+          let x = i._raw.Parcel.Outline.coordinates[0].forEach(y => {
             coords.push({
               lat: y[1],
               lng: y[0]

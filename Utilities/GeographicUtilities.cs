@@ -1,5 +1,6 @@
 ﻿using DotSpatial.Projections;
 using GeoAPI.Geometries;
+using MkeAlerts.Web.Models.Data;
 using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,16 @@ namespace MkeAlerts.Web.Utilities
                 retVal[i] = new Coordinate(coordinateSet.Item1, coordinateSet.Item2);
             }
             return retVal;
+        }
+
+        public static void SetBounds(IHasBounds hasBounds, IGeometry geometry)
+        {
+            // Two digits after the decimal
+            double adjustment = Math.Pow(10, 2);
+            hasBounds.MinLat = Math.Floor(geometry.Coordinates.Select(x => x.Y).Min() * adjustment) / adjustment;
+            hasBounds.MaxLat = Math.Ceiling(geometry.Coordinates.Select(x => x.Y).Max() * adjustment) / adjustment;
+            hasBounds.MinLng = Math.Floor(geometry.Coordinates.Select(x => x.X).Min() * adjustment) / adjustment;
+            hasBounds.MaxLng = Math.Ceiling(geometry.Coordinates.Select(x => x.X).Max() * adjustment) / adjustment;
         }
     }
 }

@@ -30,18 +30,18 @@ namespace MkeAlerts.Web.Services.Data
         protected override async Task<IQueryable<Property>> ApplyBounds(IQueryable<Property> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
         {
             return queryable
-                .Where(x => x.Location != null)
+                .Where(x => x.Parcel != null)
                 .Where(x => 
-                    (x.Location.MinLat <= northBound && x.Location.MaxLat >= northBound) ||
-                    (x.Location.MinLat <= southBound && x.Location.MaxLat >= southBound) ||
-                    (x.Location.MinLat >= northBound && x.Location.MaxLat <= southBound) ||
-                    (x.Location.MinLat >= southBound && x.Location.MaxLat <= southBound))
+                    (x.Parcel.MinLat <= northBound && x.Parcel.MaxLat >= northBound) ||
+                    (x.Parcel.MinLat <= southBound && x.Parcel.MaxLat >= southBound) ||
+                    (x.Parcel.MinLat >= northBound && x.Parcel.MaxLat <= southBound) ||
+                    (x.Parcel.MinLat >= southBound && x.Parcel.MaxLat <= southBound))
                 .Where(x =>
-                    (x.Location.MinLng <= westBound && x.Location.MaxLng >= westBound) ||
-                    (x.Location.MinLng <= eastBound && x.Location.MaxLng >= eastBound) ||
-                    (x.Location.MinLng >= westBound && x.Location.MaxLng <= eastBound) ||
-                    (x.Location.MinLng >= eastBound && x.Location.MaxLng <= westBound))
-                .Where(x => x.Location.Outline.Intersects(bounds));
+                    (x.Parcel.MinLng <= westBound && x.Parcel.MaxLng >= westBound) ||
+                    (x.Parcel.MinLng <= eastBound && x.Parcel.MaxLng >= eastBound) ||
+                    (x.Parcel.MinLng >= westBound && x.Parcel.MaxLng <= eastBound) ||
+                    (x.Parcel.MinLng >= eastBound && x.Parcel.MaxLng <= westBound))
+                .Where(x => x.Parcel.Outline.Intersects(bounds));
         }
 
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Property dataModel)
@@ -55,7 +55,7 @@ namespace MkeAlerts.Web.Services.Data
 
         protected override async Task<IQueryable<Property>> GetDataSet(ApplicationUser applicationUser)
         {
-            return (await base.GetDataSet(applicationUser)).Include(x => x.Location);
+            return (await base.GetDataSet(applicationUser)).Include(x => x.Parcel);
         }
     }
 }

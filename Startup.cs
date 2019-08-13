@@ -103,6 +103,7 @@ namespace MkeAlerts.Web
                 {
                     options.SerializerSettings.Formatting = Formatting.Indented;
                     options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 
                     // This is required for NetTopologySuite.IO.Converters.GeometryConverter to work correctly
                     options.SerializerSettings.Converters.Add(new CoordinateConverter());
@@ -190,8 +191,8 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityReadService<ApplicationUser, Guid>, ApplicationUserService>();
             services.AddTransient<IEntityReadService<Property, string>, PropertyService>();
             services.AddTransient<IEntityWriteService<Property, string>, PropertyService>();
-            services.AddTransient<IEntityReadService<Location, string>, LocationService>();
-            services.AddTransient<IEntityWriteService<Location, string>, LocationService>();
+            services.AddTransient<IEntityReadService<Parcel, string>, ParcelService>();
+            services.AddTransient<IEntityWriteService<Parcel, string>, ParcelService>();
             services.AddTransient<IEntityReadService<Address, string>, AddressService>();
             services.AddTransient<IEntityWriteService<Address, string>, AddressService>();
             services.AddTransient<IEntityReadService<Street, string>, StreetService>();
@@ -205,7 +206,7 @@ Note that not all fields can be sorted.
 
             services.AddSingleton<IValidator<Property>, PropertyValidator>();
             services.AddSingleton<IValidator<Address>, AddressValidator>();
-            services.AddSingleton<IValidator<Location>, LocationValidator>();
+            services.AddSingleton<IValidator<Parcel>, ParcelValidator>();
             services.AddSingleton<IValidator<Street>, StreetValidator>();
             services.AddSingleton<IValidator<DispatchCall>, DispatchCallValidator>();
             services.AddSingleton<IValidator<Crime>, CrimeValidator>();

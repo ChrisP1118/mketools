@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data.Places
 {
-    public class LocationValidator : AbstractValidator<Location>
+    public class ParcelValidator : AbstractValidator<Parcel>
     {
-        public LocationValidator()
+        public ParcelValidator()
         {
             RuleFor(x => x.TAXKEY).NotNull().NotEmpty();
         }

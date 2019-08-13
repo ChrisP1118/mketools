@@ -18,7 +18,7 @@ namespace MkeAlerts.Web.Models.Data.Places
         public string TAXKEY { get; set; }
 
         public List<Address> Addresses { get; set; }
-        public Location Location { get; set; }
+        public Parcel Parcel { get; set; }
 
         [MaxLength(3)] public string AIR_CONDITIONING { get; set; }
         [MaxLength(1)] public string ATTIC { get; set; }

@@ -137,7 +137,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "ab3eca5b-a78d-40c5-b778-eddf5b8ef442",
+                            ConcurrencyStamp = "9c0e9687-af42-4d9c-be48-c5a3413b113e",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +204,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "de3915e7-2ded-490f-ad6a-e3a56481755f",
+                            ConcurrencyStamp = "31c8b4fa-8eef-413b-b98e-a3cd721ec381",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIlPR2zcSEo6rWdsePLhv86kXFaUsLck+XkEutwCLEIHRP2FJ3C75jkXlk9SkeHlJA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBi4e9qjn43m5keehXMQlTpU8LbMaHSRC/c64iZR0Ltu3wTZc8oOqjF+2iG5C80PqQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -358,7 +358,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Location", b =>
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Parcel", b =>
                 {
                     b.Property<string>("TAXKEY")
                         .HasMaxLength(10);
@@ -391,7 +391,7 @@ namespace MkeAlerts.Web.Migrations
 
                     b.HasIndex("MinLng");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Parcels");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Property", b =>
@@ -827,6 +827,22 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<string>("MUNI_R")
                         .HasMaxLength(15);
 
+                    b.Property<decimal>("MaxLat")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MaxLng")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MinLat")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MinLng")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
                     b.Property<int>("NEWDIMENR");
 
                     b.Property<IGeometry>("Outline");
@@ -1061,11 +1077,11 @@ namespace MkeAlerts.Web.Migrations
                         .HasForeignKey("TAXKEY");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Location", b =>
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Parcel", b =>
                 {
                     b.HasOne("MkeAlerts.Web.Models.Data.Places.Property", "Property")
-                        .WithOne("Location")
-                        .HasForeignKey("MkeAlerts.Web.Models.Data.Places.Location", "TAXKEY")
+                        .WithOne("Parcel")
+                        .HasForeignKey("MkeAlerts.Web.Models.Data.Places.Parcel", "TAXKEY")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

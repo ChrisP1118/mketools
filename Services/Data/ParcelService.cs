@@ -11,23 +11,23 @@ using Coordinate = GeoAPI.Geometries.Coordinate;
 
 namespace MkeAlerts.Web.Services.Data
 {
-    public class LocationService : EntityWriteService<Location, string>
+    public class ParcelService : EntityWriteService<Parcel, string>
     {
-        public LocationService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Location> validator, ILogger<Location> logger) : base(dbContext, userManager, validator, logger)
+        public ParcelService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Parcel> validator, ILogger<Parcel> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 
-        protected override async Task<IQueryable<Location>> ApplyIdFilter(IQueryable<Location> queryable, string id)
+        protected override async Task<IQueryable<Parcel>> ApplyIdFilter(IQueryable<Parcel> queryable, string id)
         {
             return queryable.Where(x => x.TAXKEY == id);
         }
 
-        protected override async Task<IQueryable<Location>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<Location> queryable)
+        protected override async Task<IQueryable<Parcel>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<Parcel> queryable)
         {
             return queryable;
         }
 
-        protected override async Task<IQueryable<Location>> ApplyBounds(IQueryable<Location> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
+        protected override async Task<IQueryable<Parcel>> ApplyBounds(IQueryable<Parcel> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
         {
             return queryable
                 .Where(x =>
@@ -43,7 +43,7 @@ namespace MkeAlerts.Web.Services.Data
                 .Where(x => x.Outline.Intersects(bounds));
         }
 
-        protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Location dataModel)
+        protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Parcel dataModel)
         {
             // Site admins can write
             if (await _userManager.IsInRoleAsync(applicationUser, ApplicationRole.SiteAdminRole))

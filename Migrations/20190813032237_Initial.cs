@@ -209,6 +209,10 @@ namespace MkeAlerts.Web.Migrations
                 {
                     NEWDIME_ID = table.Column<string>(maxLength: 10, nullable: false),
                     Outline = table.Column<IGeometry>(nullable: true),
+                    MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MaxLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MinLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MaxLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
                     FNODE = table.Column<int>(nullable: false),
                     TNODE = table.Column<int>(nullable: false),
                     LPOLY = table.Column<int>(nullable: false),
@@ -512,7 +516,7 @@ namespace MkeAlerts.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Locations",
+                name: "Parcels",
                 columns: table => new
                 {
                     TAXKEY = table.Column<string>(maxLength: 10, nullable: false),
@@ -524,9 +528,9 @@ namespace MkeAlerts.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Locations", x => x.TAXKEY);
+                    table.PrimaryKey("PK_Parcels", x => x.TAXKEY);
                     table.ForeignKey(
-                        name: "FK_Locations_Properties_TAXKEY",
+                        name: "FK_Parcels_Properties_TAXKEY",
                         column: x => x.TAXKEY,
                         principalTable: "Properties",
                         principalColumn: "TAXKEY",
@@ -536,12 +540,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "ab3eca5b-a78d-40c5-b778-eddf5b8ef442", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "9c0e9687-af42-4d9c-be48-c5a3413b113e", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "de3915e7-2ded-490f-ad6a-e3a56481755f", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEIlPR2zcSEo6rWdsePLhv86kXFaUsLck+XkEutwCLEIHRP2FJ3C75jkXlk9SkeHlJA==", null, false, "", false, "siteadmin" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "31c8b4fa-8eef-413b-b98e-a3cd721ec381", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEBi4e9qjn43m5keehXMQlTpU8LbMaHSRC/c64iZR0Ltu3wTZc8oOqjF+2iG5C80PqQ==", null, false, "", false, "siteadmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -593,23 +597,23 @@ namespace MkeAlerts.Web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Locations_MaxLat",
-                table: "Locations",
+                name: "IX_Parcels_MaxLat",
+                table: "Parcels",
                 column: "MaxLat");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Locations_MaxLng",
-                table: "Locations",
+                name: "IX_Parcels_MaxLng",
+                table: "Parcels",
                 column: "MaxLng");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Locations_MinLat",
-                table: "Locations",
+                name: "IX_Parcels_MinLat",
+                table: "Parcels",
                 column: "MinLat");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Locations_MinLng",
-                table: "Locations",
+                name: "IX_Parcels_MinLng",
+                table: "Parcels",
                 column: "MinLng");
         }
 
@@ -640,7 +644,7 @@ namespace MkeAlerts.Web.Migrations
                 name: "DispatchCalls");
 
             migrationBuilder.DropTable(
-                name: "Locations");
+                name: "Parcels");
 
             migrationBuilder.DropTable(
                 name: "Streets");
