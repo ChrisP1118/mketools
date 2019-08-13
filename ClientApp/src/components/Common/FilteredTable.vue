@@ -15,17 +15,17 @@
               <template slot="button-content">
                 <font-awesome-icon icon="globe" />
               </template>
-              <b-dropdown-item-button @click="showMap = 'top'">
+              <b-dropdown-item-button @click="setMapView('top')">
                 <font-awesome-icon icon="square" v-if="showMap != 'top'" />
                 <font-awesome-icon icon="check-square" v-if="showMap == 'top'" />
                   Show map on top
               </b-dropdown-item-button>
-              <b-dropdown-item-button @click="showMap = 'right'">
+              <b-dropdown-item-button @click="setMapView('right')">
                 <font-awesome-icon icon="square" v-if="showMap != 'right'" />
                 <font-awesome-icon icon="check-square" v-if="showMap == 'right'" />
                   Show map on right
               </b-dropdown-item-button>
-              <b-dropdown-item-button @click="showMap = ''">
+              <b-dropdown-item-button @click="setMapView('')">
                 <font-awesome-icon icon="square" v-if="showMap != ''" />
                 <font-awesome-icon icon="check-square" v-if="showMap == ''" />
                   Hide map
@@ -72,7 +72,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-table striped hover :items="items" :fields="visibleFields" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked">
+        <b-table striped hover :items="items" :fields="visibleFields" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked" class="mt-2">
           <template slot="table-caption">
           </template>
           <template slot="thead-top">
@@ -110,7 +110,7 @@
         <b-pagination v-model="page" :total-rows="total" :per-page="limit" @input="refreshData"></b-pagination>
       </b-col>
       <b-col v-if="showMap == 'right'">
-        <filtered-table-map :items="items" @bounds-changed="boundsChanged">
+        <filtered-table-map :items="items" @bounds-changed="boundsChanged" :get-info-window-text="settings.getInfoWindowText">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -152,10 +152,12 @@ export default {
     }
   },
   methods: {
+    setMapView: function (view) {
+      this.showMap = view;
+      this.filterBasedOnMap = false;
+    },
     boundsChanged: function (bounds) {
-      console.log('boundsChanged');
-      console.log(bounds);
-      this.canFilterBasedOnMap = (bounds.sw.lat - bounds.ne.lat) < 0.02 && Math.abs(bounds.ne.lng - bounds.sw.lng) < 0.05;
+      this.canFilterBasedOnMap = Math.abs(bounds.sw.lat - bounds.ne.lat) < 0.007 && Math.abs(bounds.ne.lng - bounds.sw.lng) < 0.015;
       if (!this.canFilterBasedOnMap)
         this.filterBasedOnMap = false;
       this.bounds = bounds;

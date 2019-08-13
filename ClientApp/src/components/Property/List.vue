@@ -83,6 +83,11 @@ export default {
         },
         rowClicked: function (item, context) {
           context.$router.push('/property/' + item.TAXKEY)
+        },
+        getInfoWindowText: function (item) {
+          let raw = item._raw;
+          return (raw.HOUSE_NR_LO == raw.HOUSE_NR_HI ? raw.HOUSE_NR_LO : raw.HOUSE_NR_LO + '-' + raw.HOUSE_NR_HI) + ' ' + raw.SDIR + ' ' + raw.STREET + ' ' + raw.STTYPE + '<br />' +
+            raw.OWNER_NAME_1;
         }
       }
     }

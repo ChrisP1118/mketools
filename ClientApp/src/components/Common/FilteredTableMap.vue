@@ -8,7 +8,8 @@ import gmapsInit from '../Common/googlemaps';
 export default {
   name: 'FilteredTableMap',
   props: [
-    'items'
+    'items',
+    'getInfoWindowText'
   ],
   data() {
     return {
@@ -47,71 +48,9 @@ export default {
             }
           });
 
-          //console.log(x);
-          //console.log(x.getNorthEast());
-          //console.log(x.getSouthWest());
         }, 1000);
       });      
 
-      //console.log(this.items);
-
-      // let polygons = [];
-
-      // this.items.forEach(i => {
-      //   let coords = [];
-      //   let x = i.Location.Outline.coordinates[0][0].forEach(y => {
-      //     coords.add({
-      //       lat: y[1],
-      //       lng: y[0]
-      //     });
-      //   })
-      //   let polygon = new google.maps.Polygon({
-      //     paths: x,
-      //     strokeColor: '#FF0000',
-      //     strokeOpacity: 0.8,
-      //     strokeWeight: 2,
-      //     fillColor: '#FF0000',
-      //     fillOpacity: 0.35
-      //   });
-      //   polygon.setMap(map);
-      //   polygon.addListener('click', () => {
-      //     console.log(i.TAXKEY);
-      //   })
-      // });
-
-      /*
-      this.polygons.forEach(p => {
-        let polygon = new google.maps.Polygon({
-          paths: p.coordinates,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35
-        });
-        polygon.setMap(map);
-        polygon.addListener('click', () => {
-          console.log(p.name);
-        })
-      })
-      */
-
-      // // Construct the polygon.
-
-      /*
-      const markerClickHandler = (marker) => {
-        console.log(this.locations);
-        map.setZoom(13);
-        map.setCenter(marker.getPosition());
-      };
-
-      const markers = this.locations.map((location) => {
-        const marker = new google.maps.Marker({ ...location, map });
-        marker.addListener('click', () => markerClickHandler(marker));
-
-        return marker;
-      });
-      */
     } catch (error) {
       console.error(error);
     }
@@ -123,6 +62,7 @@ export default {
       let polygons = [];
 
       let map = this.map;
+      let getInfoWindowText = this.getInfoWindowText;
 
       this.polygons.forEach(p => {
         p.setMap(null);
@@ -162,11 +102,11 @@ export default {
           polygon.setMap(this.map);
 
           this.google.maps.event.addListener(polygon, 'click', e => {
-            let infowindow = new google.maps.InfoWindow({
-              content: i._raw.HOUSE_NR_LO + ' ' + i._raw.SDIR + ' ' + i._raw.STREET + ' ' + i._raw.STTYPE
+            let infoWindow = new google.maps.InfoWindow({
+              content: getInfoWindowText(i)
             });
-            infowindow.setPosition(e.latLng);
-            infowindow.open(map);
+            infoWindow.setPosition(e.latLng);
+            infoWindow.open(map);
           });
 
           // polygon.addListener('click', () => {

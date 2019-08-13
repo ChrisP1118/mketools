@@ -33,11 +33,13 @@ namespace MkeAlerts.Web.Services.Data
                 .Where(x =>
                     (x.MinLat <= northBound && x.MaxLat >= northBound) ||
                     (x.MinLat <= southBound && x.MaxLat >= southBound) ||
-                    (x.MinLat >= northBound && x.MaxLat <= southBound))
+                    (x.MinLat >= northBound && x.MaxLat <= southBound) ||
+                    (x.MinLat >= southBound && x.MaxLat <= northBound))
                 .Where(x =>
                     (x.MinLng <= westBound && x.MaxLng >= westBound) ||
                     (x.MinLng <= eastBound && x.MaxLng >= eastBound) ||
-                    (x.MinLng >= westBound && x.MaxLng <= eastBound))
+                    (x.MinLng >= westBound && x.MaxLng <= eastBound) ||
+                    (x.MinLng >= eastBound && x.MaxLng <= westBound))
                 .Where(x => x.Outline.Intersects(bounds));
         }
 
