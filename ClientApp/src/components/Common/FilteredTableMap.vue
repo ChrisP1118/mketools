@@ -11,13 +11,13 @@ export default {
     'items',
     'getItemInfoWindowText',
     'getItemPolygonGeometry',
-    'getItemMarkerGeometry'
+    'getItemMarkerGeometry',
+    'getItemId'
   ],
   data() {
     return {
       markerWrappers: [],
-      //polygonWrappers: [],
-      polygons: [],
+      polygonWrappers: [],
       google: null,
       map: null,
       openInfoWindow: null
@@ -29,10 +29,14 @@ export default {
     try {
       this.google = await gmapsInit();
       //const geocoder = new google.maps.Geocoder();
-      this.map = new google.maps.Map(this.$el);
+      this.map = new google.maps.Map(this.$el, {
+        center: { lat: 43.0315528, lng: -87.9730566 },
+        zoom: 10,
+        gestureHandling: 'greedy'
+      });
 
-      this.map.setCenter({lat: 43.0315528, lng: -87.9730566});
-      this.map.fitBounds(new google.maps.LatLngBounds({lat: 43.191766, lng: -88.062779}, {lat: 42.916096, lng: -87.880899}));
+      //this.map.setCenter({lat: 43.0315528, lng: -87.9730566});
+      //this.map.fitBounds(new google.maps.LatLngBounds({lat: 43.191766, lng: -88.062779}, {lat: 42.916096, lng: -87.880899}));
 
       this.map.addListener('bounds_changed', e => {
 
@@ -74,13 +78,13 @@ export default {
         if (!geometry)
           return;
 
-        let point = geometry.coordinates[0][0];
-
-        let existingMarkerWrapper = this.markerWrappers.find(w => w.id == i._raw.CallNumber);
+        let existingMarkerWrapper = this.markerWrappers.find(w => w.id == this.getItemId(i));
         if (existingMarkerWrapper) {
           newMarkerWrappers.push(existingMarkerWrapper);
           return;
         } else {
+
+          let point = geometry.coordinates[0][0];
 
           let marker = new google.maps.Marker({
             position: {
@@ -101,7 +105,7 @@ export default {
           });
 
           newMarkerWrappers.push({
-            id: i._raw.CallNumber,
+            id: this.getItemId(i),
             marker: marker
           });
         }
@@ -114,12 +118,10 @@ export default {
       this.markerWrappers = newMarkerWrappers;
     },
     drawPolygons(map) {
-      let polygons = [];
+        if (!google)
+          return;
 
-      this.polygons.forEach(p => {
-        p.setMap(null);
-      });
-      this.polygons = [];
+      let newPolygonWrappers = [];
 
       this.items.forEach(i => {
 
@@ -128,40 +130,54 @@ export default {
         if (!geometry)
           return;
 
-        if (!google)
+        let existingPolygonWrapper = this.polygonWrappers.find(w => w.id == this.getItemId(i));
+        if (existingPolygonWrapper) {
+          newPolygonWrappers.push(existingPolygonWrapper);
           return;
+        } else {
 
-        let coords = [];
+          let coords = [];
 
-        let x = geometry.coordinates[0].forEach(y => {
-          coords.push({
-            lat: y[1],
-            lng: y[0]
+          let x = geometry.coordinates[0].forEach(y => {
+            coords.push({
+              lat: y[1],
+              lng: y[0]
+            });
+          })
+          let polygon = new google.maps.Polygon({
+            paths: coords,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#FF0000',
+            fillOpacity: 0.35
           });
-        })
-        let polygon = new google.maps.Polygon({
-          paths: coords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35
-        });
-        polygon.setMap(this.map);
+          polygon.setMap(this.map);
 
-        polygon.addListener('click', e => {
-          if (this.openInfoWindow)
-            this.openInfoWindow.close();
-            
-          this.openInfoWindow = new google.maps.InfoWindow({
-            content: this.getItemInfoWindowText(i)
+          polygon.addListener('click', e => {
+            if (this.openInfoWindow)
+              this.openInfoWindow.close();
+              
+            this.openInfoWindow = new google.maps.InfoWindow({
+              content: this.getItemInfoWindowText(i)
+            });
+            this.openInfoWindow.setPosition(e.latLng);
+            this.openInfoWindow.open(map);
           });
-          this.openInfoWindow.setPosition(e.latLng);
-          this.openInfoWindow.open(map);
-        });
 
-        this.polygons.push(polygon);
+          newPolygonWrappers.push({
+            id: this.getItemId(i),
+            polygon: polygon
+          })
+        }
       });
+
+      let oldPolygonWrappers = this.polygonWrappers.filter(m => { return !(newPolygonWrappers.find(x => x.id == m.id)); });
+      oldPolygonWrappers.forEach(w => { 
+        w.polygon.setMap(null);
+      });
+      this.polygonWrappers = newPolygonWrappers;
+
     }
   },
   watch: {

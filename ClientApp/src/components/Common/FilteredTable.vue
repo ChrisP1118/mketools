@@ -66,7 +66,11 @@
     </b-row>
     <b-row v-if="showMap == 'top'">
       <b-col>
-        <filtered-table-map :items="items" @bounds-changed="boundsChanged" class="mt-2">
+        <filtered-table-map class="mt-2" :items="items" @bounds-changed="boundsChanged" 
+          :get-item-info-window-text="settings.getItemInfoWindowText"
+          :get-item-polygon-geometry="settings.getItemPolygonGeometry"
+          :get-item-marker-geometry="settings.getItemMarkerGeometry"
+          :get-item-id="settings.getItemId">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -113,7 +117,8 @@
         <filtered-table-map :items="items" @bounds-changed="boundsChanged" 
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
-          :get-item-marker-geometry="settings.getItemMarkerGeometry">
+          :get-item-marker-geometry="settings.getItemMarkerGeometry"
+          :get-item-id="settings.getItemId">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -164,7 +169,9 @@ export default {
       if (!this.canFilterBasedOnMap)
         this.filterBasedOnMap = false;
       this.bounds = bounds;
-      this.refreshData();
+
+      if (this.filterBasedOnMap)
+        this.refreshData();
     },
     rowClicked: function (item, index, event) {
       if (!this.settings.rowClicked)

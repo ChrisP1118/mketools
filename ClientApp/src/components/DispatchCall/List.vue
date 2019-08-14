@@ -81,6 +81,9 @@ export default {
             return null;
             
           return item._raw.Geometry;
+        },
+        getItemId: function (item) {
+          return item._raw.CallNumber;
         }
       }
     }

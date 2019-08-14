@@ -72,8 +72,36 @@ export default {
             filter: 'text'
           },
           {
+            key: 'OWNER_NAME_2',
+            name: 'OWNER_NAME_2',
+            visible: false,
+            sortable: true,
+            filter: 'text'
+          },
+          {
+            key: 'OWNER_NAME_3',
+            name: 'OWNER_NAME_3',
+            visible: false,
+            sortable: true,
+            filter: 'text'
+          },
+          {
             key: 'OWNER_MAIL_ADDR',
             name: 'OWNER_MAIL_ADDR',
+            visible: false,
+            sortable: true,
+            filter: 'text'
+          },
+          {
+            key: 'OWNER_CITY_STATE',
+            name: 'OWNER_CITY_STATE',
+            visible: false,
+            sortable: true,
+            filter: 'text'
+          },
+          {
+            key: 'OWNER_ZIP',
+            name: 'OWNER_ZIP',
             visible: false,
             sortable: true,
             filter: 'text'
@@ -94,6 +122,9 @@ export default {
             return null;
 
           return item._raw.Parcel.Outline;
+        },
+        getItemId: function (item) {
+          return item._raw.TAXKEY;
         }
       }
     }
