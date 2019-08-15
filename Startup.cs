@@ -202,6 +202,8 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityReadService<Crime, string>, CrimeService>();
             services.AddTransient<IEntityWriteService<Crime, string>, CrimeService>();
 
+            services.AddTransient<IStreetReferenceService, StreetReferenceService>();
+
             services.AddTransient<IGeocodingService, GeocodingService>();
 
             services.AddSingleton<IValidator<Property>, PropertyValidator>();

@@ -22,6 +22,10 @@ namespace MkeAlerts.Web.Data
         public DbSet<DispatchCall> DispatchCalls { get; set; }
         public DbSet<Crime> Crimes { get; set; }
 
+        public DbQuery<StringReference> StreetNames { get; set; }
+        public DbQuery<StringReference> StreetDirections { get; set; }
+        public DbQuery<StringReference> StreetTypes { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
