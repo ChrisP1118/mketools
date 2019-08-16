@@ -54,7 +54,7 @@ namespace MkeAlerts.Web
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default"), x => x.UseNetTopologySuite()));
 
             services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("Default")));
-            //services.AddHangfireServer();
+            services.AddHangfireServer();
 
             // Add Identity
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>

@@ -69,7 +69,7 @@
     </b-row>
     <b-row class="mt-2" v-if="mapFull">
       <b-col>
-        <b-alert variant="warning" show>Not all items can be displayed. Zoom in on the map to see more.</b-alert>
+        <b-alert variant="warning" show>Only the most recent items are displayed. Zoom in on the map to see more.</b-alert>
       </b-col>
     </b-row>
     <b-row class="mt-2">
@@ -137,7 +137,7 @@ export default {
           let location = {lat: response.data.Geometry.Centroid.Coordinate[1], lng: response.data.Geometry.Centroid.Coordinate[0]};
 
           this.map.setCenter(location);
-          this.map.setZoom(15);
+          this.map.setZoom(14);
         })
         .catch(error => {
           console.log(error);
@@ -172,16 +172,57 @@ export default {
       axios
         .get('/api/DispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
         .then(response => {
-          console.log(response);
           let totalCount = response.headers['x-total-count'];
           this.mapFull = totalCount >= this.mapItemLimit;
-          this.drawMarkers(response.data, (i) => { return i.Geometry; }, (i) => { return i.CallNumber; }, (i) => { return i.NatureOfCall; });
+          this.drawMarkers(response.data, 
+            i => { return i.Geometry; }, 
+            i => { return i.CallNumber; }, 
+            i => { 
+              let time = moment(i.ReportedDateTime).format('llll');
+              let fromNow = moment(i.ReportedDateTime).fromNow();
+              return '' + 
+                '<p style="font-size: 150%; font-weight: bold;">' + i.NatureOfCall + '</p>' +
+                i.Location + ' (Police District ' + i.District + ')<hr />' +
+                time + ' (' + fromNow + ')<br />' + 
+                '<b><i>' + i.Status + '</i></b>';
+            },
+            i => {
+              // http://kml4earth.appspot.com/icons.html#paddle
+              let icon = 'wht-blank.png';
+              switch (i.NatureOfCall) {
+
+                // Red: Violent crime
+                case 'BATTERY':
+                case 'FIGHT':
+                case 'BATTERY DV':
+                case 'HOLDUP ALARM':
+                  icon = 'red-blank.png'; break;
+
+                case 'SHOTSPOTTER':
+                  icon = 'red-circle.png'; break;
+
+                // Orange: Non-violent serious crime
+                case 'THEFT': 
+                case 'DRUG DEALING':
+                case 'OVERDOSE':
+                case 'STOLEN VEHICLE':
+                case 'ENTRY':
+                case 'ENTRY TO AUTO':
+                case 'PROPERTY DAMAGE':
+                  icon ='orange-blank.png'; break;
+
+                // Blue: Traffic
+                case 'TRAFFIC STOP':
+                  icon = 'blu-blank.png'; break;
+              }
+              return 'https://maps.google.com/mapfiles/kml/paddle/' + icon;
+            });
         })
         .catch(error => {
           console.log(error);
         });
     },
-    drawMarkers: function (items, getItemMarkerGeometry, getItemId, getItemInfoWindowText) {
+    drawMarkers: function (items, getItemMarkerGeometry, getItemId, getItemInfoWindowText, getMarkerIcon) {
       if (!google)
         return;
 
@@ -206,6 +247,10 @@ export default {
             position: {
               lat: point[1],
               lng: point[0]
+            },
+            icon: {
+              url: getMarkerIcon(i),
+              scaledSize: new google.maps.Size(50, 50),
             },
             map: this.map
           });
