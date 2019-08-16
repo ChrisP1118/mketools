@@ -7,6 +7,7 @@ using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Models.Internal;
 using MkeAlerts.Web.Services;
+using MkeAlerts.Web.Services.Functional;
 using MkeAlerts.Web.Utilities;
 using System;
 using System.Collections.Generic;

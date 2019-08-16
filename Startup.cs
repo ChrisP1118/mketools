@@ -34,6 +34,7 @@ using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Jobs;
 using NetTopologySuite.IO.Converters;
+using MkeAlerts.Web.Services.Functional;
 
 namespace MkeAlerts.Web
 {

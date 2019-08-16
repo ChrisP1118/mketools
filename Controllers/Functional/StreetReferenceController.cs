@@ -7,14 +7,16 @@ using MkeAlerts.Web.Middleware.Exceptions;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Services.Data;
+using MkeAlerts.Web.Services.Functional;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Controllers.Data
+namespace MkeAlerts.Web.Controllers.Functional
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class StreetReferenceController : ControllerBase
     {
         protected readonly IConfiguration _configuration;

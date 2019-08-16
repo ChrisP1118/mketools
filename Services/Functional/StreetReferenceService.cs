@@ -10,7 +10,7 @@ using System.Linq.Dynamic.Core;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Services.Data
+namespace MkeAlerts.Web.Services.Functional
 {
     public class StreetReferenceService : IStreetReferenceService
     {
@@ -30,7 +30,7 @@ namespace MkeAlerts.Web.Services.Data
 
         public async Task<List<string>> GetAllStreetNames(ClaimsPrincipal user)
         {
-            return await GetAllValues(user, "SELECT Street AS Value FROM Addresses GROUP BY Street ORDER BY Street");
+            return await GetAllValues(user, "SELECT Street AS Value FROM Addresses GROUP BY Street ORDER BY CASE WHEN PATINDEX('%[^0-9]%', Street) = 1 THEN 1 ELSE 0 END, CAST(SUBSTRING(Street, 1, PATINDEX('%[^0-9]%', Street) - 1) AS int), Street");
         }
 
         public async Task<List<string>> GetAllStreetTypes(ClaimsPrincipal user)

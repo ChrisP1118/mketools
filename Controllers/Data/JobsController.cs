@@ -10,6 +10,7 @@ using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Services;
+using MkeAlerts.Web.Services.Functional;
 using System;
 using System.Collections.Generic;
 using System.Linq;

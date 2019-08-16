@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Location = MkeAlerts.Web.Models.Data.Places.Parcel;
 
-namespace MkeAlerts.Web.Services
+namespace MkeAlerts.Web.Services.Functional
 {
     public interface IGeocodingService
     {
@@ -111,6 +111,8 @@ namespace MkeAlerts.Web.Services
                 string modValue = value.Trim();
                 if (modValue.EndsWith(",MKE"))
                     modValue = modValue.Substring(0, modValue.Length - 4);
+
+                modValue = modValue.ToUpper();
 
                 if (modValue.Contains(" / "))
                     return await GeocodeIntersection(new IntersectionGeocodeRequest(value, modValue));
