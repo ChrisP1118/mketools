@@ -272,7 +272,7 @@ Note that not all fields can be sorted.
             dbContext.Database.EnsureCreated();
 
             // Run every 5 minutes
-            //RecurringJob.AddOrUpdate<ImportDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
+            RecurringJob.AddOrUpdate<ImportDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
         }
     }
 }

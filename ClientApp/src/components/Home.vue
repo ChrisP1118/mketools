@@ -67,24 +67,22 @@
         </b-card>        
       </b-col>
     </b-row>
-    <b-row class="mt-2">
-      <b-col xs="12" md="6">
-        <div class="map" id="homeMap" />
+    <b-row class="mt-2" v-if="mapFull">
+      <b-col>
+        <b-alert variant="warning" show>Not all items can be displayed. Zoom in on the map to see more.</b-alert>
       </b-col>
-      <b-col xs="12" md="6">
-        <b-card no-body>
-          <b-tabs pills card @input="onTabChanged">
-            <b-tab title="Active Calls" active>
-              <b-card-text>Active Calls</b-card-text>
-            </b-tab>
-            <b-tab title="Recent Calls">
-              <b-card-text>Recent Calls</b-card-text>
-            </b-tab>
-            <b-tab title="Recent Crimes">
-              <b-card-text>Recent Calls</b-card-text>
-            </b-tab>
-          </b-tabs>
-        </b-card>
+    </b-row>
+    <b-row class="mt-2">
+      <b-col xs="12" md="3">
+        <b-list-group>
+          <b-list-group-item :active="tabIndex == 0" @click="() => { this.updateTabIndex(0); }">Active Calls</b-list-group-item>
+          <b-list-group-item :active="tabIndex == 1" @click="() => { this.updateTabIndex(1); }">Recent Calls</b-list-group-item>
+          <b-list-group-item>Recent Crimes</b-list-group-item>
+          <b-list-group-item>Notifications</b-list-group-item>
+        </b-list-group>
+      </b-col>
+      <b-col xs="12" md="9">
+        <div class="map" id="homeMap" />
       </b-col>
     </b-row>
   </div>
@@ -93,6 +91,7 @@
 <script>
 import axios from "axios";
 import gmapsInit from './Common/googlemaps';
+import moment from 'moment'
 
 export default {
   name: "Home",
@@ -111,7 +110,9 @@ export default {
       map: null,
       bounds: null,
       tabIndex: 0,
-      markerWrappers: []
+      markerWrappers: [],
+      mapFull: false,
+      mapItemLimit: 100
     }
   },
   methods: {
@@ -143,27 +144,37 @@ export default {
         });
     },
     onClear: function () {
-      console.log('clear!');
       this.showJumbotron = true;
       this.number = null;
       this.streetDirection = '';
       this.streetName = '';
       this.streetType = '';
     },
-    onTabChanged: function(tabIndex) {
-      this.tabIndex = tabIndex;
+    updateTabIndex: function (newIndex) {
+      this.tabIndex = newIndex;
       this.updateTab();
     },
     updateTab: function () {
-      if (this.tabIndex == 0) {
+      if (this.tabIndex == 0)
         this.loadActiveCalls();
-      }
+      else if (this.tabIndex == 1)
+        this.loadRecentCalls();
     },
     loadActiveCalls: function () {
+      let now = moment().subtract(6, 'hours').format('YYYY-MM-DD HH:mm:ss');
+      this.loadDispatchCalls('Status%20%3D%20%22Service%20in%20Progress%22%20and%20ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
+    },
+    loadRecentCalls: function () {
+      let now = moment().subtract(2, 'hours').format('YYYY-MM-DD HH:mm:ss');
+      this.loadDispatchCalls('ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
+    },
+    loadDispatchCalls: function (filter) {
       axios
-        .get('/api/DispatchCall?offset=0&limit=100&order=ReportedDateTime%20desc&filter=Status%20%3D%20%22Service%20in%20Progress%22' + this.getBoundsFilter())
+        .get('/api/DispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
         .then(response => {
-          console.log(response.data);
+          console.log(response);
+          let totalCount = response.headers['x-total-count'];
+          this.mapFull = totalCount >= this.mapItemLimit;
           this.drawMarkers(response.data, (i) => { return i.Geometry; }, (i) => { return i.CallNumber; }, (i) => { return i.NatureOfCall; });
         })
         .catch(error => {
@@ -235,7 +246,7 @@ export default {
     this.google = await gmapsInit();
     this.map = new google.maps.Map(document.getElementById('homeMap'), {
       center: { lat: 43.0315528, lng: -87.9730566 },
-      zoom: 10,
+      zoom: 12,
       gestureHandling: 'greedy'
     });
 

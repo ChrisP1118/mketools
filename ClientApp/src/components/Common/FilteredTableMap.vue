@@ -66,8 +66,8 @@ export default {
   },
   methods: {
     drawMarkers(map) {
-        if (!google)
-          return;
+      if (!google)
+        return;
 
       let newMarkerWrappers = [];
 
@@ -192,10 +192,3 @@ export default {
   }
 };
 </script>
-
-<style>
-.map {
-  width: 100%;
-  height: 400px;
-}
-</style>

@@ -37,6 +37,7 @@ import DispatchCallList from './components/DispatchCall/List.vue'
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
+Vue.use(require('vue-moment'));
 
 library.add(faSquare, faCheckSquare, faTable, faEdit, faSortAmountUp, faSortAmountDown, faTrash, faPlus, faGlobe);
 //library.add(fas);
