@@ -34,6 +34,7 @@ import ApplicationUserList from './components/ApplicationUser/List.vue'
 import ApplicationUserFields from './components/ApplicationUser/Fields.vue'
 import ApplicationUserEdit from './components/ApplicationUser/Edit.vue'
 import DispatchCallList from './components/DispatchCall/List.vue'
+import CrimeList from './components/Crime/List.vue'
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -67,6 +68,7 @@ const routes = [
   { path: '/applicationUser', component: ApplicationUserList },
   { path: '/applicationUser/:id', component: ApplicationUserEdit, props: true },
   { path: '/dispatchCall', component: DispatchCallList },
+  { path: '/crime', component: CrimeList },
 ];
 
 const router = new VueRouter({

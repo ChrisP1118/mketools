@@ -13,13 +13,14 @@
         <b-collapse is-nav id="nav_collapse">
 
           <b-navbar-nav>
-            <b-nav-item to="/property">Properties</b-nav-item>
             <b-nav-item to="/dispatchCall">Dispatch Calls</b-nav-item>
-            <b-nav-item to="/applicationUser">Users</b-nav-item>
+            <b-nav-item to="/crime">Crimes</b-nav-item>
+            <b-nav-item to="/property">Properties</b-nav-item>
             <b-nav-item to="/about">About</b-nav-item>
           </b-navbar-nav>
 
           <b-navbar-nav class="ml-auto">
+            <b-nav-item right to="/applicationUser">Users</b-nav-item>
             <b-nav-item-dropdown right>
               <template slot="button-content">
                 Debug

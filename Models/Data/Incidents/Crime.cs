@@ -42,6 +42,7 @@ namespace MkeAlerts.Web.Models.Data.Incidents
         [MaxLength(128)]
         public string WeaponUsed { get; set; }
 
+        // TODO: These floats should be ints?
         public decimal ALD { get; set; }
         public decimal NSP { get; set; }
         public decimal POLICE { get; set; }
@@ -61,5 +62,7 @@ namespace MkeAlerts.Web.Models.Data.Incidents
         public int Theft { get; set; }
         public int VehicleTheft { get; set; }
 
+        [MaxLength(20)]
+        public string TypeOfCrime { get; set; }
     }
 }
