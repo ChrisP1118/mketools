@@ -1,9 +1,9 @@
 # TODO
 
-* Add page for "Crimes"
+* ~~Add page for "Crimes"~~
 * Add fire dispatch calls
 * Add fire history
-* Dispatch call notifications
+* Dispatch call notifications (MailGun)
 * Crime notifications
 * Crime/dispatch-specific icons on map
 * Manage notifications and account

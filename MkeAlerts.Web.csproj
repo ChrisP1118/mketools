@@ -21,20 +21,21 @@
     <PackageReference Include="EFCore.BulkExtensions" Version="2.5.2" />
     <PackageReference Include="FlexLabs.EntityFrameworkCore.Upsert" Version="2.1.2" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
-    <PackageReference Include="Hangfire" Version="1.7.5" />
+    <PackageReference Include="Hangfire" Version="1.7.6" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.12" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.18" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="2.2.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="mnailgun" Version="3.0.2" />
     <PackageReference Include="NetTopologySuite" Version="1.15.3" />
     <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="1.15.5" />
     <PackageReference Include="NetTopologySuite.IO.ShapeFile" Version="1.15.3" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.8.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="4.0.1" />
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.19" />
     <PackageReference Include="System.Xml.ReaderWriter" Version="4.3.1" />
     <PackageReference Include="VueCliMiddleware" Version="2.2.1" />
   </ItemGroup>
