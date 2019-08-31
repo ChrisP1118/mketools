@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Jobs
 {
-    public class ImportStreetsJob : ImportJob
+    public class ImportStreetsJob : Job
     {
         private readonly ILogger<ImportStreetsJob> _logger;
         private readonly IEntityWriteService<Street, string> _streetWriteService;

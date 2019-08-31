@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Jobs
 {
-    public class ImportDispatchCallsJob : ImportJob
+    public class ImportDispatchCallsJob : Job
     {
         private readonly ILogger<ImportDispatchCallsJob> _logger;
         private readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;

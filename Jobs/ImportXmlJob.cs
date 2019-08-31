@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Services;
+using MkeAlerts.Web.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Xml;
 
 namespace MkeAlerts.Web.Jobs
 {
-    public abstract class ImportXmlJob<TDataModel> : ImportJob
+    public abstract class ImportXmlJob<TDataModel> : Job
         where TDataModel : class, new()
     {
         private readonly ILogger<ImportXmlJob<TDataModel>> _logger;
@@ -26,13 +27,14 @@ namespace MkeAlerts.Web.Jobs
             _writeService = writeService;
         }
 
-        protected abstract string GetFileName();
-
         protected abstract void ProcessElement(TDataModel item, string elementName, string elementValue);
 
         protected virtual async Task BeforeSaveElement(TDataModel item)
         {
         }
+
+        protected abstract string PackageName { get; }
+        protected abstract string PackageFormat { get; }
 
         protected virtual bool UseBulkInsert => true;
 
@@ -40,9 +42,9 @@ namespace MkeAlerts.Web.Jobs
         {
             _logger.LogInformation("Starting job");
 
-            ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
+            string fileName = await PackageUtilities.DownloadPackageFile(_logger, PackageName, PackageFormat);
 
-            string file = GetFileName();
+            ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
             List<TDataModel> items = new List<TDataModel>();
 
@@ -53,7 +55,7 @@ namespace MkeAlerts.Web.Jobs
             int success = 0;
             int failure = 0;
 
-            using (XmlTextReader xmlReader = new XmlTextReader(file))
+            using (XmlTextReader xmlReader = new XmlTextReader(fileName))
             {
                 while (xmlReader.Read())
                 {

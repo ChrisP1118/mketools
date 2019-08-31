@@ -20,10 +20,8 @@ namespace MkeAlerts.Web.Jobs
         {
         }
 
-        protected override string GetFileName()
-        {
-            return @"M:\My Documents\GitHub\mkealerts\DataSources\mprop\mprop.xml";
-        }
+        protected override string PackageName => "mprop";
+        protected override string PackageFormat => "XML";
 
         protected override void ProcessElement(Property item, string elementName, string elementValue)
         {

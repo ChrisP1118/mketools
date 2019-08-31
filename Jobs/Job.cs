@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Jobs
 {
-    public abstract class ImportJob
+    public abstract class Job
     {
         protected readonly IConfiguration _configuration;
         protected readonly SignInManager<ApplicationUser> _signInManager;
         protected readonly UserManager<ApplicationUser> _userManager;
 
-        public ImportJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public Job(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _configuration = configuration;
             _signInManager = signInManager;

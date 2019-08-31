@@ -26,7 +26,7 @@ using Parcel = MkeAlerts.Web.Models.Data.Places.Parcel;
 
 namespace MkeAlerts.Web.Jobs
 {
-    public class ImportParcelsJob : ImportJob
+    public class ImportParcelsJob : Job
     {
         private readonly ILogger<ImportParcelsJob> _logger;
         private readonly IEntityWriteService<Parcel, string> _parcelWriteService;

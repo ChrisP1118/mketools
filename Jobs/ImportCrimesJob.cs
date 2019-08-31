@@ -29,10 +29,8 @@ namespace MkeAlerts.Web.Jobs
             _projectionInfo = ProjectionInfo.Open(path.Replace(".shp", ".prj"));
         }
 
-        protected override string GetFileName()
-        {
-            return @"M:\My Documents\GitHub\mkealerts\DataSources\wibr\wibr.xml";
-        }
+        protected override string PackageName => "wibr";
+        protected override string PackageFormat => "XML";
 
         protected override bool UseBulkInsert => false;
 

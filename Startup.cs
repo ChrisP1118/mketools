@@ -273,6 +273,10 @@ Note that not all fields can be sorted.
 
             // Run every 5 minutes
             RecurringJob.AddOrUpdate<ImportDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
+
+            BackgroundJob.Enqueue<ImportAddressesJob>(x => x.Run());
+
+            //BackgroundJob.Enqueue<DownloadPackageDataJob>(x => x.Run("mai", "XML", filePath => BackgroundJob.Enqueue<ImportAddressesJob>(j => j.Run(filePath))));
         }
     }
 }

@@ -1582,3 +1582,31 @@
 2019-08-30 21:25:32.0384 Info Adding target FileTarget(Name=MkeAlerts)
 2019-08-30 21:25:32.0634 Info Adding target FileTarget(Name=Misc)
 2019-08-30 21:25:32.1217 Info Found 88 configuration items
+2019-08-30 22:18:41.0411 Info Message Template Auto Format enabled
+2019-08-30 22:18:41.1294 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-30 22:18:41.5525 Info Adding target FileTarget(Name=EF)
+2019-08-30 22:18:41.5734 Info Adding target FileTarget(Name=Hangfire)
+2019-08-30 22:18:41.5734 Info Adding target FileTarget(Name=MkeAlerts)
+2019-08-30 22:18:41.5989 Info Adding target FileTarget(Name=Misc)
+2019-08-30 22:18:41.8105 Info Found 88 configuration items
+2019-08-30 22:50:57.7940 Info Message Template Auto Format enabled
+2019-08-30 22:50:57.9247 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-30 22:50:58.2214 Info Adding target FileTarget(Name=EF)
+2019-08-30 22:50:58.2257 Info Adding target FileTarget(Name=Hangfire)
+2019-08-30 22:50:58.2257 Info Adding target FileTarget(Name=MkeAlerts)
+2019-08-30 22:50:58.2518 Info Adding target FileTarget(Name=Misc)
+2019-08-30 22:50:58.3919 Info Found 88 configuration items
+2019-08-30 22:51:25.0601 Info Message Template Auto Format enabled
+2019-08-30 22:51:25.0726 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-30 22:51:25.1616 Info Adding target FileTarget(Name=EF)
+2019-08-30 22:51:25.1616 Info Adding target FileTarget(Name=Hangfire)
+2019-08-30 22:51:25.1616 Info Adding target FileTarget(Name=MkeAlerts)
+2019-08-30 22:51:25.1616 Info Adding target FileTarget(Name=Misc)
+2019-08-30 22:51:25.2281 Info Found 88 configuration items
+2019-08-30 23:01:12.1714 Info Message Template Auto Format enabled
+2019-08-30 23:01:12.8591 Info Loading assembly: NLog.Web.AspNetCore
+2019-08-30 23:01:13.4142 Info Adding target FileTarget(Name=EF)
+2019-08-30 23:01:13.4142 Info Adding target FileTarget(Name=Hangfire)
+2019-08-30 23:01:13.4262 Info Adding target FileTarget(Name=MkeAlerts)
+2019-08-30 23:01:13.4523 Info Adding target FileTarget(Name=Misc)
+2019-08-30 23:01:13.6009 Info Found 88 configuration items

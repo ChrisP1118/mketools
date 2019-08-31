@@ -124,8 +124,6 @@ namespace MkeAlerts.Web.Controllers.Data
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportProperties()
         {
-            //BackgroundJob.Enqueue<ImportPropertiesJob>(x => x.Run(true));
-
             ImportPropertiesJob job = new ImportPropertiesJob(_configuration, _signInManager, _userManager, _importPropertiesJobLogger, _propertyWriteService);
             await job.Run();
 

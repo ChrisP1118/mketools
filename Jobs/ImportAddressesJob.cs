@@ -20,10 +20,8 @@ namespace MkeAlerts.Web.Jobs
         {
         }
 
-        protected override string GetFileName()
-        {
-            return @"M:\My Documents\GitHub\mkealerts\DataSources\mai\mai.xml";
-        }
+        protected override string PackageName => "mai";
+        protected override string PackageFormat => "XML";
 
         protected override void ProcessElement(Address item, string elementName, string elementValue)
         {
