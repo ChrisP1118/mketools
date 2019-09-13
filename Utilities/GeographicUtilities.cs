@@ -48,6 +48,12 @@ namespace MkeAlerts.Web.Utilities
 
         public static void SetBounds(IHasBounds hasBounds, IGeometry geometry)
         {
+            if (geometry?.Coordinates == null)
+                return;
+
+            if (geometry.Coordinates.Length == 0)
+                return;
+
             // Two digits after the decimal
             double adjustment = Math.Pow(10, 2);
             hasBounds.MinLat = Math.Floor(geometry.Coordinates.Select(x => x.Y).Min() * adjustment) / adjustment;

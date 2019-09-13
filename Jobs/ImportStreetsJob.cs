@@ -18,6 +18,8 @@ using NetTopologySuite.IO.ShapeFile.Extended.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
@@ -42,16 +44,22 @@ namespace MkeAlerts.Web.Jobs
         {
             _logger.LogInformation("Starting job");
 
+            string fileName = await PackageUtilities.DownloadPackageFile(_logger, "dime", "ZIP");
+            string folderName = Path.GetDirectoryName(fileName);
+            ZipFile.ExtractToDirectory(fileName, folderName);
+            _logger.LogDebug(fileName + " unzipped to " + folderName);
+
+            string shapeFileName = folderName + "\\dime.shp";
+            string projectionFileName = folderName + "\\dime.prj";
+
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
-            string path = @"M:\My Documents\GitHub\mkealerts\DataSources\dime\dime.shp";
-
-            var projectionInfo = ProjectionInfo.Open(path.Replace(".shp", ".prj"));
+            var projectionInfo = ProjectionInfo.Open(projectionFileName);
 
             int success = 0;
             int failure = 0;
 
-            using (ShapeDataReader reader = new ShapeDataReader(path))
+            using (ShapeDataReader reader = new ShapeDataReader(shapeFileName))
             {
                 var mbr = reader.ShapefileBounds;
                 var result = reader.ReadByMBRFilter(mbr);
@@ -278,6 +286,11 @@ namespace MkeAlerts.Web.Jobs
             }
 
             _logger.LogInformation("Import results: " + success.ToString() + " success, " + failure.ToString() + " failure");
+
+            foreach (string file in Directory.EnumerateFiles(folderName))
+                File.Delete(file);
+            Directory.Delete(folderName);
+
             _logger.LogInformation("Finishing job");
         }
     }

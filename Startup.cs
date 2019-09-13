@@ -53,7 +53,10 @@ namespace MkeAlerts.Web
             // Add the database context
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default"), x => x.UseNetTopologySuite()));
 
-            services.AddHangfire(x => x.UseSqlServerStorage(Configuration.GetConnectionString("Default")));
+            services.AddHangfire(config =>
+            {
+                config.UseSqlServerStorage(Configuration.GetConnectionString("Default"));
+            });
             services.AddHangfireServer();
 
             // Add Identity
@@ -271,12 +274,26 @@ Note that not all fields can be sorted.
 
             dbContext.Database.EnsureCreated();
 
+            //BackgroundJob.Enqueue<ImportAddressesJob>(x => x.Run());
+
             // Run every 5 minutes
             RecurringJob.AddOrUpdate<ImportDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 
-            BackgroundJob.Enqueue<ImportAddressesJob>(x => x.Run());
+            // Every day at 1:00am (Dataset is updated daily: https://data.milwaukee.gov/dataset/mai)
+            RecurringJob.AddOrUpdate<ImportAddressesJob>("ImportAddressesJob", x => x.Run(), "0 1 * * *");
 
-            //BackgroundJob.Enqueue<DownloadPackageDataJob>(x => x.Run("mai", "XML", filePath => BackgroundJob.Enqueue<ImportAddressesJob>(j => j.Run(filePath))));
+            // Every day at 3:00am (Dataset is updated daily: https://data.milwaukee.gov/dataset/mprop)
+            RecurringJob.AddOrUpdate<ImportPropertiesJob>("ImportPropertiesJob", x => x.Run(), "0 3 * * *");
+
+            // Every day at 5:00am (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
+            RecurringJob.AddOrUpdate<ImportCrimesJob>("ImportCrimesJob", x => x.Run(), "0 5 * * *");
+
+            // Every day at 6:00pm on Sundays
+            RecurringJob.AddOrUpdate<ImportParcelsJob>("ImportParcelsJob", x => x.Run(), "0 18 * * SUN");
+            //BackgroundJob.Enqueue<ImportParcelsJob>(x => x.Run());
+
+            // Every day at 9:00pm on Sundays
+            RecurringJob.AddOrUpdate<ImportStreetsJob>("ImportStreetsJob", x => x.Run(), "0 21 * * SUN");
         }
     }
 }

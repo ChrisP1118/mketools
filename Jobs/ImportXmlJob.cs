@@ -7,6 +7,7 @@ using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -93,6 +94,9 @@ namespace MkeAlerts.Web.Jobs
             }
 
             _logger.LogInformation("Import results: " + success.ToString() + " success, " + failure.ToString() + " failure");
+
+            File.Delete(fileName);
+
             _logger.LogInformation("Finishing job");
         }
     }
