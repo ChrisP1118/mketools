@@ -40,8 +40,6 @@ namespace MkeAlerts.Web.Services.Data
                 (x.MinLng >= westBound && x.MaxLng <= eastBound) ||
                 (x.MinLng >= eastBound && x.MaxLng <= westBound))
             .Where(x => x.Geometry.Intersects(bounds));
-
-            return queryable;
         }
 
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, DispatchCall dataModel)

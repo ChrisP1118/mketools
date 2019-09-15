@@ -116,6 +116,26 @@ export default {
     }
   },
   methods: {
+    getPosition: function () {
+      if (!("geolocation" in navigator))
+        return;
+
+      console.log('Getting position...');
+
+      navigator.geolocation.getCurrentPosition(this.gotPosition);
+    },
+    gotPosition: function (position) {
+      console.log('Got position...');
+      console.log(position);
+
+      let location = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      this.map.setCenter(location);
+      this.map.setZoom(14);
+    },
     loadStreetReferences: function () {
       axios
         .get('/api/StreetReference')
@@ -199,6 +219,8 @@ export default {
                   icon = 'red-blank.png'; break;
 
                 case 'SHOTSPOTTER':
+                case 'SHOOTING':
+                case 'SHOTS FIRED':
                   icon = 'red-circle.png'; break;
 
                 // Orange: Non-violent serious crime
@@ -322,7 +344,9 @@ export default {
         this.updateTab();
 
       }, 1000);
-    });      
+    });
+
+    this.getPosition();
   }
 };
 </script>
