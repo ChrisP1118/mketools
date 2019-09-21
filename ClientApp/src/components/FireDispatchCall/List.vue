@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-title title="Dispatch Calls" />
+    <page-title title="Fire Dispatch Calls" />
     <b-row>
       <b-col>
         <filtered-table :settings="tableSettings">
@@ -14,17 +14,17 @@
 import axios from "axios";
 
 export default {
-  name: "DispatchCallList",
+  name: "FireDispatchCallList",
   props: {},
   data() {
     let base = this;
     return {
       tableSettings: {
-        endpoint: '/api/DispatchCall',
+        endpoint: '/api/FireDispatchCall',
         columns: [
           {
-            key: 'CallNumber',
-            name: 'Call Number',
+            key: 'CFS',
+            name: 'CFS',
             visible: true,
             sortable: true,
             filter: 'text'
@@ -37,15 +37,15 @@ export default {
             filter: 'date'
           },
           {
-            key: 'Location',
-            name: 'Location',
+            key: 'Address',
+            name: 'Address',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'District',
-            name: 'District',
+            key: 'City',
+            name: 'City',
             visible: true,
             sortable: true,
             filter: 'text'
@@ -58,8 +58,8 @@ export default {
             filter: 'text'
           },
           {
-            key: 'Status',
-            name: 'Status',
+            key: 'Disposition',
+            name: 'Disposition',
             visible: true,
             sortable: true,
             filter: 'text'
@@ -68,7 +68,7 @@ export default {
         getDefaultFilter: function () {
         },
         rowClicked: function (item, context) {
-          context.$router.push('/dispatchCall/' + item.CallNumber)
+          context.$router.push('/fireDispatchCall/' + item.CFS)
         },
         getItemInfoWindowText: function (item) {
           let raw = item._raw;

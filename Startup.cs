@@ -203,6 +203,8 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityWriteService<Street, string>, StreetService>();
             services.AddTransient<IEntityReadService<DispatchCall, string>, DispatchCallService>();
             services.AddTransient<IEntityWriteService<DispatchCall, string>, DispatchCallService>();
+            services.AddTransient<IEntityReadService<FireDispatchCall, string>, FireDispatchCallService>();
+            services.AddTransient<IEntityWriteService<FireDispatchCall, string>, FireDispatchCallService>();
             services.AddTransient<IEntityReadService<Crime, string>, CrimeService>();
             services.AddTransient<IEntityWriteService<Crime, string>, CrimeService>();
 
@@ -215,6 +217,7 @@ Note that not all fields can be sorted.
             services.AddSingleton<IValidator<Parcel>, ParcelValidator>();
             services.AddSingleton<IValidator<Street>, StreetValidator>();
             services.AddSingleton<IValidator<DispatchCall>, DispatchCallValidator>();
+            services.AddSingleton<IValidator<FireDispatchCall>, FireDispatchCallValidator>();
             services.AddSingleton<IValidator<Crime>, CrimeValidator>();
         }
 
@@ -278,6 +281,9 @@ Note that not all fields can be sorted.
 
             // Run every 5 minutes
             RecurringJob.AddOrUpdate<ImportDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
+
+            // Run every 5 minutes
+            RecurringJob.AddOrUpdate<ImportFireDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 
             // Every day at 1:00am (Dataset is updated daily: https://data.milwaukee.gov/dataset/mai)
             RecurringJob.AddOrUpdate<ImportAddressesJob>("ImportAddressesJob", x => x.Run(), "0 1 * * *");

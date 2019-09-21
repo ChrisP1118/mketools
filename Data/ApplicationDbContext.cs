@@ -20,6 +20,7 @@ namespace MkeAlerts.Web.Data
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Street> Streets { get; set; }
         public DbSet<DispatchCall> DispatchCalls { get; set; }
+        public DbSet<FireDispatchCall> FireDispatchCalls { get; set; }
         public DbSet<Crime> Crimes { get; set; }
 
         public DbQuery<StringReference> StreetNames { get; set; }
@@ -72,6 +73,9 @@ namespace MkeAlerts.Web.Data
 
             modelBuilder.Entity<DispatchCall>()
                 .HasKey(x => x.CallNumber);
+
+            modelBuilder.Entity<FireDispatchCall>()
+                .HasKey(x => x.CFS);
 
             modelBuilder.Entity<Crime>()
                 .HasKey(x => x.IncidentNum);

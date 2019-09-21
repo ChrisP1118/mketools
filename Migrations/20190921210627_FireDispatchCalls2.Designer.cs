@@ -4,15 +4,17 @@ using GeoAPI.Geometries;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MkeAlerts.Web.Data;
 
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190921210627_FireDispatchCalls2")]
+    partial class FireDispatchCalls2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,7 +139,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "1e4ee0c7-99d8-4601-aae8-2c8123ec5d9b",
+                            ConcurrencyStamp = "e36c25ee-2881-4e7f-a225-840ca1124474",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +206,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5adddb64-ed0d-4baa-b4ce-3134ce427f4d",
+                            ConcurrencyStamp = "be4f9f51-c1d0-42c4-9c55-158aec43010c",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ3/06Ny5hSHc415s1N+BEdW2eqABawuKqhKvEA7D10pu/dfGol5Uy01AW+/jpcl4g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJbT/XHVgjNb7lEaBfSs9HF7MPrmI6Tg2ksl0r0AY7BSvlnXcgbKfzigAn82lmSJAw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -354,9 +356,6 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasMaxLength(60);
-
-                    b.Property<string>("Apt")
-                        .HasMaxLength(50);
 
                     b.Property<string>("City")
                         .HasMaxLength(50);

@@ -4,15 +4,17 @@ using GeoAPI.Geometries;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MkeAlerts.Web.Data;
 
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190921210406_FireDispatchCalls")]
+    partial class FireDispatchCalls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,7 +139,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "1e4ee0c7-99d8-4601-aae8-2c8123ec5d9b",
+                            ConcurrencyStamp = "70706bcb-bb31-457f-98fa-0d53700d367d",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +206,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5adddb64-ed0d-4baa-b4ce-3134ce427f4d",
+                            ConcurrencyStamp = "0aed4972-fd32-4e04-a1d4-1222fad97d21",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ3/06Ny5hSHc415s1N+BEdW2eqABawuKqhKvEA7D10pu/dfGol5Uy01AW+/jpcl4g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKtPEfBeInP9jIcR/9+cTowOdVLeUVWb6nKM6OrgQQwaCwMkbz/sqVU/U3dh5gT7Ew==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -342,57 +344,6 @@ namespace MkeAlerts.Web.Migrations
                     b.HasKey("CallNumber");
 
                     b.ToTable("DispatchCalls");
-                });
-
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.FireDispatchCall", b =>
-                {
-                    b.Property<string>("CFS")
-                        .HasMaxLength(12);
-
-                    b.Property<int>("Accuracy");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(60);
-
-                    b.Property<string>("Apt")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("City")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("Disposition")
-                        .HasMaxLength(60);
-
-                    b.Property<IGeometry>("Geometry");
-
-                    b.Property<decimal>("MaxLat")
-                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<decimal>("MaxLng")
-                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<decimal>("MinLat")
-                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<decimal>("MinLng")
-                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<string>("NatureOfCall")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("ReportedDateTime");
-
-                    b.Property<int>("Source");
-
-                    b.HasKey("CFS");
-
-                    b.ToTable("FireDispatchCalls");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Address", b =>

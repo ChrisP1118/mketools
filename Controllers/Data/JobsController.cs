@@ -32,6 +32,7 @@ namespace MkeAlerts.Web.Controllers.Data
         protected readonly ILogger<ImportAddressesJob> _importAddressesJobLogger;
         protected readonly ILogger<ImportStreetsJob> _importStreetsJobLogger;
         protected readonly ILogger<ImportDispatchCallsJob> _importDispatchCallsJobLogger;
+        protected readonly ILogger<ImportFireDispatchCallsJob> _importFireDispatchCallsJobLogger;
         protected readonly ILogger<ImportCrimesJob> _importCrimesJobLogger;
 
         protected readonly IEntityWriteService<Property, string> _propertyWriteService;
@@ -39,6 +40,7 @@ namespace MkeAlerts.Web.Controllers.Data
         protected readonly IEntityWriteService<Address, string> _addressWriteService;
         protected readonly IEntityWriteService<Street, string> _streetWriteService;
         protected readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;
+        protected readonly IEntityWriteService<FireDispatchCall, string> _fireDispatchCallWriteService;
         protected readonly IEntityWriteService<Crime, string> _crimeWriteService;
 
         protected readonly IGeocodingService _geocodingService;
@@ -54,6 +56,7 @@ namespace MkeAlerts.Web.Controllers.Data
             ILogger<ImportAddressesJob> importAddressesJobLogger,
             ILogger<ImportStreetsJob> importStreetsJobLogger,
             ILogger<ImportDispatchCallsJob> importDispatchCallsJobLogger,
+            ILogger<ImportFireDispatchCallsJob> importFireDispatchCallsJobLogger,
             ILogger<ImportCrimesJob> importCrimesJobLogger,
 
             IEntityWriteService<Property, string> propertyWriteService,
@@ -61,6 +64,7 @@ namespace MkeAlerts.Web.Controllers.Data
             IEntityWriteService<Address, string> addressWriteService,
             IEntityWriteService<Street, string> streetWriteService,
             IEntityWriteService<DispatchCall, string> dispatchCallWriteService,
+            IEntityWriteService<FireDispatchCall, string> fireDispatchCallWriteService,
             IEntityWriteService<Crime, string> crimeWriteService,
 
             IGeocodingService geocodingService)
@@ -75,6 +79,7 @@ namespace MkeAlerts.Web.Controllers.Data
             _importAddressesJobLogger = importAddressesJobLogger;
             _importStreetsJobLogger = importStreetsJobLogger;
             _importDispatchCallsJobLogger = importDispatchCallsJobLogger;
+            _importFireDispatchCallsJobLogger = importFireDispatchCallsJobLogger;
             _importCrimesJobLogger = importCrimesJobLogger;
 
             _propertyWriteService = propertyWriteService;
@@ -82,6 +87,7 @@ namespace MkeAlerts.Web.Controllers.Data
             _addressWriteService = addressWriteService;
             _streetWriteService = streetWriteService;
             _dispatchCallWriteService = dispatchCallWriteService;
+            _fireDispatchCallWriteService = fireDispatchCallWriteService;
             _crimeWriteService = crimeWriteService;
 
             _geocodingService = geocodingService;
@@ -185,6 +191,21 @@ namespace MkeAlerts.Web.Controllers.Data
         public async Task<ActionResult> ImportDispatchCalls()
         {
             ImportDispatchCallsJob job = new ImportDispatchCallsJob(_configuration, _signInManager, _userManager, _importDispatchCallsJobLogger, _dispatchCallWriteService, _geocodingService);
+            await job.Run();
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Imports fire dispatch calls
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("ImportFireDispatchCalls")]
+        [ActionName("ImportFireDispatchCalls")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ImportFireDispatchCalls()
+        {
+            ImportFireDispatchCallsJob job = new ImportFireDispatchCallsJob(_configuration, _signInManager, _userManager, _importFireDispatchCallsJobLogger, _fireDispatchCallWriteService, _geocodingService);
             await job.Run();
 
             return Ok();
