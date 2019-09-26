@@ -11,7 +11,7 @@ using MkeAlerts.Web.Data;
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190813032237_Initial")]
+    [Migration("20190925142424_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,7 +139,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "9c0e9687-af42-4d9c-be48-c5a3413b113e",
+                            ConcurrencyStamp = "18f9751b-34d1-4430-be27-35780f48ddd4",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -206,13 +206,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "31c8b4fa-8eef-413b-b98e-a3cd721ec381",
+                            ConcurrencyStamp = "331700ce-8fa5-4d4a-82db-f8ec44c629e1",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBi4e9qjn43m5keehXMQlTpU8LbMaHSRC/c64iZR0Ltu3wTZc8oOqjF+2iG5C80PqQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEoiyZhGY8oXMNAAxh9h5IMKpcdjIV7Awg3G0O0zvW6AKeK3epjMEAxElsX/Mr4jUA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -242,6 +242,22 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<int>("LockedVehicle");
 
+                    b.Property<decimal>("MaxLat")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MaxLng")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MinLat")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MinLng")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
                     b.Property<decimal>("NSP");
 
                     b.Property<decimal>("POLICE");
@@ -266,6 +282,9 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<int>("Theft");
 
+                    b.Property<string>("TypeOfCrime")
+                        .HasMaxLength(20);
+
                     b.Property<int>("VehicleTheft");
 
                     b.Property<decimal>("WARD");
@@ -280,7 +299,58 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("Crimes");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.DispatchCall", b =>
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.FireDispatchCall", b =>
+                {
+                    b.Property<string>("CFS")
+                        .HasMaxLength(12);
+
+                    b.Property<int>("Accuracy");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(60);
+
+                    b.Property<string>("Apt")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("City")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Disposition")
+                        .HasMaxLength(60);
+
+                    b.Property<IGeometry>("Geometry");
+
+                    b.Property<decimal>("MaxLat")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MaxLng")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MinLat")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MinLng")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<string>("NatureOfCall")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime>("ReportedDateTime");
+
+                    b.Property<int>("Source");
+
+                    b.HasKey("CFS");
+
+                    b.ToTable("FireDispatchCalls");
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.PoliceDispatchCall", b =>
                 {
                     b.Property<string>("CallNumber")
                         .HasMaxLength(12);
@@ -295,6 +365,22 @@ namespace MkeAlerts.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
+                    b.Property<decimal>("MaxLat")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MaxLng")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MinLat")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MinLng")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
                     b.Property<string>("NatureOfCall")
                         .IsRequired()
                         .HasMaxLength(20);
@@ -308,7 +394,7 @@ namespace MkeAlerts.Web.Migrations
 
                     b.HasKey("CallNumber");
 
-                    b.ToTable("DispatchCalls");
+                    b.ToTable("PoliceDispatchCalls");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Address", b =>

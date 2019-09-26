@@ -13,7 +13,8 @@
         <b-collapse is-nav id="nav_collapse">
 
           <b-navbar-nav>
-            <b-nav-item to="/dispatchCall">Dispatch Calls</b-nav-item>
+            <b-nav-item to="/dispatchCall">Police Dispatch Calls</b-nav-item>
+            <b-nav-item to="/fireDispatchCall">Fire Dispatch Calls</b-nav-item>
             <b-nav-item to="/crime">Crimes</b-nav-item>
             <b-nav-item to="/property">Properties</b-nav-item>
             <b-nav-item to="/about">About</b-nav-item>

@@ -11,7 +11,7 @@ namespace MkeAlerts.Web.Utilities
 {
     public static class PackageUtilities
     {
-        public static async Task<string> DownloadPackageFile(ILogger logger, string packageName, string format)
+        public static async Task<string> DownloadPackageFile(ILogger logger, string packageName, string format = null, string name = null)
         {
             try
             {
@@ -28,7 +28,14 @@ namespace MkeAlerts.Web.Utilities
                 }
 
                 JObject dataObject = JObject.Parse(packageDetailsData);
-                string packageFileUrl = (string)dataObject.SelectToken("result.resources[?(@.format == '" + format + "')].url");
+                string packageFileUrl = string.Empty;
+                if (!string.IsNullOrEmpty(format))
+                    packageFileUrl = (string)dataObject.SelectToken("result.resources[?(@.format == '" + format + "')].url");
+                else if (!string.IsNullOrEmpty(name))
+                    packageFileUrl = (string)dataObject.SelectToken("result.resources[?(@.name == '" + name + "')].url");
+
+                if (string.IsNullOrEmpty(packageFileUrl))
+                    throw new Exception("No package exists matching format or name");
 
                 string tempFileName = Path.GetTempFileName();
 

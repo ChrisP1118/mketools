@@ -10,23 +10,23 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Services.Data
 {
-    public class DispatchCallService : EntityWriteService<DispatchCall, string>
+    public class PoliceDispatchCallService : EntityWriteService<PoliceDispatchCall, string>
     {
-        public DispatchCallService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<DispatchCall> validator, ILogger<DispatchCall> logger) : base(dbContext, userManager, validator, logger)
+        public PoliceDispatchCallService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<PoliceDispatchCall> validator, ILogger<PoliceDispatchCall> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 
-        protected override async Task<IQueryable<DispatchCall>> ApplyIdFilter(IQueryable<DispatchCall> queryable, string id)
+        protected override async Task<IQueryable<PoliceDispatchCall>> ApplyIdFilter(IQueryable<PoliceDispatchCall> queryable, string id)
         {
             return queryable.Where(x => x.CallNumber == id);
         }
 
-        protected override async Task<IQueryable<DispatchCall>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<DispatchCall> queryable)
+        protected override async Task<IQueryable<PoliceDispatchCall>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<PoliceDispatchCall> queryable)
         {
             return queryable;
         }
 
-        protected override async Task<IQueryable<DispatchCall>> ApplyBounds(IQueryable<DispatchCall> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
+        protected override async Task<IQueryable<PoliceDispatchCall>> ApplyBounds(IQueryable<PoliceDispatchCall> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
         {
             return queryable
             .Where(x =>
@@ -42,7 +42,7 @@ namespace MkeAlerts.Web.Services.Data
             .Where(x => x.Geometry.Intersects(bounds));
         }
 
-        protected override async Task<bool> CanWrite(ApplicationUser applicationUser, DispatchCall dataModel)
+        protected override async Task<bool> CanWrite(ApplicationUser applicationUser, PoliceDispatchCall dataModel)
         {
             // Site admins can write
             if (await _userManager.IsInRoleAsync(applicationUser, ApplicationRole.SiteAdminRole))

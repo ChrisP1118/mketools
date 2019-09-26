@@ -11,9 +11,9 @@ using MkeAlerts.Web.Models.DTO.Incidents;
 
 namespace MkeAlerts.Web.Controllers.Data
 {
-    public class DispatchCallController : EntityReadController<DispatchCall, DispatchCallDTO, IEntityReadService<DispatchCall, string>, string>
+    public class PoliceDispatchCallController : EntityReadController<PoliceDispatchCall, PoliceDispatchCallDTO, IEntityReadService<PoliceDispatchCall, string>, string>
     {
-        public DispatchCallController(IConfiguration configuration, IMapper mapper, IEntityReadService<DispatchCall, string> service) : base(configuration, mapper, service)
+        public PoliceDispatchCallController(IConfiguration configuration, IMapper mapper, IEntityReadService<PoliceDispatchCall, string> service) : base(configuration, mapper, service)
         {
         }
     }

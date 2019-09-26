@@ -137,7 +137,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "1e4ee0c7-99d8-4601-aae8-2c8123ec5d9b",
+                            ConcurrencyStamp = "18f9751b-34d1-4430-be27-35780f48ddd4",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +204,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5adddb64-ed0d-4baa-b4ce-3134ce427f4d",
+                            ConcurrencyStamp = "331700ce-8fa5-4d4a-82db-f8ec44c629e1",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ3/06Ny5hSHc415s1N+BEdW2eqABawuKqhKvEA7D10pu/dfGol5Uy01AW+/jpcl4g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEoiyZhGY8oXMNAAxh9h5IMKpcdjIV7Awg3G0O0zvW6AKeK3epjMEAxElsX/Mr4jUA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -297,53 +297,6 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("Crimes");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.DispatchCall", b =>
-                {
-                    b.Property<string>("CallNumber")
-                        .HasMaxLength(12);
-
-                    b.Property<int>("Accuracy");
-
-                    b.Property<int>("District");
-
-                    b.Property<IGeometry>("Geometry");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(60);
-
-                    b.Property<decimal>("MaxLat")
-                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<decimal>("MaxLng")
-                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<decimal>("MinLat")
-                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<decimal>("MinLng")
-                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
-                        .HasColumnType("decimal(5, 2)");
-
-                    b.Property<string>("NatureOfCall")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.Property<DateTime>("ReportedDateTime");
-
-                    b.Property<int>("Source");
-
-                    b.Property<string>("Status")
-                        .HasMaxLength(60);
-
-                    b.HasKey("CallNumber");
-
-                    b.ToTable("DispatchCalls");
-                });
-
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.FireDispatchCall", b =>
                 {
                     b.Property<string>("CFS")
@@ -393,6 +346,53 @@ namespace MkeAlerts.Web.Migrations
                     b.HasKey("CFS");
 
                     b.ToTable("FireDispatchCalls");
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.PoliceDispatchCall", b =>
+                {
+                    b.Property<string>("CallNumber")
+                        .HasMaxLength(12);
+
+                    b.Property<int>("Accuracy");
+
+                    b.Property<int>("District");
+
+                    b.Property<IGeometry>("Geometry");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(60);
+
+                    b.Property<decimal>("MaxLat")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MaxLng")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MinLat")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<decimal>("MinLng")
+                        .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
+                        .HasColumnType("decimal(5, 2)");
+
+                    b.Property<string>("NatureOfCall")
+                        .IsRequired()
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime>("ReportedDateTime");
+
+                    b.Property<int>("Source");
+
+                    b.Property<string>("Status")
+                        .HasMaxLength(60);
+
+                    b.HasKey("CallNumber");
+
+                    b.ToTable("PoliceDispatchCalls");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Address", b =>

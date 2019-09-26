@@ -56,6 +56,10 @@ namespace MkeAlerts.Web.Migrations
                 {
                     IncidentNum = table.Column<string>(maxLength: 20, nullable: false),
                     Point = table.Column<IPoint>(nullable: true),
+                    MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MaxLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MinLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MaxLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
                     ReportedDateTime = table.Column<DateTime>(nullable: false),
                     ReportedYear = table.Column<decimal>(nullable: false),
                     ReportedMonth = table.Column<decimal>(nullable: false),
@@ -78,7 +82,8 @@ namespace MkeAlerts.Web.Migrations
                     Robbery = table.Column<int>(nullable: false),
                     SexOffense = table.Column<int>(nullable: false),
                     Theft = table.Column<int>(nullable: false),
-                    VehicleTheft = table.Column<int>(nullable: false)
+                    VehicleTheft = table.Column<int>(nullable: false),
+                    TypeOfCrime = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -86,7 +91,31 @@ namespace MkeAlerts.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DispatchCalls",
+                name: "FireDispatchCalls",
+                columns: table => new
+                {
+                    CFS = table.Column<string>(maxLength: 12, nullable: false),
+                    ReportedDateTime = table.Column<DateTime>(nullable: false),
+                    Address = table.Column<string>(maxLength: 60, nullable: false),
+                    Apt = table.Column<string>(maxLength: 50, nullable: true),
+                    City = table.Column<string>(maxLength: 50, nullable: true),
+                    NatureOfCall = table.Column<string>(maxLength: 20, nullable: false),
+                    Disposition = table.Column<string>(maxLength: 60, nullable: true),
+                    Geometry = table.Column<IGeometry>(nullable: true),
+                    MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MaxLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MinLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MaxLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    Accuracy = table.Column<int>(nullable: false),
+                    Source = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FireDispatchCalls", x => x.CFS);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PoliceDispatchCalls",
                 columns: table => new
                 {
                     CallNumber = table.Column<string>(maxLength: 12, nullable: false),
@@ -96,12 +125,16 @@ namespace MkeAlerts.Web.Migrations
                     NatureOfCall = table.Column<string>(maxLength: 20, nullable: false),
                     Status = table.Column<string>(maxLength: 60, nullable: true),
                     Geometry = table.Column<IGeometry>(nullable: true),
+                    MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MaxLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MinLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MaxLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
                     Accuracy = table.Column<int>(nullable: false),
                     Source = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DispatchCalls", x => x.CallNumber);
+                    table.PrimaryKey("PK_PoliceDispatchCalls", x => x.CallNumber);
                 });
 
             migrationBuilder.CreateTable(
@@ -540,12 +573,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "9c0e9687-af42-4d9c-be48-c5a3413b113e", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "18f9751b-34d1-4430-be27-35780f48ddd4", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "31c8b4fa-8eef-413b-b98e-a3cd721ec381", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEBi4e9qjn43m5keehXMQlTpU8LbMaHSRC/c64iZR0Ltu3wTZc8oOqjF+2iG5C80PqQ==", null, false, "", false, "siteadmin" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "331700ce-8fa5-4d4a-82db-f8ec44c629e1", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEEoiyZhGY8oXMNAAxh9h5IMKpcdjIV7Awg3G0O0zvW6AKeK3epjMEAxElsX/Mr4jUA==", null, false, "", false, "siteadmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -641,10 +674,13 @@ namespace MkeAlerts.Web.Migrations
                 name: "Crimes");
 
             migrationBuilder.DropTable(
-                name: "DispatchCalls");
+                name: "FireDispatchCalls");
 
             migrationBuilder.DropTable(
                 name: "Parcels");
+
+            migrationBuilder.DropTable(
+                name: "PoliceDispatchCalls");
 
             migrationBuilder.DropTable(
                 name: "Streets");

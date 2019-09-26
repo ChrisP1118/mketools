@@ -2181,3 +2181,304 @@
 2019-09-21 16:31:29.4419 Info Adding target FileTarget(Name=MkeAlerts)
 2019-09-21 16:31:29.4648 Info Adding target FileTarget(Name=Misc)
 2019-09-21 16:31:29.6262 Info Found 88 configuration items
+2019-09-21 16:33:48.6474 Info Message Template Auto Format enabled
+2019-09-21 16:33:48.6474 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-21 16:33:48.7215 Info Adding target FileTarget(Name=EF)
+2019-09-21 16:33:48.7215 Info Adding target FileTarget(Name=Hangfire)
+2019-09-21 16:33:48.7215 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-21 16:33:48.7215 Info Adding target FileTarget(Name=Misc)
+2019-09-21 16:33:48.7637 Info Found 88 configuration items
+2019-09-25 08:45:41.4172 Info Message Template Auto Format enabled
+2019-09-25 08:45:41.4322 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 08:45:41.5372 Info Adding target FileTarget(Name=EF)
+2019-09-25 08:45:41.5423 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 08:45:41.5423 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 08:45:41.5423 Info Adding target FileTarget(Name=Misc)
+2019-09-25 08:45:41.6133 Info Found 88 configuration items
+2019-09-25 08:46:29.6592 Info Shutdown() called. Logger closing...
+2019-09-25 08:46:29.6592 Info Closing old configuration.
+2019-09-25 08:46:29.6832 Info Logger has been closed down.
+2019-09-25 08:46:29.6832 Info AppDomain Shutting down. Logger closing...
+2019-09-25 08:46:29.6992 Info Logger has been shut down.
+2019-09-25 08:47:11.8267 Info Message Template Auto Format enabled
+2019-09-25 08:47:11.8414 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 08:47:11.9489 Info Adding target FileTarget(Name=EF)
+2019-09-25 08:47:11.9489 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 08:47:11.9489 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 08:47:11.9489 Info Adding target FileTarget(Name=Misc)
+2019-09-25 08:47:12.0144 Info Found 88 configuration items
+2019-09-25 08:49:33.8911 Info Shutdown() called. Logger closing...
+2019-09-25 08:49:33.8911 Info Closing old configuration.
+2019-09-25 08:49:33.9105 Info Logger has been closed down.
+2019-09-25 08:49:33.9105 Info AppDomain Shutting down. Logger closing...
+2019-09-25 08:49:33.9158 Info Logger has been shut down.
+2019-09-25 08:50:02.9640 Info Message Template Auto Format enabled
+2019-09-25 08:50:02.9640 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 08:50:03.0718 Info Adding target FileTarget(Name=EF)
+2019-09-25 08:50:03.0718 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 08:50:03.0718 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 08:50:03.0718 Info Adding target FileTarget(Name=Misc)
+2019-09-25 08:50:03.1417 Info Found 88 configuration items
+2019-09-25 09:21:27.3338 Info Shutdown() called. Logger closing...
+2019-09-25 09:21:27.3338 Info Closing old configuration.
+2019-09-25 09:21:27.3553 Info Logger has been closed down.
+2019-09-25 09:21:27.3553 Info AppDomain Shutting down. Logger closing...
+2019-09-25 09:21:27.3553 Info Logger has been shut down.
+2019-09-25 09:24:22.4681 Info Message Template Auto Format enabled
+2019-09-25 09:24:22.4802 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:24:22.5579 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:24:22.5579 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:24:22.5579 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:24:22.5579 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:24:22.6052 Info Found 88 configuration items
+2019-09-25 09:24:22.6227 Info Configuration initialized.
+2019-09-25 09:24:22.6432 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.4.10085. Product version: 4.6.4.
+2019-09-25 09:24:30.2735 Info AppDomain Shutting down. Logger closing...
+2019-09-25 09:24:30.2970 Info Logger has been shut down.
+2019-09-25 09:26:08.3474 Info Message Template Auto Format enabled
+2019-09-25 09:26:08.3567 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:26:08.4191 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:26:08.4191 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:26:08.4191 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:26:08.4191 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:26:08.4601 Info Found 88 configuration items
+2019-09-25 09:26:08.4773 Info Configuration initialized.
+2019-09-25 09:26:08.4773 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.4.10085. Product version: 4.6.4.
+2019-09-25 09:26:20.0584 Info AppDomain Shutting down. Logger closing...
+2019-09-25 09:26:20.0818 Info Logger has been shut down.
+2019-09-25 09:27:05.8473 Info Message Template Auto Format enabled
+2019-09-25 09:27:05.8879 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:27:06.0996 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:27:06.1024 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:27:06.1024 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:27:06.1024 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:27:06.1942 Info Found 88 configuration items
+2019-09-25 09:30:39.5739 Info Message Template Auto Format enabled
+2019-09-25 09:30:39.6051 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:30:39.7672 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:30:39.7672 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:30:39.7672 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:30:39.7846 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:30:39.9201 Info Found 88 configuration items
+2019-09-25 09:31:34.3700 Info Message Template Auto Format enabled
+2019-09-25 09:31:34.4844 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:31:34.6721 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:31:34.6721 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:31:34.6721 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:31:34.7003 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:31:34.8035 Info Found 88 configuration items
+2019-09-25 09:42:31.1920 Info Message Template Auto Format enabled
+2019-09-25 09:42:31.2094 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:42:31.3341 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:42:31.3420 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:42:31.3420 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:42:31.3420 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:42:31.4128 Info Found 88 configuration items
+2019-09-25 09:44:56.7393 Info Message Template Auto Format enabled
+2019-09-25 09:44:56.7524 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:44:56.8509 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:44:56.8535 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:44:56.8535 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:44:56.8535 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:44:56.9042 Info Found 88 configuration items
+2019-09-25 09:48:19.3329 Info Message Template Auto Format enabled
+2019-09-25 09:48:19.3482 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:48:19.4377 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:48:19.4377 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:48:19.4377 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:48:19.4377 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:48:19.4944 Info Found 88 configuration items
+2019-09-25 09:48:51.3745 Info Message Template Auto Format enabled
+2019-09-25 09:48:51.3900 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:48:51.4998 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:48:51.4998 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:48:51.4998 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:48:51.4998 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:48:51.5736 Info Found 88 configuration items
+2019-09-25 09:51:26.0840 Info Message Template Auto Format enabled
+2019-09-25 09:51:26.0944 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:51:26.1651 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:51:26.1674 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:51:26.1674 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:51:26.1674 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:51:26.2148 Info Found 88 configuration items
+2019-09-25 09:51:54.1439 Info Message Template Auto Format enabled
+2019-09-25 09:51:54.1552 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:51:54.2777 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:51:54.2777 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:51:54.2777 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:51:54.2777 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:51:54.3540 Info Found 88 configuration items
+2019-09-25 09:52:55.0970 Info Message Template Auto Format enabled
+2019-09-25 09:52:55.1114 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:52:55.2060 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:52:55.2060 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:52:55.2060 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:52:55.2120 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:52:55.2699 Info Found 88 configuration items
+2019-09-25 09:54:47.0919 Info Message Template Auto Format enabled
+2019-09-25 09:54:47.0919 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:54:47.1651 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:54:47.1651 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:54:47.1651 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:54:47.1651 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:54:47.2079 Info Found 88 configuration items
+2019-09-25 09:56:58.8197 Info Message Template Auto Format enabled
+2019-09-25 09:56:58.8317 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:56:58.9093 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:56:58.9093 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:56:58.9093 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:56:58.9148 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:56:58.9654 Info Found 88 configuration items
+2019-09-25 09:57:02.7554 Info Configuration file change detected! Reloading in 1000ms...
+2019-09-25 09:57:02.7554 Info Configuration file change detected! Reloading in 1000ms...
+2019-09-25 09:57:02.7554 Info Configuration file change detected! Reloading in 1000ms...
+2019-09-25 09:57:03.7621 Info Reloading configuration...
+2019-09-25 09:57:03.7621 Info Configuring from an XML element in M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\nlog.config...
+2019-09-25 09:57:03.7621 Info Message Template Auto Format enabled
+2019-09-25 09:57:03.7621 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:57:03.7766 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:57:03.7766 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:57:03.7766 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:57:03.7766 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:57:03.7766 Info Adding target FileTarget(Name=Full)
+2019-09-25 09:57:03.7766 Info Closing old configuration.
+2019-09-25 09:57:03.8027 Info Found 105 configuration items
+2019-09-25 09:57:25.9061 Info Shutdown() called. Logger closing...
+2019-09-25 09:57:25.9061 Info Closing old configuration.
+2019-09-25 09:57:25.9061 Info Logger has been closed down.
+2019-09-25 09:57:25.9061 Info AppDomain Shutting down. Logger closing...
+2019-09-25 09:57:25.9061 Info Logger has been shut down.
+2019-09-25 09:57:42.1965 Info Message Template Auto Format enabled
+2019-09-25 09:57:42.2224 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 09:57:42.5465 Info Adding target FileTarget(Name=EF)
+2019-09-25 09:57:42.5627 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 09:57:42.5982 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 09:57:42.8629 Info Adding target FileTarget(Name=Misc)
+2019-09-25 09:57:42.8974 Info Adding target FileTarget(Name=Full)
+2019-09-25 09:57:43.2680 Info Found 105 configuration items
+2019-09-25 10:39:56.2007 Info Message Template Auto Format enabled
+2019-09-25 10:39:56.2007 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 10:39:56.2837 Info Adding target FileTarget(Name=EF)
+2019-09-25 10:39:56.2837 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 10:39:56.2837 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 10:39:56.2837 Info Adding target FileTarget(Name=Misc)
+2019-09-25 10:39:56.2837 Info Adding target FileTarget(Name=Full)
+2019-09-25 10:39:56.3265 Info Found 105 configuration items
+2019-09-25 10:40:54.0325 Info Message Template Auto Format enabled
+2019-09-25 10:40:54.0456 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 10:40:54.1342 Info Adding target FileTarget(Name=EF)
+2019-09-25 10:40:54.1342 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 10:40:54.1342 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 10:40:54.1342 Info Adding target FileTarget(Name=Misc)
+2019-09-25 10:40:54.1342 Info Adding target FileTarget(Name=Full)
+2019-09-25 10:40:54.2023 Info Found 105 configuration items
+2019-09-25 10:41:03.9283 Info Message Template Auto Format enabled
+2019-09-25 10:41:04.0047 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 10:41:04.5383 Info Adding target FileTarget(Name=EF)
+2019-09-25 10:41:04.5421 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 10:41:04.5421 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 10:41:04.5805 Info Adding target FileTarget(Name=Misc)
+2019-09-25 10:41:04.5907 Info Adding target FileTarget(Name=Full)
+2019-09-25 10:41:04.7354 Info Found 105 configuration items
+2019-09-25 10:42:21.4367 Info Message Template Auto Format enabled
+2019-09-25 10:42:21.4858 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 10:42:21.7248 Info Adding target FileTarget(Name=EF)
+2019-09-25 10:42:21.7454 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 10:42:21.7810 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 10:42:21.9149 Info Adding target FileTarget(Name=Misc)
+2019-09-25 10:42:21.9186 Info Adding target FileTarget(Name=Full)
+2019-09-25 10:42:22.0376 Info Found 105 configuration items
+2019-09-25 10:43:45.8900 Info Message Template Auto Format enabled
+2019-09-25 10:43:46.0128 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 10:43:46.4380 Info Adding target FileTarget(Name=EF)
+2019-09-25 10:43:46.4520 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 10:43:46.4520 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 10:43:46.5033 Info Adding target FileTarget(Name=Misc)
+2019-09-25 10:43:46.5033 Info Adding target FileTarget(Name=Full)
+2019-09-25 10:43:46.5954 Info Found 105 configuration items
+2019-09-25 10:47:59.4029 Info Message Template Auto Format enabled
+2019-09-25 10:47:59.4179 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 10:47:59.5052 Info Adding target FileTarget(Name=EF)
+2019-09-25 10:47:59.5052 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 10:47:59.5052 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 10:47:59.5110 Info Adding target FileTarget(Name=Misc)
+2019-09-25 10:47:59.5110 Info Adding target FileTarget(Name=Full)
+2019-09-25 10:47:59.5609 Info Found 105 configuration items
+2019-09-25 10:51:14.5373 Info Message Template Auto Format enabled
+2019-09-25 10:51:14.6265 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 10:51:15.2663 Info Adding target FileTarget(Name=EF)
+2019-09-25 10:51:15.2663 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 10:51:15.2822 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 10:51:15.2973 Info Adding target FileTarget(Name=Misc)
+2019-09-25 10:51:15.2973 Info Adding target FileTarget(Name=Full)
+2019-09-25 10:51:15.4419 Info Found 105 configuration items
+2019-09-25 13:57:43.6390 Info Message Template Auto Format enabled
+2019-09-25 13:57:43.6606 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 13:57:43.7850 Info Adding target FileTarget(Name=EF)
+2019-09-25 13:57:43.7850 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 13:57:43.7850 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 13:57:43.8018 Info Adding target FileTarget(Name=Misc)
+2019-09-25 13:57:43.8018 Info Adding target FileTarget(Name=Full)
+2019-09-25 13:57:43.8530 Info Found 105 configuration items
+2019-09-25 13:58:46.6119 Info Message Template Auto Format enabled
+2019-09-25 13:58:46.6225 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 13:58:46.6938 Info Adding target FileTarget(Name=EF)
+2019-09-25 13:58:46.6938 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 13:58:46.6967 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 13:58:46.6967 Info Adding target FileTarget(Name=Misc)
+2019-09-25 13:58:46.6967 Info Adding target FileTarget(Name=Full)
+2019-09-25 13:58:46.7395 Info Found 105 configuration items
+2019-09-25 14:05:01.0993 Info Message Template Auto Format enabled
+2019-09-25 14:05:01.1080 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 14:05:01.1721 Info Adding target FileTarget(Name=EF)
+2019-09-25 14:05:01.1721 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 14:05:01.1721 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 14:05:01.1721 Info Adding target FileTarget(Name=Misc)
+2019-09-25 14:05:01.1721 Info Adding target FileTarget(Name=Full)
+2019-09-25 14:05:01.2156 Info Found 105 configuration items
+2019-09-25 14:05:11.0847 Info Message Template Auto Format enabled
+2019-09-25 14:05:11.0965 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 14:05:11.1749 Info Adding target FileTarget(Name=EF)
+2019-09-25 14:05:11.1749 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 14:05:11.1749 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 14:05:11.1749 Info Adding target FileTarget(Name=Misc)
+2019-09-25 14:05:11.1810 Info Adding target FileTarget(Name=Full)
+2019-09-25 14:05:11.2265 Info Found 105 configuration items
+2019-09-25 14:05:39.4682 Info Shutdown() called. Logger closing...
+2019-09-25 14:05:39.4682 Info Closing old configuration.
+2019-09-25 14:05:39.4822 Info Logger has been closed down.
+2019-09-25 14:05:39.4822 Info AppDomain Shutting down. Logger closing...
+2019-09-25 14:05:39.4822 Info Logger has been shut down.
+2019-09-25 14:05:51.2035 Info Message Template Auto Format enabled
+2019-09-25 14:05:51.2604 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 14:05:51.4417 Info Adding target FileTarget(Name=EF)
+2019-09-25 14:05:51.4417 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 14:05:51.4475 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 14:05:51.4698 Info Adding target FileTarget(Name=Misc)
+2019-09-25 14:05:51.4698 Info Adding target FileTarget(Name=Full)
+2019-09-25 14:05:51.6015 Info Found 105 configuration items
+2019-09-25 16:38:47.4225 Info Message Template Auto Format enabled
+2019-09-25 16:38:47.4327 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 16:38:47.5015 Info Adding target FileTarget(Name=EF)
+2019-09-25 16:38:47.5015 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 16:38:47.5015 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 16:38:47.5015 Info Adding target FileTarget(Name=Misc)
+2019-09-25 16:38:47.5015 Info Adding target FileTarget(Name=Full)
+2019-09-25 16:38:47.5497 Info Found 105 configuration items
+2019-09-25 16:39:50.3140 Info Message Template Auto Format enabled
+2019-09-25 16:39:50.3496 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 16:39:50.5680 Info Adding target FileTarget(Name=EF)
+2019-09-25 16:39:50.5793 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 16:39:50.6055 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 16:39:50.6627 Info Adding target FileTarget(Name=Misc)
+2019-09-25 16:39:50.6627 Info Adding target FileTarget(Name=Full)
+2019-09-25 16:39:50.7632 Info Found 105 configuration items
+2019-09-25 22:32:02.3290 Info Message Template Auto Format enabled
+2019-09-25 22:32:02.3387 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-25 22:32:02.4094 Info Adding target FileTarget(Name=EF)
+2019-09-25 22:32:02.4094 Info Adding target FileTarget(Name=Hangfire)
+2019-09-25 22:32:02.4094 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-25 22:32:02.4094 Info Adding target FileTarget(Name=Misc)
+2019-09-25 22:32:02.4163 Info Adding target FileTarget(Name=Full)
+2019-09-25 22:32:02.4572 Info Found 105 configuration items

@@ -20,13 +20,13 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Jobs
 {
-    public class ImportDispatchCallsJob : Job
+    public class ImportPoliceDispatchCallsJob : Job
     {
-        private readonly ILogger<ImportDispatchCallsJob> _logger;
-        private readonly IEntityWriteService<DispatchCall, string> _dispatchCallWriteService;
+        private readonly ILogger<ImportPoliceDispatchCallsJob> _logger;
+        private readonly IEntityWriteService<PoliceDispatchCall, string> _dispatchCallWriteService;
         private readonly IGeocodingService _geocodingService;
 
-        public ImportDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportDispatchCallsJob> logger, IEntityWriteService<DispatchCall, string> dispatchCallWriteService, IGeocodingService geocodingService)
+        public ImportPoliceDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportPoliceDispatchCallsJob> logger, IEntityWriteService<PoliceDispatchCall, string> dispatchCallWriteService, IGeocodingService geocodingService)
             : base(configuration, signInManager, userManager)
         {
             _dispatchCallWriteService = dispatchCallWriteService;
@@ -53,11 +53,11 @@ namespace MkeAlerts.Web.Jobs
                 {
                     var cols = row.SelectNodes("td");
 
-                    DispatchCall dispatchCall = await _dispatchCallWriteService.GetOne(claimsPrincipal, cols[0].InnerText);
+                    PoliceDispatchCall dispatchCall = await _dispatchCallWriteService.GetOne(claimsPrincipal, cols[0].InnerText);
 
                     if (dispatchCall == null)
                     {
-                        dispatchCall = new DispatchCall()
+                        dispatchCall = new PoliceDispatchCall()
                         {
                             CallNumber = cols[0].InnerText,
                             ReportedDateTime = DateTime.Parse(cols[1].InnerText),

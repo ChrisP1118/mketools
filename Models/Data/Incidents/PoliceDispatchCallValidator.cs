@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data.Incidents
 {
-    public class DispatchCallValidator : AbstractValidator<DispatchCall>
+    public class PoliceDispatchCallValidator : AbstractValidator<PoliceDispatchCall>
     {
-        public DispatchCallValidator()
+        public PoliceDispatchCallValidator()
         {
             RuleFor(x => x.CallNumber).NotNull().NotEmpty();
         }

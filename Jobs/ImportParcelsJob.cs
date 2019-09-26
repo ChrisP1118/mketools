@@ -45,8 +45,13 @@ namespace MkeAlerts.Web.Jobs
         {
             _logger.LogInformation("Starting job");
 
-            string fileName = await PackageUtilities.DownloadPackageFile(_logger, "parcel-outlines", "ZIP");
-            string folderName = Path.GetDirectoryName(fileName);
+            string fileName = await PackageUtilities.DownloadPackageFile(_logger, "parcel-outlines", null, "parcelbase");
+
+            _logger.LogDebug("Download complete: " + fileName);
+
+            string folderName = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            Directory.CreateDirectory(folderName);
+
             ZipFile.ExtractToDirectory(fileName, folderName);
             _logger.LogDebug(fileName + " unzipped to " + folderName);
 
@@ -121,10 +126,21 @@ namespace MkeAlerts.Web.Jobs
 
                         if (i % 100 == 0)
                         {
-                            Tuple<IEnumerable<Parcel>, IEnumerable<Parcel>> results1 = await _parcelWriteService.BulkCreate(claimsPrincipal, parcels, false);
-                            success += results1.Item1.Count();
-                            failure += results1.Item2.Count();
-                            parcels.Clear();
+                            try
+                            {
+                                Tuple<IEnumerable<Parcel>, IEnumerable<Parcel>> results1 = await _parcelWriteService.BulkCreate(claimsPrincipal, parcels, false);
+                                success += results1.Item1.Count();
+                                failure += results1.Item2.Count();
+                                parcels.Clear();
+
+                                _logger.LogDebug("Bulk inserted items at mod " + i.ToString());
+                            }
+                            catch (Exception ex)
+                            {
+                                failure += parcels.Count;
+
+                                _logger.LogError(ex, "Error bulk inserting items at mod " + i.ToString());
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -133,9 +149,20 @@ namespace MkeAlerts.Web.Jobs
                     }
                 }
 
-                Tuple<IEnumerable<Parcel>, IEnumerable<Parcel>> results2 = await _parcelWriteService.BulkCreate(claimsPrincipal, parcels, false);
-                success += results2.Item1.Count();
-                failure += results2.Item2.Count();
+                try
+                {
+                    Tuple<IEnumerable<Parcel>, IEnumerable<Parcel>> results2 = await _parcelWriteService.BulkCreate(claimsPrincipal, parcels, false);
+                    success += results2.Item1.Count();
+                    failure += results2.Item2.Count();
+
+                    _logger.LogDebug("Bulk inserted items at mod " + i.ToString());
+                }
+                catch (Exception ex)
+                {
+                    failure += parcels.Count;
+
+                    _logger.LogError(ex, "Error bulk inserting items at mod " + i.ToString());
+                }
             }
 
             _logger.LogInformation("Import results: " + success.ToString() + " success, " + failure.ToString() + " failure");

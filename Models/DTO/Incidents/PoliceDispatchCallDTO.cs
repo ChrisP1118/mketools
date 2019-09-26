@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.DTO.Incidents
 {
-    public class DispatchCallDTO
+    public class PoliceDispatchCallDTO
     {
         public string CallNumber { get; set; }
 

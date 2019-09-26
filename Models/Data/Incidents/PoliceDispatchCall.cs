@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data.Incidents
 {
-    public class DispatchCall : IHasId<string>, IHasBounds
+    public class PoliceDispatchCall : IHasId<string>, IHasBounds
     {
         public string GetId() => this.CallNumber;
 

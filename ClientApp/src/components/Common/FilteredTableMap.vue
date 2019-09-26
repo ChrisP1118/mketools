@@ -45,15 +45,17 @@ export default {
 
         boundsChangedTimeout = setTimeout(() => {
           let bounds = this.map.getBounds();
+          let ne = bounds.getNorthEast();
+          let sw = bounds.getSouthWest();
 
           this.$emit('bounds-changed', {
             ne: {
-              lat: bounds.na.j,
-              lng: bounds.ga.j
+              lat: ne.lat(),
+              lng: ne.lng()
             },
             sw: {
-              lat: bounds.na.l,
-              lng: bounds.ga.l
+              lat: sw.lat(),
+              lng: sw.lng()
             }
           });
 
