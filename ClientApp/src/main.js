@@ -64,13 +64,13 @@ const routes = [
   { path: '/about', component: About, meta: { public: true } },
   { path: '/login', component: Login, meta: { public: true } },
   { path: '/logout', component: Logout, meta: { public: true } },
-  { path: '/property', component: PropertyList },
-  { path: '/property/:id', component: PropertyView, props: true },
+  { path: '/property', component: PropertyList, meta: { public: true } },
+  { path: '/property/:id', component: PropertyView, meta: { public: true }, props: true },
+  { path: '/policeDispatchCall', component: PoliceDispatchCallList, meta: { public: true } },
+  { path: '/fireDispatchCall', component: FireDispatchCallList, meta: { public: true } },
+  { path: '/crime', component: CrimeList, meta: { public: true } },
   { path: '/applicationUser', component: ApplicationUserList },
   { path: '/applicationUser/:id', component: ApplicationUserEdit, props: true },
-  { path: '/policeDispatchCall', component: PoliceDispatchCallList },
-  { path: '/fireDispatchCall', component: FireDispatchCallList },
-  { path: '/crime', component: CrimeList },
 ];
 
 const router = new VueRouter({

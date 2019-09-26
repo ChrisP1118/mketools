@@ -11,13 +11,10 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "PoliceDispatchCallList",
   props: {},
   data() {
-    let base = this;
     return {
       tableSettings: {
         endpoint: '/api/PoliceDispatchCall',
@@ -68,7 +65,7 @@ export default {
         getDefaultFilter: function () {
         },
         rowClicked: function (item, context) {
-          context.$router.push('/dispatchCall/' + item.CallNumber)
+          context.$router.push('/policeDispatchCall/' + item.CallNumber)
         },
         getItemInfoWindowText: function (item) {
           let raw = item._raw;

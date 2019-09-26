@@ -2498,3 +2498,5 @@
 2019-09-25 22:51:37.9015 Info Adding target FileTarget(Name=Misc)
 2019-09-25 22:51:37.9015 Info Adding target FileTarget(Name=Full)
 2019-09-25 22:51:38.0131 Info Found 105 configuration items
+2019-09-25 22:55:21.4777 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-25.log failed. Sleeping for 0ms
+2019-09-25 22:55:21.4777 Warn Attempt #1 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-25.log failed. Sleeping for 0ms
