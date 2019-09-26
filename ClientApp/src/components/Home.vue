@@ -182,15 +182,15 @@ export default {
     },
     loadActiveCalls: function () {
       let now = moment().subtract(6, 'hours').format('YYYY-MM-DD HH:mm:ss');
-      this.loadDispatchCalls('Status%20%3D%20%22Service%20in%20Progress%22%20and%20ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
+      this.loadPoliceDispatchCalls('Status%20%3D%20%22Service%20in%20Progress%22%20and%20ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
     },
     loadRecentCalls: function () {
       let now = moment().subtract(2, 'hours').format('YYYY-MM-DD HH:mm:ss');
-      this.loadDispatchCalls('ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
+      this.loadPoliceDispatchCalls('ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
     },
-    loadDispatchCalls: function (filter) {
+    loadPoliceDispatchCalls: function (filter) {
       axios
-        .get('/api/DispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
+        .get('/api/PoliceDispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
         .then(response => {
           let totalCount = response.headers['x-total-count'];
           this.mapFull = totalCount >= this.mapItemLimit;

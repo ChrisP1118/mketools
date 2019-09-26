@@ -280,10 +280,10 @@ Note that not all fields can be sorted.
             //BackgroundJob.Enqueue<ImportAddressesJob>(x => x.Run());
 
             // Run every 5 minutes
-            //RecurringJob.AddOrUpdate<ImportPoliceDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
+            RecurringJob.AddOrUpdate<ImportPoliceDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 
             // Run every 5 minutes
-            //RecurringJob.AddOrUpdate<ImportFireDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
+            RecurringJob.AddOrUpdate<ImportFireDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 
             /*
             // Every day at 1:00am (Dataset is updated daily: https://data.milwaukee.gov/dataset/mai)

@@ -33,7 +33,7 @@ import PropertyView from './components/Property/View.vue'
 import ApplicationUserList from './components/ApplicationUser/List.vue'
 import ApplicationUserFields from './components/ApplicationUser/Fields.vue'
 import ApplicationUserEdit from './components/ApplicationUser/Edit.vue'
-import DispatchCallList from './components/DispatchCall/List.vue'
+import PoliceDispatchCallList from './components/PoliceDispatchCall/List.vue'
 import FireDispatchCallList from './components/FireDispatchCall/List.vue'
 import CrimeList from './components/Crime/List.vue'
 
@@ -68,7 +68,7 @@ const routes = [
   { path: '/property/:id', component: PropertyView, props: true },
   { path: '/applicationUser', component: ApplicationUserList },
   { path: '/applicationUser/:id', component: ApplicationUserEdit, props: true },
-  { path: '/dispatchCall', component: DispatchCallList },
+  { path: '/policeDispatchCall', component: PoliceDispatchCallList },
   { path: '/fireDispatchCall', component: FireDispatchCallList },
   { path: '/crime', component: CrimeList },
 ];

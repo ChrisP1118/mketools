@@ -14,13 +14,13 @@
 import axios from "axios";
 
 export default {
-  name: "DispatchCallList",
+  name: "PoliceDispatchCallList",
   props: {},
   data() {
     let base = this;
     return {
       tableSettings: {
-        endpoint: '/api/DispatchCall',
+        endpoint: '/api/PoliceDispatchCall',
         columns: [
           {
             key: 'CallNumber',
