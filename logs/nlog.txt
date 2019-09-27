@@ -2500,3 +2500,98 @@
 2019-09-25 22:51:38.0131 Info Found 105 configuration items
 2019-09-25 22:55:21.4777 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-25.log failed. Sleeping for 0ms
 2019-09-25 22:55:21.4777 Warn Attempt #1 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-25.log failed. Sleeping for 0ms
+2019-09-26 01:30:02.6383 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 01:51:14.6320 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 01:51:44.6354 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 01:55:02.6268 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 02:00:05.6298 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 02:35:02.6344 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 05:25:05.6393 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 06:40:05.6306 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 06:50:05.6286 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 07:10:05.6247 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 07:30:05.6286 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 09:28:46.4111 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 11:10:10.4040 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 11:25:07.4047 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 11:25:07.4088 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 11:35:07.4052 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 11:35:07.4086 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 11:45:07.4058 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 12:00:07.3933 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 12:15:07.4115 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 12:15:10.4036 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 12:20:07.4108 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 12:25:10.4042 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 14:15:10.4054 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 14:15:10.4113 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 14:55:10.4056 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 15:05:10.4033 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 15:05:10.3992 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 16:14:49.4055 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 16:15:49.4159 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 22:08:52.4057 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 22:08:52.4057 Warn Attempt #1 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-26 22:08:52.4107 Warn Attempt #2 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 1ms
+2019-09-26 22:08:52.4144 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-26.log failed. Sleeping for 0ms
+2019-09-27 05:51:43.4182 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 06:30:09.3798 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 06:30:09.3935 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 06:30:09.4092 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 08:00:01.4053 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 08:00:01.4089 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 08:45:01.4086 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 08:55:01.4088 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 09:58:57.2324 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 11:25:03.2296 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 12:15:03.2283 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 13:05:06.2305 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 13:10:03.2299 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 13:10:03.2342 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 13:25:03.2300 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 13:30:09.2298 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 13:30:09.2355 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 13:40:03.2308 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 13:55:03.2407 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 14:00:03.2342 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 14:45:03.2315 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 14:45:03.2341 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:00:03.2219 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:34:46.7390 Info Message Template Auto Format enabled
+2019-09-27 15:34:46.7581 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-27 15:34:46.9019 Info Adding target FileTarget(Name=EF)
+2019-09-27 15:34:46.9019 Info Adding target FileTarget(Name=Hangfire)
+2019-09-27 15:34:46.9060 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-27 15:34:46.9279 Info Adding target FileTarget(Name=Misc)
+2019-09-27 15:34:46.9279 Info Adding target FileTarget(Name=Full)
+2019-09-27 15:34:46.9841 Info Found 105 configuration items
+2019-09-27 15:35:06.5990 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:06.6153 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:06.8770 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:06.9588 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:07.0504 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:07.0628 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:07.2781 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:07.2874 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:07.2874 Warn Attempt #1 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 1ms
+2019-09-27 15:35:07.3625 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:07.5019 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:08.0341 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:08.0673 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:08.1133 Warn Attempt #0 to open M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp2.2\logs\Full-2019-09-27.log failed. Sleeping for 0ms
+2019-09-27 15:35:08.2724 Info Shutdown() called. Logger closing...
+2019-09-27 15:35:08.2724 Info Closing old configuration.
+2019-09-27 15:35:08.3019 Info Logger has been closed down.
+2019-09-27 15:35:08.3019 Info AppDomain Shutting down. Logger closing...
+2019-09-27 15:35:08.3019 Info Logger has been shut down.
+2019-09-27 15:35:13.2777 Info Shutdown() called. Logger closing...
+2019-09-27 15:35:13.2777 Info Closing old configuration.
+2019-09-27 15:35:13.3070 Info Logger has been closed down.
+2019-09-27 15:38:43.4308 Info Message Template Auto Format enabled
+2019-09-27 15:38:43.4653 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-27 15:38:43.6007 Info Adding target FileTarget(Name=EF)
+2019-09-27 15:38:43.6071 Info Adding target FileTarget(Name=Hangfire)
+2019-09-27 15:38:43.6071 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-27 15:38:43.6410 Info Adding target FileTarget(Name=Misc)
+2019-09-27 15:38:43.6410 Info Adding target FileTarget(Name=Full)
+2019-09-27 15:38:43.7365 Info Found 105 configuration items

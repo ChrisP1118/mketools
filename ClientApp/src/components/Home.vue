@@ -67,21 +67,26 @@
         </b-card>        
       </b-col>
     </b-row>
-    <b-row class="mt-2" v-if="mapFull">
+    <b-row class="lg-2" v-if="mapFull">
       <b-col>
         <b-alert variant="warning" show>Only the most recent items are displayed. Zoom in on the map to see more.</b-alert>
       </b-col>
     </b-row>
-    <b-row class="mt-2">
-      <b-col xs="12" md="3">
+    <b-row class="lg-2">
+      <b-col xs="12" lg="3">
         <b-list-group>
-          <b-list-group-item :active="tabIndex == 0" @click="() => { this.updateTabIndex(0); }">Active Calls</b-list-group-item>
-          <b-list-group-item :active="tabIndex == 1" @click="() => { this.updateTabIndex(1); }">Recent Calls</b-list-group-item>
-          <b-list-group-item>Recent Crimes</b-list-group-item>
-          <b-list-group-item>Notifications</b-list-group-item>
+          <b-list-group-item :active="tabKey == 'a'" @click="() => { this.updateTabKey('a'); }">Active Calls</b-list-group-item>
+          <b-list-group-item :active="tabKey == 'ap'" @click="() => { this.updateTabKey('ap'); }">Active Police Calls</b-list-group-item>
+          <b-list-group-item :active="tabKey == 'rp'" @click="() => { this.updateTabKey('rp'); }">Recent Police Calls</b-list-group-item>
+          <b-list-group-item :active="tabKey == 'af'" @click="() => { this.updateTabKey('af'); }">Active Fire Calls</b-list-group-item>
+          <b-list-group-item :active="tabKey == 'rf'" @click="() => { this.updateTabKey('rf'); }">Recent Fire Calls</b-list-group-item>
         </b-list-group>
+        <b-form>
+          <h2>Get Notifications</h2>
+          <p>Sign up to get an email notification whenever there's a call in your area.</p>
+        </b-form>
       </b-col>
-      <b-col xs="12" md="9">
+      <b-col xs="12" lg="9">
         <div class="map" id="homeMap" />
       </b-col>
     </b-row>
@@ -109,7 +114,20 @@ export default {
       google: null,
       map: null,
       bounds: null,
-      tabIndex: 0,
+      tabKey: 'a',
+      visibleMarkerCaches: ['ap', 'af'],
+      markerCache: {
+        ap: [],
+        rp: [],
+        af: [],
+        rf: []
+      },
+      markerCacheBounds: {
+        ap: null,
+        rp: null,
+        af: null,
+        rf: null
+      },
       markerWrappers: [],
       mapFull: false,
       mapItemLimit: 100
@@ -120,12 +138,9 @@ export default {
       if (!("geolocation" in navigator))
         return;
 
-      console.log('Getting position...');
-
       navigator.geolocation.getCurrentPosition(this.gotPosition);
     },
     gotPosition: function (position) {
-      console.log('Got position...');
       console.log(position);
 
       let location = {
@@ -170,43 +185,51 @@ export default {
       this.streetName = '';
       this.streetType = '';
     },
-    updateTabIndex: function (newIndex) {
-      this.tabIndex = newIndex;
+    updateTabKey: function (newKey) {
+      this.tabKey = newKey;
       this.updateTab();
     },
     updateTab: function () {
-      if (this.tabIndex == 0)
-        this.loadActiveCalls();
-      else if (this.tabIndex == 1)
-        this.loadRecentCalls();
+      if (this.tabKey == 'ap') {
+        this.visibleMarkerCaches = ['ap']
+        this.loadActivePoliceCalls();
+      } else if (this.tabKey == 'rp') {
+        this.visibleMarkerCaches = ['rp']
+        this.loadRecentPoliceCalls();
+      } else if (this.tabKey == 'af') {
+        this.visibleMarkerCaches = ['af']
+        this.loadActiveFireCalls();
+      } else if (this.tabKey == 'rf') {
+        this.visibleMarkerCaches = ['rf']
+        this.loadRecentFireCalls();
+      } else if (this.tabKey == 'a') {
+        this.visibleMarkerCaches = ['ap', 'af']
+        this.loadActivePoliceCalls();
+        this.loadActiveFireCalls();
+      }
     },
-    loadActiveCalls: function () {
+    loadActivePoliceCalls: function () {
       let now = moment().subtract(6, 'hours').format('YYYY-MM-DD HH:mm:ss');
-      this.loadPoliceDispatchCalls('Status%20%3D%20%22Service%20in%20Progress%22%20and%20ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
+      this.loadPoliceDispatchCalls('ap', 'Status%20%3D%20%22Service%20in%20Progress%22%20and%20ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
     },
-    loadRecentCalls: function () {
+    loadRecentPoliceCalls: function () {
       let now = moment().subtract(2, 'hours').format('YYYY-MM-DD HH:mm:ss');
-      this.loadPoliceDispatchCalls('ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
+      this.loadPoliceDispatchCalls('rp', 'ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
     },
-    loadPoliceDispatchCalls: function (filter) {
-      axios
-        .get('/api/PoliceDispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
-        .then(response => {
-          let totalCount = response.headers['x-total-count'];
-          this.mapFull = totalCount >= this.mapItemLimit;
-          this.drawMarkers(response.data, 
-            i => { return i.Geometry; }, 
-            i => { return i.CallNumber; }, 
-            i => { 
+    loadPoliceDispatchCalls: function (cacheKey, filter) {
+      if (!this.areBoundsCached(cacheKey)) {
+        this.showMarkers();
+      } else {
+        axios
+          .get('/api/PoliceDispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
+          .then(response => {
+            response.data.forEach(i => {
+              if (this.markerCache[cacheKey].find(x => x.id == i.CallNumber))
+                return;
+
               let time = moment(i.ReportedDateTime).format('llll');
               let fromNow = moment(i.ReportedDateTime).fromNow();
-              return '' + 
-                '<p style="font-size: 150%; font-weight: bold;">' + i.NatureOfCall + '</p>' +
-                i.Location + ' (Police District ' + i.District + ')<hr />' +
-                time + ' (' + fromNow + ')<br />' + 
-                '<b><i>' + i.Status + '</i></b>';
-            },
-            i => {
+
               // http://kml4earth.appspot.com/icons.html#paddle
               let icon = 'wht-blank.png';
               switch (i.NatureOfCall) {
@@ -237,69 +260,220 @@ export default {
                 case 'TRAFFIC STOP':
                   icon = 'blu-blank.png'; break;
               }
-              return 'https://maps.google.com/mapfiles/kml/paddle/' + icon;
+
+              this.markerCache[cacheKey].push({
+                id: i.CallNumber,
+                geometry: i.Geometry,
+                content: '<p style="font-size: 150%; font-weight: bold;">' + i.NatureOfCall + '</p>' +
+                  i.Location + ' (Police District ' + i.District + ')<hr />' +
+                  time + ' (' + fromNow + ')<br />' + 
+                  '<b><i>' + i.Status + '</i></b>',
+                icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
+                marker: null,
+                state: 'Hidden'
+              })
             });
-        })
-        .catch(error => {
-          console.log(error);
-        });
+
+            this.markerCacheBounds[cacheKey] = this.bounds;
+            this.showMarkers();
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     },
-    drawMarkers: function (items, getItemMarkerGeometry, getItemId, getItemInfoWindowText, getMarkerIcon) {
+    loadActiveFireCalls: function () {
+      let now = moment().subtract(6, 'hours').format('YYYY-MM-DD HH:mm:ss');
+      this.loadFireDispatchCalls('af', 'Disposition%20%3D%20%22ACTIVE%22%20and%20ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
+    },
+    loadRecentFireCalls: function () {
+      let now = moment().subtract(2, 'hours').format('YYYY-MM-DD HH:mm:ss');
+      this.loadFireDispatchCalls('rf', 'ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
+    },
+    loadFireDispatchCalls: function (cacheKey, filter) {
+      if (!this.areBoundsCached(cacheKey)) {
+        this.showMarkers();
+      } else {
+        axios
+          .get('/api/FireDispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
+          .then(response => {
+
+            response.data.forEach(i => {
+              if (this.markerCache[cacheKey].find(x => x.id == i.CFS))
+                return;
+
+              let time = moment(i.ReportedDateTime).format('llll');
+              let fromNow = moment(i.ReportedDateTime).fromNow();
+
+              // http://kml4earth.appspot.com/icons.html#paddle
+              let icon = 'wht-blank.png';
+
+              if (i.NatureOfCall == 'EMS')
+                icon = 'orange-blank.png';
+              else if (i.NatureOfCall.includes('Fire'))
+                icon = 'red-blank.png';
+
+              this.markerCache[cacheKey].push({
+                id: i.CFS,
+                geometry: i.Geometry,
+                content: '<p style="font-size: 150%; font-weight: bold;">' + i.NatureOfCall + '</p>' +
+                  i.Address + (i.Apt ? ' APT. #' + i.Apt : '') + '<hr />' +
+                  time + ' (' + fromNow + ')<br />' + 
+                  '<b><i>' + i.Disposition + '</i></b>',
+                icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
+                marker: null,
+                state: 'Hidden'
+              })
+            });
+
+            this.markerCacheBounds[cacheKey] = this.bounds;
+            this.showMarkers();
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    },
+    areBoundsCached: function (cacheKey) {
+      let cacheBounds = this.markerCacheBounds[cacheKey];
+      let loadBounds = this.bounds;
+
+      return cacheBounds == null ||
+        loadBounds.ne.lng > cacheBounds.ne.lng ||
+        loadBounds.sw.lng < cacheBounds.sw.lng ||
+        loadBounds.ne.lat > cacheBounds.ne.lat ||
+        loadBounds.sw.lat < cacheBounds.sw.lat;
+    },
+    showMarkers: function () {
       if (!google)
         return;
 
-      let newMarkerWrappers = [];
+      for (let cacheKey in this.markerCache) {
+        let cache = this.markerCache[cacheKey];
+        cache.forEach(markerDetail => {
+          if (markerDetail.state == 'Visible')
+            markerDetail.state = 'Hide';
+        });
+      };
 
-      items.forEach(i => {
+      this.visibleMarkerCaches.forEach(cacheKey => {
+        this.markerCache[cacheKey].forEach(markerDetail => {
 
-        let geometry = getItemMarkerGeometry(i);
+          if (!markerDetail.geometry)
+            return;
 
-        if (!geometry)
-          return;
+          if (!markerDetail.geometry || !markerDetail.geometry.coordinates || !markerDetail.geometry.coordinates[0] || !markerDetail.geometry.coordinates[0][0])
+            return;
 
-        let existingMarkerWrapper = this.markerWrappers.find(w => w.id == getItemId(i));
-        if (existingMarkerWrapper) {
-          newMarkerWrappers.push(existingMarkerWrapper);
-          return;
-        } else {
+          if (markerDetail.marker) {
+            if (markerDetail.state == 'Hide') {
+              markerDetail.state = 'Visible';
+            } else if (markerDetail.state == 'Hidden') {
+              markerDetail.state = 'Visible';
+              markerDetail.marker.setMap(this.map);
+            }
 
-          let point = geometry.coordinates[0][0];
+            return;
+          }
 
-          let marker = new google.maps.Marker({
+          markerDetail.state = 'Visible';
+          
+          let point = markerDetail.geometry.coordinates[0][0];
+
+          markerDetail.marker = new google.maps.Marker({
             position: {
               lat: point[1],
               lng: point[0]
             },
             icon: {
-              url: getMarkerIcon(i),
+              url: markerDetail.icon,
               scaledSize: new google.maps.Size(50, 50),
             },
             map: this.map
           });
 
-          marker.addListener('click', e => {
+          markerDetail.marker.addListener('click', e => {
             if (this.openInfoWindow)
               this.openInfoWindow.close();
 
             this.openInfoWindow = new google.maps.InfoWindow({
-              content: getItemInfoWindowText(i)
+              content: markerDetail.content
             });
-            this.openInfoWindow.open(this.map, marker);
+            this.openInfoWindow.open(this.map, markerDetail.marker);
           });
-
-          newMarkerWrappers.push({
-            id: getItemId(i),
-            marker: marker
-          });
-        }
+        });
       });
 
-      let oldMarkerWrappers = this.markerWrappers.filter(m => { return !(newMarkerWrappers.find(x => x.id == m.id)); });
-      oldMarkerWrappers.forEach(w => { 
-        w.marker.setMap(null);
-      });
-      this.markerWrappers = newMarkerWrappers;
+      // TODO: Set mapFull
+      //this.mapFull = totalCount >= this.mapItemLimit;
+
+      for (let cacheKey in this.markerCache) {
+        let cache = this.markerCache[cacheKey];
+        cache.forEach(markerDetail => {
+          if (markerDetail.state == 'Hide') {
+            markerDetail.state = 'Hidden';
+            markerDetail.marker.setMap(null);
+          }
+        });
+      };
+
     },
+    // drawMarkers: function (items, getItemMarkerGeometry, getItemId, getItemInfoWindowText, getMarkerIcon) {
+    //   if (!google)
+    //     return;
+
+    //   let newMarkerWrappers = [];
+
+    //   items.forEach(i => {
+
+    //     let geometry = getItemMarkerGeometry(i);
+
+    //     if (!geometry)
+    //       return;
+
+    //     let existingMarkerWrapper = this.markerWrappers.find(w => w.id == getItemId(i));
+    //     if (existingMarkerWrapper) {
+    //       newMarkerWrappers.push(existingMarkerWrapper);
+    //       return;
+    //     } else if (geometry && geometry.coordinates && geometry.coordinates[0] && geometry.coordinates[0][0]) {
+          
+    //       let point = geometry.coordinates[0][0];
+
+    //       let marker = new google.maps.Marker({
+    //         position: {
+    //           lat: point[1],
+    //           lng: point[0]
+    //         },
+    //         icon: {
+    //           url: getMarkerIcon(i),
+    //           scaledSize: new google.maps.Size(50, 50),
+    //         },
+    //         map: this.map
+    //       });
+
+    //       marker.addListener('click', e => {
+    //         if (this.openInfoWindow)
+    //           this.openInfoWindow.close();
+
+    //         this.openInfoWindow = new google.maps.InfoWindow({
+    //           content: getItemInfoWindowText(i)
+    //         });
+    //         this.openInfoWindow.open(this.map, marker);
+    //       });
+
+    //       newMarkerWrappers.push({
+    //         id: getItemId(i),
+    //         marker: marker
+    //       });
+    //     }
+    //   });
+
+    //   let oldMarkerWrappers = this.markerWrappers.filter(m => { return !(newMarkerWrappers.find(x => x.id == m.id)); });
+    //   oldMarkerWrappers.forEach(w => { 
+    //     w.marker.setMap(null);
+    //   });
+    //   this.markerWrappers = newMarkerWrappers;
+    // },
     getBoundsFilter: function() {
       if (!this.bounds)
         return '';
