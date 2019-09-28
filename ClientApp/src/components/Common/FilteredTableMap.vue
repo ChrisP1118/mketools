@@ -84,7 +84,7 @@ export default {
         if (existingMarkerWrapper) {
           newMarkerWrappers.push(existingMarkerWrapper);
           return;
-        } else {
+        } else if (geometry && geometry.coordinates && geometry.coordinates[0] && geometry.coordinates[0][0]) {
 
           let point = geometry.coordinates[0][0];
 

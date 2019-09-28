@@ -82,9 +82,19 @@
           <b-list-group-item :active="tabKey == 'rf'" @click="() => { this.updateTabKey('rf'); }">Recent Fire Calls</b-list-group-item>
         </b-list-group>
         <hr class="mt-3" />
-        <b-form class="mt-3">
+        <b-form class="mt-3" v-if="!showNotifications && userPosition">
           <h2>Get Notifications</h2>
-          <p>Sign up to get an email notification whenever there's a call in your area.</p>
+          <b-button @click="showNotificationFields">Notify Me of Calls Near Me</b-button>
+        </b-form>
+        <b-form class="mt-3" inline v-if="showNotifications">
+          <h2>Get Notifications</h2>
+          <p>
+            Sign up to get an email notification whenever there's a call within 
+            <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
+            feet of {{userPositionLabel}}.
+          </p>
+        </b-form>
+        <b-form v-if="showNotifications">
           <b-form-group>
             <label class="sr-only" for="EmailAddress">Email Address</label>
             <b-form-input v-model="emailAddress" id="EmailAddress" placeholder="Email Address" type="email" />
@@ -156,6 +166,19 @@ export default {
       mapItemLimit: 100,
 
       // Notifications
+      showNotifications: false,
+      userPosition: null,
+      userPositionLabel: null,
+      distance: 500,
+      distances: [
+        100,
+        250,
+        500,
+        1000,
+        2000,
+        5000
+      ],
+      circle: null,
       emailAddress: '',
       password: '',
       confirmPassword: '',
@@ -199,7 +222,29 @@ export default {
     },
     onFacebookSignInError (error) {
       console.log('OH NOES', error);
-    },    
+    },
+    showNotificationFields: function () {
+      this.showNotifications = true;
+      this.updateDistance();
+    },
+    updateDistance: function () {
+      if (!this.showNotifications)
+        return;
+
+      if (this.circle)
+        this.circle.setMap(null);
+
+      this.circle = new google.maps.Circle({
+        strokeColor: '#0d2240',
+        strokeOpacity: 0.6,
+        strokeWeight: 2,
+        fillColor: '#0d2240',
+        fillOpacity: 0.10,
+        map: this.map,
+        center: this.userPosition,
+        radius: (this.distance * 0.3048) // Feet to meters
+      });
+    },
     getPosition: function () {
       if (!("geolocation" in navigator))
         return;
@@ -214,8 +259,13 @@ export default {
         lng: position.coords.longitude
       };
 
+      this.userPosition = location;
+      this.userPositionLabel = 'my location';
+
       this.map.setCenter(location);
       this.map.setZoom(14);
+
+      this.updateDistance();
     },
     loadStreetReferences: function () {
       axios
@@ -237,8 +287,13 @@ export default {
         .then(response => {
           let location = {lat: response.data.Geometry.Centroid.Coordinate[1], lng: response.data.Geometry.Centroid.Coordinate[0]};
 
+          this.userPosition = location;
+          this.userPositionLabel = this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType;
+
           this.map.setCenter(location);
           this.map.setZoom(14);
+
+          this.updateDistance();
         })
         .catch(error => {
           console.log(error);
@@ -484,62 +539,6 @@ export default {
       };
 
     },
-    // drawMarkers: function (items, getItemMarkerGeometry, getItemId, getItemInfoWindowText, getMarkerIcon) {
-    //   if (!google)
-    //     return;
-
-    //   let newMarkerWrappers = [];
-
-    //   items.forEach(i => {
-
-    //     let geometry = getItemMarkerGeometry(i);
-
-    //     if (!geometry)
-    //       return;
-
-    //     let existingMarkerWrapper = this.markerWrappers.find(w => w.id == getItemId(i));
-    //     if (existingMarkerWrapper) {
-    //       newMarkerWrappers.push(existingMarkerWrapper);
-    //       return;
-    //     } else if (geometry && geometry.coordinates && geometry.coordinates[0] && geometry.coordinates[0][0]) {
-          
-    //       let point = geometry.coordinates[0][0];
-
-    //       let marker = new google.maps.Marker({
-    //         position: {
-    //           lat: point[1],
-    //           lng: point[0]
-    //         },
-    //         icon: {
-    //           url: getMarkerIcon(i),
-    //           scaledSize: new google.maps.Size(50, 50),
-    //         },
-    //         map: this.map
-    //       });
-
-    //       marker.addListener('click', e => {
-    //         if (this.openInfoWindow)
-    //           this.openInfoWindow.close();
-
-    //         this.openInfoWindow = new google.maps.InfoWindow({
-    //           content: getItemInfoWindowText(i)
-    //         });
-    //         this.openInfoWindow.open(this.map, marker);
-    //       });
-
-    //       newMarkerWrappers.push({
-    //         id: getItemId(i),
-    //         marker: marker
-    //       });
-    //     }
-    //   });
-
-    //   let oldMarkerWrappers = this.markerWrappers.filter(m => { return !(newMarkerWrappers.find(x => x.id == m.id)); });
-    //   oldMarkerWrappers.forEach(w => { 
-    //     w.marker.setMap(null);
-    //   });
-    //   this.markerWrappers = newMarkerWrappers;
-    // },
     getBoundsFilter: function() {
       if (!this.bounds)
         return '';
