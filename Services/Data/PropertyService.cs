@@ -35,7 +35,7 @@ namespace MkeAlerts.Web.Services.Data
                     (x.Parcel.MinLat <= northBound && x.Parcel.MaxLat >= northBound) ||
                     (x.Parcel.MinLat <= southBound && x.Parcel.MaxLat >= southBound) ||
                     (x.Parcel.MinLat >= northBound && x.Parcel.MaxLat <= southBound) ||
-                    (x.Parcel.MinLat >= southBound && x.Parcel.MaxLat <= southBound))
+                    (x.Parcel.MinLat >= southBound && x.Parcel.MaxLat <= northBound))
                 .Where(x =>
                     (x.Parcel.MinLng <= westBound && x.Parcel.MaxLng >= westBound) ||
                     (x.Parcel.MinLng <= eastBound && x.Parcel.MaxLng >= eastBound) ||

@@ -10,3 +10,6 @@
 * ~~Download data sources~~
 * ~~Automated data source imports (Hangfire)~~
 * Clear out status on dispatch calls after awhile
+* Create a DTO for IGeometry types
+* GraphQL layer?
+* Auth with Google, Facebook

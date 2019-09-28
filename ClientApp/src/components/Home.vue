@@ -95,8 +95,11 @@
               feet of {{userPositionLabel}}.
             </p>
             <p class="small">To get email notifications for a different location, enter a different street address up above.</p>
+            <div v-if="$root.$data.authenticatedUser">
+              <b-button>Get Notifications</b-button>
+            </div>
           </b-form>
-          <b-form>
+          <b-form v-if="!$root.$data.authenticatedUser">
             <b-form-group>
               <label class="sr-only" for="EmailAddress">Email Address</label>
               <b-form-input v-model="emailAddress" id="EmailAddress" placeholder="Email Address" type="email" />
@@ -297,7 +300,7 @@ export default {
       this.showJumbotron = false;
 
       axios
-        .get('/api/Geocoding?value=' + this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType)
+        .get('/api/Geocoding/FromAddress?address=' + this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType)
         .then(response => {
           let location = {lat: response.data.Geometry.Centroid.Coordinate[1], lng: response.data.Geometry.Centroid.Coordinate[0]};
 
@@ -591,8 +594,6 @@ export default {
             lng: sw.lng()
           }
         };
-
-        console.log(this.bounds);
 
         this.updateTab();
 

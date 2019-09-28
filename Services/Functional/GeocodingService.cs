@@ -7,6 +7,7 @@ using MkeAlerts.Web.Models;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Models.Internal;
+using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,6 +20,7 @@ namespace MkeAlerts.Web.Services.Functional
     public interface IGeocodingService
     {
         Task<GeocodeResults> Geocode(string value);
+        Task<ReverseGeocodeResults> ReverseGeocode(double latitude, double longitude);
     }
 
     public class GeocodingService : IGeocodingService
@@ -305,6 +307,51 @@ namespace MkeAlerts.Web.Services.Functional
                 return null;
 
             return addresses.OrderBy(x => Math.Abs(x.HSE_NBR - request.HouseNumber)).First();
+        }
+
+        public async Task<ReverseGeocodeResults> ReverseGeocode(double latitude, double longitude)
+        {
+            // The returned values are off by a few blocks. Sigh.
+
+            Point location = new Point(longitude, latitude)
+            {
+                SRID = 4326
+            };
+
+            double northBound = Math.Ceiling(latitude * 100) / 100;
+            double southBound = Math.Floor(latitude * 100) / 100;
+            double westBound = Math.Floor(longitude * 100) / 100;
+            double eastBound = Math.Ceiling(longitude * 100) / 100;
+
+            northBound += 0.01;
+            southBound -= 0.01;
+            westBound -= 0.01;
+            eastBound += 0.01;
+
+            Parcel parcel = await _dbContext.Parcels
+                .Include(p => p.Property)
+                .Where(p => p.Property != null)
+                .Where(x =>
+                    (x.MinLat <= northBound && x.MaxLat >= northBound) ||
+                    (x.MinLat <= southBound && x.MaxLat >= southBound) ||
+                    (x.MinLat >= northBound && x.MaxLat <= southBound) ||
+                    (x.MinLat >= southBound && x.MaxLat <= northBound))
+                .Where(x =>
+                    (x.MinLng <= westBound && x.MaxLng >= westBound) ||
+                    (x.MinLng <= eastBound && x.MaxLng >= eastBound) ||
+                    (x.MinLng >= westBound && x.MaxLng <= eastBound) ||
+                    (x.MinLng >= eastBound && x.MaxLng <= westBound))
+                .OrderBy(p => p.Outline.Distance(location))
+                .FirstOrDefaultAsync();
+
+            if (parcel == null)
+                return null;
+
+            return new ReverseGeocodeResults()
+            {
+                Property = parcel.Property,
+                Distance = parcel.Outline.Distance(location)
+            };
         }
     }
 }

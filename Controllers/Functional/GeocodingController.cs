@@ -40,12 +40,29 @@ namespace MkeAlerts.Web.Controllers.Functional
         /// This can also be used for intersections. Put a slash between the street names, like: E WELLS ST / N WATER ST
         /// </remarks>
         /// <returns></returns>
-        [HttpGet("")]
+        [HttpGet("FromAddress")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<IEnumerable<string>>> GetLocation(string value)
+        public async Task<ActionResult<IEnumerable<string>>> GetLocation(string address)
         {
-            GeocodeResults results = await _geocodingService.Geocode(value);
+            GeocodeResults results = await _geocodingService.Geocode(address);
+
+            return Ok(results);
+        }
+
+        /// <summary>
+        /// Reverse geocodes a string to the nearest address
+        /// </summary>
+        /// <remarks>
+        /// This will return an address and a distance from the address to the provided coordinates. Intersections are not returned, only addresses
+        /// </remarks>
+        /// <returns></returns>
+        [HttpGet("FromCoordinates")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
+        public async Task<ActionResult<Address>> GetAddress(double latitude, double longitude)
+        {
+            ReverseGeocodeResults results = await _geocodingService.ReverseGeocode(latitude, longitude);
 
             return Ok(results);
         }
