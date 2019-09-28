@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App.vue'
 
+import GSignInButton from 'vue-google-signin-button'
+import FBSignInButton from 'vue-facebook-signin-button'
+
 import './custom.scss'
 
 // Font Awesome
@@ -40,6 +43,9 @@ import CrimeList from './components/Crime/List.vue'
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(require('vue-moment'));
+
+Vue.use(GSignInButton);
+Vue.use(FBSignInButton);
 
 library.add(faSquare, faCheckSquare, faTable, faEdit, faSortAmountUp, faSortAmountDown, faTrash, faPlus, faGlobe);
 //library.add(fas);

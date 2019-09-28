@@ -81,9 +81,28 @@
           <b-list-group-item :active="tabKey == 'af'" @click="() => { this.updateTabKey('af'); }">Active Fire Calls</b-list-group-item>
           <b-list-group-item :active="tabKey == 'rf'" @click="() => { this.updateTabKey('rf'); }">Recent Fire Calls</b-list-group-item>
         </b-list-group>
-        <b-form>
+        <hr class="mt-3" />
+        <b-form class="mt-3">
           <h2>Get Notifications</h2>
           <p>Sign up to get an email notification whenever there's a call in your area.</p>
+          <b-form-group>
+            <label class="sr-only" for="EmailAddress">Email Address</label>
+            <b-form-input v-model="emailAddress" id="EmailAddress" placeholder="Email Address" type="email" />
+          </b-form-group>
+          <b-form-group>
+            <label class="sr-only" for="Password">Password</label>
+            <b-form-input v-model="password" id="Password" placeholder="Password" type="password" />
+          </b-form-group>
+          <b-form-group>
+            <label class="sr-only" for="Confirm">Confirm Password</label>
+            <b-form-input v-model="confirmPassword" id="Confirm" placeholder="Confirm Password" type="password" />
+          </b-form-group>
+          <b-button>
+            <g-signin-button :params="googleSignInParams" @success="onGoogleSignInSuccess" @error="onGoogleSignInError">Sign in with Google</g-signin-button>
+          </b-button>
+          <b-button>
+            <fb-signin-button :params="fbSignInParams" @success="onFacebookSignInSuccess" @error="onFacebookSignInError">Sign in with Facebook</fb-signin-button>
+          </b-button>
         </b-form>
       </b-col>
       <b-col xs="12" lg="9">
@@ -104,6 +123,8 @@ export default {
   data() {
     return {
       showJumbotron: true,
+
+      // Address lookup
       number: null,
       streetDirection: '',
       streetName: '',
@@ -111,6 +132,8 @@ export default {
       streetDirections: [],
       streetNames: [],
       streetTypes: [],
+
+      // Mapping
       google: null,
       map: null,
       bounds: null,
@@ -130,10 +153,53 @@ export default {
       },
       markerWrappers: [],
       mapFull: false,
-      mapItemLimit: 100
+      mapItemLimit: 100,
+
+      // Notifications
+      emailAddress: '',
+      password: '',
+      confirmPassword: '',
+
+      googleSignInParams: {
+        client_id: '66835382455-403e538rnmmpmcp5tocmndleh30g4i5d.apps.googleusercontent.com'
+      },
+      fbSignInParams: {
+        scope: 'email,user_likes',
+        return_scopes: true
+      }
     }
   },
   methods: {
+    onGoogleSignInSuccess (googleUser) {
+      // `googleUser` is the GoogleUser object that represents the just-signed-in user.
+      // See https://developers.google.com/identity/sign-in/web/reference#users
+      const profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId());
+      console.log('Full Name: ' + profile.getName());
+      console.log('Given Name: ' + profile.getGivenName());
+      console.log('Family Name: ' + profile.getFamilyName());
+      console.log('Image URL: ' + profile.getImageUrl());
+      console.log('Email: ' + profile.getEmail());
+
+      // The ID token you need to pass to your backend:
+      var id_token = googleUser.getAuthResponse().id_token;
+      console.log("ID Token: " + id_token);      
+    },
+    onGoogleSignInError (error) {
+      // `error` contains any error occurred.
+      console.log('OH NOES', error);
+    },
+    onFacebookSignInSuccess (response) {
+      FB.api('/me?fields=name,email', user => {
+        console.log('ID: ' + user.id);
+        console.log('Name: ' + user.name);
+        console.log('Email: ' + user.email);
+        console.log(user);
+      });
+    },
+    onFacebookSignInError (error) {
+      console.log('OH NOES', error);
+    },    
     getPosition: function () {
       if (!("geolocation" in navigator))
         return;
