@@ -95,11 +95,8 @@
               feet of {{userPositionLabel}}.
             </p>
             <p class="small">To get email notifications for a different location, enter a different street address up above.</p>
-            <div v-if="$root.$data.authenticatedUser">
-              <b-button>Get Notifications</b-button>
-            </div>
           </b-form>
-          <b-form v-if="!$root.$data.authenticatedUser">
+          <b-form>
             <b-form-group>
               <label class="sr-only" for="EmailAddress">Email Address</label>
               <b-form-input v-model="emailAddress" id="EmailAddress" placeholder="Email Address" type="email" />
@@ -223,7 +220,37 @@ export default {
 
       // The ID token you need to pass to your backend:
       var id_token = googleUser.getAuthResponse().id_token;
-      console.log("ID Token: " + id_token);      
+      console.log("ID Token: " + id_token);
+
+      axios.post('/api/Account/LoginExternalCredential',
+      {
+        "provider": "Google",
+        "externalId": profile.getId(),
+        "email": profile.getEmail()
+      })
+      .then(response => {
+        console.log(response);
+        if (response.status == 200) {
+
+          axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.JwtToken;
+          this.$root.$data.authenticatedUser.username = response.data.UserName;
+          this.$root.$data.authenticatedUser.id = response.data.Id;
+          this.$root.$data.authenticatedUser.roles = response.data.Roles;
+
+          localStorage.setItem('jwt', response.data.JwtToken);
+          localStorage.setItem('username', response.data.UserName);
+          localStorage.setItem('id', response.data.Id);
+          localStorage.setItem('roles', response.data.Roles);
+
+          if (this.$route.query.redirect)
+            this.$router.push(this.$route.query.redirect);
+          else
+            this.$router.push('/');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });      
     },
     onGoogleSignInError (error) {
       // `error` contains any error occurred.
@@ -235,6 +262,36 @@ export default {
         console.log('Name: ' + user.name);
         console.log('Email: ' + user.email);
         console.log(user);
+
+        axios.post('/api/Account/LoginExternalCredential',
+        {
+          "provider": "Facebook",
+          "externalId": user.id,
+          "email": user.email
+        })
+        .then(response => {
+          console.log(response);
+          if (response.status == 200) {
+
+            axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.JwtToken;
+            this.$root.$data.authenticatedUser.username = response.data.UserName;
+            this.$root.$data.authenticatedUser.id = response.data.Id;
+            this.$root.$data.authenticatedUser.roles = response.data.Roles;
+
+            localStorage.setItem('jwt', response.data.JwtToken);
+            localStorage.setItem('username', response.data.UserName);
+            localStorage.setItem('id', response.data.Id);
+            localStorage.setItem('roles', response.data.Roles);
+
+            if (this.$route.query.redirect)
+              this.$router.push(this.$route.query.redirect);
+            else
+              this.$router.push('/');
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });        
       });
     },
     onFacebookSignInError (error) {

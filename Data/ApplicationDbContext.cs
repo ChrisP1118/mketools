@@ -15,6 +15,7 @@ namespace MkeAlerts.Web.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ExternalCredential> ExternalCredentials { get; set; }
         public DbSet<Property> Properties { get; set; }
         public DbSet<Parcel> Parcels { get; set; }
         public DbSet<Address> Addresses { get; set; }
@@ -79,6 +80,11 @@ namespace MkeAlerts.Web.Data
 
             modelBuilder.Entity<Crime>()
                 .HasKey(x => x.IncidentNum);
+
+            modelBuilder.Entity<ExternalCredential>()
+                .HasOne(x => x.ApplicationUser)
+                .WithMany(x => x.ExternalCredentials)
+                .HasForeignKey(x => x.ApplicationUserId);
 
             //modelBuilder.Entity<Role>()
             //    .HasKey(x => new { x.ApplicationUserId, x.StationId });

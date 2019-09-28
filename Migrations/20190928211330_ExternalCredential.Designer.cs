@@ -4,15 +4,17 @@ using GeoAPI.Geometries;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MkeAlerts.Web.Data;
 
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190928211330_ExternalCredential")]
+    partial class ExternalCredential
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,7 +139,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "1040f4cd-80aa-4c04-8af4-cddb3b3ec498",
+                            ConcurrencyStamp = "d1522a92-7fcd-4351-a8b8-8b07511ff839",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +206,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7b51c078-1d16-450c-8eb8-99b1619d26a0",
+                            ConcurrencyStamp = "c3b753f6-0fc2-4f73-9f02-fca0fc3c7c4b",
                             Email = "siteadmin@test.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "siteadmin@test.com",
                             NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDERTAbDI9QJoe493YJIRHrpdnFyE7ANnEAYRkT6ma76HIypyqEHN/zYvKrbFbWnKQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMb7h1sfJTQ5vsa+CgI8I4ndAo0dTOa3XF22OxM3LHLNo3sNz/G0zEz5/cWLaRKipQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -233,7 +235,7 @@ namespace MkeAlerts.Web.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("ExternalCredentials");
+                    b.ToTable("ExternalCredential");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.Crime", b =>

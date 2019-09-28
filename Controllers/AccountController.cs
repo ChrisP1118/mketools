@@ -17,23 +17,28 @@ using Microsoft.AspNetCore.Http;
 using MkeAlerts.Web.Exceptions;
 using MkeAlerts.Web.Middleware.Exceptions;
 using Hangfire;
+using MkeAlerts.Web.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace MkeAlerts.Web.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class AccountController : ControllerBase
     {
+        private readonly ApplicationDbContext _dbContext;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
         public AccountController(
+            ApplicationDbContext dbContext,
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             IConfiguration configuration,
             IMapper mapper)
         {
+            _dbContext = dbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
@@ -70,6 +75,84 @@ namespace MkeAlerts.Web.Controllers
             }
 
             throw new IdentityException("Invalid username or password", new List<string>());
+        }
+
+        /// <summary>
+        /// Authenticates a user using external credentials
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Returns data about the user account and a JWT token</returns>
+        /// <response code="200">Successful authentication</response>
+        /// <response code="400">Invalid username or password</response>
+        [AllowAnonymous]
+        [HttpPost]
+        [ProducesResponseType(typeof(LoginResultsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IdentityErrorDetails), StatusCodes.Status400BadRequest)]
+        public async Task<LoginResultsDTO> LoginExternalCredential([FromBody] LoginExternalCredentialDTO model)
+        {
+            ExternalCredential externalCredential = await _dbContext.ExternalCredentials
+                .Include(ec => ec.ApplicationUser)
+                .Where(ec => ec.Provider == model.Provider && ec.ExternalId == model.ExternalId)
+                .FirstOrDefaultAsync();
+
+            ApplicationUser applicationUser = null;
+
+            if (externalCredential == null)
+            {
+                ApplicationUser conflictingUser = await _dbContext.ApplicationUsers
+                    .Include(au => au.ExternalCredentials)
+                    .Where(au => au.Email == model.Email)
+                    .FirstOrDefaultAsync();
+
+                if (conflictingUser != null)
+                {
+                    if (conflictingUser.ExternalCredentials.Count > 0)
+                        throw new IdentityException("That email address is already in use.", new List<string>()
+                        {
+                            "Try logging in with " + conflictingUser.ExternalCredentials.First().Provider + "."
+                        });
+                    else
+                        throw new IdentityException("That email address is already in use.", new List<string>()
+                        {
+                            "Try logging in with a username and password."
+                        });
+                }
+
+                applicationUser = new ApplicationUser()
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    EmailConfirmed = true,
+                    ExternalCredentials = new List<ExternalCredential>()
+                    {
+                        new ExternalCredential
+                        {
+                            Id = Guid.NewGuid(),
+                            Provider = model.Provider,
+                            ExternalId = model.ExternalId
+                        }
+                    }
+                };
+
+                IdentityResult result = await _userManager.CreateAsync(applicationUser);
+                if (!result.Succeeded)
+                    throw new IdentityException("Error with external auth", new List<string>());
+            }
+            else
+            {
+                applicationUser = externalCredential.ApplicationUser;
+                await _signInManager.SignInAsync(applicationUser, false);
+            }
+
+            var roles = await _userManager.GetRolesAsync(applicationUser);
+
+            return new LoginResultsDTO()
+            {
+                UserName = applicationUser.UserName,
+                Id = applicationUser.Id,
+                Roles = roles.ToList(),
+                JwtToken = await GenerateJwtToken(applicationUser)
+            };
         }
 
         /// <summary>

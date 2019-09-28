@@ -16,5 +16,7 @@ namespace MkeAlerts.Web.Models.Data.Accounts
 
         [MaxLength(100)]
         public string LastName { get; set; }
+
+        public List<ExternalCredential> ExternalCredentials { get; set; }
     }
 }
