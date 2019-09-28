@@ -73,7 +73,51 @@
       </b-col>
     </b-row>
     <b-row class="lg-2">
+      <b-col xs="12" lg="9">
+        <div class="map" id="homeMap" />
+      </b-col>
       <b-col xs="12" lg="3">
+        <div v-if="!showNotifications && userPosition" class="mt-3 mb-3">
+          <h2>Get Email Notifications</h2>
+          <b-form class="mt-3">
+            <b-button @click="showNotificationFields">Notify Me of Calls Near Me</b-button>
+          </b-form>
+          <hr />
+        </div>
+        <div v-if="showNotifications" class="mt-3 mb-3">
+          <h2>Get Email Notifications</h2>
+          <b-form class="mt-3" inline>
+            <p>
+              Sign up to get an email notification whenever there's
+              <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
+              within 
+              <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
+              feet of {{userPositionLabel}}.
+            </p>
+            <p class="small">To get email notifications for a different location, enter a different street address up above.</p>
+          </b-form>
+          <b-form>
+            <b-form-group>
+              <label class="sr-only" for="EmailAddress">Email Address</label>
+              <b-form-input v-model="emailAddress" id="EmailAddress" placeholder="Email Address" type="email" />
+            </b-form-group>
+            <b-form-group>
+              <label class="sr-only" for="Password">Password</label>
+              <b-form-input v-model="password" id="Password" placeholder="Password" type="password" />
+            </b-form-group>
+            <b-form-group>
+              <label class="sr-only" for="Confirm">Confirm Password</label>
+              <b-form-input v-model="confirmPassword" id="Confirm" placeholder="Confirm Password" type="password" />
+            </b-form-group>
+            <b-button>
+              <g-signin-button :params="googleSignInParams" @success="onGoogleSignInSuccess" @error="onGoogleSignInError">Sign in with Google</g-signin-button>
+            </b-button>
+            <b-button>
+              <fb-signin-button :params="fbSignInParams" @success="onFacebookSignInSuccess" @error="onFacebookSignInError">Sign in with Facebook</fb-signin-button>
+            </b-button>
+          </b-form>
+          <hr />
+        </div>
         <b-list-group>
           <b-list-group-item :active="tabKey == 'a'" @click="() => { this.updateTabKey('a'); }">Active Calls</b-list-group-item>
           <b-list-group-item :active="tabKey == 'ap'" @click="() => { this.updateTabKey('ap'); }">Active Police Calls</b-list-group-item>
@@ -81,42 +125,6 @@
           <b-list-group-item :active="tabKey == 'af'" @click="() => { this.updateTabKey('af'); }">Active Fire Calls</b-list-group-item>
           <b-list-group-item :active="tabKey == 'rf'" @click="() => { this.updateTabKey('rf'); }">Recent Fire Calls</b-list-group-item>
         </b-list-group>
-        <hr class="mt-3" />
-        <b-form class="mt-3" v-if="!showNotifications && userPosition">
-          <h2>Get Notifications</h2>
-          <b-button @click="showNotificationFields">Notify Me of Calls Near Me</b-button>
-        </b-form>
-        <b-form class="mt-3" inline v-if="showNotifications">
-          <h2>Get Notifications</h2>
-          <p>
-            Sign up to get an email notification whenever there's a call within 
-            <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
-            feet of {{userPositionLabel}}.
-          </p>
-        </b-form>
-        <b-form v-if="showNotifications">
-          <b-form-group>
-            <label class="sr-only" for="EmailAddress">Email Address</label>
-            <b-form-input v-model="emailAddress" id="EmailAddress" placeholder="Email Address" type="email" />
-          </b-form-group>
-          <b-form-group>
-            <label class="sr-only" for="Password">Password</label>
-            <b-form-input v-model="password" id="Password" placeholder="Password" type="password" />
-          </b-form-group>
-          <b-form-group>
-            <label class="sr-only" for="Confirm">Confirm Password</label>
-            <b-form-input v-model="confirmPassword" id="Confirm" placeholder="Confirm Password" type="password" />
-          </b-form-group>
-          <b-button>
-            <g-signin-button :params="googleSignInParams" @success="onGoogleSignInSuccess" @error="onGoogleSignInError">Sign in with Google</g-signin-button>
-          </b-button>
-          <b-button>
-            <fb-signin-button :params="fbSignInParams" @success="onFacebookSignInSuccess" @error="onFacebookSignInError">Sign in with Facebook</fb-signin-button>
-          </b-button>
-        </b-form>
-      </b-col>
-      <b-col xs="12" lg="9">
-        <div class="map" id="homeMap" />
       </b-col>
     </b-row>
   </div>
@@ -171,12 +179,18 @@ export default {
       userPositionLabel: null,
       distance: 500,
       distances: [
-        100,
         250,
         500,
         1000,
         2000,
         5000
+      ],
+      callType: 'Major',
+      callTypes: [
+        { text: 'any police dispatch call', value: 'AllPolice' },
+        { text: 'any fire dispatch call', value: 'AllFire' },
+        { text: 'any police or fire dispatch call', value: 'AllPoliceFire' },
+        { text: 'any major crime or fire call', value: 'Major' }
       ],
       circle: null,
       emailAddress: '',
@@ -235,8 +249,8 @@ export default {
         this.circle.setMap(null);
 
       this.circle = new google.maps.Circle({
-        strokeColor: '#0d2240',
-        strokeOpacity: 0.6,
+        strokeColor: '#bd2130',
+        strokeOpacity: 0.8,
         strokeWeight: 2,
         fillColor: '#0d2240',
         fillOpacity: 0.10,
