@@ -35,7 +35,7 @@
         </b-jumbotron>
       </b-col>
     </b-row>
-    <b-row v-if="!showJumbotron">
+    <b-row v-if="!showJumbotron" class="mb-3">
       <b-col>
         <b-card bg-variant="light">
           <b-card-text>
@@ -63,20 +63,38 @@
                 </b-form-group>
               </b-form-row>
             </b-form>
+            <hr />
+            <b-form inline class="justify-content-center">
+              Sign up to get an email notification whenever there's
+              <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
+              within 
+              <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
+              feet of {{userPositionLabel}}.
+                <b-form-group>
+                  <b-button type="submit" variant="primary">Sign Up for Notifications</b-button>
+                </b-form-group>
+            </b-form>
           </b-card-text>
         </b-card>        
       </b-col>
     </b-row>
-    <b-row class="lg-2" v-if="mapFull">
+    <b-row>
+      <b-col>
+        <b-form-group>
+          <b-form-radio-group v-model="tabKey" :options="mapCacheViews" buttons button-variant="outline-primary" size="sm" />
+        </b-form-group>        
+      </b-col>
+    </b-row>
+    <b-row v-if="mapFull">
       <b-col>
         <b-alert variant="warning" show>Only the most recent items are displayed. Zoom in on the map to see more.</b-alert>
       </b-col>
     </b-row>
-    <b-row class="lg-2">
-      <b-col xs="12" lg="9">
+    <b-row>
+      <b-col>
         <div class="map" id="homeMap" />
       </b-col>
-      <b-col xs="12" lg="3">
+      <!-- <b-col xs="12" lg="3">
         <div v-if="!showNotifications && userPosition" class="mt-3 mb-3">
           <h2>Get Email Notifications</h2>
           <b-form class="mt-3">
@@ -118,14 +136,7 @@
           </b-form>
           <hr />
         </div>
-        <b-list-group>
-          <b-list-group-item :active="tabKey == 'a'" @click="() => { this.updateTabKey('a'); }">Active Calls</b-list-group-item>
-          <b-list-group-item :active="tabKey == 'ap'" @click="() => { this.updateTabKey('ap'); }">Active Police Calls</b-list-group-item>
-          <b-list-group-item :active="tabKey == 'rp'" @click="() => { this.updateTabKey('rp'); }">Recent Police Calls</b-list-group-item>
-          <b-list-group-item :active="tabKey == 'af'" @click="() => { this.updateTabKey('af'); }">Active Fire Calls</b-list-group-item>
-          <b-list-group-item :active="tabKey == 'rf'" @click="() => { this.updateTabKey('rf'); }">Recent Fire Calls</b-list-group-item>
-        </b-list-group>
-      </b-col>
+      </b-col> -->
     </b-row>
   </div>
 </template>
@@ -152,11 +163,18 @@ export default {
       streetTypes: [],
 
       // Mapping
+      mapCacheViews: [
+        { text: 'All', value: 'a' },
+        { text: 'Active Police Calls', value: 'ap' },
+        { text: 'Recent Police Calls', value: 'rp' },
+        { text: 'Active Fire Calls', value: 'af' },
+        { text: 'Recent Fire Calls', value: 'rf' },
+      ],
       google: null,
       map: null,
       bounds: null,
       tabKey: 'a',
-      visibleMarkerCaches: ['ap', 'af'],
+      visibleMarkerCaches: ['rp', 'rf'],
       markerCache: {
         ap: [],
         rp: [],
@@ -333,6 +351,8 @@ export default {
         lng: position.coords.longitude
       };
 
+      this.showJumbotron = false;
+
       this.userPosition = location;
       this.userPositionLabel = 'my location';
 
@@ -340,6 +360,24 @@ export default {
       this.map.setZoom(14);
 
       this.updateDistance();
+
+      axios
+        .get('/api/Geocoding/FromCoordinates?latitude=' + location.lat + '&longitude=' + location.lng)
+        .then(response => {
+          console.log(response);
+          if (!response.data.Property)
+            return;
+
+          this.number = response.data.Property.HOUSE_NR_LO;
+          this.streetDirection = response.data.Property.SDIR;
+          this.streetName = response.data.Property.STREET;
+          this.streetType = response.data.Property.STTYPE;
+
+          this.userPositionLabel = this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType;
+        })
+        .catch(error => {
+          console.log(error);
+        });      
     },
     loadStreetReferences: function () {
       axios
@@ -380,27 +418,26 @@ export default {
       this.streetName = '';
       this.streetType = '';
     },
-    updateTabKey: function (newKey) {
-      this.tabKey = newKey;
-      this.updateTab();
-    },
-    updateTab: function () {
-      if (this.tabKey == 'ap') {
+    updateTab: function (tabKey) {
+      if (!tabKey)
+        tabKey = this.tabKey;
+
+      if (tabKey == 'ap') {
         this.visibleMarkerCaches = ['ap']
         this.loadActivePoliceCalls();
-      } else if (this.tabKey == 'rp') {
+      } else if (tabKey == 'rp') {
         this.visibleMarkerCaches = ['rp']
         this.loadRecentPoliceCalls();
-      } else if (this.tabKey == 'af') {
+      } else if (tabKey == 'af') {
         this.visibleMarkerCaches = ['af']
         this.loadActiveFireCalls();
-      } else if (this.tabKey == 'rf') {
+      } else if (tabKey == 'rf') {
         this.visibleMarkerCaches = ['rf']
         this.loadRecentFireCalls();
-      } else if (this.tabKey == 'a') {
-        this.visibleMarkerCaches = ['ap', 'af']
-        this.loadActivePoliceCalls();
-        this.loadActiveFireCalls();
+      } else if (tabKey == 'a') {
+        this.visibleMarkerCaches = ['rp', 'rf']
+        this.loadRecentPoliceCalls();
+        this.loadRecentFireCalls();
       }
     },
     loadActivePoliceCalls: function () {
@@ -408,7 +445,7 @@ export default {
       this.loadPoliceDispatchCalls('ap', 'Status%20%3D%20%22Service%20in%20Progress%22%20and%20ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
     },
     loadRecentPoliceCalls: function () {
-      let now = moment().subtract(2, 'hours').format('YYYY-MM-DD HH:mm:ss');
+      let now = moment().subtract(6, 'hours').format('YYYY-MM-DD HH:mm:ss');
       this.loadPoliceDispatchCalls('rp', 'ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
     },
     loadPoliceDispatchCalls: function (cacheKey, filter) {
@@ -482,7 +519,7 @@ export default {
       this.loadFireDispatchCalls('af', 'Disposition%20%3D%20%22ACTIVE%22%20and%20ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
     },
     loadRecentFireCalls: function () {
-      let now = moment().subtract(2, 'hours').format('YYYY-MM-DD HH:mm:ss');
+      let now = moment().subtract(6, 'hours').format('YYYY-MM-DD HH:mm:ss');
       this.loadFireDispatchCalls('rf', 'ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter())
     },
     loadFireDispatchCalls: function (cacheKey, filter) {
@@ -618,6 +655,11 @@ export default {
         return '';
 
       return '&northBound=' + this.bounds.ne.lat + '&southBound=' + this.bounds.sw.lat + '&eastBound=' + this.bounds.ne.lng + '&westBound=' + this.bounds.sw.lng;
+    }
+  },
+  watch: {
+    tabKey: function (newValue, oldValue) {
+      this.updateTab(newValue);
     }
   },
   async mounted () {

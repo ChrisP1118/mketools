@@ -3150,3 +3150,34 @@
 2019-09-30 15:32:00.1685 Info Adding target FileTarget(Name=Misc)
 2019-09-30 15:32:00.1685 Info Adding target FileTarget(Name=Full)
 2019-09-30 15:32:00.2297 Info Found 105 configuration items
+2019-09-30 15:33:29.7586 Info Shutdown() called. Logger closing...
+2019-09-30 15:33:29.7593 Info Closing old configuration.
+2019-09-30 15:33:29.7593 Info Logger has been closed down.
+2019-09-30 15:33:29.7593 Info AppDomain Shutting down. Logger closing...
+2019-09-30 15:33:29.7759 Info Logger has been shut down.
+2019-09-30 15:33:46.1008 Info Message Template Auto Format enabled
+2019-09-30 15:33:46.1181 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-30 15:33:46.2870 Info Adding target FileTarget(Name=EF)
+2019-09-30 15:33:46.2870 Info Adding target FileTarget(Name=Hangfire)
+2019-09-30 15:33:46.2918 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-30 15:33:46.2918 Info Adding target FileTarget(Name=Misc)
+2019-09-30 15:33:46.2918 Info Adding target FileTarget(Name=Full)
+2019-09-30 15:33:46.3735 Info Found 105 configuration items
+2019-09-30 15:42:02.8365 Info Shutdown() called. Logger closing...
+2019-09-30 15:42:02.8527 Info Closing old configuration.
+2019-09-30 15:42:02.8659 Info Logger has been closed down.
+2019-09-30 15:42:02.8659 Info AppDomain Shutting down. Logger closing...
+2019-09-30 15:42:02.8697 Info Logger has been shut down.
+2019-09-30 15:42:09.6716 Info Message Template Auto Format enabled
+2019-09-30 15:42:09.6886 Info Loading assembly: NLog.Web.AspNetCore
+2019-09-30 15:42:09.8501 Info Adding target FileTarget(Name=EF)
+2019-09-30 15:42:09.8714 Info Adding target FileTarget(Name=Hangfire)
+2019-09-30 15:42:09.8714 Info Adding target FileTarget(Name=MkeAlerts)
+2019-09-30 15:42:09.8714 Info Adding target FileTarget(Name=Misc)
+2019-09-30 15:42:09.8714 Info Adding target FileTarget(Name=Full)
+2019-09-30 15:42:09.9546 Info Found 105 configuration items
+2019-09-30 16:19:56.2758 Info Shutdown() called. Logger closing...
+2019-09-30 16:19:56.3103 Info Closing old configuration.
+2019-09-30 16:19:56.3437 Info Logger has been closed down.
+2019-09-30 16:19:56.3437 Info AppDomain Shutting down. Logger closing...
+2019-09-30 16:19:56.3437 Info Logger has been shut down.
