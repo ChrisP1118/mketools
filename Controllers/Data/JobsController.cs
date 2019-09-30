@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Hangfire;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ namespace MkeAlerts.Web.Controllers.Data
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = ApplicationRole.SiteAdminRole)]
     public class JobsController : ControllerBase
     {
         protected readonly IConfiguration _configuration;
@@ -96,6 +98,9 @@ namespace MkeAlerts.Web.Controllers.Data
         /// <summary>
         /// Imports all baseline data
         /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
         /// <returns></returns>
         [HttpPost("ImportBaselines")]
         [ActionName("ImportBaselines")]
@@ -131,6 +136,9 @@ namespace MkeAlerts.Web.Controllers.Data
         /// <summary>
         /// Imports properties
         /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
         /// <returns></returns>
         [HttpPost("ImportProperties")]
         [ActionName("ImportProperties")]
@@ -145,6 +153,9 @@ namespace MkeAlerts.Web.Controllers.Data
         /// <summary>
         /// Imports parcels
         /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
         /// <returns></returns>
         [HttpPost("ImportParcels")]
         [ActionName("ImportParcels")]
@@ -159,6 +170,9 @@ namespace MkeAlerts.Web.Controllers.Data
         /// <summary>
         /// Imports address
         /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
         /// <returns></returns>
         [HttpPost("ImportAddresses")]
         [ActionName("ImportAddresses")]
@@ -173,6 +187,9 @@ namespace MkeAlerts.Web.Controllers.Data
         /// <summary>
         /// Imports streets
         /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
         /// <returns></returns>
         [HttpPost("ImportStreets")]
         [ActionName("ImportStreets")]
@@ -187,6 +204,9 @@ namespace MkeAlerts.Web.Controllers.Data
         /// <summary>
         /// Imports dispatch calls
         /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
         /// <returns></returns>
         [HttpPost("ImportDispatchCalls")]
         [ActionName("ImportDispatchCalls")]
@@ -201,6 +221,9 @@ namespace MkeAlerts.Web.Controllers.Data
         /// <summary>
         /// Imports fire dispatch calls
         /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
         /// <returns></returns>
         [HttpPost("ImportFireDispatchCalls")]
         [ActionName("ImportFireDispatchCalls")]
@@ -215,6 +238,9 @@ namespace MkeAlerts.Web.Controllers.Data
         /// <summary>
         /// Imports crimes
         /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
         /// <returns></returns>
         [HttpPost("ImportCrimes")]
         [ActionName("ImportCrimes")]

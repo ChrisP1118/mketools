@@ -244,6 +244,10 @@ namespace MkeAlerts.Web.Controllers
                 new Claim(ClaimTypes.NameIdentifier, applicationUser.Id.ToString())
             };
 
+            var roles = await _userManager.GetRolesAsync(applicationUser);
+            foreach (string role in roles)
+                claims.Add(new Claim(ClaimTypes.Role, role));
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["JwtExpireDays"]));
