@@ -11,6 +11,7 @@ using MkeAlerts.Web.Utilities;
 using NetTopologySuite;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -25,8 +26,10 @@ namespace MkeAlerts.Web.Jobs
         public ImportCrimesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportXmlJob<Crime>> logger, IEntityWriteService<Crime, string> writeService) :
             base(configuration, signInManager, userManager, logger, writeService)
         {
-            string path = @"M:\My Documents\GitHub\mkealerts\DataSources\parcelbase_mprop_full\parcelbase_mprop_full.shp";
-            _projectionInfo = ProjectionInfo.Open(path.Replace(".shp", ".prj"));
+            //string path = @"M:\My Documents\GitHub\mkealerts\DataSources\parcelbase_mprop_full\parcelbase_mprop_full.shp";
+            //_projectionInfo = ProjectionInfo.Open(path.Replace(".shp", ".prj"));
+            string path = Path.Combine(AppContext.BaseDirectory, @"GeoData\parcelbase_mprop_full.prj");
+            _projectionInfo = ProjectionInfo.Open(path);
         }
 
         protected override string PackageName => "wibr";

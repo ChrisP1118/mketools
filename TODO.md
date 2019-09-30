@@ -12,5 +12,5 @@
 * Clear out status on dispatch calls after awhile
 * Create a DTO for IGeometry types
 * GraphQL layer?
-* Auth with Google, Facebook
+* ~~Auth with Google, Facebook~~
 * Consolidate login/register response handlers into a mixin
