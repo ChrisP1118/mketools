@@ -58,11 +58,11 @@ namespace MkeAlerts.Web.Controllers
         [ProducesResponseType(typeof(IdentityErrorDetails), StatusCodes.Status400BadRequest)]
         public async Task<LoginResultsDTO> Login([FromBody] LoginDTO model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
             if (result.Succeeded)
             {
-                var applicationUser = _userManager.Users.SingleOrDefault(r => r.UserName == model.UserName);
+                var applicationUser = _userManager.Users.SingleOrDefault(r => r.UserName == model.Email);
                 var roles = await _userManager.GetRolesAsync(applicationUser);
 
                 return new LoginResultsDTO()
@@ -169,6 +169,7 @@ namespace MkeAlerts.Web.Controllers
         public async Task<RegisterResultsDTO> Register([FromBody] RegisterDTO model)
         {
             var applicationUser = _mapper.Map<RegisterDTO, ApplicationUser>(model);
+            applicationUser.UserName = model.Email;
 
             var result = await _userManager.CreateAsync(applicationUser, model.Password);
 

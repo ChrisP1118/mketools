@@ -111,10 +111,10 @@ namespace MkeAlerts.Web.Data
             modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 Id = Guid.Parse("85f00d40-d578-4988-9f22-4d023175f852"),
-                UserName = "siteadmin",
-                NormalizedUserName = "siteadmin",
-                Email = "siteadmin@test.com",
-                NormalizedEmail = "siteadmin@test.com",
+                UserName = "admin@mkealerts.com",
+                NormalizedUserName = "admin@mkealerts.com",
+                Email = "admin@mkealerts.com",
+                NormalizedEmail = "admin@mkealerts.com",
                 EmailConfirmed = true,
                 PasswordHash = passwordHasher.HashPassword(null, "abc123"),
                 SecurityStamp = string.Empty

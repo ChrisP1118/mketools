@@ -43,10 +43,11 @@
       </b-navbar>
 
       <!-- Ths if/else here clears the keep-alive when a user logs in/out: https://stackoverflow.com/questions/52967418/refresh-pages-in-vue-js-keep-alive-section -->
-      <keep-alive v-if="$root.$data.authenticatedUser.username">
+      <!-- <keep-alive v-if="$root.$data.authenticatedUser.username">
         <router-view :key="$route.fullPath"></router-view>
       </keep-alive>
-      <router-view v-else></router-view>
+      <router-view v-else></router-view> -->
+      <router-view></router-view>
 
     </b-container>
 

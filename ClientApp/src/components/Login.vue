@@ -8,12 +8,12 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-form @submit="onSubmit">
-          <b-form-group label="User name" label-for="username">
-            <b-form-input id="username" v-model="username" required placeholder="User name"></b-form-input>
+        <b-form @submit="onLogIn">
+          <b-form-group label="Email Address" label-for="logInEmail">
+            <b-form-input v-model="logInEmail" id="logInEmail" type="email" placeholder="Email Address" required />
           </b-form-group>
-          <b-form-group label="Password" label-for="password">
-            <b-form-input type="password" id="password" v-model="password" required placeholder="Password"></b-form-input>
+          <b-form-group label="Password" label-for="logInPassword">
+            <b-form-input v-model="logInPassword" id="logInPassword" type="password" placeholder="Password" required />
           </b-form-group>
           <b-button type="submit" variant="primary">Log In</b-button>
         </b-form>
@@ -26,9 +26,11 @@
 
 <script>
 import axios from "axios";
+import AuthMixin from './Mixins/AuthMixin.vue';
 
 export default {
   name: "Login",
+  mixins: [AuthMixin],
   props: {},
   data() {
     return {
@@ -38,37 +40,6 @@ export default {
     }
   },
   methods: {
-    onSubmit(evt) {
-      evt.preventDefault();
-      axios.post('/api/Account/Login',
-      {
-        "userName": this.username,
-        "password": this.password
-      })
-      .then(response => {
-        console.log(response);
-        if (response.status == 200) {
-
-          axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.JwtToken;
-          this.$root.$data.authenticatedUser.username = response.data.UserName;
-          this.$root.$data.authenticatedUser.id = response.data.Id;
-          this.$root.$data.authenticatedUser.roles = response.data.Roles;
-
-          localStorage.setItem('jwt', response.data.JwtToken);
-          localStorage.setItem('username', response.data.UserName);
-          localStorage.setItem('id', response.data.Id);
-          localStorage.setItem('roles', response.data.Roles);
-
-          if (this.$route.query.redirect)
-            this.$router.push(this.$route.query.redirect);
-          else
-            this.$router.push('/');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    }
   },
   mounted () {
     if (localStorage.getItem('jwt') != null) {

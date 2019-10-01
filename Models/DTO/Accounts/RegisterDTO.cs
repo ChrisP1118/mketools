@@ -9,22 +9,16 @@ namespace MkeAlerts.Web.Models.DTO.Accounts
     public class RegisterDTO
     {
         /// <summary>
-        /// Username for the registering user
+        /// Email address for the registering user
         /// </summary>
         [Required]
-        public string UserName { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Password for the registering user
         /// </summary>
         [Required]
         public string Password { get; set; }
-
-        /// <summary>
-        /// Email address for the registering user
-        /// </summary>
-        [Required]
-        public string Email { get; set; }
 
         public string FirstName { get; set; }
         public string LastName { get; set; }

@@ -64,15 +64,17 @@
               </b-form-row>
             </b-form>
             <hr />
-            <b-form inline class="justify-content-center">
-              Sign up to get an email notification whenever there's
+            <b-form inline class="justify-content-center" @submit.stop.prevent>
+              Email me whenever there's
               <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
               within 
               <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
               feet of {{userPositionLabel}}.
+              <div>
                 <b-form-group>
-                  <b-button type="submit" variant="primary">Sign Up for Notifications</b-button>
+                  <b-button type="submit" variant="primary" v-b-modal.subscription-modal>Sign Up for Notifications</b-button>
                 </b-form-group>
+              </div>
             </b-form>
           </b-card-text>
         </b-card>        
@@ -138,6 +140,136 @@
         </div>
       </b-col> -->
     </b-row>
+    <b-modal id="subscription-modal" size="lg" title="Sign Up for Email Notifications" 
+      header-bg-variant="primary" header-text-variant="light" hide-footer footer-bg-variant="info" footer-text-variant="dark">
+      <div v-if="!authUser">
+        <b-row>
+          <b-col>
+            <div class="text-center">
+              {{authUser}}
+              Log in with: 
+              <b-button>
+                <g-signin-button :params="googleSignInParams" @success="onGoogleSignInSuccess" @error="onGoogleSignInError">
+                  <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google' }"/>
+                  Google
+                </g-signin-button>
+              </b-button>
+              <b-button>
+                <fb-signin-button :params="fbSignInParams" @success="onFacebookSignInSuccess" @error="onFacebookSignInError">
+                  <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }"/>
+                  Facebook
+                </fb-signin-button>
+              </b-button>
+            </div>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <div class="strike">
+               <span>or</span>
+            </div>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="3"></b-col>
+          <b-col md="6" class="text-center">
+            <div v-if="notificationPage == 'create'">
+              <h2>Sign Up</h2>
+              <b-form @submit.prevent="onSignUp">
+                <b-form-group>
+                  <label class="sr-only" for="signUpEmail">Email Address</label>
+                  <b-form-input v-model="signUpEmail" id="signUpEmail" type="email" placeholder="Email Address" required />
+                </b-form-group>
+                <b-form-group>
+                  <label class="sr-only" for="signUpPassword">Password</label>
+                  <b-form-input v-model="signUpPassword" id="signUpPassword" type="password" placeholder="Password" required />
+                </b-form-group>
+                <b-form-group>
+                  <label class="sr-only" for="signUpConfirm">Confirm Password</label>
+                  <b-form-input v-model="signUpConfirm" id="signUpConfirm" type="password" placeholder="Confirm Password" required />
+                </b-form-group>
+                <b-button type="submit" variant="primary">Sign Up</b-button>
+              </b-form>
+              <div>
+                <a href="#" @click.prevent="notificationPage = 'login'">Already have an account? Log in.</a>
+              </div>
+              <div>
+                <a href="#" @click.prevent="notificationPage = 'reset'">Forgot your password? Reset it.</a>
+              </div>          
+            </div>
+            <div v-if="notificationPage == 'login'">
+              <h2>Log In</h2>
+              <b-form @submit.prevent="onLogIn">
+                <b-form-group>
+                  <label class="sr-only" for="logInEmail">Email Address</label>
+                  <b-form-input v-model="logInEmail" id="logInEmail" type="email" placeholder="Email Address" required />
+                </b-form-group>
+                <b-form-group>
+                  <label class="sr-only" for="logInPassword">Password</label>
+                  <b-form-input v-model="logInPassword" id="logInPassword" type="password" placeholder="Password" required />
+                </b-form-group>
+                <b-button type="submit" variant="primary">Log In</b-button>
+              </b-form>
+              <div>
+                <a href="#" @click.prevent="notificationPage = 'create'">Don't have an account? Sign up.</a>
+              </div>
+              <div>
+                <a href="#" @click.prevent="notificationPage = 'reset'">Forgot your password? Reset it.</a>
+              </div>          
+            </div>
+            <div v-if="notificationPage == 'reset'">
+              <h2>Reset Password</h2>
+              <b-form>
+                <b-form-group>
+                  <label class="sr-only" for="EmailAddress">Email Address</label>
+                  <b-form-input v-model="emailAddress" id="EmailAddress" placeholder="Email Address" type="email" />
+                </b-form-group>
+                <b-button>Reset Password</b-button>
+              </b-form>
+              <div>
+                <a href="#" @click.prevent="notificationPage = 'login'">Already have an account? Log in.</a>
+              </div>
+              <div>
+                <a href="#" @click.prevent="notificationPage = 'create'">Don't have an account? Sign up.</a>
+              </div>
+            </div>
+          </b-col>
+          <b-col md="3"></b-col>
+        </b-row>
+      </div>
+      <div v-if="authUser">
+        <p>
+          Sign up to get an email notification whenever there's
+          <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
+          within 
+          <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
+          feet of {{userPositionLabel}}.
+        </p>
+      </div>
+      <!-- <b-form class="mt-3" inline>
+        <p>
+          Sign up to get an email notification whenever there's
+          <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
+          within 
+          <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
+          feet of {{userPositionLabel}}.
+        </p>
+        <p class="small">To get email notifications for a different location, enter a different street address up above.</p>
+      </b-form> -->
+      <!-- <template v-slot:modal-footer>
+        <div class="w-100">
+          <p class="float-left">Modal Footer Content</p>
+          <b-button
+            variant="primary"
+            size="sm"
+            class="float-right"
+            @click="show=false"
+          >
+            Close
+          </b-button>
+        </div>
+      </template> -->
+    </b-modal>
   </div>
 </template>
 
@@ -145,9 +277,11 @@
 import axios from "axios";
 import gmapsInit from './Common/googlemaps';
 import moment from 'moment'
+import AuthMixin from './Mixins/AuthMixin.vue';
 
 export default {
   name: "Home",
+  mixins: [AuthMixin],
   props: {},
   data() {
     return {
@@ -192,7 +326,6 @@ export default {
       mapItemLimit: 100,
 
       // Notifications
-      showNotifications: false,
       userPosition: null,
       userPositionLabel: null,
       distance: 500,
@@ -211,6 +344,7 @@ export default {
         { text: 'any major crime or fire call', value: 'Major' }
       ],
       circle: null,
+      notificationPage: 'create',
       emailAddress: '',
       password: '',
       confirmPassword: '',
@@ -224,105 +358,10 @@ export default {
       }
     }
   },
+  computed: {
+  },
   methods: {
-    onGoogleSignInSuccess (googleUser) {
-      // `googleUser` is the GoogleUser object that represents the just-signed-in user.
-      // See https://developers.google.com/identity/sign-in/web/reference#users
-      const profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId());
-      console.log('Full Name: ' + profile.getName());
-      console.log('Given Name: ' + profile.getGivenName());
-      console.log('Family Name: ' + profile.getFamilyName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail());
-
-      // The ID token you need to pass to your backend:
-      var id_token = googleUser.getAuthResponse().id_token;
-      console.log("ID Token: " + id_token);
-
-      axios.post('/api/Account/LoginExternalCredential',
-      {
-        "provider": "Google",
-        "externalId": profile.getId(),
-        "email": profile.getEmail()
-      })
-      .then(response => {
-        console.log(response);
-        if (response.status == 200) {
-
-          axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.JwtToken;
-          this.$root.$data.authenticatedUser.username = response.data.UserName;
-          this.$root.$data.authenticatedUser.id = response.data.Id;
-          this.$root.$data.authenticatedUser.roles = response.data.Roles;
-
-          localStorage.setItem('jwt', response.data.JwtToken);
-          localStorage.setItem('username', response.data.UserName);
-          localStorage.setItem('id', response.data.Id);
-          localStorage.setItem('roles', response.data.Roles);
-
-          if (this.$route.query.redirect)
-            this.$router.push(this.$route.query.redirect);
-          else
-            this.$router.push('/');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });      
-    },
-    onGoogleSignInError (error) {
-      // `error` contains any error occurred.
-      console.log('OH NOES', error);
-    },
-    onFacebookSignInSuccess (response) {
-      FB.api('/me?fields=name,email', user => {
-        console.log('ID: ' + user.id);
-        console.log('Name: ' + user.name);
-        console.log('Email: ' + user.email);
-        console.log(user);
-
-        axios.post('/api/Account/LoginExternalCredential',
-        {
-          "provider": "Facebook",
-          "externalId": user.id,
-          "email": user.email
-        })
-        .then(response => {
-          console.log(response);
-          if (response.status == 200) {
-
-            axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.JwtToken;
-            this.$root.$data.authenticatedUser.username = response.data.UserName;
-            this.$root.$data.authenticatedUser.id = response.data.Id;
-            this.$root.$data.authenticatedUser.roles = response.data.Roles;
-
-            localStorage.setItem('jwt', response.data.JwtToken);
-            localStorage.setItem('username', response.data.UserName);
-            localStorage.setItem('id', response.data.Id);
-            localStorage.setItem('roles', response.data.Roles);
-
-            if (this.$route.query.redirect)
-              this.$router.push(this.$route.query.redirect);
-            else
-              this.$router.push('/');
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });        
-      });
-    },
-    onFacebookSignInError (error) {
-      console.log('OH NOES', error);
-    },
-    showNotificationFields: function () {
-      this.showNotifications = true;
-      this.updateDistance();
-    },
     updateDistance: function () {
-      if (!this.showNotifications)
-        return;
-
       if (this.circle)
         this.circle.setMap(null);
 
@@ -357,7 +396,7 @@ export default {
       this.userPositionLabel = 'my location';
 
       this.map.setCenter(location);
-      this.map.setZoom(14);
+      this.map.setZoom(15);
 
       this.updateDistance();
 
@@ -403,7 +442,7 @@ export default {
           this.userPositionLabel = this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType;
 
           this.map.setCenter(location);
-          this.map.setZoom(14);
+          this.map.setZoom(15);
 
           this.updateDistance();
         })

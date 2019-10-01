@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     drawMarkers(map) {
-      if (!google)
+      if (!this.google)
         return;
 
       let newMarkerWrappers = [];

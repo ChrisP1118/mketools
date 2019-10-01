@@ -12,7 +12,7 @@ namespace MkeAlerts.Web.Models.DTO.Accounts
         /// The username of the authenticating user
         /// </summary>
         [Required]
-        public string UserName { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// The password of the authenticating user

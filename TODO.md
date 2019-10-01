@@ -15,3 +15,4 @@
 * ~~Auth with Google, Facebook~~
 * Consolidate login/register response handlers into a mixin
 * Caching headers - why Cache-Control: no-cache?
+* Add Google Analytics
