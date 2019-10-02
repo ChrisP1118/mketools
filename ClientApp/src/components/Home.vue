@@ -6,76 +6,33 @@
           <p>Enter an address below to get started.</p>
           <b-row>
             <b-col>
-              <b-form @submit="onSubmit" @submit.stop.prevent>
-                <b-form-row class="justify-content-center">
-                  <b-form-group>
-                    <label class="sr-only" for="Number">Number</label>
-                    <b-form-input v-model="number" id="Number" placeholder="Number" type="number" />
-                  </b-form-group>
-                  <b-form-group>
-                    <label class="sr-only" for="Direction">Direction</label>
-                    <b-form-select v-model="streetDirection" id="Direction" :options="streetDirections" />
-                  </b-form-group>
-                  <b-form-group>
-                    <label class="sr-only" for="Street">Street</label>
-                    <b-form-select v-model="streetName" id="Street" :options="streetNames" />
-                  </b-form-group>
-                  <b-form-group>
-                    <label class="sr-only" for="StreetType">Street Type</label>
-                    <b-form-select v-model="streetType" id="StreetType" :options="streetTypes" />
-                  </b-form-group>
-                  <b-form-group>
-                    <b-button type="submit" variant="primary">Go</b-button>
-                  </b-form-group>
-                </b-form-row>
-              </b-form>
+              <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" />
+              <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" />
+              <p>{{addressData}}</p>
+              <p>{{locationData}}</p>
             </b-col>
           </b-row>
           <p><i>Remember! An increased awareness of crime does not necessarily indicate an increase in crime.</i></p>
         </b-jumbotron>
       </b-col>
     </b-row>
-    <b-row v-if="!showJumbotron" class="mb-3">
+    <b-row v-if="showJumbotron" class="mb-3">
       <b-col>
         <b-card bg-variant="light">
           <b-card-text>
-            <b-form @submit="onSubmit" @submit.stop.prevent>
-              <b-form-row class="justify-content-center">
-                <b-form-group>
-                  <label class="sr-only" for="Number">Number</label>
-                  <b-form-input v-model="number" id="Number" placeholder="Number" type="number" />
-                </b-form-group>
-                <b-form-group>
-                  <label class="sr-only" for="Direction">Direction</label>
-                  <b-form-select v-model="streetDirection" id="Direction" :options="streetDirections" />
-                </b-form-group>
-                <b-form-group>
-                  <label class="sr-only" for="Street">Street</label>
-                  <b-form-select v-model="streetName" id="Street" :options="streetNames" />
-                </b-form-group>
-                <b-form-group>
-                  <label class="sr-only" for="StreetType">Street Type</label>
-                  <b-form-select v-model="streetType" id="StreetType" :options="streetTypes" />
-                </b-form-group>
-                <b-form-group>
-                  <b-button type="submit" variant="primary">Go</b-button>
-                  <b-button type="button" @click="onClear">Clear</b-button>
-                </b-form-group>
-              </b-form-row>
-              <b-alert variant="danger" show v-if="addressLookupError" class="text-center">{{addressLookupError}}</b-alert>
-            </b-form>
+            <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" />
             <hr />
             <div v-for="subscription in subscriptions" v-bind:key="subscription.Id" class="text-center">
               <a href="#" @click.prevent="setLocationFromSubscription(subscription)">An email will be sent to {{authUser}} whenever there's {{getCallTypeLabel(subscription.DispatchCallType)}} within {{getDistanceLabel(subscription.Distance)}} 
               of {{subscription.HOUSE_NR}} {{subscription.SDIR}} {{subscription.STREET}} {{subscription.STTYPE}}.</a> <a href="#" class="small" @click.prevent="deleteSubscription(subscription.Id)">Delete</a>
             </div>
             <hr v-if="subscriptions.length > 0" />
-            <b-form inline class="justify-content-center" @submit.stop.prevent>
+            <b-form inline class="justify-content-center" @submit.stop.prevent v-if="addressData">
               Email me whenever there's
               <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
               within 
               <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
-              feet of {{userPositionLabel}}.
+              feet of {{addressData.number}} {{addressData.streetDirection}} {{addressData.streetName}} {{addressData.streetType}} .
               <div>
                 <b-form-group>
                   <b-button type="submit" variant="primary" v-b-modal.subscription-modal>Sign Up for Notifications</b-button>
@@ -233,14 +190,17 @@ export default {
       showJumbotron: true,
 
       // Address lookup
-      number: null,
-      streetDirection: '',
-      streetName: '',
-      streetType: '',
-      streetDirections: [],
-      streetNames: [],
-      streetTypes: [],
-      addressLookupError: null,
+      // number: null,
+      // streetDirection: '',
+      // streetName: '',
+      // streetType: '',
+      // streetDirections: [],
+      // streetNames: [],
+      // streetTypes: [],
+      // addressLookupError: null,
+
+      addressData: null,
+      locationData: null,
 
       // Mapping
       mapCacheViews: [
@@ -323,10 +283,10 @@ export default {
               this.userPosition.lat
             ]
           },
-          SDIR: this.streetDirection,
-          STREET: this.streetName,
-          STTYPE: this.streetType,
-          HOUSE_NR: this.number
+          HOUSE_NR: this.addressData.number,
+          SDIR: this.addressData.streetDirection,
+          STREET: this.addressData.streetName,
+          STTYPE: this.addressData.streetType
         })
         .then(response => {
           console.log(response);
@@ -420,119 +380,26 @@ export default {
         fillColor: '#0d2240',
         fillOpacity: 0.10,
         map: this.map,
-        center: this.userPosition,
+        center: this.locationData,
         radius: (this.distance * 0.3048) // Feet to meters
       });
     },
-    getPosition: function () {
-      if (!("geolocation" in navigator))
-        return;
-
-      navigator.geolocation.getCurrentPosition(this.gotPosition);
-    },
-    gotPosition: function (position) {
-      console.log(position);
-
-      let location = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-
-      this.showJumbotron = false;
-
-      this.userPosition = location;
-      this.userPositionLabel = 'my location';
-
-      this.map.setCenter(location);
-      this.map.setZoom(15);
-
-      this.updateDistance();
-
-      axios
-        .get('/api/Geocoding/FromCoordinates?latitude=' + location.lat + '&longitude=' + location.lng)
-        .then(response => {
-          console.log(response);
-          if (!response.data.Property)
-            return;
-
-          this.number = response.data.Property.HOUSE_NR_LO;
-          this.streetDirection = response.data.Property.SDIR;
-          this.streetName = response.data.Property.STREET;
-          this.streetType = response.data.Property.STTYPE;
-
-          this.userPositionLabel = this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType;
-        })
-        .catch(error => {
-          console.log(error);
-        });      
-    },
-    loadStreetReferences: function () {
-      axios
-        .get('/api/StreetReference')
-        .then(response => {
-          this.streetDirections = response.data.streetDirections.map(x => { return x == null ? "" : x; });
-          this.streetNames = response.data.streetNames;
-          this.streetTypes = response.data.streetTypes.map(x => { return x == null ? "" : x; });;
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
     setLocationFromSubscription: function (subscription) {
-      this.location = {
+      this.locationData = {
         lat: subscription.Point.coordinates[1], 
         lng: subscription.Point.coordinates[0]
       };
 
-      this.number = subscription.HOUSE_NR;
-      this.streetDirection = subscription.SDIR;
-      this.streetName = subscription.STREET;
-      this.streetType = subscription.STTYPE;
-
-      this.userPosition = this.location;
-      this.userPositionLabel = this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType;
-
+      this.addressData = {
+        number: subscription.HOUSE_NR,
+        streetDirection: subscription.SDIR,
+        streetName: subscription.STREET,
+        streetType: subscription.STTYPE
+      }
       this.distance = subscription.Distance;
       this.callType = subscription.DispatchCallType;
 
-      this.map.setCenter(this.location);
-      this.map.setZoom(15);
-
       this.updateDistance();
-    },
-    onSubmit: function () {
-      this.showJumbotron = false;
-
-      axios
-        .get('/api/Geocoding/FromAddress?address=' + this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType)
-        .then(response => {
-          let location = {
-            lat: response.data.Geometry.Centroid.Coordinate[1], 
-            lng: response.data.Geometry.Centroid.Coordinate[0]
-          };
-
-          this.userPosition = location;
-          this.userPositionLabel = this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType;
-
-          this.map.setCenter(location);
-          this.map.setZoom(15);
-
-          this.updateDistance();
-
-          this.addressLookupError = null;
-        })
-        .catch(error => {
-          console.log(error);
-
-          this.addressLookupError = 'That address doesn\'t seem to exist. Please try again.';
-        });
-    },
-    onClear: function () {
-      this.showJumbotron = true;
-      this.number = null;
-      this.streetDirection = '';
-      this.streetName = '';
-      this.streetType = '';
     },
     updateTab: function (tabKey) {
       if (!tabKey)
@@ -776,10 +643,16 @@ export default {
   watch: {
     tabKey: function (newValue, oldValue) {
       this.updateTab(newValue);
+    },
+    locationData: function (newValue, oldValue) {
+      this.map.setCenter(newValue);
+      this.map.setZoom(15);
+
+      this.updateDistance();
     }
   },
   async mounted () {
-    this.loadStreetReferences();
+    //this.loadStreetReferences();
 
     this.google = await gmapsInit();
     this.map = new google.maps.Map(document.getElementById('homeMap'), {
@@ -816,7 +689,6 @@ export default {
     });
 
     this.updateSubscriptions();
-    this.getPosition();
   }
 };
 </script>

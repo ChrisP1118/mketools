@@ -30,27 +30,39 @@
 
 <script>
 import axios from "axios";
+import dataStore from '../DataStore.vue';
 
 export default {
   name: 'AddressLookup',
   mixins: [],
-  props: {},
+  props: [
+    'addressData',
+    'locationData'
+  ],
   data() {
     return {
       number: null,
       streetDirection: '',
       streetName: '',
       streetType: '',
-      streetDirections: [],
-      streetNames: [],
-      streetTypes: [],
       addressLookupError: null,
+
+      lat: null,
+      lng: null,
     }
   },
   computed: {
+    streetDirections: function () {
+      return dataStore.streetReferences.streetDirections;
+    },
+    streetNames: function () {
+      return dataStore.streetReferences.streetNames;
+    },
+    streetTypes: function () {
+      return dataStore.streetReferences.streetTypes;
+    }
   },
   methods: {
-
     getPosition: function () {
       if (!("geolocation" in navigator))
         return;
@@ -60,71 +72,34 @@ export default {
     gotPosition: function (position) {
       console.log(position);
 
-      let location = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
+      this.lat = position.coords.latitude;
+      this.lng = position.coords.longitude;
 
-      this.showJumbotron = false;
+      dataStore.geocode.addressFromCoordinates(this.lat, this.lng)
+        .then(property => {
+          this.number = property.HOUSE_NR_LO;
+          this.streetDirection = property.SDIR;
+          this.streetName = property.STREET;
+          this.streetType = property.STTYPE;
 
-      this.userPosition = location;
-      this.userPositionLabel = 'my location';
-
-      this.map.setCenter(location);
-      this.map.setZoom(15);
-
-      this.updateDistance();
-
-      axios
-        .get('/api/Geocoding/FromCoordinates?latitude=' + location.lat + '&longitude=' + location.lng)
-        .then(response => {
-          console.log(response);
-          if (!response.data.Property)
-            return;
-
-          this.number = response.data.Property.HOUSE_NR_LO;
-          this.streetDirection = response.data.Property.SDIR;
-          this.streetName = response.data.Property.STREET;
-          this.streetType = response.data.Property.STTYPE;
-
-          this.userPositionLabel = this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType;
-        })
-        .catch(error => {
-          console.log(error);
-        });      
-    },
-    loadStreetReferences: function () {
-      axios
-        .get('/api/StreetReference')
-        .then(response => {
-          this.streetDirections = response.data.streetDirections.map(x => { return x == null ? "" : x; });
-          this.streetNames = response.data.streetNames;
-          this.streetTypes = response.data.streetTypes.map(x => { return x == null ? "" : x; });;
+          this.emitAddressData();
+          this.emitLocationData();
         })
         .catch(error => {
           console.log(error);
         });
     },
     onSubmit: function () {
-      this.showJumbotron = false;
-
       axios
         .get('/api/Geocoding/FromAddress?address=' + this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType)
         .then(response => {
-          let location = {
-            lat: response.data.Geometry.Centroid.Coordinate[1], 
-            lng: response.data.Geometry.Centroid.Coordinate[0]
-          };
-
-          this.userPosition = location;
-          this.userPositionLabel = this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType;
-
-          this.map.setCenter(location);
-          this.map.setZoom(15);
-
-          this.updateDistance();
-
           this.addressLookupError = null;
+
+          this.lat = response.data.Geometry.Centroid.Coordinate[1];
+          this.lng = response.data.Geometry.Centroid.Coordinate[0];
+
+          this.emitAddressData();
+          this.emitLocationData();
         })
         .catch(error => {
           console.log(error);
@@ -133,16 +108,48 @@ export default {
         });
     },
     onClear: function () {
-      this.showJumbotron = true;
       this.number = null;
       this.streetDirection = '';
       this.streetName = '';
       this.streetType = '';
+
+      this.lat = null;
+      this.lng = null;
+
+      this.emitAddressData();
+      this.emitLocationData();
+    },
+    emitAddressData: function () {
+      this.$emit('update:addressData', {
+        number: this.number,
+        streetDirection: this.streetDirection,
+        streetName: this.streetName,
+        streetType: this.streetType
+      });
+    },
+    emitLocationData: function () {
+      this.$emit('update:locationData', {
+        lat: this.lat,
+        lng: this.lng
+      });
     }
   },
   mounted () {
-    this.loadStreetReferences();
+    dataStore.streetReferences.load();
+
     this.getPosition();
+  },
+  watch: {
+    addressData: function (newValue, oldValue) {
+      this.number = newValue.number;
+      this.streetDirection = newValue.streetDirection;
+      this.streetName = newValue.streetName;
+      this.streetType = newValue.streetType;
+    },
+    locationData: function (newValue, oldValue) {
+      this.lat = newValue.lat;
+      this.lng = newValue.lng;
+    }
   }
 };
 </script>
