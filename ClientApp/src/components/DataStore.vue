@@ -85,6 +85,25 @@ let ref = {
 
       return promise;
     }
+  },
+  distances: [
+    { text: '1/16 mile', value: 330 },
+    { text: '1/8 mile', value: 660 },
+    { text: '1/4 mile', value: 1320 },
+    { text: '1/2 mile', value: 2640 },
+    { text: '1 mile', value: 5280 }
+  ],
+  callTypes: [
+    { text: 'any police dispatch call', value: 'PoliceDispatchCall' },
+    { text: 'any fire dispatch call', value: 'FireDispatchCall' },
+    { text: 'any police or fire dispatch call', value: 'AllDispatchCall' },
+    { text: 'any major crime or fire call', value: 'MajorCall' }
+  ],
+  getDistanceLabel: function(distance) {
+    return ref.distances.find(x => x.value == distance).text;
+  },
+  getCallTypeLabel: function(callType) {
+    return ref.callTypes.find(x => x.value == callType).text;
   }
 };
 
