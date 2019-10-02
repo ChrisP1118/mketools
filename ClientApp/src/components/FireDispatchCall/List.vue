@@ -65,6 +65,8 @@ export default {
             filter: 'text'
           }
         ],
+        defaultSortColumn: 'ReportedDateTime',
+        defaultSortOrder: 'desc',
         getDefaultFilter: function () {
         },
         rowClicked: function (item, context) {

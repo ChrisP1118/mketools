@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using MkeAlerts.Web.Models.Data.Subscriptions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,5 +19,7 @@ namespace MkeAlerts.Web.Models.Data.Accounts
         public string LastName { get; set; }
 
         public List<ExternalCredential> ExternalCredentials { get; set; }
+
+        public List<DispatchCallSubscription> DispatchCallSubscriptions { get; set; }
     }
 }

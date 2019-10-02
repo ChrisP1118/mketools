@@ -4,15 +4,17 @@ using GeoAPI.Geometries;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MkeAlerts.Web.Data;
 
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191002144134_DispatchCallSubscriptions")]
+    partial class DispatchCallSubscriptions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,7 +139,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "11d8b4ca-09b5-4794-a76d-138bac214ee2",
+                            ConcurrencyStamp = "b63fe433-1bdd-4fd5-914a-bf257519bfc6",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +206,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9e6ef23d-c437-4083-9309-c0c23600eca6",
+                            ConcurrencyStamp = "5d4a5986-2304-4698-bdb9-762bf0421df4",
                             Email = "admin@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@mkealerts.com",
                             NormalizedUserName = "admin@mkealerts.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAELufMJGyHbs8PJyiaTjaKEpQILZfWbjII4wNv7nM1CiIVZEnGUkKFGD4oivzczY7Pg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFL29TAc0yVs99SYPmVzO9eQOU1jzmTB47NdyXH+UjLIo9bS/u70Qy25JhvHeWwArA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -1137,8 +1139,6 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<Guid>("ApplicationUserId");
 
                     b.Property<int>("DispatchCallType");
-
-                    b.Property<int>("Distance");
 
                     b.Property<int>("HOUSE_NR");
 

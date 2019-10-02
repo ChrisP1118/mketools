@@ -13,6 +13,8 @@
 * Create a DTO for IGeometry types
 * GraphQL layer?
 * ~~Auth with Google, Facebook~~
-* Consolidate login/register response handlers into a mixin
+* ~~Consolidate login/register response handlers into a mixin~~
 * Caching headers - why Cache-Control: no-cache?
 * Add Google Analytics
+* Store categories ("major crime", etc.) in database
+* Add traffic accident data?

@@ -35,6 +35,7 @@ using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Jobs;
 using NetTopologySuite.IO.Converters;
 using MkeAlerts.Web.Services.Functional;
+using MkeAlerts.Web.Models.Data.Subscriptions;
 
 namespace MkeAlerts.Web
 {
@@ -108,6 +109,7 @@ namespace MkeAlerts.Web
                     options.SerializerSettings.Formatting = Formatting.Indented;
                     options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
 
                     // This is required for NetTopologySuite.IO.Converters.GeometryConverter to work correctly
                     options.SerializerSettings.Converters.Add(new CoordinateConverter());
@@ -207,6 +209,8 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityWriteService<FireDispatchCall, string>, FireDispatchCallService>();
             services.AddTransient<IEntityReadService<Crime, string>, CrimeService>();
             services.AddTransient<IEntityWriteService<Crime, string>, CrimeService>();
+            services.AddTransient<IEntityReadService<DispatchCallSubscription, Guid>, DispatchCallSubscriptionService>();
+            services.AddTransient<IEntityWriteService<DispatchCallSubscription, Guid>, DispatchCallSubscriptionService>();
 
             services.AddTransient<IStreetReferenceService, StreetReferenceService>();
 
@@ -219,6 +223,7 @@ Note that not all fields can be sorted.
             services.AddSingleton<IValidator<PoliceDispatchCall>, PoliceDispatchCallValidator>();
             services.AddSingleton<IValidator<FireDispatchCall>, FireDispatchCallValidator>();
             services.AddSingleton<IValidator<Crime>, CrimeValidator>();
+            services.AddSingleton<IValidator<DispatchCallSubscription>, DispatchCallSubscriptionValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

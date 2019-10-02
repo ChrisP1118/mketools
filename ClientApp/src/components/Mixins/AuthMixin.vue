@@ -29,6 +29,29 @@ export default {
     }
   },
   methods: {
+    getAuthenticatedUserId: function () {
+      this.refreshAuthenticationData();
+      
+      return this.$root.$data.authenticatedUser.id;
+    },
+    refreshAuthenticationData: function () {
+      if (!this.$root.$data.authenticatedUser.id && localStorage.getItem('jwt') != null) {
+        // Use the stored credentials
+        axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('jwt');
+
+        // On the initial page request/load, $root.$data doesn't yet exist -- not sure what to do about that
+        // https://forum.vuejs.org/t/accessing-root-instance-data-methods-on-beforeeach-guards/6148/11
+        this.$root.$data.authenticatedUser.username = localStorage.getItem('username');
+        this.$root.$data.authenticatedUser.id = localStorage.getItem('id');
+        this.$root.$data.authenticatedUser.roles = localStorage.getItem('roles');
+
+        if (this.$route.query.redirect)
+          this.$router.push(this.$route.query.redirect);
+        else
+          this.$router.push('/');
+          
+      }
+    },
     onGoogleSignInSuccess (googleUser) {
       // `googleUser` is the GoogleUser object that represents the just-signed-in user.
       // See https://developers.google.com/identity/sign-in/web/reference#users

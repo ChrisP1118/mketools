@@ -8,6 +8,14 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data
 {
-
-
+    [Flags]
+    public enum DispatchCallType : int
+    {
+        PoliceDispatchCall = 1,
+        FireDispatchCall = 2,
+        AllDispatchCall = PoliceDispatchCall | FireDispatchCall,
+        MajorPoliceDispatchCall = 4,
+        MajorFireDispatchCall = 8,
+        MajorCall = MajorPoliceDispatchCall | MajorFireDispatchCall
+    }
 }

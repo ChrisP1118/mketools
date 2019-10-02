@@ -62,8 +62,14 @@
                   <b-button type="button" @click="onClear">Clear</b-button>
                 </b-form-group>
               </b-form-row>
+              <b-alert variant="danger" show v-if="addressLookupError" class="text-center">{{addressLookupError}}</b-alert>
             </b-form>
             <hr />
+            <div v-for="subscription in subscriptions" v-bind:key="subscription.Id" class="text-center">
+              <a href="#" @click.prevent="setLocationFromSubscription(subscription)">An email will be sent to {{authUser}} whenever there's {{getCallTypeLabel(subscription.DispatchCallType)}} within {{getDistanceLabel(subscription.Distance)}} 
+              of {{subscription.HOUSE_NR}} {{subscription.SDIR}} {{subscription.STREET}} {{subscription.STTYPE}}.</a> <a href="#" class="small" @click.prevent="deleteSubscription(subscription.Id)">Delete</a>
+            </div>
+            <hr v-if="subscriptions.length > 0" />
             <b-form inline class="justify-content-center" @submit.stop.prevent>
               Email me whenever there's
               <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
@@ -96,49 +102,6 @@
       <b-col>
         <div class="map" id="homeMap" />
       </b-col>
-      <!-- <b-col xs="12" lg="3">
-        <div v-if="!showNotifications && userPosition" class="mt-3 mb-3">
-          <h2>Get Email Notifications</h2>
-          <b-form class="mt-3">
-            <b-button @click="showNotificationFields">Notify Me of Calls Near Me</b-button>
-          </b-form>
-          <hr />
-        </div>
-        <div v-if="showNotifications" class="mt-3 mb-3">
-          <h2>Get Email Notifications</h2>
-          <b-form class="mt-3" inline>
-            <p>
-              Sign up to get an email notification whenever there's
-              <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
-              within 
-              <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
-              feet of {{userPositionLabel}}.
-            </p>
-            <p class="small">To get email notifications for a different location, enter a different street address up above.</p>
-          </b-form>
-          <b-form>
-            <b-form-group>
-              <label class="sr-only" for="EmailAddress">Email Address</label>
-              <b-form-input v-model="emailAddress" id="EmailAddress" placeholder="Email Address" type="email" />
-            </b-form-group>
-            <b-form-group>
-              <label class="sr-only" for="Password">Password</label>
-              <b-form-input v-model="password" id="Password" placeholder="Password" type="password" />
-            </b-form-group>
-            <b-form-group>
-              <label class="sr-only" for="Confirm">Confirm Password</label>
-              <b-form-input v-model="confirmPassword" id="Confirm" placeholder="Confirm Password" type="password" />
-            </b-form-group>
-            <b-button>
-              <g-signin-button :params="googleSignInParams" @success="onGoogleSignInSuccess" @error="onGoogleSignInError">Sign in with Google</g-signin-button>
-            </b-button>
-            <b-button>
-              <fb-signin-button :params="fbSignInParams" @success="onFacebookSignInSuccess" @error="onFacebookSignInError">Sign in with Facebook</fb-signin-button>
-            </b-button>
-          </b-form>
-          <hr />
-        </div>
-      </b-col> -->
     </b-row>
     <b-modal id="subscription-modal" size="lg" title="Sign Up for Email Notifications" 
       header-bg-variant="primary" header-text-variant="light" hide-footer footer-bg-variant="info" footer-text-variant="dark">
@@ -238,37 +201,19 @@
         </b-row>
       </div>
       <div v-if="authUser">
-        <p>
-          Sign up to get an email notification whenever there's
+        <b-form inline class="justify-content-center" @submit.stop.prevent="addSubscription">
+          Email {{authUser}} whenever there's
           <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
           within 
           <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
           feet of {{userPositionLabel}}.
-        </p>
+          <div>
+            <b-form-group>
+              <b-button type="submit" variant="primary" v-b-modal.subscription-modal>Create Notification</b-button>
+            </b-form-group>
+          </div>
+        </b-form>
       </div>
-      <!-- <b-form class="mt-3" inline>
-        <p>
-          Sign up to get an email notification whenever there's
-          <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
-          within 
-          <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
-          feet of {{userPositionLabel}}.
-        </p>
-        <p class="small">To get email notifications for a different location, enter a different street address up above.</p>
-      </b-form> -->
-      <!-- <template v-slot:modal-footer>
-        <div class="w-100">
-          <p class="float-left">Modal Footer Content</p>
-          <b-button
-            variant="primary"
-            size="sm"
-            class="float-right"
-            @click="show=false"
-          >
-            Close
-          </b-button>
-        </div>
-      </template> -->
     </b-modal>
   </div>
 </template>
@@ -295,6 +240,7 @@ export default {
       streetDirections: [],
       streetNames: [],
       streetTypes: [],
+      addressLookupError: null,
 
       // Mapping
       mapCacheViews: [
@@ -328,20 +274,20 @@ export default {
       // Notifications
       userPosition: null,
       userPositionLabel: null,
-      distance: 500,
+      distance: 660,
       distances: [
-        250,
-        500,
-        1000,
-        2000,
-        5000
+        { text: '1/16 mile', value: 330 },
+        { text: '1/8 mile', value: 660 },
+        { text: '1/4 mile', value: 1320 },
+        { text: '1/2 mile', value: 2640 },
+        { text: '1 mile', value: 5280 }
       ],
-      callType: 'Major',
+      callType: 'MajorCall',
       callTypes: [
-        { text: 'any police dispatch call', value: 'AllPolice' },
-        { text: 'any fire dispatch call', value: 'AllFire' },
-        { text: 'any police or fire dispatch call', value: 'AllPoliceFire' },
-        { text: 'any major crime or fire call', value: 'Major' }
+        { text: 'any police dispatch call', value: 'PoliceDispatchCall' },
+        { text: 'any fire dispatch call', value: 'FireDispatchCall' },
+        { text: 'any police or fire dispatch call', value: 'AllDispatchCall' },
+        { text: 'any major crime or fire call', value: 'MajorCall' }
       ],
       circle: null,
       notificationPage: 'create',
@@ -349,18 +295,120 @@ export default {
       password: '',
       confirmPassword: '',
 
-      googleSignInParams: {
-        client_id: '66835382455-403e538rnmmpmcp5tocmndleh30g4i5d.apps.googleusercontent.com'
-      },
-      fbSignInParams: {
-        scope: 'email,user_likes',
-        return_scopes: true
-      }
+      subscriptions: [],
+
+      // These are in the Mixin now, but I haven't tested removing them here
+      // googleSignInParams: {
+      //   client_id: '66835382455-403e538rnmmpmcp5tocmndleh30g4i5d.apps.googleusercontent.com'
+      // },
+      // fbSignInParams: {
+      //   scope: 'email,user_likes',
+      //   return_scopes: true
+      // }
     }
   },
   computed: {
   },
   methods: {
+    addSubscription: function () {
+      axios
+        .post('/api/DispatchCallSubscription', {
+          ApplicationUserId: this.$root.$data.authenticatedUser.id,
+          DispatchCallType: this.callType,
+          Distance: this.distance,
+          Point: {
+            type: "Point",
+            coordinates: [
+              this.userPosition.lng,
+              this.userPosition.lat
+            ]
+          },
+          SDIR: this.streetDirection,
+          STREET: this.streetName,
+          STTYPE: this.streetType,
+          HOUSE_NR: this.number
+        })
+        .then(response => {
+          console.log(response);
+
+          this.$bvToast.toast('An email will be sent to ' + this.$root.$data.authenticatedUser.username + ' whenever there\'s ' + this.getCallTypeLabel(this.callType) + ' within ' + this.getDistanceLabel(this.distance) + ' of ' + this.userPositionLabel, {
+            title: 'Notification Created',
+            autoHideDelay: 5000,
+            variant: 'success'
+          });
+
+          this.$bvModal.hide('subscription-modal');
+
+          this.updateSubscriptions();
+        })
+        .catch(error => {
+          console.log(error);
+        });      
+    },
+    deleteSubscription: function (id) {
+      this.$bvModal.msgBoxConfirm('Are you sure you want to remove this notification?', {
+        title: 'Remove Notification',
+        size: 'lg',
+        headerBgVariant: 'primary',
+        headerTextVariant: 'light',
+        okVariant: 'danger',
+        okTitle: 'Yes',
+        cancelTitle: 'No',
+        footerClass: 'p-2',
+        hideHeaderClose: false,
+        centered: true
+      })
+      .then(value => {
+        if (!value)
+          return;
+
+        axios
+          .delete('/api/DispatchCallSubscription/' + id)
+          .then(response => {
+            console.log(response);
+
+            this.$bvToast.toast('The notification was successfully removed.', {
+              title: 'Notification Remove',
+              autoHideDelay: 5000,
+              variant: 'success'
+            });
+
+            this.updateSubscriptions();
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      })
+      .catch(err => {
+        // An error occurred
+      })      
+    },
+    getDistanceLabel(distance) {
+      return this.distances.find(x => x.value == distance).text;
+    },
+    getCallTypeLabel(callType) {
+      return this.callTypes.find(x => x.value == callType).text;
+    },
+    updateSubscriptions: function () {
+      let id = this.getAuthenticatedUserId();
+      if (!id) {
+        this.subscriptions = [];
+        return;
+      }
+
+      axios
+        .get('/api/DispatchCallSubscription?filter=applicationUserId%3D%22' + id + '%22')
+        .then(response => {
+          console.log(response);
+          
+          this.subscriptions = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+
+          this.subscriptions = [];
+        });      
+    },
     updateDistance: function () {
       if (this.circle)
         this.circle.setMap(null);
@@ -430,13 +478,38 @@ export default {
           console.log(error);
         });
     },
+    setLocationFromSubscription: function (subscription) {
+      this.location = {
+        lat: subscription.Point.coordinates[1], 
+        lng: subscription.Point.coordinates[0]
+      };
+
+      this.number = subscription.HOUSE_NR;
+      this.streetDirection = subscription.SDIR;
+      this.streetName = subscription.STREET;
+      this.streetType = subscription.STTYPE;
+
+      this.userPosition = this.location;
+      this.userPositionLabel = this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType;
+
+      this.distance = subscription.Distance;
+      this.callType = subscription.DispatchCallType;
+
+      this.map.setCenter(this.location);
+      this.map.setZoom(15);
+
+      this.updateDistance();
+    },
     onSubmit: function () {
       this.showJumbotron = false;
 
       axios
         .get('/api/Geocoding/FromAddress?address=' + this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType)
         .then(response => {
-          let location = {lat: response.data.Geometry.Centroid.Coordinate[1], lng: response.data.Geometry.Centroid.Coordinate[0]};
+          let location = {
+            lat: response.data.Geometry.Centroid.Coordinate[1], 
+            lng: response.data.Geometry.Centroid.Coordinate[0]
+          };
 
           this.userPosition = location;
           this.userPositionLabel = this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType;
@@ -445,9 +518,13 @@ export default {
           this.map.setZoom(15);
 
           this.updateDistance();
+
+          this.addressLookupError = null;
         })
         .catch(error => {
           console.log(error);
+
+          this.addressLookupError = 'That address doesn\'t seem to exist. Please try again.';
         });
     },
     onClear: function () {
@@ -738,6 +815,7 @@ export default {
       }, 1000);
     });
 
+    this.updateSubscriptions();
     this.getPosition();
   }
 };

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using MkeAlerts.Web.Models.Data;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Models.Data.Incidents;
+using MkeAlerts.Web.Models.Data.Subscriptions;
 
 namespace MkeAlerts.Web.Data
 {
@@ -23,6 +24,8 @@ namespace MkeAlerts.Web.Data
         public DbSet<PoliceDispatchCall> PoliceDispatchCalls { get; set; }
         public DbSet<FireDispatchCall> FireDispatchCalls { get; set; }
         public DbSet<Crime> Crimes { get; set; }
+
+        public DbSet<DispatchCallSubscription> DispatchCallSubscriptions { get; set; }
 
         public DbQuery<StringReference> StreetNames { get; set; }
         public DbQuery<StringReference> StreetDirections { get; set; }
@@ -84,6 +87,11 @@ namespace MkeAlerts.Web.Data
             modelBuilder.Entity<ExternalCredential>()
                 .HasOne(x => x.ApplicationUser)
                 .WithMany(x => x.ExternalCredentials)
+                .HasForeignKey(x => x.ApplicationUserId);
+
+            modelBuilder.Entity<DispatchCallSubscription>()
+                .HasOne(x => x.ApplicationUser)
+                .WithMany(x => x.DispatchCallSubscriptions)
                 .HasForeignKey(x => x.ApplicationUserId);
 
             //modelBuilder.Entity<Role>()

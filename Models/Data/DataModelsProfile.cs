@@ -9,6 +9,10 @@ using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Models.DTO.Places;
 using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Models.DTO.Incidents;
+using MkeAlerts.Web.Models.Data.Subscriptions;
+using MkeAlerts.Web.Models.DTO.Subscriptions;
+using GeoAPI.Geometries;
+using MkeAlerts.Web.Models.DTO;
 
 namespace MkeAlerts.Web.Models.Data
 {
@@ -27,6 +31,10 @@ namespace MkeAlerts.Web.Models.Data
             CreateMap<PoliceDispatchCall, PoliceDispatchCallDTO>().ReverseMap();
             CreateMap<FireDispatchCall, FireDispatchCallDTO>().ReverseMap();
             CreateMap<Crime, CrimeDTO>().ReverseMap();
+
+            CreateMap<DispatchCallSubscription, DispatchCallSubscriptionDTO>().ReverseMap();
+
+            CreateMap<IPoint, PointDTO>().ReverseMap();
         }
     }
 }
