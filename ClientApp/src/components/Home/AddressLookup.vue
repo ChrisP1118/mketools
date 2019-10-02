@@ -70,8 +70,6 @@ export default {
       navigator.geolocation.getCurrentPosition(this.gotPosition);
     },
     gotPosition: function (position) {
-      console.log(position);
-
       this.lat = position.coords.latitude;
       this.lng = position.coords.longitude;
 

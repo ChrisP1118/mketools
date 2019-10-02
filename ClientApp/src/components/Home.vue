@@ -27,9 +27,9 @@
             <hr v-if="subscriptions.length > 0" />
             <b-form inline class="justify-content-center" @submit.stop.prevent v-if="addressData">
               Email me whenever there's
-              <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
+              <b-form-select v-model="callType" :options="callTypes" />
               within 
-              <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
+              <b-form-select v-model="distance" :options="distances" />
               feet of {{addressData.number}} {{addressData.streetDirection}} {{addressData.streetName}} {{addressData.streetType}}.
               <div>
                 <b-form-group>
@@ -62,106 +62,13 @@
       header-bg-variant="primary" header-text-variant="light" hide-footer footer-bg-variant="info" footer-text-variant="dark">
       <div v-if="!authUser">
         <auth-form></auth-form>
-        <!-- <b-row>
-          <b-col>
-            <div class="text-center">
-              {{authUser}}
-              Log in with: 
-              <b-button>
-                <g-signin-button :params="googleSignInParams" @success="onGoogleSignInSuccess" @error="onGoogleSignInError">
-                  <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'google' }"/>
-                  Google
-                </g-signin-button>
-              </b-button>
-              <b-button>
-                <fb-signin-button :params="fbSignInParams" @success="onFacebookSignInSuccess" @error="onFacebookSignInError">
-                  <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'facebook' }"/>
-                  Facebook
-                </fb-signin-button>
-              </b-button>
-            </div>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col>
-            <div class="strike">
-               <span>or</span>
-            </div>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col md="3"></b-col>
-          <b-col md="6" class="text-center">
-            <div v-if="notificationPage == 'create'">
-              <h2>Sign Up</h2>
-              <b-form @submit.prevent="onSignUp">
-                <b-form-group>
-                  <label class="sr-only" for="signUpEmail">Email Address</label>
-                  <b-form-input v-model="signUpEmail" id="signUpEmail" type="email" placeholder="Email Address" required />
-                </b-form-group>
-                <b-form-group>
-                  <label class="sr-only" for="signUpPassword">Password</label>
-                  <b-form-input v-model="signUpPassword" id="signUpPassword" type="password" placeholder="Password" required />
-                </b-form-group>
-                <b-form-group>
-                  <label class="sr-only" for="signUpConfirm">Confirm Password</label>
-                  <b-form-input v-model="signUpConfirm" id="signUpConfirm" type="password" placeholder="Confirm Password" required />
-                </b-form-group>
-                <b-button type="submit" variant="primary">Sign Up</b-button>
-              </b-form>
-              <div>
-                <a href="#" @click.prevent="notificationPage = 'login'">Already have an account? Log in.</a>
-              </div>
-              <div>
-                <a href="#" @click.prevent="notificationPage = 'reset'">Forgot your password? Reset it.</a>
-              </div>          
-            </div>
-            <div v-if="notificationPage == 'login'">
-              <h2>Log In</h2>
-              <b-form @submit.prevent="onLogIn">
-                <b-form-group>
-                  <label class="sr-only" for="logInEmail">Email Address</label>
-                  <b-form-input v-model="logInEmail" id="logInEmail" type="email" placeholder="Email Address" required />
-                </b-form-group>
-                <b-form-group>
-                  <label class="sr-only" for="logInPassword">Password</label>
-                  <b-form-input v-model="logInPassword" id="logInPassword" type="password" placeholder="Password" required />
-                </b-form-group>
-                <b-button type="submit" variant="primary">Log In</b-button>
-              </b-form>
-              <div>
-                <a href="#" @click.prevent="notificationPage = 'create'">Don't have an account? Sign up.</a>
-              </div>
-              <div>
-                <a href="#" @click.prevent="notificationPage = 'reset'">Forgot your password? Reset it.</a>
-              </div>          
-            </div>
-            <div v-if="notificationPage == 'reset'">
-              <h2>Reset Password</h2>
-              <b-form>
-                <b-form-group>
-                  <label class="sr-only" for="EmailAddress">Email Address</label>
-                  <b-form-input v-model="emailAddress" id="EmailAddress" placeholder="Email Address" type="email" />
-                </b-form-group>
-                <b-button>Reset Password</b-button>
-              </b-form>
-              <div>
-                <a href="#" @click.prevent="notificationPage = 'login'">Already have an account? Log in.</a>
-              </div>
-              <div>
-                <a href="#" @click.prevent="notificationPage = 'create'">Don't have an account? Sign up.</a>
-              </div>
-            </div>
-          </b-col>
-          <b-col md="3"></b-col>
-        </b-row> -->
       </div>
       <div v-if="authUser && addressData">
         <b-form inline class="justify-content-center" @submit.stop.prevent="addSubscription">
           Email {{authUser}} whenever there's
-          <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
+          <b-form-select v-model="callType" :options="callTypes" />
           within 
-          <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
+          <b-form-select v-model="distance" :options="distances" />
           feet of {{addressData.number}} {{addressData.streetDirection}} {{addressData.streetName}} {{addressData.streetType}}.
           <div>
             <b-form-group>
@@ -186,18 +93,6 @@ export default {
   props: {},
   data() {
     return {
-      showJumbotron: true,
-
-      // Address lookup
-      // number: null,
-      // streetDirection: '',
-      // streetName: '',
-      // streetType: '',
-      // streetDirections: [],
-      // streetNames: [],
-      // streetTypes: [],
-      // addressLookupError: null,
-
       addressData: null,
       locationData: null,
 
@@ -353,21 +248,6 @@ export default {
           this.subscriptions = [];
         });      
     },
-    updateDistance: function () {
-      if (this.circle)
-        this.circle.setMap(null);
-
-      this.circle = new google.maps.Circle({
-        strokeColor: '#bd2130',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#0d2240',
-        fillOpacity: 0.10,
-        map: this.map,
-        center: this.locationData,
-        radius: (this.distance * 0.3048) // Feet to meters
-      });
-    },
     setLocationFromSubscription: function (subscription) {
       this.locationData = {
         lat: subscription.Point.coordinates[1], 
@@ -382,8 +262,6 @@ export default {
       }
       this.distance = subscription.Distance;
       this.callType = subscription.DispatchCallType;
-
-      this.updateDistance();
     },
     updateTab: function (tabKey) {
       if (!tabKey)
@@ -622,6 +500,21 @@ export default {
         return '';
 
       return '&northBound=' + this.bounds.ne.lat + '&southBound=' + this.bounds.sw.lat + '&eastBound=' + this.bounds.ne.lng + '&westBound=' + this.bounds.sw.lng;
+    },
+    updateDistance: function (value) {
+      if (this.circle)
+        this.circle.setMap(null);
+
+      this.circle = new google.maps.Circle({
+        strokeColor: '#bd2130',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#0d2240',
+        fillOpacity: 0.10,
+        map: this.map,
+        center: this.locationData,
+        radius: (value * 0.3048) // Feet to meters
+      });
     }
   },
   watch: {
@@ -632,7 +525,10 @@ export default {
       this.map.setCenter(newValue);
       this.map.setZoom(15);
 
-      this.updateDistance();
+      this.updateDistance(this.distance);
+    },
+    distance: function (newValue, oldValue) {
+      this.updateDistance(newValue);
     }
   },
   async mounted () {
