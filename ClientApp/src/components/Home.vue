@@ -25,15 +25,15 @@
               <a href="#" class="small" @click.prevent="deleteSubscription(subscription.Id)">(Delete)</a>
             </div>
             <hr v-if="subscriptions.length > 0" />
-            <b-form inline class="justify-content-center" @submit.stop.prevent v-if="addressData">
+            <b-form inline class="justify-content-center" @submit.stop.prevent>
               Email me whenever there's
               <b-form-select v-model="callType" :options="callTypes" />
               within 
               <b-form-select v-model="distance" :options="distances" />
-              feet of {{addressData.number}} {{addressData.streetDirection}} {{addressData.streetName}} {{addressData.streetType}}.
+              of {{addressDataString}}.
               <div>
                 <b-form-group>
-                  <b-button type="submit" variant="primary" v-b-modal.subscription-modal>Sign Up for Notifications</b-button>
+                  <b-button type="submit" variant="primary" v-b-modal.subscription-modal>Get Email Notifications</b-button>
                 </b-form-group>
               </div>
             </b-form>
@@ -63,16 +63,16 @@
       <div v-if="!authUser">
         <auth-form></auth-form>
       </div>
-      <div v-if="authUser && addressData">
+      <div v-if="authUser">
         <b-form inline class="justify-content-center" @submit.stop.prevent="addSubscription">
           Email {{authUser}} whenever there's
           <b-form-select v-model="callType" :options="callTypes" />
           within 
           <b-form-select v-model="distance" :options="distances" />
-          feet of {{addressData.number}} {{addressData.streetDirection}} {{addressData.streetName}} {{addressData.streetType}}.
+          of {{addressDataString}}.
           <div>
             <b-form-group>
-              <b-button type="submit" variant="primary" v-b-modal.subscription-modal>Create Notification</b-button>
+              <b-button type="submit" variant="primary" v-b-modal.subscription-modal>Create Email Notification</b-button>
             </b-form-group>
           </div>
         </b-form>
@@ -147,6 +147,12 @@ export default {
     }
   },
   computed: {
+    addressDataString: function () {
+      if (!this.addressData)
+        return '';
+      
+      return this.addressData.number + ' ' + this.addressData.streetDirection + ' ' + this.addressData.streetName + ' ' + this.addressData.streetType;
+    }
   },
   methods: {
     addSubscription: function () {
@@ -170,7 +176,7 @@ export default {
         .then(response => {
           console.log(response);
 
-          this.$bvToast.toast('An email will be sent to ' + this.$root.$data.authenticatedUser.username + ' whenever there\'s ' + this.getCallTypeLabel(this.callType) + ' within ' + this.getDistanceLabel(this.distance) + ' of ' + this.addressData.number + ' '  + this.addressData.streetDirection + ' ' + this.addressData.streetName + ' ' + this.addressData.streetType + '.', {
+          this.$bvToast.toast('An email will be sent to ' + this.$root.$data.authenticatedUser.username + ' whenever there\'s ' + this.getCallTypeLabel(this.callType) + ' within ' + this.getDistanceLabel(this.distance) + ' of ' + this.addressDataString + '.', {
             title: 'Notification Created',
             autoHideDelay: 5000,
             variant: 'success'
@@ -227,6 +233,9 @@ export default {
     },
     getCallTypeLabel(callType) {
       return this.callTypes.find(x => x.value == callType).text;
+    },
+    getAddressString(address) {
+
     },
     updateSubscriptions: function () {
       let id = this.getAuthenticatedUserId();
