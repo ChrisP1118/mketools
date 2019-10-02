@@ -1,9 +1,26 @@
 <template>
   <div>
-    <div v-for="subscription in subscriptions" v-bind:key="subscription.Id" class="text-center">
-      <a href="#" @click.prevent="selectSubscription(subscription)">An email will be sent to {{authUser}} whenever there's {{dataStore.getCallTypeLabel(subscription.DispatchCallType)}} within {{dataStore.getDistanceLabel(subscription.Distance)}} 
-      of {{subscription.HOUSE_NR}} {{subscription.SDIR}} {{subscription.STREET}} {{subscription.STTYPE}}.</a>
-      <a href="#" class="small" @click.prevent="deleteSubscription(subscription)">(Delete)</a>
+    <div v-if="subscriptions.length == 1">
+      <div v-for="subscription in subscriptions" v-bind:key="subscription.Id" class="text-center">
+        <a href="#" @click.prevent="selectSubscription(subscription)">
+          An email will be sent to {{authUser}} whenever there's 
+          {{dataStore.getCallTypeLabel(subscription.DispatchCallType)}} 
+          within {{dataStore.getDistanceLabel(subscription.Distance)}} 
+          of {{subscription.HOUSE_NR}} {{subscription.SDIR}} {{subscription.STREET}} {{subscription.STTYPE}}.</a>
+        <a href="#" class="small" @click.prevent="deleteSubscription(subscription)">(Delete)</a>
+      </div>
+    </div>
+    <div v-if="subscriptions.length > 1">
+      <div class="text-center">
+        Emails will be sent to {{authUser}} whenever there's:
+        <div v-for="subscription in subscriptions" v-bind:key="subscription.Id">
+          <a href="#" @click.prevent="selectSubscription(subscription)">
+            {{dataStore.getCallTypeLabel(subscription.DispatchCallType)}} 
+            within {{dataStore.getDistanceLabel(subscription.Distance)}} 
+            of {{subscription.HOUSE_NR}} {{subscription.SDIR}} {{subscription.STREET}} {{subscription.STTYPE}}.</a>
+          <a href="#" class="small" @click.prevent="deleteSubscription(subscription)">(Delete)</a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
