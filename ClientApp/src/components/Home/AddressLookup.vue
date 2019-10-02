@@ -120,18 +120,24 @@ export default {
       this.emitLocationData();
     },
     emitAddressData: function () {
-      this.$emit('update:addressData', {
-        number: this.number,
-        streetDirection: this.streetDirection,
-        streetName: this.streetName,
-        streetType: this.streetType
-      });
+      if (!this.number)
+        this.$emit('update:addressData', null);
+      else
+        this.$emit('update:addressData', {
+          number: this.number,
+          streetDirection: this.streetDirection,
+          streetName: this.streetName,
+          streetType: this.streetType
+        });
     },
     emitLocationData: function () {
-      this.$emit('update:locationData', {
-        lat: this.lat,
-        lng: this.lng
-      });
+      if (!this.lat)
+        this.$emit('update:locationData',  null);
+      else
+        this.$emit('update:locationData', {
+          lat: this.lat,
+          lng: this.lng
+        });
     }
   },
   mounted () {
@@ -141,14 +147,26 @@ export default {
   },
   watch: {
     addressData: function (newValue, oldValue) {
-      this.number = newValue.number;
-      this.streetDirection = newValue.streetDirection;
-      this.streetName = newValue.streetName;
-      this.streetType = newValue.streetType;
+      if (!newValue) {
+        this.number = null;
+        this.streetDirection = '';
+        this.streetName = '';
+        this.streetType = '';
+      } else {
+        this.number = newValue.number;
+        this.streetDirection = newValue.streetDirection;
+        this.streetName = newValue.streetName;
+        this.streetType = newValue.streetType;
+      }
     },
     locationData: function (newValue, oldValue) {
-      this.lat = newValue.lat;
-      this.lng = newValue.lng;
+      if (!newValue) {
+        this.lat = null;
+        this.lng = null;
+      } else {
+        this.lat = newValue.lat;
+        this.lng = newValue.lng;
+      }
     }
   }
 };

@@ -1,22 +1,19 @@
 <template>
   <div>
-    <b-row v-if="showJumbotron">
+    <b-row v-show="!addressData">
       <b-col>
         <b-jumbotron class="text-center" header="MKE Alerts" lead="See and get notified of police calls and crimes in Milwaukee">
           <p>Enter an address below to get started.</p>
           <b-row>
             <b-col>
               <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" />
-              <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" />
-              <p>{{addressData}}</p>
-              <p>{{locationData}}</p>
             </b-col>
           </b-row>
           <p><i>Remember! An increased awareness of crime does not necessarily indicate an increase in crime.</i></p>
         </b-jumbotron>
       </b-col>
     </b-row>
-    <b-row v-if="showJumbotron" class="mb-3">
+    <b-row v-show="addressData" class="mb-3">
       <b-col>
         <b-card bg-variant="light">
           <b-card-text>
@@ -32,7 +29,7 @@
               <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
               within 
               <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
-              feet of {{addressData.number}} {{addressData.streetDirection}} {{addressData.streetName}} {{addressData.streetType}} .
+              feet of {{addressData.number}} {{addressData.streetDirection}} {{addressData.streetName}} {{addressData.streetType}}.
               <div>
                 <b-form-group>
                   <b-button type="submit" variant="primary" v-b-modal.subscription-modal>Sign Up for Notifications</b-button>
@@ -157,13 +154,13 @@
           <b-col md="3"></b-col>
         </b-row>
       </div>
-      <div v-if="authUser">
+      <div v-if="authUser && addressData">
         <b-form inline class="justify-content-center" @submit.stop.prevent="addSubscription">
           Email {{authUser}} whenever there's
           <b-form-select v-model="callType" :options="callTypes" @change="updateDistance" />
           within 
           <b-form-select v-model="distance" :options="distances" @change="updateDistance" />
-          feet of {{userPositionLabel}}.
+          feet of {{addressData.number}} {{addressData.streetDirection}} {{addressData.streetName}} {{addressData.streetType}}.
           <div>
             <b-form-group>
               <b-button type="submit" variant="primary" v-b-modal.subscription-modal>Create Notification</b-button>
@@ -279,8 +276,8 @@ export default {
           Point: {
             type: "Point",
             coordinates: [
-              this.userPosition.lng,
-              this.userPosition.lat
+              this.locationData.lng,
+              this.locationData.lat
             ]
           },
           HOUSE_NR: this.addressData.number,
