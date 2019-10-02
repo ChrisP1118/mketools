@@ -14,6 +14,8 @@ export default {
       // Log in form
       logInEmail: null,
       logInPassword: null,
+
+      // External providers
       googleSignInParams: {
         client_id: '66835382455-403e538rnmmpmcp5tocmndleh30g4i5d.apps.googleusercontent.com'
       },
@@ -31,7 +33,7 @@ export default {
   methods: {
     getAuthenticatedUserId: function () {
       this.refreshAuthenticationData();
-      
+
       return this.$root.$data.authenticatedUser.id;
     },
     refreshAuthenticationData: function () {
@@ -45,11 +47,7 @@ export default {
         this.$root.$data.authenticatedUser.id = localStorage.getItem('id');
         this.$root.$data.authenticatedUser.roles = localStorage.getItem('roles');
 
-        if (this.$route.query.redirect)
-          this.$router.push(this.$route.query.redirect);
-        else
-          this.$router.push('/');
-          
+        this.$emit('authenticated', this.$root.$data.authenticatedUser);
       }
     },
     onGoogleSignInSuccess (googleUser) {
@@ -134,7 +132,7 @@ export default {
         console.log(error);
       });
     },
-    processAuthResponse: function (response, checkForRedirect) {
+    processAuthResponse: function (response) {
       console.log(response);
       if (response.status == 200) {
 
@@ -148,13 +146,7 @@ export default {
         localStorage.setItem('id', response.data.Id);
         localStorage.setItem('roles', response.data.Roles);
 
-        if (!checkForRedirect)
-          return;
-
-        if (this.$route.query.redirect)
-          this.$router.push(this.$route.query.redirect);
-        else
-          this.$router.push('/');
+        this.$emit('authenticated', this.$root.$data.authenticatedUser);
       }
     }
   }

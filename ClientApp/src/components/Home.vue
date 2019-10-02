@@ -21,7 +21,8 @@
             <hr />
             <div v-for="subscription in subscriptions" v-bind:key="subscription.Id" class="text-center">
               <a href="#" @click.prevent="setLocationFromSubscription(subscription)">An email will be sent to {{authUser}} whenever there's {{getCallTypeLabel(subscription.DispatchCallType)}} within {{getDistanceLabel(subscription.Distance)}} 
-              of {{subscription.HOUSE_NR}} {{subscription.SDIR}} {{subscription.STREET}} {{subscription.STTYPE}}.</a> <a href="#" class="small" @click.prevent="deleteSubscription(subscription.Id)">Delete</a>
+              of {{subscription.HOUSE_NR}} {{subscription.SDIR}} {{subscription.STREET}} {{subscription.STTYPE}}.</a>
+              <a href="#" class="small" @click.prevent="deleteSubscription(subscription.Id)">(Delete)</a>
             </div>
             <hr v-if="subscriptions.length > 0" />
             <b-form inline class="justify-content-center" @submit.stop.prevent v-if="addressData">
@@ -60,7 +61,8 @@
     <b-modal id="subscription-modal" size="lg" title="Sign Up for Email Notifications" 
       header-bg-variant="primary" header-text-variant="light" hide-footer footer-bg-variant="info" footer-text-variant="dark">
       <div v-if="!authUser">
-        <b-row>
+        <auth-form></auth-form>
+        <!-- <b-row>
           <b-col>
             <div class="text-center">
               {{authUser}}
@@ -152,7 +154,7 @@
             </div>
           </b-col>
           <b-col md="3"></b-col>
-        </b-row>
+        </b-row> -->
       </div>
       <div v-if="authUser && addressData">
         <b-form inline class="justify-content-center" @submit.stop.prevent="addSubscription">
@@ -229,8 +231,6 @@ export default {
       mapItemLimit: 100,
 
       // Notifications
-      userPosition: null,
-      userPositionLabel: null,
       distance: 660,
       distances: [
         { text: '1/16 mile', value: 330 },
@@ -247,21 +247,8 @@ export default {
         { text: 'any major crime or fire call', value: 'MajorCall' }
       ],
       circle: null,
-      notificationPage: 'create',
-      emailAddress: '',
-      password: '',
-      confirmPassword: '',
 
       subscriptions: [],
-
-      // These are in the Mixin now, but I haven't tested removing them here
-      // googleSignInParams: {
-      //   client_id: '66835382455-403e538rnmmpmcp5tocmndleh30g4i5d.apps.googleusercontent.com'
-      // },
-      // fbSignInParams: {
-      //   scope: 'email,user_likes',
-      //   return_scopes: true
-      // }
     }
   },
   computed: {
@@ -288,7 +275,7 @@ export default {
         .then(response => {
           console.log(response);
 
-          this.$bvToast.toast('An email will be sent to ' + this.$root.$data.authenticatedUser.username + ' whenever there\'s ' + this.getCallTypeLabel(this.callType) + ' within ' + this.getDistanceLabel(this.distance) + ' of ' + this.userPositionLabel, {
+          this.$bvToast.toast('An email will be sent to ' + this.$root.$data.authenticatedUser.username + ' whenever there\'s ' + this.getCallTypeLabel(this.callType) + ' within ' + this.getDistanceLabel(this.distance) + ' of ' + this.addressData.number + ' '  + this.addressData.streetDirection + ' ' + this.addressData.streetName + ' ' + this.addressData.streetType + '.', {
             title: 'Notification Created',
             autoHideDelay: 5000,
             variant: 'success'

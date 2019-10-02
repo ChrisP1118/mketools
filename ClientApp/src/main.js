@@ -29,7 +29,9 @@ import PageLoading from './components/Common/PageLoading.vue'
 import PageTitle from './components/Common/PageTitle.vue'
 import FilteredTable from './components/Common/FilteredTable.vue'
 import FilteredTableMap from './components/Common/FilteredTableMap.vue'
+
 import AddressLookup from './components/Home/AddressLookup.vue'
+import AuthForm from './components/Home/AuthForm.vue'
 
 // Pages
 import About from './components/About.vue'
@@ -62,7 +64,9 @@ Vue.component('page-loading', PageLoading);
 Vue.component('page-title', PageTitle);
 Vue.component('filtered-table', FilteredTable);
 Vue.component('filtered-table-map', FilteredTableMap);
+
 Vue.component('address-lookup', AddressLookup);
+Vue.component('auth-form', AuthForm);
 
 Vue.component('text-control', TextControl);
 Vue.component('textarea-control', TextareaControl);
