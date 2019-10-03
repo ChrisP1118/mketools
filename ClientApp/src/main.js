@@ -33,6 +33,7 @@ import FilteredTableMap from './components/Common/FilteredTableMap.vue'
 import AddressLookup from './components/Home/AddressLookup.vue'
 import AuthForm from './components/Home/AuthForm.vue'
 import UserSubscriptionList from './components/Home/UserSubscriptionList.vue'
+import BasicMap from './components/Home/BasicMap.vue'
 
 // Pages
 import About from './components/About.vue'
@@ -69,6 +70,7 @@ Vue.component('filtered-table-map', FilteredTableMap);
 Vue.component('address-lookup', AddressLookup);
 Vue.component('auth-form', AuthForm);
 Vue.component('user-subscription-list', UserSubscriptionList);
+Vue.component('basic-map', BasicMap);
 
 Vue.component('text-control', TextControl);
 Vue.component('textarea-control', TextareaControl);
