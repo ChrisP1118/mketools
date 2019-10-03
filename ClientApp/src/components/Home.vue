@@ -133,6 +133,26 @@ export default {
     }
   },
   methods: {
+    updateSubscriptions: function (subscription) {
+      let id = this.getAuthenticatedUserId();
+      if (!id) {
+        this.subscriptions = [];
+        return;
+      }
+
+      axios
+        .get('/api/DispatchCallSubscription?filter=applicationUserId%3D%22' + id + '%22')
+        .then(response => {
+          console.log(response);
+          
+          this.subscriptions = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+
+          this.subscriptions = [];
+        });      
+    },
     addSubscription: function () {
       axios
         .post('/api/DispatchCallSubscription', {
@@ -220,26 +240,6 @@ export default {
       }
       this.distance = subscription.Distance;
       this.callType = subscription.DispatchCallType;
-    },
-    updateSubscriptions: function (subscription) {
-      let id = this.getAuthenticatedUserId();
-      if (!id) {
-        this.subscriptions = [];
-        return;
-      }
-
-      axios
-        .get('/api/DispatchCallSubscription?filter=applicationUserId%3D%22' + id + '%22')
-        .then(response => {
-          console.log(response);
-          
-          this.subscriptions = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-
-          this.subscriptions = [];
-        });      
     }
   },
   watch: {

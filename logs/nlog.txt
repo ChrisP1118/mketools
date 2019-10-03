@@ -3420,3 +3420,8 @@
 2019-10-02 11:24:33.4105 Info Adding target FileTarget(Name=Misc)
 2019-10-02 11:24:33.4105 Info Adding target FileTarget(Name=Full)
 2019-10-02 11:24:33.4488 Info Found 105 configuration items
+2019-10-02 21:52:58.7330 Info Shutdown() called. Logger closing...
+2019-10-02 21:52:58.7563 Info Closing old configuration.
+2019-10-02 21:52:58.7705 Info Logger has been closed down.
+2019-10-02 21:52:58.7705 Info AppDomain Shutting down. Logger closing...
+2019-10-02 21:52:58.7705 Info Logger has been shut down.
