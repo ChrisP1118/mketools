@@ -29,7 +29,7 @@
               of {{addressDataString}}.
               <div>
                 <b-form-group>
-                  <b-button type="submit" variant="primary" v-b-modal.subscription-modal>Get Email Notifications</b-button>
+                  <b-button type="submit" variant="primary" @click="addSubscription">Create Email Notification</b-button>
                 </b-form-group>
               </div>
             </b-form>
@@ -68,7 +68,7 @@
           of {{addressDataString}}.
           <div>
             <b-form-group>
-              <b-button type="submit" variant="primary" v-b-modal.subscription-modal>Create Email Notification</b-button>
+              <b-button type="submit" variant="primary">Create Email Notification</b-button>
             </b-form-group>
           </div>
         </b-form>
@@ -106,20 +106,7 @@ export default {
 
       // Notifications
       distance: 660,
-      distances: [
-        { text: '1/16 mile', value: 330 },
-        { text: '1/8 mile', value: 660 },
-        { text: '1/4 mile', value: 1320 },
-        { text: '1/2 mile', value: 2640 },
-        { text: '1 mile', value: 5280 }
-      ],
       callType: 'MajorCall',
-      callTypes: [
-        { text: 'any police dispatch call', value: 'PoliceDispatchCall' },
-        { text: 'any fire dispatch call', value: 'FireDispatchCall' },
-        { text: 'any police or fire dispatch call', value: 'AllDispatchCall' },
-        { text: 'any major crime or fire call', value: 'MajorCall' }
-      ],
 
       subscriptions: [],
     }
@@ -141,7 +128,7 @@ export default {
       }
 
       axios
-        .get('/api/DispatchCallSubscription?filter=applicationUserId%3D%22' + id + '%22')
+        .get('/api/dispatchCallSubscription?filter=applicationUserId%3D%22' + id + '%22')
         .then(response => {
           console.log(response);
           
@@ -154,22 +141,27 @@ export default {
         });      
     },
     addSubscription: function () {
+      if (!this.authUser) {
+        this.$bvModal.show('subscription-modal');
+        return;
+      }
+
       axios
-        .post('/api/DispatchCallSubscription', {
-          ApplicationUserId: this.$root.$data.authenticatedUser.id,
-          DispatchCallType: this.callType,
-          Distance: this.distance,
-          Point: {
+        .post('/api/dispatchCallSubscription', {
+          applicationUserId: this.$root.$data.authenticatedUser.id,
+          dispatchCallType: this.callType,
+          distance: this.distance,
+          point: {
             type: "Point",
             coordinates: [
               this.locationData.lng,
               this.locationData.lat
             ]
           },
-          HOUSE_NR: this.addressData.number,
-          SDIR: this.addressData.streetDirection,
-          STREET: this.addressData.streetName,
-          STTYPE: this.addressData.streetType
+          house_nr: this.addressData.number,
+          sdir: this.addressData.streetDirection,
+          street: this.addressData.streetName,
+          sttype: this.addressData.streetType
         })
         .then(response => {
           console.log(response);
@@ -206,7 +198,7 @@ export default {
           return;
 
         axios
-          .delete('/api/DispatchCallSubscription/' + subscription.Id)
+          .delete('/api/DispatchCallSubscription/' + subscription.id)
           .then(response => {
             console.log(response);
 
@@ -228,18 +220,18 @@ export default {
     },
     onSubscriptionSelected: function (subscription) {
       this.locationData = {
-        lat: subscription.Point.coordinates[1], 
-        lng: subscription.Point.coordinates[0]
+        lat: subscription.point.coordinates[1], 
+        lng: subscription.point.coordinates[0]
       };
 
       this.addressData = {
-        number: subscription.HOUSE_NR,
-        streetDirection: subscription.SDIR,
-        streetName: subscription.STREET,
-        streetType: subscription.STTYPE
+        number: subscription.house_nr,
+        streetDirection: subscription.sdir,
+        streetName: subscription.street,
+        streetType: subscription.sttype
       }
-      this.distance = subscription.Distance;
-      this.callType = subscription.DispatchCallType;
+      this.distance = subscription.distance;
+      this.callType = subscription.dispatchCallType;
     }
   },
   watch: {

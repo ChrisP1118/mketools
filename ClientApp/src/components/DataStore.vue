@@ -15,7 +15,7 @@ let ref = {
 
       ref.streetReferences.state = 1;
       axios
-        .get('/api/StreetReference')
+        .get('/api/streetReference')
         .then(response => {
           ref.streetReferences.streetDirections = response.data.streetDirections.map(x => { return x == null ? "" : x; });
           ref.streetReferences.streetNames = response.data.streetNames;
@@ -61,13 +61,13 @@ let ref = {
         if (cachedItem.state == 0) {
           cachedItem.state = 1;
           axios
-            .get('/api/Geocoding/FromCoordinates?latitude=' + latitude + '&longitude=' + longitude)
+            .get('/api/geocoding/fromCoordinates?latitude=' + latitude + '&longitude=' + longitude)
             .then(response => {
               console.log(response);
-              if (!response.data.Property)
+              if (!response.data.property)
                 return;
 
-              cachedItem.property = response.data.Property;
+              cachedItem.property = response.data.property;
 
               cachedItem.resolves.forEach(r => {
                 r(cachedItem.property);

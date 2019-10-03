@@ -9,7 +9,10 @@
 * Caching headers - why Cache-Control: no-cache?
 * Add Google Analytics
 * Store categories ("major crime", etc.) in database
-* Add traffic accident data?* ~~Add page for "Crimes"~~
+* Add traffic accident data?
+* Geocode crimes data
+* Add TAXKEY (and property) for dispatch calls -- might have multiple properties nearby?
+* ~~Add page for "Crimes"~~
 * ~~Manage notifications and account~~
 * ~~Add fire dispatch calls~~
 * ~~Download data sources~~

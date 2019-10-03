@@ -102,8 +102,7 @@ namespace MkeAlerts.Web.Controllers.Data
         /// The user making the request must be a site administrator.
         /// </remarks>
         /// <returns></returns>
-        [HttpPost("ImportBaselines")]
-        [ActionName("ImportBaselines")]
+        [HttpPost("importBaselines")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportBaselines()
         {
@@ -140,8 +139,7 @@ namespace MkeAlerts.Web.Controllers.Data
         /// The user making the request must be a site administrator.
         /// </remarks>
         /// <returns></returns>
-        [HttpPost("ImportProperties")]
-        [ActionName("ImportProperties")]
+        [HttpPost("importProperties")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportProperties()
         {
@@ -157,8 +155,7 @@ namespace MkeAlerts.Web.Controllers.Data
         /// The user making the request must be a site administrator.
         /// </remarks>
         /// <returns></returns>
-        [HttpPost("ImportParcels")]
-        [ActionName("ImportParcels")]
+        [HttpPost("importParcels")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportParcels()
         {
@@ -174,8 +171,7 @@ namespace MkeAlerts.Web.Controllers.Data
         /// The user making the request must be a site administrator.
         /// </remarks>
         /// <returns></returns>
-        [HttpPost("ImportAddresses")]
-        [ActionName("ImportAddresses")]
+        [HttpPost("importAddresses")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportAddresses()
         {
@@ -191,8 +187,7 @@ namespace MkeAlerts.Web.Controllers.Data
         /// The user making the request must be a site administrator.
         /// </remarks>
         /// <returns></returns>
-        [HttpPost("ImportStreets")]
-        [ActionName("ImportStreets")]
+        [HttpPost("importStreets")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportStreets()
         {
@@ -208,8 +203,7 @@ namespace MkeAlerts.Web.Controllers.Data
         /// The user making the request must be a site administrator.
         /// </remarks>
         /// <returns></returns>
-        [HttpPost("ImportDispatchCalls")]
-        [ActionName("ImportDispatchCalls")]
+        [HttpPost("importDispatchCalls")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportDispatchCalls()
         {
@@ -225,8 +219,7 @@ namespace MkeAlerts.Web.Controllers.Data
         /// The user making the request must be a site administrator.
         /// </remarks>
         /// <returns></returns>
-        [HttpPost("ImportFireDispatchCalls")]
-        [ActionName("ImportFireDispatchCalls")]
+        [HttpPost("importFireDispatchCalls")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportFireDispatchCalls()
         {
@@ -242,8 +235,7 @@ namespace MkeAlerts.Web.Controllers.Data
         /// The user making the request must be a site administrator.
         /// </remarks>
         /// <returns></returns>
-        [HttpPost("ImportCrimes")]
-        [ActionName("ImportCrimes")]
+        [HttpPost("importCrimes")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportCrimes()
         {

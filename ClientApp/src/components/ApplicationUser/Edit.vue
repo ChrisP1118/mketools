@@ -25,12 +25,12 @@ export default {
   },
   computed: {
     pageTitle: function () {
-      return 'User: ' + this.item.UserName;
+      return 'User: ' + this.item.userName;
     }
   },
   methods: {
     load: function () {
-      let url = '/api/ApplicationUser/' + this.id;
+      let url = '/api/applicationUser/' + this.id;
 
       axios
         .get(url)

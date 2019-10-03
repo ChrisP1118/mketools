@@ -36,6 +36,11 @@ using MkeAlerts.Web.Jobs;
 using NetTopologySuite.IO.Converters;
 using MkeAlerts.Web.Services.Functional;
 using MkeAlerts.Web.Models.Data.Subscriptions;
+using Newtonsoft.Json.Serialization;
+using Microsoft.AspNetCore.Routing;
+using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using System.Globalization;
 
 namespace MkeAlerts.Web
 {
@@ -103,11 +108,26 @@ namespace MkeAlerts.Web
             services.AddSingleton(mapper);
 
             // Add MVC
-            services.AddMvc()
+            services
+                .AddMvc(options =>
+                {
+                    // Use camelCase in URLs and routing
+                    options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
+                })
                 .AddJsonOptions(options =>
                 {
                     options.SerializerSettings.Formatting = Formatting.Indented;
-                    options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
+
+                    // Use camelCase on DTOs
+                    //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver()
+                    {
+                        NamingStrategy = new CustomCamelCaseNamingStrategy()
+                        {
+                            ProcessDictionaryKeys = true,
+                            OverrideSpecifiedNames = true
+                        }
+                    };
                     options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                     options.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
 
@@ -307,6 +327,59 @@ Note that not all fields can be sorted.
             // Every day at 9:00pm on Sundays
             RecurringJob.AddOrUpdate<ImportStreetsJob>("ImportStreetsJob", x => x.Run(), "0 21 * * SUN");
             */
+        }
+    }
+
+    /// <summary>
+    /// We want to use camelCased route names. There's a built-in option to use lowercase URLs, but we want camel casing.
+    /// 
+    /// Based on code from https://stackoverflow.com/questions/40334515/automatically-generate-lowercase-dashed-routes-in-asp-net-core
+    /// </summary>
+    public class SlugifyParameterTransformer : IOutboundParameterTransformer
+    {
+        public string TransformOutbound(object value)
+        {
+            if (value == null)
+                return null;
+
+            // Slugify value
+            //return Regex.Replace(value.ToString(), "([a-z])([A-Z])", "$1-$2").ToLower();
+            string v = value.ToString();
+            return v[0].ToString().ToLower() + v.Substring(1);
+        }
+    }
+
+    /// <summary>
+    /// The default camel case naming strategy doesn't work well with some of our property names (from external data) that are all uppercase with underscores. This uses a strategy that's more in
+    /// line with the fields we have.
+    /// 
+    /// Based on code from https://stackoverflow.com/questions/52374261/issue-with-default-camelcase-serialization-of-all-caps-property-names-to-json-in
+    /// </summary>
+    public class CustomCamelCaseNamingStrategy : CamelCaseNamingStrategy
+    {
+        protected override String ResolvePropertyName(String propertyName)
+        {
+            return this.ToCamelCase(propertyName);
+        }
+
+        private string ToCamelCase(string s)
+        {
+            if (!string.IsNullOrEmpty(s) && char.IsUpper(s[0]))
+            {
+                char[] array = s.ToCharArray();
+                for (int i = 0; i < array.Length && (i != 1 || char.IsUpper(array[i])); i++)
+                {
+                    bool flag = i + 1 < array.Length;
+                    if ((i > 0 & flag) && array[i + 1] != '_' && !char.IsUpper(array[i + 1]) && !char.IsNumber(array[i + 1]))
+                    {
+                        break;
+                    }
+                    char c = char.ToLower(array[i], CultureInfo.InvariantCulture);
+                    array[i] = c;
+                }
+                return new string(array);
+            }
+            return s;
         }
     }
 }

@@ -20,7 +20,7 @@ export default {
     let base = this;
     return {
       tableSettings: {
-        endpoint: '/api/ApplicationUser',
+        endpoint: '/api/applicationUser',
         columns: [
           {
             key: 'Id',
@@ -30,28 +30,28 @@ export default {
             filter: 'text'
           },
           {
-            key: 'Email',
+            key: 'email',
             name: 'Email Address',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'UserName',
+            key: 'userName',
             name: 'User Name',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'FirstName',
+            key: 'firstName',
             name: 'First Name',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'LastName',
+            key: 'lastName',
             name: 'Last Name',
             visible: true,
             sortable: true,
@@ -62,7 +62,7 @@ export default {
           return '';
         },
         rowClicked: function (item, context) {
-          context.$router.push('/applicationUser/' + item.Id);
+          context.$router.push('/applicationUser/' + item.id);
         }
       }
     }

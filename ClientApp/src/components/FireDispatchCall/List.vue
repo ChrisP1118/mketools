@@ -20,72 +20,72 @@ export default {
     let base = this;
     return {
       tableSettings: {
-        endpoint: '/api/FireDispatchCall',
+        endpoint: '/api/fireDispatchCall',
         columns: [
           {
-            key: 'CFS',
+            key: 'cfs',
             name: 'CFS',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'ReportedDateTime',
+            key: 'reportedDateTime',
             name: 'Date/Time',
             visible: true,
             sortable: true,
             filter: 'date'
           },
           {
-            key: 'Address',
+            key: 'address',
             name: 'Address',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'City',
+            key: 'city',
             name: 'City',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'NatureOfCall',
+            key: 'natureOfCall',
             name: 'Nature of Call',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'Disposition',
+            key: 'disposition',
             name: 'Disposition',
             visible: true,
             sortable: true,
             filter: 'text'
           }
         ],
-        defaultSortColumn: 'ReportedDateTime',
+        defaultSortColumn: 'reportedDateTime',
         defaultSortOrder: 'desc',
         getDefaultFilter: function () {
         },
         rowClicked: function (item, context) {
-          context.$router.push('/fireDispatchCall/' + item.CFS)
+          context.$router.push('/fireDispatchCall/' + item.cfs)
         },
         getItemInfoWindowText: function (item) {
           let raw = item._raw;
-          return raw.Location + '<br />' +
-            raw.NatureOfCall + '<br />' +
-            raw.Status;
+          return raw.address + '<br />' +
+            raw.natureOfCall + '<br />' +
+            raw.disposition;
         },
         getItemMarkerGeometry: function (item) {
           if (!item || !item._raw)
             return null;
             
-          return item._raw.Geometry;
+          return item._raw.geometry;
         },
         getItemId: function (item) {
-          return item._raw.CallNumber;
+          return item._raw.callNumber;
         }
       }
     }

@@ -65,7 +65,7 @@ export default {
       var id_token = googleUser.getAuthResponse().id_token;
       console.log("ID Token: " + id_token);
 
-      axios.post('/api/Account/LoginExternalCredential',
+      axios.post('/api/account/loginExternalCredential',
       {
         "provider": "Google",
         "externalId": profile.getId(),
@@ -89,7 +89,7 @@ export default {
         console.log('Email: ' + user.email);
         console.log(user);
 
-        axios.post('/api/Account/LoginExternalCredential',
+        axios.post('/api/account/loginExternalCredential',
         {
           "provider": "Facebook",
           "externalId": user.id,
@@ -107,7 +107,7 @@ export default {
       console.log('OH NOES', error);
     },
     onSignUp: function (evt) {
-      axios.post('/api/Account/Register',
+      axios.post('/api/account/register',
       {
         "email": this.signUpEmail,
         "password": this.signUpPassword
@@ -120,7 +120,7 @@ export default {
       });
     },
     onLogIn: function (evt) {
-      axios.post('/api/Account/Login',
+      axios.post('/api/account/login',
       {
         "email": this.logInEmail,
         "password": this.logInPassword
@@ -136,15 +136,15 @@ export default {
       console.log(response);
       if (response.status == 200) {
 
-        axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.JwtToken;
-        this.$root.$data.authenticatedUser.username = response.data.UserName;
-        this.$root.$data.authenticatedUser.id = response.data.Id;
-        this.$root.$data.authenticatedUser.roles = response.data.Roles;
+        axios.defaults.headers.common['Authorization'] = "Bearer " + response.data.jwtToken;
+        this.$root.$data.authenticatedUser.username = response.data.userName;
+        this.$root.$data.authenticatedUser.id = response.data.id;
+        this.$root.$data.authenticatedUser.roles = response.data.roles;
 
-        localStorage.setItem('jwt', response.data.JwtToken);
-        localStorage.setItem('username', response.data.UserName);
-        localStorage.setItem('id', response.data.Id);
-        localStorage.setItem('roles', response.data.Roles);
+        localStorage.setItem('jwt', response.data.jwtToken);
+        localStorage.setItem('username', response.data.userName);
+        localStorage.setItem('id', response.data.id);
+        localStorage.setItem('roles', response.data.roles);
 
         this.$emit('authenticated', this.$root.$data.authenticatedUser);
       }

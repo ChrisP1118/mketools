@@ -75,10 +75,10 @@ export default {
 
       dataStore.geocode.addressFromCoordinates(this.lat, this.lng)
         .then(property => {
-          this.number = property.HOUSE_NR_LO;
-          this.streetDirection = property.SDIR;
-          this.streetName = property.STREET;
-          this.streetType = property.STTYPE;
+          this.number = property.house_nr_lo;
+          this.streetDirection = property.sdir;
+          this.streetName = property.street;
+          this.streetType = property.sttype;
 
           this.emitAddressData();
           this.emitLocationData();
@@ -89,12 +89,12 @@ export default {
     },
     onSubmit: function () {
       axios
-        .get('/api/Geocoding/FromAddress?address=' + this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType)
+        .get('/api/geocoding/fromAddress?address=' + this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType)
         .then(response => {
           this.addressLookupError = null;
 
-          this.lat = response.data.Geometry.Centroid.Coordinate[1];
-          this.lng = response.data.Geometry.Centroid.Coordinate[0];
+          this.lat = response.data.geometry.centroid.coordinate[1];
+          this.lng = response.data.geometry.centroid.coordinate[0];
 
           this.emitAddressData();
           this.emitLocationData();

@@ -40,7 +40,7 @@ namespace MkeAlerts.Web.Controllers.Functional
         /// This can also be used for intersections. Put a slash between the street names, like: E WELLS ST / N WATER ST
         /// </remarks>
         /// <returns></returns>
-        [HttpGet("FromAddress")]
+        [HttpGet("fromAddress")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<IEnumerable<string>>> GetLocation(string address)
@@ -57,7 +57,7 @@ namespace MkeAlerts.Web.Controllers.Functional
         /// This will return an address and a distance from the address to the provided coordinates. Intersections are not returned, only addresses
         /// </remarks>
         /// <returns></returns>
-        [HttpGet("FromCoordinates")]
+        [HttpGet("fromCoordinates")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<Address>> GetAddress(double latitude, double longitude)

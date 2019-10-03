@@ -20,38 +20,38 @@ export default {
     let base = this;
     return {
       tableSettings: {
-        endpoint: '/api/Crime',
+        endpoint: '/api/crime',
         columns: [
           {
-            key: 'IncidentNum',
+            key: 'incidentNum',
             name: 'Incident Number',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'ReportedDateTime',
+            key: 'reportedDateTime',
             name: 'Date/Time',
             visible: true,
             sortable: true,
             filter: 'date'
           },
           {
-            key: 'Location',
+            key: 'location',
             name: 'Location',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'WeaponUsed',
+            key: 'weaponUsed',
             name: 'Weapon Used',
             visible: true,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'TypeOfCrime',
+            key: 'typeOfCrime',
             name: "Type of Crime",
             visible: true,
             sortable: true,
@@ -61,20 +61,20 @@ export default {
         getDefaultFilter: function () {
         },
         rowClicked: function (item, context) {
-          context.$router.push('/crime/' + item.TAXKEY)
+          context.$router.push('/crime/' + item.id)
         },
         getItemInfoWindowText: function (item) {
           let raw = item._raw;
-          return raw.Location;
+          return raw.location;
         },
         getItemMarkerGeometry: function (item) {
           if (!item || !item._raw)
             return null;
             
-          return item._raw.Geometry;
+          return item._raw.geometry;
         },
         getItemId: function (item) {
-          return item._raw.IncidentNum;
+          return item._raw.incidentNum;
         }
       }
     }

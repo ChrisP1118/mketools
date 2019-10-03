@@ -7,11 +7,11 @@
         <b-col xs="12" md="6">
           <b-card class="mt-3">
             <h4 slot="header">Basic</h4>
-            {{item.TAXKEY}}
+            {{item.taxkey}}
           </b-card>
           <b-card class="mt-3">
             <h4 slot="header">Owner</h4>
-            {{item.OWNER_NAME}}
+            {{item.owner_name}}
           </b-card>
         </b-col>
         <b-col xs="12" md="6">
@@ -51,12 +51,12 @@ export default {
   },
   computed: {
     pageTitle: function () {
-      return 'Property: ' + this.item.TAXKEY;
+      return 'Property: ' + this.item.taxkey;
     }
   },
   methods: {
     load: function () {
-      let url = '/api/Property/' + this.id;
+      let url = '/api/property/' + this.id;
 
       axios
         .get(url)

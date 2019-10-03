@@ -56,21 +56,21 @@ export default {
         this.showMarkers();
       } else {
         axios
-          .get('/api/PoliceDispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
+          .get('/api/policeDispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
           .then(response => {
             response.data.forEach(i => {
-              if (!i.Geometry || !i.Geometry.coordinates || !i.Geometry.coordinates[0] || !i.Geometry.coordinates[0][0])
+              if (!i.geometry || !i.geometry.coordinates || !i.geometry.coordinates[0] || !i.geometry.coordinates[0][0])
                 return;
 
-              if (this.markerCache.find(x => x.type == 'PoliceDispatch' && x.id == i.CallNumber))
+              if (this.markerCache.find(x => x.type == 'PoliceDispatch' && x.id == i.callNumber))
                 return;
 
-              let time = moment(i.ReportedDateTime).format('llll');
-              let fromNow = moment(i.ReportedDateTime).fromNow();
+              let time = moment(i.reportedDateTime).format('llll');
+              let fromNow = moment(i.reportedDateTime).fromNow();
 
               // http://kml4earth.appspot.com/icons.html#paddle
               let icon = 'wht-blank.png';
-              switch (i.NatureOfCall) {
+              switch (i.natureOfCall) {
 
                 // Red: Violent crime
                 case 'BATTERY':
@@ -101,16 +101,16 @@ export default {
 
               this.markerCache.push({
                 type: 'PoliceDispatch',
-                id: i.CallNumber,
+                id: i.callNumber,
                 position: {
-                  lat: i.Geometry.coordinates[0][0][1],
-                  lng: i.Geometry.coordinates[0][0][0]
+                  lat: i.geometry.coordinates[0][0][1],
+                  lng: i.geometry.coordinates[0][0][0]
                 },
-                status: i.Status,
-                content: '<p style="font-size: 150%; font-weight: bold;">' + i.NatureOfCall + '</p>' +
-                  i.Location + ' (Police District ' + i.District + ')<hr />' +
+                status: i.status,
+                content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
+                  i.location + ' (Police District ' + i.district + ')<hr />' +
                   time + ' (' + fromNow + ')<br />' + 
-                  '<b><i>' + i.Status + '</i></b>',
+                  '<b><i>' + i.status + '</i></b>',
                 icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
                 marker: null,
                 state: 'Hidden'
@@ -133,39 +133,39 @@ export default {
         this.showMarkers();
       } else {
         axios
-          .get('/api/FireDispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
+          .get('/api/fireDispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
           .then(response => {
 
             response.data.forEach(i => {
-              if (!i.Geometry || !i.Geometry.coordinates || !i.Geometry.coordinates[0] || !i.Geometry.coordinates[0][0])
+              if (!i.geometry || !i.geometry.coordinates || !i.geometry.coordinates[0] || !i.geometry.coordinates[0][0])
                 return;
 
-              if (this.markerCache.find(x => x.type == 'FireDispatch' && x.id == i.CFS))
+              if (this.markerCache.find(x => x.type == 'FireDispatch' && x.id == i.cfs))
                 return;
 
-              let time = moment(i.ReportedDateTime).format('llll');
-              let fromNow = moment(i.ReportedDateTime).fromNow();
+              let time = moment(i.reportedDateTime).format('llll');
+              let fromNow = moment(i.reportedDateTime).fromNow();
 
               // http://kml4earth.appspot.com/icons.html#paddle
               let icon = 'wht-blank.png';
 
-              if (i.NatureOfCall == 'EMS')
+              if (i.natureOfCall == 'EMS')
                 icon = 'orange-blank.png';
-              else if (i.NatureOfCall.includes('Fire'))
+              else if (i.natureOfCall.includes('Fire'))
                 icon = 'red-blank.png';
 
               this.markerCache.push({
                 type: 'FireDispatch',
-                id: i.CFS,
+                id: i.cfs,
                 position: {
-                  lat: i.Geometry.coordinates[0][0][1],
-                  lng: i.Geometry.coordinates[0][0][0]
+                  lat: i.geometry.coordinates[0][0][1],
+                  lng: i.geometry.coordinates[0][0][0]
                 },
-                disposition: i.Disposition,
-                content: '<p style="font-size: 150%; font-weight: bold;">' + i.NatureOfCall + '</p>' +
-                  i.Address + (i.Apt ? ' APT. #' + i.Apt : '') + '<hr />' +
+                disposition: i.disposition,
+                content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
+                  i.address + (i.apt ? ' APT. #' + i.apt : '') + '<hr />' +
                   time + ' (' + fromNow + ')<br />' + 
-                  '<b><i>' + i.Disposition + '</i></b>',
+                  '<b><i>' + i.disposition + '</i></b>',
                 icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
                 marker: null,
                 state: 'Hidden'

@@ -58,7 +58,7 @@ namespace MkeAlerts.Web.Controllers.Functional
         /// Returns all street directions
         /// </summary>
         /// <returns></returns>
-        [HttpGet("StreetDirections")]
+        [HttpGet("streetDirections")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<IEnumerable<string>>> GetAllStreetDirectionsAsync()
@@ -72,7 +72,7 @@ namespace MkeAlerts.Web.Controllers.Functional
         /// Returns all street names
         /// </summary>
         /// <returns></returns>
-        [HttpGet("StreetNames")]
+        [HttpGet("streetNames")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<IEnumerable<string>>> GetAllStreetNamesAsync()
@@ -86,7 +86,7 @@ namespace MkeAlerts.Web.Controllers.Functional
         /// Returns all street types
         /// </summary>
         /// <returns></returns>
-        [HttpGet("StreetTypes")]
+        [HttpGet("streetTypes")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<IEnumerable<string>>> GetAllStreetTypesAsync()
