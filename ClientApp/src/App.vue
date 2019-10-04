@@ -17,11 +17,12 @@
             <b-nav-item to="/fireDispatchCall">Fire Calls</b-nav-item>
             <b-nav-item to="/crime">Crimes</b-nav-item>
             <b-nav-item to="/property">Properties</b-nav-item>
-            <b-nav-item to="/about">About</b-nav-item>
           </b-navbar-nav>
 
           <b-navbar-nav class="ml-auto">
             <b-nav-item right to="/applicationUser">Users</b-nav-item>
+            <b-nav-item right to="/about">About</b-nav-item>
+            <b-nav-item right to="/developers">Developers</b-nav-item>
             <b-nav-item-dropdown right>
               <template slot="button-content">
                 Debug
