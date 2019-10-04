@@ -11,6 +11,7 @@
 * Store categories ("major crime", etc.) in database
 * Add traffic accident data?
 * Geocode crimes data
+* Add TAXKEY (and property) for crimes?
 * Add TAXKEY (and property) for dispatch calls -- might have multiple properties nearby?
 * ~~Add page for "Crimes"~~
 * ~~Manage notifications and account~~

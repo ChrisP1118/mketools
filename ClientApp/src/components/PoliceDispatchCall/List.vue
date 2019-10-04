@@ -45,7 +45,7 @@ export default {
             name: 'District',
             visible: true,
             sortable: true,
-            filter: 'text'
+            filter: 'number'
           },
           {
             key: 'natureOfCall',
@@ -66,9 +66,7 @@ export default {
         defaultSortOrder: 'desc',
         getDefaultFilter: function () {
         },
-        rowClicked: function (item, context) {
-          context.$router.push('/policeDispatchCall/' + item.callNumber)
-        },
+        openInfoWindowOnRowClick: true,
         getItemInfoWindowText: function (item) {
           let raw = item._raw;
           return raw.location + '<br />' +

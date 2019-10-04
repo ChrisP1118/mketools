@@ -12,15 +12,15 @@ export default {
     'getItemInfoWindowText',
     'getItemPolygonGeometry',
     'getItemMarkerGeometry',
-    'getItemId'
+    'getItemId',
+    'openInfoWindowItem'
   ],
   data() {
     return {
-      markerWrappers: [],
-      polygonWrappers: [],
+      wrappers: [],
       google: null,
       map: null,
-      openInfoWindow: null
+      openInfoWindow: null,
     }
   },
   async mounted() {
@@ -60,7 +60,10 @@ export default {
           });
 
         }, 1000);
-      });      
+      });
+
+      if (this.items)
+        this.redraw();
 
     } catch (error) {
       console.error(error);
@@ -71,7 +74,7 @@ export default {
       if (!this.google)
         return;
 
-      let newMarkerWrappers = [];
+      let newWrappers = [];
 
       this.items.forEach(i => {
 
@@ -80,9 +83,9 @@ export default {
         if (!geometry)
           return;
 
-        let existingMarkerWrapper = this.markerWrappers.find(w => w.id == this.getItemId(i));
+        let existingMarkerWrapper = this.wrappers.find(w => w.id == this.getItemId(i));
         if (existingMarkerWrapper) {
-          newMarkerWrappers.push(existingMarkerWrapper);
+          newWrappers.push(existingMarkerWrapper);
           return;
         } else if (geometry && geometry.coordinates && geometry.coordinates[0] && geometry.coordinates[0][0]) {
 
@@ -106,24 +109,24 @@ export default {
             this.openInfoWindow.open(map, marker);
           });
 
-          newMarkerWrappers.push({
+          newWrappers.push({
             id: this.getItemId(i),
             marker: marker
           });
         }
       });
 
-      let oldMarkerWrappers = this.markerWrappers.filter(m => { return !(newMarkerWrappers.find(x => x.id == m.id)); });
+      let oldMarkerWrappers = this.wrappers.filter(m => { return !(newWrappers.find(x => x.id == m.id)); });
       oldMarkerWrappers.forEach(w => { 
         w.marker.setMap(null);
       });
-      this.markerWrappers = newMarkerWrappers;
+      this.wrappers = newWrappers;
     },
     drawPolygons(map) {
-        if (!google)
-          return;
+      if (!google)
+        return;
 
-      let newPolygonWrappers = [];
+      let newWrappers = [];
 
       this.items.forEach(i => {
 
@@ -132,9 +135,9 @@ export default {
         if (!geometry)
           return;
 
-        let existingPolygonWrapper = this.polygonWrappers.find(w => w.id == this.getItemId(i));
-        if (existingPolygonWrapper) {
-          newPolygonWrappers.push(existingPolygonWrapper);
+        let existingWrapper = this.wrappers.find(w => w.id == this.getItemId(i));
+        if (existingWrapper) {
+          newWrappers.push(existingWrapper);
           return;
         } else {
 
@@ -167,29 +170,44 @@ export default {
             this.openInfoWindow.open(map);
           });
 
-          newPolygonWrappers.push({
+          newWrappers.push({
             id: this.getItemId(i),
             polygon: polygon
           })
         }
       });
 
-      let oldPolygonWrappers = this.polygonWrappers.filter(m => { return !(newPolygonWrappers.find(x => x.id == m.id)); });
+      let oldPolygonWrappers = this.wrappers.filter(m => { return !(newWrappers.find(x => x.id == m.id)); });
       oldPolygonWrappers.forEach(w => { 
         w.polygon.setMap(null);
       });
-      this.polygonWrappers = newPolygonWrappers;
-
-    }
-  },
-  watch: {
-    async items() {
-
+      this.wrappers = newWrappers;
+    },
+    redraw: function () {
       if (typeof this.getItemPolygonGeometry === 'function')
         this.drawPolygons(this.map);
 
       if (typeof this.getItemMarkerGeometry === 'function')
         this.drawMarkers(this.map);
+    }
+  },
+  watch: {
+    async items() {
+      console.log('items changed');
+
+      this.redraw();
+    },
+    openInfoWindowItem (newValue, oldValue) {
+      let item = newValue['_item'];
+      let markerWrapper = this.wrappers.find(m => m.id == this.getItemId(item));
+
+      if (this.openInfoWindow)
+        this.openInfoWindow.close();
+        
+      this.openInfoWindow = new google.maps.InfoWindow({
+        content: this.getItemInfoWindowText(item)
+      });
+      this.openInfoWindow.open(this.map, markerWrapper.marker);
     }
   }
 };

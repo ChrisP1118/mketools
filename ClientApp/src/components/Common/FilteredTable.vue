@@ -70,7 +70,8 @@
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-geometry="settings.getItemMarkerGeometry"
-          :get-item-id="settings.getItemId">
+          :get-item-id="settings.getItemId"
+          :open-info-window-item="openInfoWindowItem">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -118,7 +119,8 @@
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-geometry="settings.getItemMarkerGeometry"
-          :get-item-id="settings.getItemId">
+          :get-item-id="settings.getItemId"
+          :open-info-window-item="openInfoWindowItem">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -148,7 +150,9 @@ export default {
       bounds: null,
       filterBasedOnMap: false,
       canFilterBasedOnMap: true,
-      showMap: 'right'
+      showMap: 'right',
+      openInfoWindowOnRowClick: false,
+      openInfoWindowItem: null
     }
   },
   computed: {
@@ -165,7 +169,7 @@ export default {
       this.filterBasedOnMap = false;
     },
     boundsChanged: function (bounds) {
-      this.canFilterBasedOnMap = Math.abs(bounds.sw.lat - bounds.ne.lat) < 0.007 && Math.abs(bounds.ne.lng - bounds.sw.lng) < 0.015;
+      this.canFilterBasedOnMap = Math.abs(bounds.sw.lat - bounds.ne.lat) < 0.015 && Math.abs(bounds.ne.lng - bounds.sw.lng) < 0.030;
       if (!this.canFilterBasedOnMap)
         this.filterBasedOnMap = false;
       this.bounds = bounds;
@@ -174,10 +178,17 @@ export default {
         this.refreshData();
     },
     rowClicked: function (item, index, event) {
-      if (!this.settings.rowClicked)
+      console.log('row click');
+      if (!this.settings.rowClicked && !this.settings.openInfoWindowOnRowClick)
         return;
+      
       let rawItem = this.rawItems[index];
-      this.settings.rowClicked(rawItem, this);
+
+      if (this.settings.rowClicked)
+        this.settings.rowClicked(rawItem, this);
+
+      if (this.settings.openInfoWindowOnRowClick)
+        this.openInfoWindowItem = rawItem;
     },
     toggleColumn: function (column) {
       column.visible = !column.visible;
@@ -228,6 +239,7 @@ export default {
             }
           }
           item['_raw'] = row;
+          row['_item'] = item;
         });
 
         this.items.push(item);

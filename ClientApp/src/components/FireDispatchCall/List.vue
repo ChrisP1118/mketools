@@ -69,9 +69,7 @@ export default {
         defaultSortOrder: 'desc',
         getDefaultFilter: function () {
         },
-        rowClicked: function (item, context) {
-          context.$router.push('/fireDispatchCall/' + item.cfs)
-        },
+        openInfoWindowOnRowClick: true,
         getItemInfoWindowText: function (item) {
           let raw = item._raw;
           return raw.address + '<br />' +
