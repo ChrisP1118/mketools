@@ -8,15 +8,15 @@
         </b-form-group>
         <b-form-group>
           <label class="sr-only" for="Direction">Direction</label>
-          <b-form-select v-model="streetDirection" id="Direction" :options="streetDirections" />
+          <b-form-select v-model="streetDirection" id="Direction" :options="streetReferences.streetDirections" />
         </b-form-group>
         <b-form-group>
           <label class="sr-only" for="Street">Street</label>
-          <b-form-select v-model="streetName" id="Street" :options="streetNames" />
+          <b-form-select v-model="streetName" id="Street" :options="streetReferences.streetNames" />
         </b-form-group>
         <b-form-group>
           <label class="sr-only" for="StreetType">Street Type</label>
-          <b-form-select v-model="streetType" id="StreetType" :options="streetTypes" />
+          <b-form-select v-model="streetType" id="StreetType" :options="streetReferences.streetTypes" />
         </b-form-group>
         <b-form-group>
           <b-button type="submit" variant="primary">Go</b-button>
@@ -31,6 +31,7 @@
 <script>
 import axios from "axios";
 import dataStore from '../DataStore.vue';
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'AddressLookup',
@@ -52,15 +53,16 @@ export default {
     }
   },
   computed: {
-    streetDirections: function () {
-      return dataStore.streetReferences.streetDirections;
-    },
-    streetNames: function () {
-      return dataStore.streetReferences.streetNames;
-    },
-    streetTypes: function () {
-      return dataStore.streetReferences.streetTypes;
-    }
+    ...mapState(['streetReferences']),
+    // streetDirections: function () {
+    //   return dataStore.streetReferences.streetDirections;
+    // },
+    // streetNames: function () {
+    //   return dataStore.streetReferences.streetNames;
+    // },
+    // streetTypes: function () {
+    //   return dataStore.streetReferences.streetTypes;
+    // }
   },
   methods: {
     getPosition: function () {
@@ -139,9 +141,14 @@ export default {
     }
   },
   mounted () {
-    dataStore.streetReferences.load();
+    //dataStore.streetReferences.load();
 
     this.getPosition();
+  },
+  created() {
+    this.$store.dispatch("loadStreetReferences").then(() => {
+      console.log("Street references loaded!");
+    });
   },
   watch: {
     addressData: function (newValue, oldValue) {

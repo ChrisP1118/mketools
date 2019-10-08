@@ -50,33 +50,33 @@ let ref = {
       return 'wht-blank.png';      
     }
   },
-  streetReferences: {
-    state: 0,
-    streetDirections: [],
-    streetNames: [],
-    streetTypes: [],
+  // streetReferences: {
+  //   state: 0,
+  //   streetDirections: [],
+  //   streetNames: [],
+  //   streetTypes: [],
 
-    load: function () {
-      if (ref.streetReferences.state != 0)
-        return;
+  //   load: function () {
+  //     if (ref.streetReferences.state != 0)
+  //       return;
 
-      ref.streetReferences.state = 1;
-      axios
-        .get('/api/streetReference')
-        .then(response => {
-          ref.streetReferences.streetDirections = response.data.streetDirections.map(x => { return x == null ? "" : x; });
-          ref.streetReferences.streetNames = response.data.streetNames;
-          ref.streetReferences.streetTypes = response.data.streetTypes.map(x => { return x == null ? "" : x; });
+  //     ref.streetReferences.state = 1;
+  //     axios
+  //       .get('/api/streetReference')
+  //       .then(response => {
+  //         ref.streetReferences.streetDirections = response.data.streetDirections.map(x => { return x == null ? "" : x; });
+  //         ref.streetReferences.streetNames = response.data.streetNames;
+  //         ref.streetReferences.streetTypes = response.data.streetTypes.map(x => { return x == null ? "" : x; });
 
-          ref.streetReferences.state = 2;
-        })
-        .catch(error => {
-          console.log(error);
+  //         ref.streetReferences.state = 2;
+  //       })
+  //       .catch(error => {
+  //         console.log(error);
 
-          ref.streetReferences.state = 0;
-        });
-    }
-  },
+  //         ref.streetReferences.state = 0;
+  //       });
+  //   }
+  // },
   geocode: {
     cache: [],
 

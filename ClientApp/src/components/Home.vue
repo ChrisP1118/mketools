@@ -243,6 +243,11 @@ export default {
   },
   watch: {
   },
+  created() {
+    this.$store.dispatch("loadStreetReferences").then(() => {
+      console.log("Street references loaded!");
+    });
+  },
   async mounted () {
     this.updateSubscriptions();
   }
