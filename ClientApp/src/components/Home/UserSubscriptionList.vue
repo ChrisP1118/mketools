@@ -4,8 +4,8 @@
       <div v-for="subscription in subscriptions" v-bind:key="subscription.Id" class="text-center">
         <a href="#" @click.prevent="selectSubscription(subscription)">
           An email will be sent to {{authUser}} whenever there's 
-          {{dataStore.getCallTypeLabel(subscription.dispatchCallType)}} 
-          within {{dataStore.getDistanceLabel(subscription.distance)}} 
+          {{getCallTypeLabel(subscription.dispatchCallType)}} 
+          within {{getDistanceLabel(subscription.distance)}} 
           of {{subscription.house_nr}} {{subscription.sdir}} {{subscription.street}} {{subscription.sttype}}.</a>
         <a href="#" class="small" @click.prevent="deleteSubscription(subscription)">(Delete)</a>
       </div>
@@ -15,8 +15,8 @@
         Emails will be sent to {{authUser}} whenever there's:
         <div v-for="subscription in subscriptions" v-bind:key="subscription.Id">
           <a href="#" @click.prevent="selectSubscription(subscription)">
-            {{dataStore.getCallTypeLabel(subscription.dispatchCallType)}} 
-            within {{dataStore.getDistanceLabel(subscription.distance)}} 
+            {{getCallTypeLabel(subscription.dispatchCallType)}} 
+            within {{getDistanceLabel(subscription.distance)}}
             of {{subscription.house_nr}} {{subscription.sdir}} {{subscription.street}} {{subscription.sttype}}.</a>
           <a href="#" class="small" @click.prevent="deleteSubscription(subscription)">(Delete)</a>
         </div>
@@ -28,6 +28,7 @@
 <script>
 import dataStore from '../DataStore.vue';
 import AuthMixin from '../Mixins/AuthMixin.vue';
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: "UserSubscriptionList",
@@ -41,6 +42,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['getCallTypeLabel', 'getDistanceLabel']),
   },
   methods: {
     deleteSubscription: function (subscription) {

@@ -2,11 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
 import App from './App.vue'
+import Vuex from 'vuex'
 
 import GSignInButton from 'vue-google-signin-button'
 import FBSignInButton from 'vue-facebook-signin-button'
 
 import './custom.scss'
+
+import { store } from './store/store';
 
 // Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -53,6 +56,7 @@ import CrimeList from './components/Crime/List.vue'
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(require('vue-moment'));
+Vue.use(Vuex);
 
 Vue.use(AuthMixin);
 
@@ -118,6 +122,7 @@ router.beforeEach((to, from, next) => {
 });
 
 new Vue({
+  store,
   router,
   render: h => h(App),
   data: {

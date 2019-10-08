@@ -23,9 +23,9 @@
             <hr v-if="subscriptions.length > 0" />
             <b-form inline class="justify-content-center" @submit.stop.prevent>
               Email me whenever there's
-              <b-form-select v-model="callType" :options="dataStore.callTypes" />
+              <b-form-select v-model="callType" :options="callTypes" />
               within 
-              <b-form-select v-model="distance" :options="dataStore.distances" />
+              <b-form-select v-model="distance" :options="distances" />
               of {{addressDataString}}.
               <div>
                 <b-form-group>
@@ -66,9 +66,9 @@
       <div v-if="authUser">
         <b-form inline class="justify-content-center" @submit.stop.prevent="addSubscription">
           Email {{authUser}} whenever there's
-          <b-form-select v-model="callType" :options="dataStore.callTypes" />
+          <b-form-select v-model="callType" :options="callTypes" />
           within 
-          <b-form-select v-model="distance" :options="dataStore.distances" />
+          <b-form-select v-model="distance" :options="distances" />
           of {{addressDataString}}.
           <div>
             <b-form-group>
@@ -87,6 +87,7 @@ import gmapsInit from './Common/googlemaps';
 import moment from 'moment'
 import AuthMixin from './Mixins/AuthMixin.vue';
 import dataStore from './DataStore.vue';
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: "Home",
@@ -116,6 +117,8 @@ export default {
     }
   },
   computed: {
+    ...mapState(['distances', 'callTypes']),
+    ...mapGetters(['getCallTypeLabel', 'getDistanceLabel']),
     addressDataString: function () {
       if (!this.addressData)
         return '';
@@ -170,7 +173,7 @@ export default {
         .then(response => {
           console.log(response);
 
-          this.$bvToast.toast('An email will be sent to ' + this.$root.$data.authenticatedUser.username + ' whenever there\'s ' + this.dataStore.getCallTypeLabel(this.callType) + ' within ' + this.dataStore.getDistanceLabel(this.distance) + ' of ' + this.addressDataString + '.', {
+          this.$bvToast.toast('An email will be sent to ' + this.$root.$data.authenticatedUser.username + ' whenever there\'s ' + this.getCallTypeLabel(this.callType) + ' within ' + this.getDistanceLabel(this.distance) + ' of ' + this.addressDataString + '.', {
             title: 'Notification Created',
             autoHideDelay: 5000,
             variant: 'success'
