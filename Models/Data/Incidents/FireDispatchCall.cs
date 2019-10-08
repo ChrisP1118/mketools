@@ -31,7 +31,7 @@ namespace MkeAlerts.Web.Models.Data.Incidents
         public string City { get; set; }
 
         [Required]
-        [MaxLength(20)]
+        [MaxLength(40)]
         public string NatureOfCall { get; set; }
 
         [MaxLength(60)]

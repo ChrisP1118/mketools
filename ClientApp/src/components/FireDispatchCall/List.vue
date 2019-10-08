@@ -77,10 +77,13 @@ export default {
             raw.disposition;
         },
         getItemMarkerGeometry: function (item) {
-          if (!item || !item._raw)
+          if (!item || !item._raw || !item._raw.geometry || !item._raw.geometry.coordinates[0] || !item._raw.geometry.coordinates[0][0])
             return null;
             
-          return item._raw.geometry;
+          return {
+            lat: item._raw.geometry.coordinates[0][0][1],
+            lng: item._raw.geometry.coordinates[0][0][0]
+          };          
         },
         getItemId: function (item) {
           return item._raw.callNumber;

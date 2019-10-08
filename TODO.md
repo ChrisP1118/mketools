@@ -1,18 +1,36 @@
-# TODO
+# Launch
 
-* Add fire history
-* Dispatch call notifications (MailGun)
-* Crime notifications
-* Crime/dispatch-specific icons on map
-* Clear out status on dispatch calls after awhile
-* GraphQL layer?
-* Caching headers - why Cache-Control: no-cache?
+* Police dispatch call types
+* Fire dispatch call types
+* Dispatch call notifications
+* Consistent mapping icons (based on call types)
+* Check for faulty import processes
+* Hide "Properties" page?
+* Individual/detail pages for dispatch calls, crimes
+* Crime/police dispatch call detail pages link cross-link
+* Add "Developer" documentation/notes
+* Add "About" page
 * Add Google Analytics
-* Store categories ("major crime", etc.) in database
+
+# Backlog
+
+* Add trash day alerts (import users from MkeTrashDay)
+* PWA
+* PWA - add notifications API support
+* Add fire history
 * Add traffic accident data?
-* Geocode crimes data
+* Crime notifications
+* Clear out status on dispatch calls after awhile?
+* Add GraphQL support
 * Add TAXKEY (and property) for crimes?
 * Add TAXKEY (and property) for dispatch calls -- might have multiple properties nearby?
+* Regular, automated dispatch call data export to static file (available for download)
+
+# Minor Issues
+* Caching headers - why Cache-Control: no-cache?
+
+# Done
+
 * ~~Add page for "Crimes"~~
 * ~~Manage notifications and account~~
 * ~~Add fire dispatch calls~~

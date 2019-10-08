@@ -87,15 +87,10 @@ export default {
         if (existingMarkerWrapper) {
           newWrappers.push(existingMarkerWrapper);
           return;
-        } else if (geometry && geometry.coordinates && geometry.coordinates[0] && geometry.coordinates[0][0]) {
-
-          let point = geometry.coordinates[0][0];
+        } else if (geometry) {
 
           let marker = new google.maps.Marker({
-            position: {
-              lat: point[1],
-              lng: point[0]
-            },
+            position: geometry,
             map: map
           });
 

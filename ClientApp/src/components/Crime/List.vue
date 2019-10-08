@@ -68,10 +68,13 @@ export default {
           return raw.location;
         },
         getItemMarkerGeometry: function (item) {
-          if (!item || !item._raw)
+          if (!item || !item._raw || !item._raw.point || !item._raw.point.coordinates)
             return null;
-            
-          return item._raw.geometry;
+
+          return {
+            lat: item._raw.point.coordinates[1],
+            lng: item._raw.point.coordinates[0]
+          };          
         },
         getItemId: function (item) {
           return item._raw.incidentNum;

@@ -225,8 +225,12 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityWriteService<Street, string>, StreetService>();
             services.AddTransient<IEntityReadService<PoliceDispatchCall, string>, PoliceDispatchCallService>();
             services.AddTransient<IEntityWriteService<PoliceDispatchCall, string>, PoliceDispatchCallService>();
+            services.AddTransient<IEntityReadService<PoliceDispatchCallType, string>, PoliceDispatchCallTypeService>();
+            services.AddTransient<IEntityWriteService<PoliceDispatchCallType, string>, PoliceDispatchCallTypeService>();
             services.AddTransient<IEntityReadService<FireDispatchCall, string>, FireDispatchCallService>();
             services.AddTransient<IEntityWriteService<FireDispatchCall, string>, FireDispatchCallService>();
+            services.AddTransient<IEntityReadService<FireDispatchCallType, string>, FireDispatchCallTypeService>();
+            services.AddTransient<IEntityWriteService<FireDispatchCallType, string>, FireDispatchCallTypeService>();
             services.AddTransient<IEntityReadService<Crime, string>, CrimeService>();
             services.AddTransient<IEntityWriteService<Crime, string>, CrimeService>();
             services.AddTransient<IEntityReadService<DispatchCallSubscription, Guid>, DispatchCallSubscriptionService>();
@@ -241,7 +245,9 @@ Note that not all fields can be sorted.
             services.AddSingleton<IValidator<Parcel>, ParcelValidator>();
             services.AddSingleton<IValidator<Street>, StreetValidator>();
             services.AddSingleton<IValidator<PoliceDispatchCall>, PoliceDispatchCallValidator>();
+            services.AddSingleton<IValidator<PoliceDispatchCallType>, PoliceDispatchCallTypeValidator>();
             services.AddSingleton<IValidator<FireDispatchCall>, FireDispatchCallValidator>();
+            services.AddSingleton<IValidator<FireDispatchCallType>, FireDispatchCallTypeValidator>();
             services.AddSingleton<IValidator<Crime>, CrimeValidator>();
             services.AddSingleton<IValidator<DispatchCallSubscription>, DispatchCallSubscriptionValidator>();
         }

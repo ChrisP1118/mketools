@@ -49,9 +49,13 @@
         <basic-map :filter="mapFilter" :locationData="locationData" :distance="distance" />
       </b-col>
     </b-row>
-    <b-row>
+    <b-row class="mt-3">
       <b-col>
-        This data is not real-time. Police dispatch call data is available within 30-90 minutes of the call; file dispatch call data is available within 15-105 minutes of the call.
+        <b-alert show variant="secondary">
+          <h2>This is not an official City of Milwaukee website.</h2>
+          <p>This site is not affiliated in any way with the City of Milwaukee, Milwaukee Police Department, Milwaukee Fire Department, or any other government agency.</p>
+          <p>The data on this site is not real-time. Police dispatch call data is available within 30-90 minutes of the call; file dispatch call data is available within 15-105 minutes of the call.</p>
+        </b-alert>
       </b-col>
     </b-row>
     <b-modal id="subscription-modal" size="lg" title="Sign Up for Email Notifications" 

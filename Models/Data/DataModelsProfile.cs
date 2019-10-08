@@ -29,7 +29,9 @@ namespace MkeAlerts.Web.Models.Data
             CreateMap<Address, AddressDTO>().ReverseMap();
             CreateMap<Street, StreetDTO>().ReverseMap();
             CreateMap<PoliceDispatchCall, PoliceDispatchCallDTO>().ReverseMap();
+            CreateMap<PoliceDispatchCallType, PoliceDispatchCallTypeDTO>().ReverseMap();
             CreateMap<FireDispatchCall, FireDispatchCallDTO>().ReverseMap();
+            CreateMap<FireDispatchCallType, FireDispatchCallTypeDTO>().ReverseMap();
             CreateMap<Crime, CrimeDTO>().ReverseMap();
 
             CreateMap<DispatchCallSubscription, DispatchCallSubscriptionDTO>().ReverseMap();
