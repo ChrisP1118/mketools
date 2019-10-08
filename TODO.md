@@ -11,6 +11,7 @@
 * Add "Developer" documentation/notes
 * Add "About" page
 * Add Google Analytics
+* Use Vuex?
 
 # Backlog
 

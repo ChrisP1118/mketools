@@ -61,8 +61,5 @@ namespace MkeAlerts.Web.Models.Data.Incidents
         public int SexOffense { get; set; }
         public int Theft { get; set; }
         public int VehicleTheft { get; set; }
-
-        [MaxLength(20)]
-        public string TypeOfCrime { get; set; }
     }
 }

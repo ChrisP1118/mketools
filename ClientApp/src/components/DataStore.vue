@@ -3,6 +3,53 @@ import Vue from "vue";
 import axios from "axios";
 
 let ref = {
+  policeDispatchCallTypes: {
+    state: 0,
+    values: [],
+
+    load: function () {
+      if (ref.policeDispatchCallTypes.state != 0)
+        return;
+
+      ref.policeDispatchCallTypes.state = 1;
+      axios
+        .get('/api/policeDispatchCallType?limit=1000')
+        .then(response => {
+          ref.policeDispatchCallTypes.values = response.data;
+          ref.policeDispatchCallTypes.state = 2;
+        })
+        .catch(error => {
+          console.log(error);
+
+          ref.policeDispatchCallTypes.state = 0;
+        });
+    },
+    getIcon: function (natureOfCall) {
+      // http://kml4earth.appspot.com/icons.html#paddle
+
+      let type = ref.policeDispatchCallTypes.values.find(x => x.natureOfCall == natureOfCall);
+
+      if (!type)
+        return 'wht-blank.png';
+
+      if (type.isCritical)
+        return 'red-circle.png';
+
+      if (type.isViolent)
+        return 'red-blank.png';
+
+      if (type.isProperty)
+        return 'orange-blank.png';
+
+      if (type.isDrug)
+        return 'purple-blank.png';
+
+      if (type.isTraffic)
+        return 'ylw-blank.png';
+
+      return 'wht-blank.png';      
+    }
+  },
   streetReferences: {
     state: 0,
     streetDirections: [],
@@ -100,9 +147,15 @@ let ref = {
     { text: 'any major crime or fire call', value: 'MajorCall' }
   ],
   getDistanceLabel: function(distance) {
+    if (!distance)
+      return '';
+
     return ref.distances.find(x => x.value == distance).text;
   },
   getCallTypeLabel: function(callType) {
+    if (!callType)
+      return '';
+
     return ref.callTypes.find(x => x.value == callType).text;
   }
 };
