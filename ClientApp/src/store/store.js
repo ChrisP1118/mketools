@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from "axios";
+import moment from 'moment'
 
 Vue.use(Vuex);
 
@@ -35,6 +36,11 @@ export const store = new Vuex.Store({
     policeDispatchCallTypes: {
       loadState: STATE_UNLOADED,
       values: []
+    },
+    recentDispatchCalls: {
+      loadState: STATE_UNLOADED,
+      typesLoaded: 0,
+      values: []
     }
   },
   mutations: {
@@ -55,6 +61,21 @@ export const store = new Vuex.Store({
       state.policeDispatchCallTypes.values = values;
 
       state.policeDispatchCallTypes.loadState = STATE_LOADED;
+    },
+    SET_RECENT_DISPATCH_CALLS_LOAD_STATE(state, loadState) {
+      state.recentDispatchCalls.loadState = loadState;
+      if (loadState == STATE_UNLOADED)
+        state.recentDispatchCalls.typesLoaded = 0;
+    },
+    ADD_RECENT_DISPATCH_CALLS(state, values) {
+      state.recentDispatchCalls.values.push(...values);
+      ++state.recentDispatchCalls.typesLoaded;
+
+      if (state.recentDispatchCalls.typesLoaded == 2)
+        state.recentDispatchCalls.loadState = STATE_LOADED;
+    },
+    SET_RECENT_DISPATCH_CALL_MARKER(state, marker) {
+
     },
     CREATE_GEOCODE_CACHE_ITEM(state, position) {
       let cachedItem = state.geocode.cache.find(x => x.position.lat == position.lat && x.position.lng == position.lng);
@@ -131,6 +152,92 @@ export const store = new Vuex.Store({
             reject();
           });
       });
+    },
+    loadRecentDispatchCalls({ commit, getters }) {
+      return new Promise((resolve, reject) => {
+        if (this.state.recentDispatchCalls.loadState > 0)
+          return;
+
+        commit('SET_RECENT_DISPATCH_CALLS_LOAD_STATE', STATE_LOADING);
+
+        let now = moment().subtract(6, 'hours').format('YYYY-MM-DD HH:mm:ss');
+        let filter = 'ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22';
+  
+        axios
+          .get('/api/policeDispatchCall?limit=1000&filter=' + filter)
+          .then(response => {
+            let x = response.data.filter(i => i.geometry && i.geometry.coordinates && i.geometry.coordinates[0] && i.geometry.coordinates[0][0]);
+            let y = x.map(i => {
+              let time = moment(i.reportedDateTime).format('llll');
+              let fromNow = moment(i.reportedDateTime).fromNow();
+
+              let icon = getters.getPoliceDispatchCallTypeIcon(i.natureOfCall);
+              //let icon = 'red-circle.png';
+
+              return {
+                type: 'PoliceDispatch',
+                id: i.callNumber,
+                position: {
+                  lat: i.geometry.coordinates[0][0][1],
+                  lng: i.geometry.coordinates[0][0][0]
+                },
+                status: i.status,
+                content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
+                  i.location + ' (Police District ' + i.district + ')<hr />' +
+                  time + ' (' + fromNow + ')<br />' + 
+                  '<b><i>' + i.status + '</i></b>',
+                icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon
+              };
+            });
+
+            commit('ADD_RECENT_DISPATCH_CALLS', y);
+            resolve();
+          })
+          .catch(error => {
+            console.log(error);
+
+            reject();
+          });
+
+        axios
+          .get('/api/fireDispatchCall?limit=1000&filter=' + filter)
+          .then(response => {
+            let x = response.data.filter(i => i.geometry && i.geometry.coordinates && i.geometry.coordinates[0] && i.geometry.coordinates[0][0]);
+            let y = x.map(i => {
+              let time = moment(i.reportedDateTime).format('llll');
+              let fromNow = moment(i.reportedDateTime).fromNow();
+
+              //let icon = this.getPoliceDispatchCallTypeIcon(i.natureOfCall);
+              let icon = 'orange-circle.png';
+
+              return {
+                type: 'FireDispatch',
+                id: i.cfs,
+                position: {
+                  lat: i.geometry.coordinates[0][0][1],
+                  lng: i.geometry.coordinates[0][0][0]
+                },
+                disposition: i.disposition,
+                content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
+                  i.address + (i.apt ? ' APT. #' + i.apt : '') + '<hr />' +
+                  time + ' (' + fromNow + ')<br />' + 
+                  '<b><i>' + i.disposition + '</i></b>',
+                icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon
+              }
+            });
+
+            commit('ADD_RECENT_DISPATCH_CALLS', y);
+            resolve();
+          })
+          .catch(error => {
+            console.log(error);
+
+            reject();
+          });
+      });
+    },
+    setRecentDispatchCallMarker({ commit }) {
+
     },
     getAddressFromCoordinates(context, position) {
       context.commit('CREATE_GEOCODE_CACHE_ITEM', position);
@@ -214,6 +321,9 @@ export const store = new Vuex.Store({
         return 'ylw-blank.png';
 
       return 'wht-blank.png';
+    },
+    getRecentDispatchCalls: state => type => {
+      return state.recentDispatchCalls.values;
     }
   }
 })

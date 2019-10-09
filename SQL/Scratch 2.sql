@@ -91,3 +91,7 @@ delete
 from FireDispatchCalls
 where NatureOfCall = ''
 */
+
+select top 5 *
+from Crimes
+where TypeOfCrime is not null

@@ -14,10 +14,10 @@ export default {
   name: "BasicMap",
   mixins: [],
   props: {
-    hours: {
-      type: Number,
-      default: 4
-    },
+    // hours: {
+    //   type: Number,
+    //   default: 4
+    // },
     mapItemLimit: {
       type: Number,
       default: 200
@@ -36,16 +36,19 @@ export default {
     return {
       google: null,
       map: null,
-      bounds: null,
-      markerCache: [],
-      markerCacheBounds: null,
+      //bounds: null,
+      //markerCache: [],
+      //markerCacheBounds: null,
+      markerWrappers: [],
       circle: null
     }
   },
   computed: {
-    ...mapGetters(['getPoliceDispatchCallTypeIcon']),
+    //...mapGetters(['getRecentDispatchCalls']),
+    ...mapState(['recentDispatchCalls'])
   },
   methods: {
+    /*
     loadAllMarkers: function () {
       this.loadPoliceDispatchMarkers();
       this.loadFireDispatchMarkers();
@@ -248,6 +251,42 @@ export default {
 
       return '&northBound=' + this.bounds.ne.lat + '&southBound=' + this.bounds.sw.lat + '&eastBound=' + this.bounds.ne.lng + '&westBound=' + this.bounds.sw.lng;
     },
+    */
+    loadMarkers: function () {
+      if (!google)
+        return;
+      
+      this.recentDispatchCalls.values.forEach(i => {
+
+        let visible = true;
+
+        if ((this.filter == 'ap' || this.filter == 'rp') && i.type == 'FireDispatch')
+          visible = false;
+
+        if ((this.filter == 'af' || this.filter == 'rf') && i.type == 'PoliceDispatch')
+          visible = false;
+
+        let marker = new google.maps.Marker({
+          position: i.position,
+          icon: {
+            url: i.icon,
+            scaledSize: new google.maps.Size(50, 50),
+          },
+          map: this.map
+        });
+
+        marker.addListener('click', e => {
+          if (this.openInfoWindow)
+            this.openInfoWindow.close();
+
+          this.openInfoWindow = new google.maps.InfoWindow({
+            content: i.content
+          });
+          this.openInfoWindow.open(this.map, marker);
+        });
+
+      });
+    },
     distanceUpdated: function (value) {
       if (this.circle)
         this.circle.setMap(null);
@@ -268,8 +307,19 @@ export default {
     }
   },
   watch: {
+    recentDispatchCalls: {
+      handler: function (newValue, oldValue) {
+        if (newValue.loadState == 2) {
+          this.loadMarkers();
+        }
+      },
+      deep: true
+    },
+    // getRecentDispatchCalls: function (newValue, oldValue) {
+    //   console.log('getter');
+    // },
     filter: function (newValue, oldValue) {
-      this.showMarkers(newValue);
+      this.loadMarkers();
     },
     locationData: function (newValue, oldValue) {
       this.map.setCenter(newValue);
@@ -283,7 +333,10 @@ export default {
   },
   created() {
     this.$store.dispatch("loadPoliceDispatchCallTypes").then(() => {
-      console.log("Police dispatch call types loaded!");
+    });
+    this.$store.dispatch("loadRecentDispatchCalls").then(() => {
+      console.log("Loaded recent dispatch calls");
+      //console.log(this.recentDispatchCalls.values);
     });
   },
   async mounted () {
@@ -295,34 +348,34 @@ export default {
       gestureHandling: 'greedy'
     });
 
-    let boundsChangedTimeout = null;
+    // let boundsChangedTimeout = null;
 
-    this.map.addListener('bounds_changed', e => {
+    // this.map.addListener('bounds_changed', e => {
 
-      if (boundsChangedTimeout != null)
-        clearTimeout(boundsChangedTimeout);
+    //   if (boundsChangedTimeout != null)
+    //     clearTimeout(boundsChangedTimeout);
 
-      boundsChangedTimeout = setTimeout(() => {
-        let bounds = this.map.getBounds();
-        let ne = bounds.getNorthEast();
-        let sw = bounds.getSouthWest();
-        this.bounds = {
-          ne: {
-            lat: ne.lat(),
-            lng: ne.lng()
-          },
-          sw: {
-            lat: sw.lat(),
-            lng: sw.lng()
-          }
-        };
+    //   boundsChangedTimeout = setTimeout(() => {
+    //     let bounds = this.map.getBounds();
+    //     let ne = bounds.getNorthEast();
+    //     let sw = bounds.getSouthWest();
+    //     this.bounds = {
+    //       ne: {
+    //         lat: ne.lat(),
+    //         lng: ne.lng()
+    //       },
+    //       sw: {
+    //         lat: sw.lat(),
+    //         lng: sw.lng()
+    //       }
+    //     };
 
-        this.loadAllMarkers();
+    //     this.loadAllMarkers();
 
-      }, 1000);
-    });
+    //   }, 1000);
+    // });
 
-    this.loadAllMarkers();
+    // this.loadAllMarkers();
   }
 };
 </script>

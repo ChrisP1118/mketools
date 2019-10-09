@@ -1,7 +1,9 @@
 # Launch
 
-* Police dispatch call types
-* Fire dispatch call types
+* Use Vuex on Home page dispatch call list/map markers
+* Refresh home page on schedule (to show new markers)
+* Use police dispatch call types
+* Use fire dispatch call types
 * Dispatch call notifications
 * Consistent mapping icons (based on call types)
 * Check for faulty import processes
@@ -11,7 +13,6 @@
 * Add "Developer" documentation/notes
 * Add "About" page
 * Add Google Analytics
-* Use Vuex?
 
 # Backlog
 
@@ -32,6 +33,7 @@
 
 # Done
 
+* ~~Use Vuex~~
 * ~~Add page for "Crimes"~~
 * ~~Manage notifications and account~~
 * ~~Add fire dispatch calls~~
