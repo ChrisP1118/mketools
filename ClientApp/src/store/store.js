@@ -31,6 +31,10 @@ export const store = new Vuex.Store({
     },
     geocode: {
       cache: []
+    },
+    policeDispatchCallTypes: {
+      loadState: STATE_UNLOADED,
+      values: []
     }
   },
   mutations: {
@@ -43,6 +47,14 @@ export const store = new Vuex.Store({
       state.streetReferences.streetTypes = streetReferences.streetTypes;
 
       state.streetReferences.loadState = STATE_LOADED;
+    },
+    SET_POLICE_DISPATCH_CALL_TYPES_LOAD_STATE(state, loadState) {
+      state.policeDispatchCallTypes.loadState = loadState;
+    },
+    LOAD_POLICE_DISPATCH_CALL_TYPES(state, values) {
+      state.policeDispatchCallTypes.values = values;
+
+      state.policeDispatchCallTypes.loadState = STATE_LOADED;
     },
     CREATE_GEOCODE_CACHE_ITEM(state, position) {
       let cachedItem = state.geocode.cache.find(x => x.position.lat == position.lat && x.position.lng == position.lng);
@@ -75,7 +87,6 @@ export const store = new Vuex.Store({
   actions: {
     loadStreetReferences({ commit }) {
       return new Promise((resolve, reject) => {
-        console.log()
         if (this.state.streetReferences.loadState > 0)
           return;
 
@@ -101,10 +112,27 @@ export const store = new Vuex.Store({
           });
       });
     },
-    getAddressFromCoordinates(context, position) {
-      console.log(position.lat);
-      console.log(position.lng);
+    loadPoliceDispatchCallTypes({ commit }) {
+      return new Promise((resolve, reject) => {
+        if (this.state.policeDispatchCallTypes.loadState > 0)
+          return;
 
+        commit('SET_POLICE_DISPATCH_CALL_TYPES_LOAD_STATE', STATE_LOADING);
+
+        axios
+          .get('/api/policeDispatchCallType?limit=1000')
+          .then(response => {
+            commit('LOAD_POLICE_DISPATCH_CALL_TYPES', response.data);
+            resolve();
+          })
+          .catch(error => {
+            console.log(error);
+
+            reject();
+          });
+      });
+    },
+    getAddressFromCoordinates(context, position) {
       context.commit('CREATE_GEOCODE_CACHE_ITEM', position);
       let cachedItem = context.state.geocode.cache.find(x => x.position.lat == position.lat && x.position.lng == position.lng);
 
@@ -163,59 +191,29 @@ export const store = new Vuex.Store({
         return '';
 
       return state.callTypes.find(x => x.value == callType).text;
+    },
+    getPoliceDispatchCallTypeIcon: state => natureOfCall => {
+      let type = state.policeDispatchCallTypes.values.find(x => x.natureOfCall == natureOfCall);
+
+      if (!type)
+        return 'wht-blank.png';
+
+      if (type.isCritical)
+        return 'red-circle.png';
+
+      if (type.isViolent)
+        return 'red-blank.png';
+
+      if (type.isProperty)
+        return 'orange-blank.png';
+
+      if (type.isDrug)
+        return 'purple-blank.png';
+
+      if (type.isTraffic)
+        return 'ylw-blank.png';
+
+      return 'wht-blank.png';
     }
   }
-
-    // addressFromCoordinates: function (latitude, longitude) {
-    //   let cachedItem = ref.geocode.cache.find(x => x.latitude == latitude && x.longitude == longitude);
-
-    //   if (!cachedItem) {
-    //     cachedItem = {
-    //       latitude: latitude,
-    //       longitude: longitude,
-    //       resolves: [],
-    //       rejects: [],
-    //       state: 0,
-    //       property: null
-    //     };
-    //     ref.geocode.cache.push(cachedItem);
-    //   }
-
-    //   if (cachedItem.property) {
-    //     return new Promise(function(resolve, reject) {
-    //       resolve(cachedItem.property);
-    //     });
-    //   }
-
-    //   let promise = new Promise(function(resolve, reject) {
-    //     cachedItem.resolves.push(resolve);
-    //     cachedItem.rejects.push(reject);
-
-    //     if (cachedItem.state == 0) {
-    //       cachedItem.state = 1;
-    //       axios
-    //         .get('/api/geocoding/fromCoordinates?latitude=' + latitude + '&longitude=' + longitude)
-    //         .then(response => {
-    //           console.log(response);
-    //           if (!response.data.property)
-    //             return;
-
-    //           cachedItem.property = response.data.property;
-
-    //           cachedItem.resolves.forEach(r => {
-    //             r(cachedItem.property);
-    //           });
-    //           cachedItem.resolves = [];
-    //         })
-    //         .catch(error => {
-    //           cachedItem.rejects.forEach(r => {
-    //             r(error);
-    //           });
-    //           cachedItem.resolves = [];
-    //         });
-    //       }
-    //   });
-
-    //   return promise;
-    // }  
 })

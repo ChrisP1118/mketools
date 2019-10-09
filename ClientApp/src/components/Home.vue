@@ -86,7 +86,6 @@ import axios from "axios";
 import gmapsInit from './Common/googlemaps';
 import moment from 'moment'
 import AuthMixin from './Mixins/AuthMixin.vue';
-import dataStore from './DataStore.vue';
 import { mapState, mapGetters } from 'vuex'
 
 export default {
@@ -95,8 +94,6 @@ export default {
   props: {},
   data() {
     return {
-      dataStore: dataStore,
-
       addressData: null,
       locationData: null,
 
@@ -245,7 +242,6 @@ export default {
   },
   created() {
     this.$store.dispatch("loadStreetReferences").then(() => {
-      console.log("Street references loaded!");
     });
   },
   async mounted () {

@@ -30,7 +30,6 @@
 
 <script>
 import axios from "axios";
-import dataStore from '../DataStore.vue';
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {

@@ -8,7 +8,7 @@
 import axios from "axios";
 import gmapsInit from '../Common/googlemaps';
 import moment from 'moment'
-import dataStore from '../DataStore.vue';
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: "BasicMap",
@@ -34,7 +34,6 @@ export default {
   },
   data() {
     return {
-      dataStore: dataStore,
       google: null,
       map: null,
       bounds: null,
@@ -44,6 +43,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['getPoliceDispatchCallTypeIcon']),
   },
   methods: {
     loadAllMarkers: function () {
@@ -70,38 +70,7 @@ export default {
               let time = moment(i.reportedDateTime).format('llll');
               let fromNow = moment(i.reportedDateTime).fromNow();
 
-              let icon = dataStore.policeDispatchCallTypes.getIcon(i.natureOfCall);
-
-              // http://kml4earth.appspot.com/icons.html#paddle
-              // let icon = 'wht-blank.png';
-              // switch (i.natureOfCall) {
-
-              //   // Red: Violent crime
-              //   case 'BATTERY':
-              //   case 'FIGHT':
-              //   case 'BATTERY DV':
-              //   case 'HOLDUP ALARM':
-              //     icon = 'red-blank.png'; break;
-
-              //   case 'SHOTSPOTTER':
-              //   case 'SHOOTING':
-              //   case 'SHOTS FIRED':
-              //     icon = 'red-circle.png'; break;
-
-              //   // Orange: Non-violent serious crime
-              //   case 'THEFT': 
-              //   case 'DRUG DEALING':
-              //   case 'OVERDOSE':
-              //   case 'STOLEN VEHICLE':
-              //   case 'ENTRY':
-              //   case 'ENTRY TO AUTO':
-              //   case 'PROPERTY DAMAGE':
-              //     icon ='orange-blank.png'; break;
-
-              //   // Blue: Traffic
-              //   case 'TRAFFIC STOP':
-              //     icon = 'blu-blank.png'; break;
-              // }
+              let icon = this.getPoliceDispatchCallTypeIcon(i.natureOfCall);
 
               this.markerCache.push({
                 type: 'PoliceDispatch',
@@ -312,6 +281,11 @@ export default {
       this.distanceUpdated(newValue);
     }
   },
+  created() {
+    this.$store.dispatch("loadPoliceDispatchCallTypes").then(() => {
+      console.log("Police dispatch call types loaded!");
+    });
+  },
   async mounted () {
 
     this.google = await gmapsInit();
@@ -349,8 +323,6 @@ export default {
     });
 
     this.loadAllMarkers();
-
-    dataStore.policeDispatchCallTypes.load();
   }
 };
 </script>
