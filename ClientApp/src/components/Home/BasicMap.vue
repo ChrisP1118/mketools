@@ -14,15 +14,11 @@ export default {
   name: "BasicMap",
   mixins: [],
   props: {
-    // hours: {
-    //   type: Number,
-    //   default: 4
-    // },
-    mapItemLimit: {
+    hours: {
       type: Number,
-      default: 200
+      default: 6
     },
-    filter: {
+    filterType: {
       type: String,
       default: ''
     },
@@ -36,254 +32,132 @@ export default {
     return {
       google: null,
       map: null,
-      //bounds: null,
-      //markerCache: [],
-      //markerCacheBounds: null,
-      markerWrappers: [],
+      items: [],
       circle: null
     }
   },
   computed: {
-    //...mapGetters(['getRecentDispatchCalls']),
-    ...mapState(['recentDispatchCalls'])
+    ...mapGetters(['getPoliceDispatchCallTypeIcon']),
   },
   methods: {
-    /*
-    loadAllMarkers: function () {
-      this.loadPoliceDispatchMarkers();
-      this.loadFireDispatchMarkers();
-    },
-    loadPoliceDispatchMarkers: function () {
-      let now = moment().subtract(this.hours, 'hours').format('YYYY-MM-DD HH:mm:ss');
-      let filter = 'ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter();
-
-      if (!this.areBoundsCached()) {
-        this.showMarkers();
-      } else {
-        axios
-          .get('/api/policeDispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
-          .then(response => {
-            response.data.forEach(i => {
-              if (!i.geometry || !i.geometry.coordinates || !i.geometry.coordinates[0] || !i.geometry.coordinates[0][0])
-                return;
-
-              if (this.markerCache.find(x => x.type == 'PoliceDispatch' && x.id == i.callNumber))
-                return;
-
-              let time = moment(i.reportedDateTime).format('llll');
-              let fromNow = moment(i.reportedDateTime).fromNow();
-
-              let icon = this.getPoliceDispatchCallTypeIcon(i.natureOfCall);
-
-              this.markerCache.push({
-                type: 'PoliceDispatch',
-                id: i.callNumber,
-                position: {
-                  lat: i.geometry.coordinates[0][0][1],
-                  lng: i.geometry.coordinates[0][0][0]
-                },
-                status: i.status,
-                content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
-                  i.location + ' (Police District ' + i.district + ')<hr />' +
-                  time + ' (' + fromNow + ')<br />' + 
-                  '<b><i>' + i.status + '</i></b>',
-                icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
-                marker: null,
-                state: 'Hidden'
-              })
-            });
-
-            this.markerCacheBounds = this.bounds;
-            this.showMarkers();
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
-    },
-    loadFireDispatchMarkers: function () {
-      let now = moment().subtract(this.hours, 'hours').format('YYYY-MM-DD HH:mm:ss');
-      let filter = 'Disposition%20%3D%20%22ACTIVE%22%20and%20ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22' + this.getBoundsFilter();
-
-      if (!this.areBoundsCached()) {
-        this.showMarkers();
-      } else {
-        axios
-          .get('/api/fireDispatchCall?offset=0&limit=' + this.mapItemLimit + '&order=ReportedDateTime%20desc&filter=' + filter)
-          .then(response => {
-
-            response.data.forEach(i => {
-              if (!i.geometry || !i.geometry.coordinates || !i.geometry.coordinates[0] || !i.geometry.coordinates[0][0])
-                return;
-
-              if (this.markerCache.find(x => x.type == 'FireDispatch' && x.id == i.cfs))
-                return;
-
-              let time = moment(i.reportedDateTime).format('llll');
-              let fromNow = moment(i.reportedDateTime).fromNow();
-
-              // http://kml4earth.appspot.com/icons.html#paddle
-              let icon = 'wht-blank.png';
-
-              if (i.natureOfCall == 'EMS')
-                icon = 'orange-blank.png';
-              else if (i.natureOfCall.includes('Fire'))
-                icon = 'red-blank.png';
-
-              this.markerCache.push({
-                type: 'FireDispatch',
-                id: i.cfs,
-                position: {
-                  lat: i.geometry.coordinates[0][0][1],
-                  lng: i.geometry.coordinates[0][0][0]
-                },
-                disposition: i.disposition,
-                content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
-                  i.address + (i.apt ? ' APT. #' + i.apt : '') + '<hr />' +
-                  time + ' (' + fromNow + ')<br />' + 
-                  '<b><i>' + i.disposition + '</i></b>',
-                icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
-                marker: null,
-                state: 'Hidden'
-              })
-            });
-
-            this.markerCacheBounds = this.bounds;
-            this.showMarkers();
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
-    },
-    areBoundsCached: function () {
-      let cacheBounds = this.markerCacheBounds;
-      let loadBounds = this.bounds;
-
-      return cacheBounds == null ||
-        loadBounds.ne.lng > cacheBounds.ne.lng ||
-        loadBounds.sw.lng < cacheBounds.sw.lng ||
-        loadBounds.ne.lat > cacheBounds.ne.lat ||
-        loadBounds.sw.lat < cacheBounds.sw.lat;
-    },
-    showMarkers: function (filter) {
-      if (!filter)
-        filter = this.filter;
-
-      if (!google)
-        return;
-
-      this.markerCache.forEach(markerDetail => {
-        if (markerDetail.state == 'Visible')
-          markerDetail.state = 'Hide';
-      });
-
-      let filteredCache;
-      if (filter == 'ap') {
-        filteredCache = this.markerCache.filter(x => x.type == 'PoliceDispatch' && x.status == 'Service in Progress');
-      } else if (filter == 'rp') {
-        filteredCache = this.markerCache.filter(x => x.type == 'PoliceDispatch');
-      } else if (filter == 'af') {
-        filteredCache = this.markerCache.filter(x => x.type == 'FireDispatch' && x.disposition == 'ACTIVE');
-      } else if (filter == 'rf') {
-        filteredCache = this.markerCache.filter(x => x.type == 'FireDispatch');
-      } else {
-        filteredCache = this.markerCache;
-      }
-
-      if (this.bounds)
-        filteredCache = filteredCache.filter(x => 
-          x.position.lat <= this.bounds.ne.lat &&
-          x.position.lat >= this.bounds.sw.lat &&
-          x.position.lng <= this.bounds.ne.lng &&
-          x.position.lng >= this.bounds.sw.lng
-        );
-
-      filteredCache.forEach(markerDetail => {
-
-        if (markerDetail.marker) {
-          if (markerDetail.state == 'Hide') {
-            markerDetail.state = 'Visible';
-          } else if (markerDetail.state == 'Hidden') {
-            markerDetail.state = 'Visible';
-            markerDetail.marker.setMap(this.map);
-          }
-
-          return;
-        }
-
-        markerDetail.state = 'Visible';
-        
-        markerDetail.marker = new google.maps.Marker({
-          position: markerDetail.position,
-          icon: {
-            url: markerDetail.icon,
-            scaledSize: new google.maps.Size(50, 50),
-          },
-          map: this.map
-        });
-
-        markerDetail.marker.addListener('click', e => {
-          if (this.openInfoWindow)
-            this.openInfoWindow.close();
-
-          this.openInfoWindow = new google.maps.InfoWindow({
-            content: markerDetail.content
-          });
-          this.openInfoWindow.open(this.map, markerDetail.marker);
-        });
-      });
-
-      // TODO: Set mapFull
-      //this.mapFull = totalCount >= this.mapItemLimit;
-
-      this.markerCache.forEach(markerDetail => {
-        if (markerDetail.state == 'Hide') {
-          markerDetail.state = 'Hidden';
-          markerDetail.marker.setMap(null);
-        }
-      });
-
-    },
-    getBoundsFilter: function() {
-      if (!this.bounds)
-        return '';
-
-      return '&northBound=' + this.bounds.ne.lat + '&southBound=' + this.bounds.sw.lat + '&eastBound=' + this.bounds.ne.lng + '&westBound=' + this.bounds.sw.lng;
-    },
-    */
     loadMarkers: function () {
+      this.items = [];
+      this.itemTypesLoaded = 0;
+
+      let now = moment().subtract(this.hours, 'hours').format('YYYY-MM-DD HH:mm:ss');
+      let filter = 'ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22';
+
+      axios
+        .get('/api/policeDispatchCall?limit=1000&filter=' + filter)
+        .then(response => {
+          let x = response.data.filter(i => i.geometry && i.geometry.coordinates && i.geometry.coordinates[0] && i.geometry.coordinates[0][0]);
+          x.forEach(i => {
+            let time = moment(i.reportedDateTime).format('llll');
+            let fromNow = moment(i.reportedDateTime).fromNow();
+
+            let icon = this.getPoliceDispatchCallTypeIcon(i.natureOfCall);
+
+            this.items.push({
+              type: 'PoliceDispatchCall',
+              id: i.callNumber,
+              position: {
+                lat: i.geometry.coordinates[0][0][1],
+                lng: i.geometry.coordinates[0][0][0]
+              },
+              status: i.status,
+              content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
+                i.location + ' (Police District ' + i.district + ')<hr />' +
+                time + ' (' + fromNow + ')<br />' + 
+                '<b><i>' + i.status + '</i></b>',
+              icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
+              marker: null
+            });
+          });
+
+          this.showMarkers();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+
+      axios
+        .get('/api/fireDispatchCall?limit=1000&filter=' + filter)
+        .then(response => {
+          let x = response.data.filter(i => i.geometry && i.geometry.coordinates && i.geometry.coordinates[0] && i.geometry.coordinates[0][0]);
+          x.forEach(i => {
+            let time = moment(i.reportedDateTime).format('llll');
+            let fromNow = moment(i.reportedDateTime).fromNow();
+
+            //let icon = this.getPoliceDispatchCallTypeIcon(i.natureOfCall);
+            let icon = 'orange-circle.png';
+
+            this.items.push({
+              type: 'FireDispatchCall',
+              id: i.cfs,
+              position: {
+                lat: i.geometry.coordinates[0][0][1],
+                lng: i.geometry.coordinates[0][0][0]
+              },
+              disposition: i.disposition,
+              content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
+                i.address + (i.apt ? ' APT. #' + i.apt : '') + '<hr />' +
+                time + ' (' + fromNow + ')<br />' + 
+                '<b><i>' + i.disposition + '</i></b>',
+              icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
+              marker: null
+            });
+          });
+
+          this.showMarkers();
+
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    showMarkers: function () {
       if (!google)
         return;
-      
-      this.recentDispatchCalls.values.forEach(i => {
+
+      if (!this.map)
+        return;
+
+      this.items.forEach(i => {
 
         let visible = true;
 
-        if ((this.filter == 'ap' || this.filter == 'rp') && i.type == 'FireDispatch')
-          visible = false;
+        if (this.filterType && this.filterType.length > 0)
+          visible = i.type == this.filterType;
 
-        if ((this.filter == 'af' || this.filter == 'rf') && i.type == 'PoliceDispatch')
-          visible = false;
+        if (visible) {
+          if (!i.marker) {
+            i.marker = new google.maps.Marker({
+              position: i.position,
+              icon: {
+                url: i.icon,
+                scaledSize: new google.maps.Size(50, 50),
+              },
+              map: this.map
+            });
 
-        let marker = new google.maps.Marker({
-          position: i.position,
-          icon: {
-            url: i.icon,
-            scaledSize: new google.maps.Size(50, 50),
-          },
-          map: this.map
-        });
+            i.marker.addListener('click', e => {
+              if (this.openInfoWindow)
+                this.openInfoWindow.close();
 
-        marker.addListener('click', e => {
-          if (this.openInfoWindow)
-            this.openInfoWindow.close();
+              this.openInfoWindow = new google.maps.InfoWindow({
+                content: i.content
+              });
+              this.openInfoWindow.open(this.map, i.marker);
+            });
+          } else {
+            if (i.marker.map == null)
+              i.marker.setMap(this.map);
+          }
+        } else {
+          if (i.marker && i.marker.map)
+            i.marker.setMap(null)
+        }
 
-          this.openInfoWindow = new google.maps.InfoWindow({
-            content: i.content
-          });
-          this.openInfoWindow.open(this.map, marker);
-        });
 
       });
     },
@@ -307,19 +181,8 @@ export default {
     }
   },
   watch: {
-    recentDispatchCalls: {
-      handler: function (newValue, oldValue) {
-        if (newValue.loadState == 2) {
-          this.loadMarkers();
-        }
-      },
-      deep: true
-    },
-    // getRecentDispatchCalls: function (newValue, oldValue) {
-    //   console.log('getter');
-    // },
-    filter: function (newValue, oldValue) {
-      this.loadMarkers();
+    filterType: function (newValue, oldValue) {
+      this.showMarkers();
     },
     locationData: function (newValue, oldValue) {
       this.map.setCenter(newValue);
@@ -332,12 +195,6 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("loadPoliceDispatchCallTypes").then(() => {
-    });
-    this.$store.dispatch("loadRecentDispatchCalls").then(() => {
-      console.log("Loaded recent dispatch calls");
-      //console.log(this.recentDispatchCalls.values);
-    });
   },
   async mounted () {
 
@@ -348,34 +205,14 @@ export default {
       gestureHandling: 'greedy'
     });
 
-    // let boundsChangedTimeout = null;
+    google.maps.event.addListenerOnce(this.map, 'idle', () => {
+      this.showMarkers();
+    });
 
-    // this.map.addListener('bounds_changed', e => {
+    this.$store.dispatch("loadPoliceDispatchCallTypes").then(() => {
+      this.loadMarkers();
+    });
 
-    //   if (boundsChangedTimeout != null)
-    //     clearTimeout(boundsChangedTimeout);
-
-    //   boundsChangedTimeout = setTimeout(() => {
-    //     let bounds = this.map.getBounds();
-    //     let ne = bounds.getNorthEast();
-    //     let sw = bounds.getSouthWest();
-    //     this.bounds = {
-    //       ne: {
-    //         lat: ne.lat(),
-    //         lng: ne.lng()
-    //       },
-    //       sw: {
-    //         lat: sw.lat(),
-    //         lng: sw.lng()
-    //       }
-    //     };
-
-    //     this.loadAllMarkers();
-
-    //   }, 1000);
-    // });
-
-    // this.loadAllMarkers();
   }
 };
 </script>

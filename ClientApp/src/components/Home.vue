@@ -40,13 +40,13 @@
     <b-row>
       <b-col>
         <b-form-group>
-          <b-form-radio-group v-model="mapFilter" :options="mapFilters" buttons button-variant="outline-primary" size="sm" />
+          <b-form-radio-group v-model="mapFilterType" :options="mapFilterTypes" buttons button-variant="outline-primary" size="sm" />
         </b-form-group>        
       </b-col>
     </b-row>
     <b-row>
       <b-col>
-        <basic-map :filter="mapFilter" :locationData="locationData" :distance="distance" />
+        <basic-map :filterType="mapFilterType" :locationData="locationData" :distance="distance" />
       </b-col>
     </b-row>
     <b-row class="mt-3">
@@ -54,7 +54,7 @@
         <b-alert show variant="secondary">
           <h2>This is not an official City of Milwaukee website.</h2>
           <p>This site is not affiliated in any way with the City of Milwaukee, Milwaukee Police Department, Milwaukee Fire Department, or any other government agency.</p>
-          <p>The data on this site is not real-time. Police dispatch call data is available within 30-90 minutes of the call; file dispatch call data is available within 15-105 minutes of the call.</p>
+          <p>The data on this site is not real-time. Police dispatch call data is available within 30-90 minutes of the call; fire dispatch call data is available within 15-105 minutes of the call.</p>
         </b-alert>
       </b-col>
     </b-row>
@@ -97,13 +97,11 @@ export default {
       addressData: null,
       locationData: null,
 
-      mapFilter: '',
-      mapFilters: [
+      mapFilterType: '',
+      mapFilterTypes: [
         { text: 'All', value: '' },
-        { text: 'Active Police Calls', value: 'ap' },
-        { text: 'Recent Police Calls', value: 'rp' },
-        { text: 'Active Fire Calls', value: 'af' },
-        { text: 'Recent Fire Calls', value: 'rf' },
+        { text: 'Police Dispatch Calls', value: 'PoliceDispatchCall' },
+        { text: 'Fire Dispatch Calls', value: 'FireDispatchCall' },
       ],
 
       // Notifications
