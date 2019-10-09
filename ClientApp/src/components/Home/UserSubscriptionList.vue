@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import dataStore from '../DataStore.vue';
 import AuthMixin from '../Mixins/AuthMixin.vue';
 import { mapState, mapGetters } from 'vuex'
 
@@ -38,7 +37,6 @@ export default {
   ],
   data() {
     return {
-      dataStore: dataStore
     }
   },
   computed: {

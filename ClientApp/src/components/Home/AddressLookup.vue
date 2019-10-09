@@ -31,7 +31,7 @@
 <script>
 import axios from "axios";
 import dataStore from '../DataStore.vue';
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'AddressLookup',
@@ -53,16 +53,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['streetReferences']),
-    // streetDirections: function () {
-    //   return dataStore.streetReferences.streetDirections;
-    // },
-    // streetNames: function () {
-    //   return dataStore.streetReferences.streetNames;
-    // },
-    // streetTypes: function () {
-    //   return dataStore.streetReferences.streetTypes;
-    // }
+    ...mapState(['streetReferences'])
   },
   methods: {
     getPosition: function () {
@@ -75,19 +66,18 @@ export default {
       this.lat = position.coords.latitude;
       this.lng = position.coords.longitude;
 
-      dataStore.geocode.addressFromCoordinates(this.lat, this.lng)
-        .then(property => {
-          this.number = property.house_nr_lo;
-          this.streetDirection = property.sdir;
-          this.streetName = property.street;
-          this.streetType = property.sttype;
+      this.$store.dispatch('getAddressFromCoordinates', {
+        lat: this.lat, 
+        lng: this.lng
+      }).then(property => {
+        this.number = property.house_nr_lo;
+        this.streetDirection = property.sdir;
+        this.streetName = property.street;
+        this.streetType = property.sttype;
 
-          this.emitAddressData();
-          this.emitLocationData();
-        })
-        .catch(error => {
-          console.log(error);
-        });
+        this.emitAddressData();
+        this.emitLocationData();
+      });
     },
     onSubmit: function () {
       axios
@@ -141,14 +131,10 @@ export default {
     }
   },
   mounted () {
-    //dataStore.streetReferences.load();
-
     this.getPosition();
   },
   created() {
-    this.$store.dispatch("loadStreetReferences").then(() => {
-      console.log("Street references loaded!");
-    });
+    this.$store.dispatch("loadStreetReferences");
   },
   watch: {
     addressData: function (newValue, oldValue) {

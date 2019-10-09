@@ -50,33 +50,6 @@ let ref = {
       return 'wht-blank.png';      
     }
   },
-  // streetReferences: {
-  //   state: 0,
-  //   streetDirections: [],
-  //   streetNames: [],
-  //   streetTypes: [],
-
-  //   load: function () {
-  //     if (ref.streetReferences.state != 0)
-  //       return;
-
-  //     ref.streetReferences.state = 1;
-  //     axios
-  //       .get('/api/streetReference')
-  //       .then(response => {
-  //         ref.streetReferences.streetDirections = response.data.streetDirections.map(x => { return x == null ? "" : x; });
-  //         ref.streetReferences.streetNames = response.data.streetNames;
-  //         ref.streetReferences.streetTypes = response.data.streetTypes.map(x => { return x == null ? "" : x; });
-
-  //         ref.streetReferences.state = 2;
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-
-  //         ref.streetReferences.state = 0;
-  //       });
-  //   }
-  // },
   geocode: {
     cache: [],
 
@@ -133,31 +106,6 @@ let ref = {
       return promise;
     }
   },
-  // distances: [
-  //   { text: '1/16 mile', value: 330 },
-  //   { text: '1/8 mile', value: 660 },
-  //   { text: '1/4 mile', value: 1320 },
-  //   { text: '1/2 mile', value: 2640 },
-  //   { text: '1 mile', value: 5280 }
-  // ],
-  // callTypes: [
-  //   { text: 'any police dispatch call', value: 'PoliceDispatchCall' },
-  //   { text: 'any fire dispatch call', value: 'FireDispatchCall' },
-  //   { text: 'any police or fire dispatch call', value: 'AllDispatchCall' },
-  //   { text: 'any major crime or fire call', value: 'MajorCall' }
-  // ],
-  // getDistanceLabel: function(distance) {
-  //   if (!distance)
-  //     return '';
-
-  //   return ref.distances.find(x => x.value == distance).text;
-  // },
-  // getCallTypeLabel: function(callType) {
-  //   if (!callType)
-  //     return '';
-
-  //   return ref.callTypes.find(x => x.value == callType).text;
-  // }
 };
 
 export default Vue.observable(ref);
