@@ -12,6 +12,7 @@ export default {
     'getItemInfoWindowText',
     'getItemPolygonGeometry',
     'getItemMarkerGeometry',
+    'getItemIcon',
     'getItemId',
     'openInfoWindowItem'
   ],
@@ -89,9 +90,14 @@ export default {
           return;
         } else if (geometry) {
 
+          let icon = 'wht-blank.png';
+          if (this.getItemIcon)
+            icon = this.getItemIcon(i);
+
           let marker = new google.maps.Marker({
             position: geometry,
-            map: map
+            map: map,
+            icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon
           });
 
           marker.addListener('click', e => {
@@ -188,8 +194,6 @@ export default {
   },
   watch: {
     async items() {
-      console.log('items changed');
-
       this.redraw();
     },
     openInfoWindowItem (newValue, oldValue) {

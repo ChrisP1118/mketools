@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: "PoliceDispatchCallList",
   props: {},
@@ -69,9 +71,14 @@ export default {
         openInfoWindowOnRowClick: true,
         getItemInfoWindowText: function (item) {
           let raw = item._raw;
-          return raw.location + '<br />' +
-            raw.natureOfCall + '<br />' +
-            raw.status;
+
+          let time = moment(raw.reportedDateTime).format('llll');
+          let fromNow = moment(raw.reportedDateTime).fromNow();
+
+          return '<p style="font-size: 150%; font-weight: bold;">' + raw.natureOfCall + '</p>' +
+            raw.location + ' (Police District ' + raw.district + ')<hr />' +
+            time + ' (' + fromNow + ')<br />' + 
+            '<b><i>' + raw.status + '</i></b>';
         },
         getItemMarkerGeometry: function (item) {
           if (!item || !item._raw || !item._raw.geometry || !item._raw.geometry.coordinates[0] || !item._raw.geometry.coordinates[0][0])
@@ -82,15 +89,21 @@ export default {
             lng: item._raw.geometry.coordinates[0][0][0]
           };          
         },
+        getItemIcon: function (item) {
+          return this.$store.getters.getPoliceDispatchCallTypeIcon(item._raw.natureOfCall);
+        },
         getItemId: function (item) {
           return item._raw.callNumber;
         }
       }
     }
   },
+  computed: {
+  },
   methods: {
   },
   mounted () {
+    this.$store.dispatch("loadPoliceDispatchCallTypes");
   }
 };
 </script>

@@ -2,12 +2,14 @@
 
 * ~~Use Vuex on Home page dispatch call list/map markers~~
 * ~~Refresh home page on schedule (to show new markers)~~
+* Analysis on failed geocode requests - how can we get more hits?
 * Use police dispatch call types
 * Use fire dispatch call types
 * Dispatch call notifications
 * Consistent mapping icons (based on call types)
 * Check for faulty import processes
 * Hide "Properties" page?
+* Add database indexes (ReportedDateTime on Police/FireDispatchCalls)
 * Individual/detail pages for dispatch calls, crimes
 * Crime/police dispatch call detail pages link cross-link
 * Add "Developer" documentation/notes

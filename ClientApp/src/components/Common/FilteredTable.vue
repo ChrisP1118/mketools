@@ -70,6 +70,7 @@
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-geometry="settings.getItemMarkerGeometry"
+          :get-item-icon="settings.getItemIcon"
           :get-item-id="settings.getItemId"
           :open-info-window-item="openInfoWindowItem">
         </filtered-table-map>
@@ -119,6 +120,7 @@
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-geometry="settings.getItemMarkerGeometry"
+          :get-item-icon="settings.getItemIcon"
           :get-item-id="settings.getItemId"
           :open-info-window-item="openInfoWindowItem">
         </filtered-table-map>

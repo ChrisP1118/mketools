@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import moment from 'moment'
 
 export default {
   name: "FireDispatchCallList",
@@ -72,9 +72,14 @@ export default {
         openInfoWindowOnRowClick: true,
         getItemInfoWindowText: function (item) {
           let raw = item._raw;
-          return raw.address + '<br />' +
-            raw.natureOfCall + '<br />' +
-            raw.disposition;
+
+          let time = moment(raw.reportedDateTime).format('llll');
+          let fromNow = moment(raw.reportedDateTime).fromNow();
+
+          return '<p style="font-size: 150%; font-weight: bold;">' + raw.natureOfCall + '</p>' +
+            raw.address + (raw.apt ? ' APT. #' + raw.apt : '') + '<hr />' +
+            time + ' (' + fromNow + ')<br />' + 
+            '<b><i>' + raw.disposition + '</i></b>';
         },
         getItemMarkerGeometry: function (item) {
           if (!item || !item._raw || !item._raw.geometry || !item._raw.geometry.coordinates[0] || !item._raw.geometry.coordinates[0][0])
@@ -85,8 +90,11 @@ export default {
             lng: item._raw.geometry.coordinates[0][0][0]
           };          
         },
+        getItemIcon: function (item) {
+          return this.$store.getters.getFireDispatchCallTypeIcon(item._raw.natureOfCall);
+        },
         getItemId: function (item) {
-          return item._raw.callNumber;
+          return item._raw.cfs;
         }
       }
     }
@@ -94,6 +102,7 @@ export default {
   methods: {
   },
   mounted () {
+    this.$store.dispatch("loadFireDispatchCallTypes");
   }
 };
 </script>
