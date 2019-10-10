@@ -80,11 +80,17 @@ namespace MkeAlerts.Web.Data
             modelBuilder.Entity<PoliceDispatchCall>()
                 .HasKey(x => x.CallNumber);
 
+            modelBuilder.Entity<PoliceDispatchCall>()
+                .HasIndex(x => x.ReportedDateTime);
+
             modelBuilder.Entity<PoliceDispatchCallType>()
                 .HasKey(x => x.NatureOfCall);
 
             modelBuilder.Entity<FireDispatchCall>()
                 .HasKey(x => x.CFS);
+
+            modelBuilder.Entity<FireDispatchCall>()
+                .HasIndex(x => x.ReportedDateTime);
 
             modelBuilder.Entity<FireDispatchCallType>()
                 .HasKey(x => x.NatureOfCall);

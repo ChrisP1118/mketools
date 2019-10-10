@@ -29,19 +29,26 @@ namespace MkeAlerts.Web.Services.Functional
         protected readonly UserManager<ApplicationUser> _userManager;
         protected readonly ILogger<GeocodingService> _logger;
 
-        protected string[] _suffixes = new string[12] {
-            "TR",
-            "AV",
-            "RD",
-            "CR",
-            "WA",
-            "CT",
-            "LA",
-            "PK",
-            "ST",
-            "DR",
-            "PL",
-            "BL" };
+        protected Dictionary<string, string> _suffixes = new Dictionary<string, string>() {
+            { "TR", "TR" },
+            { "AV", "AV" },
+            { "RD", "RD" },
+            { "CR", "CR" },
+            { "WA", "WA" },
+            { "CT", "CT" },
+            { "LA", "LA" },
+            { "PK", "PK" },
+            { "ST", "ST" },
+            { "DR", "DR" },
+            { "PL", "PL" },
+            { "BL", "BL" },
+            { "AVE", "AV" },
+            { "BLVD", "BL" },
+            { "CIR", "CR" },
+            { "PKWY", "PK" },
+            { "TER", "TR" },
+            { "WAY", "WA" }
+        };
 
         public GeocodingService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, ILogger<GeocodingService> logger)
         {
@@ -116,7 +123,7 @@ namespace MkeAlerts.Web.Services.Functional
 
                 modValue = modValue.ToUpper();
 
-                if (modValue.Contains(" / "))
+                if (modValue.Contains("/"))
                     return await GeocodeIntersection(new IntersectionGeocodeRequest(value, modValue));
                 else
                     return await GeocodeAddress(new AddressGeocodeRequest(value, modValue));
@@ -152,8 +159,8 @@ namespace MkeAlerts.Web.Services.Functional
 
                 request.Streets[i].Direction = parts[0];
 
-                if (_suffixes.Contains(parts[parts.Length - 1]))
-                    request.Streets[i].StreetType = parts[parts.Length - 1];
+                if (_suffixes.Keys.Contains(parts[parts.Length - 1]))
+                    request.Streets[i].StreetType = _suffixes[parts[parts.Length - 1]];
 
                 request.Streets[i].Street = string.Join(' ', parts, 1, parts.Length - (request.Streets[i].StreetType == "" ? 1 : 2));
 
@@ -183,7 +190,7 @@ namespace MkeAlerts.Web.Services.Functional
                 foreach (Street street1 in streets1)
                 {
                     IGeometry intersection = street0.Outline.Intersection(street1.Outline);
-                    if (intersection != null)
+                    if (intersection != null && !intersection.IsEmpty)
                     {
                         request.Results.Geometry = intersection;
                         request.Results.Accuracy = GeometryAccuracy.High;
@@ -218,8 +225,8 @@ namespace MkeAlerts.Web.Services.Functional
             }
 
             request.StreetType = "";
-            if (_suffixes.Contains(parts[parts.Length - 1]))
-                request.StreetType = parts[parts.Length - 1];
+            if (_suffixes.Keys.Contains(parts[parts.Length - 1]))
+                request.StreetType = _suffixes[parts[parts.Length - 1]];
 
             string houseNumberString = parts[0];
 

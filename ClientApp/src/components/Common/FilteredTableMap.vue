@@ -33,7 +33,7 @@ export default {
       this.map = new google.maps.Map(this.$el, {
         center: { lat: 43.0315528, lng: -87.9730566 },
         zoom: 10,
-        gestureHandling: 'greedy'
+        //gestureHandling: 'greedy'
       });
 
       //this.map.setCenter({lat: 43.0315528, lng: -87.9730566});

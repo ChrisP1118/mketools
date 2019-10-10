@@ -1,12 +1,6 @@
 # Launch
 
-* ~~Use Vuex on Home page dispatch call list/map markers~~
-* ~~Refresh home page on schedule (to show new markers)~~
-* Analysis on failed geocode requests - how can we get more hits?
-* Use police dispatch call types
-* Use fire dispatch call types
 * Dispatch call notifications
-* Consistent mapping icons (based on call types)
 * Check for faulty import processes
 * Hide "Properties" page?
 * Add database indexes (ReportedDateTime on Police/FireDispatchCalls)
@@ -44,3 +38,9 @@
 * ~~Create a DTO for IGeometry types~~
 * ~~Auth with Google, Facebook~~
 * ~~Consolidate login/register response handlers into a mixin~~
+* ~~Use Vuex on Home page dispatch call list/map markers~~
+* ~~Refresh home page on schedule (to show new markers)~~
+* ~~Use police dispatch call types~~
+* ~~Use fire dispatch call types~~
+* ~~Analysis on failed geocode requests - how can we get more hits?~~
+* ~~Consistent mapping icons (based on call types)~~

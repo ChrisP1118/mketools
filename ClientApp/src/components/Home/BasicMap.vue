@@ -203,7 +203,7 @@ export default {
     this.map = new google.maps.Map(document.getElementById('basicMap'), {
       center: { lat: 43.0315528, lng: -87.9730566 },
       zoom: 12,
-      gestureHandling: 'greedy'
+      //gestureHandling: 'greedy'
     });
 
     google.maps.event.addListenerOnce(this.map, 'idle', () => {

@@ -82,9 +82,11 @@ from (
 order by x.IsCritical desc, x.IsViolent desc, x.IsProperty desc, x.IsDrug desc, x.IsTraffic desc, x.NatureOfCall asc
 */
 
+/*
 select NatureOfCall, count(*)
 from FireDispatchCalls
 group by NatureOfCall
+*/
 
 /*
 delete
@@ -92,6 +94,40 @@ from FireDispatchCalls
 where NatureOfCall = ''
 */
 
+/*
 select top 5 *
 from Crimes
 where TypeOfCrime is not null
+*/
+
+/*
+select HOUSE_NR_LO, HOUSE_NR_HI, HOUSE_NR_SFX, *
+from Properties
+where street = 'FARWELL'
+order by Properties.HOUSE_NR_LO
+*/
+
+/*
+select * 
+from PoliceDispatchCalls
+where Location like '%farwell%'
+*/
+
+/*
+select Sfx, count(*)
+from (
+	select *, right(Address, charindex(' ', reverse(Address) + ' ') - 1) as Sfx
+	from FireDispatchCalls
+	--where Address like '%farwell%'
+) t
+group by Sfx
+*/
+
+select *, right(Address, charindex(' ', reverse(Address) + ' ') - 1) as Sfx
+from FireDispatchCalls
+where Geometry is null
+
+select *, right(Location, charindex(' ', reverse(Location) + ' ') - 1) as Sfx
+from PoliceDispatchCalls
+where Geometry is null
+
