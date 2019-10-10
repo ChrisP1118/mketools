@@ -37,6 +37,10 @@ export const store = new Vuex.Store({
       loadState: STATE_UNLOADED,
       values: []
     },
+    fireDispatchCallTypes: {
+      loadState: STATE_UNLOADED,
+      values: []
+    },
   },
   mutations: {
     SET_STREET_REFERENCES_LOAD_STATE(state, loadState) {
@@ -56,6 +60,14 @@ export const store = new Vuex.Store({
       state.policeDispatchCallTypes.values = values;
 
       state.policeDispatchCallTypes.loadState = STATE_LOADED;
+    },
+    SET_FIRE_DISPATCH_CALL_TYPES_LOAD_STATE(state, loadState) {
+      state.fireDispatchCallTypes.loadState = loadState;
+    },
+    LOAD_FIRE_DISPATCH_CALL_TYPES(state, values) {
+      state.fireDispatchCallTypes.values = values;
+
+      state.fireDispatchCallTypes.loadState = STATE_LOADED;
     },
     CREATE_GEOCODE_CACHE_ITEM(state, position) {
       let cachedItem = state.geocode.cache.find(x => x.position.lat == position.lat && x.position.lng == position.lng);
@@ -124,6 +136,26 @@ export const store = new Vuex.Store({
           .get('/api/policeDispatchCallType?limit=1000')
           .then(response => {
             commit('LOAD_POLICE_DISPATCH_CALL_TYPES', response.data);
+            resolve();
+          })
+          .catch(error => {
+            console.log(error);
+
+            reject();
+          });
+      });
+    },
+    loadFireDispatchCallTypes({ commit }) {
+      return new Promise((resolve, reject) => {
+        if (this.state.fireDispatchCallTypes.loadState > 0)
+          return;
+
+        commit('SET_FIRE_DISPATCH_CALL_TYPES_LOAD_STATE', STATE_LOADING);
+
+        axios
+          .get('/api/fireDispatchCallType?limit=1000')
+          .then(response => {
+            commit('LOAD_FIRE_DISPATCH_CALL_TYPES', response.data);
             resolve();
           })
           .catch(error => {
@@ -213,6 +245,23 @@ export const store = new Vuex.Store({
 
       if (type.isTraffic)
         return 'ylw-blank.png';
+
+      return 'wht-blank.png';
+    },
+    getFireDispatchCallTypeIcon: state => natureOfCall => {
+      let type = state.fireDispatchCallTypes.values.find(x => x.natureOfCall == natureOfCall);
+
+      if (!type)
+        return 'wht-blank.png';
+
+      if (type.isCritical)
+        return 'red-square.png';
+
+      if (type.isFire)
+        return 'red-blank.png';
+
+      if (type.isMedical)
+        return 'orange-blank.png';
 
       return 'wht-blank.png';
     },

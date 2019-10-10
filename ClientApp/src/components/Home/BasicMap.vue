@@ -18,6 +18,10 @@ export default {
       type: Number,
       default: 6
     },
+    refreshSeconds: {
+      type: Number,
+      default: 300
+    },
     filterType: {
       type: String,
       default: ''
@@ -37,21 +41,23 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getPoliceDispatchCallTypeIcon']),
+    ...mapGetters(['getPoliceDispatchCallTypeIcon', 'getFireDispatchCallTypeIcon']),
   },
   methods: {
     loadMarkers: function () {
-      this.items = [];
       this.itemTypesLoaded = 0;
 
       let now = moment().subtract(this.hours, 'hours').format('YYYY-MM-DD HH:mm:ss');
       let filter = 'ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22';
 
-      axios
+      let promise1 = axios
         .get('/api/policeDispatchCall?limit=1000&filter=' + filter)
         .then(response => {
           let x = response.data.filter(i => i.geometry && i.geometry.coordinates && i.geometry.coordinates[0] && i.geometry.coordinates[0][0]);
           x.forEach(i => {
+            if (this.items.some(x => x.id == i.callNumber))
+              return;
+
             let time = moment(i.reportedDateTime).format('llll');
             let fromNow = moment(i.reportedDateTime).fromNow();
 
@@ -73,23 +79,20 @@ export default {
               marker: null
             });
           });
-
-          this.showMarkers();
-        })
-        .catch(error => {
-          console.log(error);
         });
 
-      axios
+      let promise2 = axios
         .get('/api/fireDispatchCall?limit=1000&filter=' + filter)
         .then(response => {
           let x = response.data.filter(i => i.geometry && i.geometry.coordinates && i.geometry.coordinates[0] && i.geometry.coordinates[0][0]);
           x.forEach(i => {
+            if (this.items.some(x => x.id == i.cfs))
+              return;
+
             let time = moment(i.reportedDateTime).format('llll');
             let fromNow = moment(i.reportedDateTime).fromNow();
 
-            //let icon = this.getPoliceDispatchCallTypeIcon(i.natureOfCall);
-            let icon = 'orange-circle.png';
+            let icon = this.getFireDispatchCallTypeIcon(i.natureOfCall);
 
             this.items.push({
               type: 'FireDispatchCall',
@@ -107,12 +110,12 @@ export default {
               marker: null
             });
           });
+        });
 
+        Promise.all([promise1, promise2]).then(() => {
           this.showMarkers();
-
-        })
-        .catch(error => {
-          console.log(error);
+          this.$emit('updated', moment().format('LT'));
+          setTimeout(this.loadMarkers, this.refreshSeconds * 1000);
         });
     },
     showMarkers: function () {
@@ -157,8 +160,6 @@ export default {
           if (i.marker && i.marker.map)
             i.marker.setMap(null)
         }
-
-
       });
     },
     distanceUpdated: function (value) {
@@ -209,7 +210,7 @@ export default {
       this.showMarkers();
     });
 
-    this.$store.dispatch("loadPoliceDispatchCallTypes").then(() => {
+    Promise.all([this.$store.dispatch("loadPoliceDispatchCallTypes"), this.$store.dispatch("loadFireDispatchCallTypes")]).then(() => {
       this.loadMarkers();
     });
 

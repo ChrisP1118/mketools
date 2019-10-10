@@ -1,7 +1,7 @@
 # Launch
 
-* Use Vuex on Home page dispatch call list/map markers
-* Refresh home page on schedule (to show new markers)
+* ~~Use Vuex on Home page dispatch call list/map markers~~
+* ~~Refresh home page on schedule (to show new markers)~~
 * Use police dispatch call types
 * Use fire dispatch call types
 * Dispatch call notifications

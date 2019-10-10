@@ -41,12 +41,13 @@
       <b-col>
         <b-form-group>
           <b-form-radio-group v-model="mapFilterType" :options="mapFilterTypes" buttons button-variant="outline-primary" size="sm" />
+          <span v-show="mapLastUpdated" class="ml-3">Last updated at {{mapLastUpdated}}</span>
         </b-form-group>        
       </b-col>
     </b-row>
     <b-row>
       <b-col>
-        <basic-map :filterType="mapFilterType" :locationData="locationData" :distance="distance" />
+        <basic-map :filterType="mapFilterType" :locationData="locationData" :distance="distance" @updated="onMapUpdated" />
       </b-col>
     </b-row>
     <b-row class="mt-3">
@@ -103,6 +104,7 @@ export default {
         { text: 'Police Dispatch Calls', value: 'PoliceDispatchCall' },
         { text: 'Fire Dispatch Calls', value: 'FireDispatchCall' },
       ],
+      mapLastUpdated: null,
 
       // Notifications
       distance: 660,
@@ -234,6 +236,9 @@ export default {
       }
       this.distance = subscription.distance;
       this.callType = subscription.dispatchCallType;
+    },
+    onMapUpdated: function (lastUpdate) {
+      this.mapLastUpdated = lastUpdate;
     }
   },
   watch: {
