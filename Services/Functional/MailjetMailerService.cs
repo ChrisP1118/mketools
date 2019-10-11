@@ -8,14 +8,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Utilities
+namespace MkeAlerts.Web.Services.Functional
 {
-    public class MailjetMailSender : IMailSender
+    public class MailjetMailerService : IMailerService
     {
         protected readonly IConfiguration _configuration;
-        protected readonly ILogger<MailjetMailSender> _logger;
+        protected readonly ILogger<MailjetMailerService> _logger;
 
-        public MailjetMailSender(IConfiguration configuration, ILogger<MailjetMailSender> logger)
+        public MailjetMailerService(IConfiguration configuration, ILogger<MailjetMailerService> logger)
         {
             _configuration = configuration;
             _logger = logger;
@@ -23,6 +23,12 @@ namespace MkeAlerts.Web.Utilities
 
         public async Task SendEmail(string to, string subject, string text, string html)
         {
+            if (!string.IsNullOrEmpty(_configuration["MailSenderOverride"]))
+            {
+                subject = "[Redirect: " + to + "] " + subject;
+                to = _configuration["MailSenderOverride"];
+            }
+
             MailjetClient client = new MailjetClient(_configuration["MailjetPublicKey"], _configuration["MailjetPrivateKey"])
             {
                 Version = ApiVersion.V3_1,

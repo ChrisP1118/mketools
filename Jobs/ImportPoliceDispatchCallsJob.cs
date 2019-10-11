@@ -23,13 +23,13 @@ namespace MkeAlerts.Web.Jobs
     public class ImportPoliceDispatchCallsJob : Job
     {
         private readonly ILogger<ImportPoliceDispatchCallsJob> _logger;
-        private readonly IEntityWriteService<PoliceDispatchCall, string> _dispatchCallWriteService;
+        private readonly IEntityWriteService<PoliceDispatchCall, string> _policeDispatchCallWriteService;
         private readonly IGeocodingService _geocodingService;
 
-        public ImportPoliceDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportPoliceDispatchCallsJob> logger, IEntityWriteService<PoliceDispatchCall, string> dispatchCallWriteService, IGeocodingService geocodingService)
+        public ImportPoliceDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportPoliceDispatchCallsJob> logger, IEntityWriteService<PoliceDispatchCall, string> policeDispatchCallWriteService, IGeocodingService geocodingService)
             : base(configuration, signInManager, userManager)
         {
-            _dispatchCallWriteService = dispatchCallWriteService;
+            _policeDispatchCallWriteService = policeDispatchCallWriteService;
             _logger = logger;
             _geocodingService = geocodingService;
         }
@@ -53,7 +53,7 @@ namespace MkeAlerts.Web.Jobs
                 {
                     var cols = row.SelectNodes("td");
 
-                    PoliceDispatchCall dispatchCall = await _dispatchCallWriteService.GetOne(claimsPrincipal, cols[0].InnerText);
+                    PoliceDispatchCall dispatchCall = await _policeDispatchCallWriteService.GetOne(claimsPrincipal, cols[0].InnerText);
 
                     if (dispatchCall == null)
                     {
@@ -74,14 +74,14 @@ namespace MkeAlerts.Web.Jobs
 
                         GeographicUtilities.SetBounds(dispatchCall, geocodeResults.Geometry);
 
-                        await _dispatchCallWriteService.Create(claimsPrincipal, dispatchCall);
+                        await _policeDispatchCallWriteService.Create(claimsPrincipal, dispatchCall);
                         ++success;
                     }
                     else
                     {
                         dispatchCall.Status = cols[5].InnerText;
 
-                        await _dispatchCallWriteService.Update(claimsPrincipal, dispatchCall);
+                        await _policeDispatchCallWriteService.Update(claimsPrincipal, dispatchCall);
                         ++success;
                     }
                 }

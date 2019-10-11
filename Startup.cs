@@ -239,8 +239,7 @@ Note that not all fields can be sorted.
 
             services.AddTransient<IStreetReferenceService, StreetReferenceService>();
             services.AddTransient<IGeocodingService, GeocodingService>();
-
-            services.AddTransient<IMailSender, MailjetMailSender>();
+            services.AddTransient<IMailerService, MailjetMailerService>();
 
             services.AddSingleton<IValidator<Property>, PropertyValidator>();
             services.AddSingleton<IValidator<Address>, AddressValidator>();

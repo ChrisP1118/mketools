@@ -49,7 +49,7 @@ namespace MkeAlerts.Web.Controllers
         [SwaggerResponseHeader(StatusCodes.Status200OK, "X-Total-Count", "int", "Returns the total number of available items")]
         public async Task<ActionResult<IEnumerable<TDTOModel>>> GetAllAsync(int offset = 0, int limit = 10, string order = null, string filter = null, double? northBound = null, double? southBound = null, double? eastBound = null, double? westBound = null)
         {
-            List<TDataModel> dataModelItems = await _readService.GetAll(HttpContext.User, offset, limit, order, filter, northBound, southBound, eastBound, westBound);
+            List<TDataModel> dataModelItems = await _readService.GetAll(HttpContext.User, offset, limit, order, filter, northBound, southBound, eastBound, westBound, null);
 
             List<TDTOModel> dtoModelItems = dataModelItems
                 .Select(d => _mapper.Map<TDataModel, TDTOModel>(d))

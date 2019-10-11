@@ -42,6 +42,8 @@ namespace MkeAlerts.Web.Services
             _dbContext.Set<TDataModel>().Add(dataModel);
             await _dbContext.SaveChangesAsync();
 
+            await OnCreated(dataModel);
+
             return dataModel;
         }
 
@@ -105,60 +107,10 @@ namespace MkeAlerts.Web.Services
                         failure.Add(dataModel);
                     }
                 }
-
-                /*
-                foreach (TDataModel dataModel in dataModels)
-                    _dbContext.Set<TDataModel>().Add(dataModel);
-
-                try
-                {
-                    await _dbContext.SaveChangesAsync();
-                    success = dataModels;
-                }
-                catch (Exception ex)
-                {
-                    try
-                    {
-                        // Detach all the entities we added
-                        foreach (TDataModel dataModel in dataModels)
-                        {
-                            try
-                            {
-                                _dbContext.Entry<TDataModel>(dataModel).State = EntityState.Detached;
-                            }
-                            catch (Exception ex3)
-                            {
-                                _logger.LogError(ex3, "Error detaching item");
-                                throw;
-                            }
-                        }
-                    }
-                    catch (Exception ex4)
-                    {
-                        _logger.LogError(ex4, "Error interating items");
-                        throw;
-                    }
-
-                    // Now try adding them one at a time
-                    foreach (TDataModel dataModel in dataModels)
-                    {
-                        _dbContext.Set<TDataModel>().Add(dataModel);
-                        try
-                        {
-                            await _dbContext.SaveChangesAsync();
-                            success.Add(dataModel);
-                        }
-                        catch (Exception ex2)
-                        {
-                            _dbContext.Entry<TDataModel>(dataModel).State = EntityState.Detached;
-                            _logger.LogError(ex2, "Error adding item");
-                            failure.Add(dataModel);
-                            
-                        }
-                    }
-                }
-                */
             }
+
+            foreach (TDataModel dataModel in dataModels)
+                await OnCreated(dataModel);
 
             return new Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>>(success, failure);
         }
@@ -175,6 +127,8 @@ namespace MkeAlerts.Web.Services
             _dbContext.Entry(dataModel).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
 
+            await OnUpdated(dataModel);
+
             return dataModel;
         }
 
@@ -189,6 +143,8 @@ namespace MkeAlerts.Web.Services
 
             _dbContext.Set<TDataModel>().Remove(dataModel);
             await _dbContext.SaveChangesAsync();
+
+            await OnDeleted(dataModel);
 
             return dataModel;
         }
@@ -212,6 +168,9 @@ namespace MkeAlerts.Web.Services
 
         #endregion
 
+        protected virtual async Task OnCreated(TDataModel dataModel) { }
+        protected virtual async Task OnUpdated(TDataModel dataModel) { }
+        protected virtual async Task OnDeleted(TDataModel dataModel) { }
     }
 
 }

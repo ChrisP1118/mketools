@@ -44,7 +44,7 @@ namespace MkeAlerts.Web.Services
 
         #region CRUD Operations
 
-        public async Task<List<TDataModel>> GetAll(ClaimsPrincipal user, int offset, int limit, string order, string filter, double? northBound, double? southBound, double? eastBound, double? westBound)
+        public async Task<List<TDataModel>> GetAll(ClaimsPrincipal user, int offset, int limit, string order, string filter, double? northBound, double? southBound, double? eastBound, double? westBound, Func<IQueryable<TDataModel>, IQueryable<TDataModel>> filterFunc = null)
         {
             var applicationUser = await GetApplicationUser(user);
 
@@ -52,6 +52,9 @@ namespace MkeAlerts.Web.Services
 
             if (!string.IsNullOrEmpty(filter))
                 queryable = queryable.Where(GetParsingConfig(), filter);
+
+            if (filterFunc != null)
+                queryable = filterFunc(queryable);
 
             if (northBound.HasValue && southBound.HasValue && eastBound.HasValue && westBound.HasValue)
                 queryable = await ApplyBounds(queryable, northBound.Value, southBound.Value, eastBound.Value, westBound.Value);

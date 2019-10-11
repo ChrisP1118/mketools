@@ -20,6 +20,7 @@ using Hangfire;
 using MkeAlerts.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using MkeAlerts.Web.Utilities;
+using MkeAlerts.Web.Services.Functional;
 
 namespace MkeAlerts.Web.Controllers
 {
@@ -31,7 +32,7 @@ namespace MkeAlerts.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
-        private readonly IMailSender _mailSender;
+        private readonly IMailerService _mailerService;
 
         public AccountController(
             ApplicationDbContext dbContext,
@@ -39,14 +40,14 @@ namespace MkeAlerts.Web.Controllers
             UserManager<ApplicationUser> userManager,
             IConfiguration configuration,
             IMapper mapper,
-            IMailSender mailSender)
+            IMailerService mailerService)
         {
             _dbContext = dbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
             _mapper = mapper;
-            _mailSender = mailSender;
+            _mailerService = mailerService;
         }
 
         /// <summary>

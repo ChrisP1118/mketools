@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
+using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
+using MkeAlerts.Web.Jobs;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Incidents;
 using NetTopologySuite.Geometries;
@@ -49,6 +51,11 @@ namespace MkeAlerts.Web.Services.Data
                 return true;
 
             return false;
+        }
+
+        protected override async Task OnCreated(PoliceDispatchCall dataModel)
+        {
+            BackgroundJob.Enqueue<SendPoliceDispatchCallNotifications>(x => x.Run(dataModel.GetId()));
         }
     }
 }
