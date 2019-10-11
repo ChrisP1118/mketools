@@ -1,9 +1,9 @@
 # Launch
 
+* Relative times ("3 hours ago" on home page markers get out of date over time)
 * Dispatch call notifications
 * Check for faulty import processes
 * Hide "Properties" page?
-* Add database indexes (ReportedDateTime on Police/FireDispatchCalls)
 * Individual/detail pages for dispatch calls, crimes
 * Crime/police dispatch call detail pages link cross-link
 * Add "Developer" documentation/notes
@@ -44,3 +44,4 @@
 * ~~Use fire dispatch call types~~
 * ~~Analysis on failed geocode requests - how can we get more hits?~~
 * ~~Consistent mapping icons (based on call types)~~
+* ~~Add database indexes (ReportedDateTime on Police/FireDispatchCalls)~~

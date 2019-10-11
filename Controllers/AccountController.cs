@@ -19,6 +19,7 @@ using MkeAlerts.Web.Middleware.Exceptions;
 using Hangfire;
 using MkeAlerts.Web.Data;
 using Microsoft.EntityFrameworkCore;
+using MkeAlerts.Web.Utilities;
 
 namespace MkeAlerts.Web.Controllers
 {
@@ -30,19 +31,22 @@ namespace MkeAlerts.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
+        private readonly IMailSender _mailSender;
 
         public AccountController(
             ApplicationDbContext dbContext,
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             IConfiguration configuration,
-            IMapper mapper)
+            IMapper mapper,
+            IMailSender mailSender)
         {
             _dbContext = dbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
             _mapper = mapper;
+            _mailSender = mailSender;
         }
 
         /// <summary>

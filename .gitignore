@@ -343,3 +343,6 @@ healthchecksdb
 DataSources/parcelbase_mprop_full/
 DataSources/*/
 ClientApp/dist/*
+appsettings.Development.json
+appsettings.Development.json
+appsettings.Production.json

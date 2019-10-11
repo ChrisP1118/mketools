@@ -41,6 +41,7 @@ using Microsoft.AspNetCore.Routing;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Globalization;
+using MkeAlerts.Web.Utilities;
 
 namespace MkeAlerts.Web
 {
@@ -237,8 +238,9 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityWriteService<DispatchCallSubscription, Guid>, DispatchCallSubscriptionService>();
 
             services.AddTransient<IStreetReferenceService, StreetReferenceService>();
-
             services.AddTransient<IGeocodingService, GeocodingService>();
+
+            services.AddTransient<IMailSender, MailjetMailSender>();
 
             services.AddSingleton<IValidator<Property>, PropertyValidator>();
             services.AddSingleton<IValidator<Address>, AddressValidator>();
