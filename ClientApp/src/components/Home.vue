@@ -108,7 +108,7 @@ export default {
 
       // Notifications
       distance: 660,
-      callType: 'MajorCall',
+      callType: 'AnyMajorDispatchCall',
 
       subscriptions: [],
     }

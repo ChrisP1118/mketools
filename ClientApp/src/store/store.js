@@ -19,10 +19,12 @@ export const store = new Vuex.Store({
       { text: '1 mile', value: 5280 }      
     ],
     callTypes: [
-      { text: 'any police dispatch call', value: 'PoliceDispatchCall' },
-      { text: 'any fire dispatch call', value: 'FireDispatchCall' },
-      { text: 'any police or fire dispatch call', value: 'AllDispatchCall' },
-      { text: 'any major crime or fire call', value: 'MajorCall' }
+      { text: 'any major police dispatch call', value: 'JustMajorPoliceDispatchCall'},
+      { text: 'any major or minor police dispatch call', value: 'MinorOrMajorPoliceDispatchCall'},
+      { text: 'any police dispatch call', value: 'AnyPoliceDispatchCall'},
+      { text: 'any major fire dispatch call', value: 'JustMajorFireDispatchCall'},
+      { text: 'any fire dispatch call', value: 'AnyFireDispatchCall'},
+      { text: 'any major police or fire dispatch call', value: 'AnyMajorDispatchCall' }
     ],
     streetReferences: {
       loadState: STATE_UNLOADED,

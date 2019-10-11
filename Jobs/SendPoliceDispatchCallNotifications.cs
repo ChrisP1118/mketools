@@ -49,25 +49,36 @@ namespace MkeAlerts.Web.Jobs
             PoliceDispatchCall policeDispatchCall = await _policeDispatchCallService.GetOne(claimsPrincipal, policeDispatchCallId);
             PoliceDispatchCallType policeDispatchCallType = await _policeDispatchCallTypeService.GetOne(claimsPrincipal, policeDispatchCall.NatureOfCall);
 
-            // IPoint.Distance is confusing. When this gets translated into a SQL query, it ends up using STDistance which interprets in meters on our geography type. However, if you run it in managed
-            // code, it seems to be interpreting it as a geometry instead of geography, so it's the distance in the coordinate system, which is kind of useless.
-
             List<DispatchCallSubscription> dispatchCallSubscriptions = await _dispatchCallSubscriptionService.GetAll(claimsPrincipal, 0, 100000, null, null, null, null, null, null, queryable =>
             {
+                // IPoint.Distance is confusing. When this gets translated into a SQL query, it ends up using STDistance which interprets in meters on our geography type. However, if you run it in managed
+                // code, it seems to be interpreting it as a geometry instead of geography, so it's the distance in the coordinate system, which is kind of useless.
+
                 queryable = queryable
                     .Include(x => x.ApplicationUser)
                     .Where(x => x.Point.Distance(policeDispatchCall.Geometry) < x.Distance * 0.3048); // Distance is stored in feet, which we convert here to meters
 
                 if (policeDispatchCallType.IsMajor)
-                    queryable = queryable.Where(x => x.DispatchCallType.HasFlag(DispatchCallType.MajorPoliceDispatchCall));
+                    queryable = queryable.Where(x => x.DispatchCallType.HasFlag(DispatchCallType.JustMajorPoliceDispatchCall));
+                else if (policeDispatchCallType.IsMajor)
+                    queryable = queryable.Where(x => x.DispatchCallType.HasFlag(DispatchCallType.JustMinorPoliceDispatchCall));
                 else
-                    queryable = queryable.Where(x => x.DispatchCallType.HasFlag(DispatchCallType.PoliceDispatchCall));
+                    queryable = queryable.Where(x => x.DispatchCallType.HasFlag(DispatchCallType.JustNonCrimePoliceDispatchCall));
 
                 return queryable;
             });
 
+            // There may be more than one subscription that covers a given dispatch call, so we keep track of the ones we've already sent so we don't send duplicates
+            List<string> emailAddresses = new List<string>();
+
             foreach (DispatchCallSubscription dispatchCallSubscription in dispatchCallSubscriptions)
             {
+                if (emailAddresses.Contains(dispatchCallSubscription.ApplicationUser.Email))
+                {
+                    _logger.LogInformation("Skipping duplicate subscription notification for police dispatch call " + policeDispatchCall.GetId() + ": " + dispatchCallSubscription.Id + " (" + dispatchCallSubscription.ApplicationUser.Email + ")");
+                    continue;
+                }
+
                 _logger.LogInformation("Subscription notification for police dispatch call " + policeDispatchCall.GetId() + ": " + dispatchCallSubscription.Id + " (" + dispatchCallSubscription.ApplicationUser.Email + ")");
 
                 await _mailerService.SendEmail(
@@ -76,6 +87,8 @@ namespace MkeAlerts.Web.Jobs
                     "A new " + policeDispatchCall.NatureOfCall + " police dispatch call was made at " + policeDispatchCall.ReportedDateTime.ToShortTimeString() + " on " + policeDispatchCall.ReportedDateTime.ToShortDateString() + " at " + policeDispatchCall.Location + ".",
                     "<p>A new " + policeDispatchCall.NatureOfCall + " police dispatch call was made at " + policeDispatchCall.ReportedDateTime.ToShortTimeString() + " on " + policeDispatchCall.ReportedDateTime.ToShortDateString() + " at " + policeDispatchCall.Location + ".</p>"
                 );
+
+                emailAddresses.Add(dispatchCallSubscription.ApplicationUser.Email);
             }
 
         }

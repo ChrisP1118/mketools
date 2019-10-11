@@ -21,13 +21,23 @@ namespace MkeAlerts.Web.Models.Data.Incidents
         public bool IsProperty { get; set; }
         public bool IsDrug { get; set; }
         public bool IsTraffic { get; set; }
+        public bool IsOtherCrime { get; set; }
 
         [NotMapped]
         public bool IsMajor
         {
             get
             {
-                return IsCritical || IsViolent || IsProperty;
+                return IsCritical || IsViolent;
+            }
+        }
+
+        [NotMapped]
+        public bool IsMinor
+        {
+            get
+            {
+                return IsProperty || IsDrug || IsOtherCrime;
             }
         }
     }

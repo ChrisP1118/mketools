@@ -4547,3 +4547,53 @@
 2019-10-11 13:13:25.7235 Info Adding target FileTarget(Name=Misc)
 2019-10-11 13:13:25.7235 Info Adding target FileTarget(Name=Full)
 2019-10-11 13:13:25.7804 Info Found 105 configuration items
+2019-10-11 16:27:03.2113 Info Shutdown() called. Logger closing...
+2019-10-11 16:27:03.2113 Info Closing old configuration.
+2019-10-11 16:27:03.2596 Info Logger has been closed down.
+2019-10-11 16:27:03.2596 Info AppDomain Shutting down. Logger closing...
+2019-10-11 16:27:03.2634 Info Logger has been shut down.
+2019-10-11 16:27:25.2994 Info Message Template Auto Format enabled
+2019-10-11 16:27:25.3108 Info Loading assembly: NLog.Web.AspNetCore
+2019-10-11 16:27:25.3933 Info Adding target FileTarget(Name=EF)
+2019-10-11 16:27:25.3933 Info Adding target FileTarget(Name=Hangfire)
+2019-10-11 16:27:25.3933 Info Adding target FileTarget(Name=MkeAlerts)
+2019-10-11 16:27:25.4030 Info Adding target FileTarget(Name=Misc)
+2019-10-11 16:27:25.4030 Info Adding target FileTarget(Name=Full)
+2019-10-11 16:27:25.4523 Info Found 105 configuration items
+2019-10-11 16:27:25.4694 Info Configuration initialized.
+2019-10-11 16:27:25.4694 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.4.10085. Product version: 4.6.4.
+2019-10-11 16:27:26.8025 Info AppDomain Shutting down. Logger closing...
+2019-10-11 16:27:26.8306 Info Logger has been shut down.
+2019-10-11 16:28:05.9562 Info Message Template Auto Format enabled
+2019-10-11 16:28:05.9655 Info Loading assembly: NLog.Web.AspNetCore
+2019-10-11 16:28:06.0338 Info Adding target FileTarget(Name=EF)
+2019-10-11 16:28:06.0338 Info Adding target FileTarget(Name=Hangfire)
+2019-10-11 16:28:06.0338 Info Adding target FileTarget(Name=MkeAlerts)
+2019-10-11 16:28:06.0338 Info Adding target FileTarget(Name=Misc)
+2019-10-11 16:28:06.0338 Info Adding target FileTarget(Name=Full)
+2019-10-11 16:28:06.0776 Info Found 105 configuration items
+2019-10-11 16:28:06.0926 Info Configuration initialized.
+2019-10-11 16:28:06.0926 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.4.10085. Product version: 4.6.4.
+2019-10-11 16:28:07.0054 Info AppDomain Shutting down. Logger closing...
+2019-10-11 16:28:07.0296 Info Logger has been shut down.
+2019-10-11 16:31:21.5296 Info Message Template Auto Format enabled
+2019-10-11 16:31:21.5296 Info Loading assembly: NLog.Web.AspNetCore
+2019-10-11 16:31:21.6200 Info Adding target FileTarget(Name=EF)
+2019-10-11 16:31:21.6222 Info Adding target FileTarget(Name=Hangfire)
+2019-10-11 16:31:21.6222 Info Adding target FileTarget(Name=MkeAlerts)
+2019-10-11 16:31:21.6222 Info Adding target FileTarget(Name=Misc)
+2019-10-11 16:31:21.6222 Info Adding target FileTarget(Name=Full)
+2019-10-11 16:31:21.6662 Info Found 105 configuration items
+2019-10-11 16:35:59.0237 Info Shutdown() called. Logger closing...
+2019-10-11 16:35:59.0237 Info Closing old configuration.
+2019-10-11 16:35:59.0361 Info Logger has been closed down.
+2019-10-11 16:35:59.0361 Info AppDomain Shutting down. Logger closing...
+2019-10-11 16:35:59.0361 Info Logger has been shut down.
+2019-10-11 16:36:08.2599 Info Message Template Auto Format enabled
+2019-10-11 16:36:08.2697 Info Loading assembly: NLog.Web.AspNetCore
+2019-10-11 16:36:08.3394 Info Adding target FileTarget(Name=EF)
+2019-10-11 16:36:08.3423 Info Adding target FileTarget(Name=Hangfire)
+2019-10-11 16:36:08.3423 Info Adding target FileTarget(Name=MkeAlerts)
+2019-10-11 16:36:08.3423 Info Adding target FileTarget(Name=Misc)
+2019-10-11 16:36:08.3423 Info Adding target FileTarget(Name=Full)
+2019-10-11 16:36:08.3887 Info Found 105 configuration items

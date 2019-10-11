@@ -11,11 +11,18 @@ namespace MkeAlerts.Web.Models.Data
     [Flags]
     public enum DispatchCallType : int
     {
-        PoliceDispatchCall = 1,
-        FireDispatchCall = 2,
-        AllDispatchCall = PoliceDispatchCall | FireDispatchCall,
-        MajorPoliceDispatchCall = 4,
-        MajorFireDispatchCall = 8,
-        MajorCall = MajorPoliceDispatchCall | MajorFireDispatchCall
+        JustNonCrimePoliceDispatchCall = 1,
+        JustMinorPoliceDispatchCall = 2,
+        JustMajorPoliceDispatchCall = 4,
+
+        MinorOrMajorPoliceDispatchCall = JustMinorPoliceDispatchCall | JustMajorPoliceDispatchCall,
+        AnyPoliceDispatchCall = JustNonCrimePoliceDispatchCall | JustMinorPoliceDispatchCall | JustMajorPoliceDispatchCall,
+
+        JustMinorFireDispatchCall = 8,
+        JustMajorFireDispatchCall = 16,
+        AnyFireDispatchCall = JustMinorFireDispatchCall | JustMajorFireDispatchCall,
+        
+        AnyMajorDispatchCall = JustMajorPoliceDispatchCall | JustMajorFireDispatchCall,
+        AnyDispatchCall = JustNonCrimePoliceDispatchCall | JustMinorPoliceDispatchCall | JustMajorPoliceDispatchCall | JustMinorFireDispatchCall | JustMajorFireDispatchCall
     }
 }
