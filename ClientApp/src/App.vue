@@ -22,6 +22,7 @@
           <b-navbar-nav class="ml-auto">
             <b-nav-item right to="/applicationUser">Users</b-nav-item>
             <b-nav-item right to="/about">About</b-nav-item>
+            <b-nav-item right to="/contact">Contact</b-nav-item>
             <b-nav-item right to="/developers">Developers</b-nav-item>
             <b-nav-item-dropdown right>
               <template slot="button-content">

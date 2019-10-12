@@ -46,7 +46,7 @@ export default {
         });
     },
     onCancel(evt) {
-      this.$router.push('/ApplicationUser');
+      this.$router.push('/applicationUser');
     },
     onSubmit(evt) {
       console.log(evt);
@@ -69,7 +69,7 @@ export default {
             autoHideDelay: 5000
           });
 
-          this.$router.push('/ApplicationUser');
+          this.$router.push('/applicationUser');
         })
         .catch(error => {
           console.log(error);

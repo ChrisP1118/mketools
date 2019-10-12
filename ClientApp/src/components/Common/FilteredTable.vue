@@ -153,7 +153,6 @@ export default {
       filterBasedOnMap: false,
       canFilterBasedOnMap: true,
       showMap: 'right',
-      openInfoWindowOnRowClick: false,
       openInfoWindowItem: null
     }
   },
@@ -180,17 +179,15 @@ export default {
         this.refreshData();
     },
     rowClicked: function (item, index, event) {
-      console.log('row click');
-      if (!this.settings.rowClicked && !this.settings.openInfoWindowOnRowClick)
-        return;
+      // if (!this.settings.rowClicked)
+      //   return;
+
       
       let rawItem = this.rawItems[index];
+      this.$emit('rowClicked', rawItem);
 
-      if (this.settings.rowClicked)
-        this.settings.rowClicked(rawItem, this);
-
-      if (this.settings.openInfoWindowOnRowClick)
-        this.openInfoWindowItem = rawItem;
+      // if (this.settings.rowClicked)
+      //   this.settings.rowClicked(rawItem, this);
     },
     toggleColumn: function (column) {
       column.visible = !column.visible;

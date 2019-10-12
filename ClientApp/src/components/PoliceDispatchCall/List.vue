@@ -3,7 +3,7 @@
     <page-title title="Dispatch Calls" />
     <b-row>
       <b-col>
-        <filtered-table :settings="tableSettings">
+        <filtered-table :settings="tableSettings" @rowClicked="onRowClicked">
         </filtered-table>
       </b-col>
     </b-row>
@@ -68,7 +68,6 @@ export default {
         defaultSortOrder: 'desc',
         getDefaultFilter: function () {
         },
-        openInfoWindowOnRowClick: true,
         getItemInfoWindowText: function (item) {
           let raw = item._raw;
 
@@ -101,6 +100,9 @@ export default {
   computed: {
   },
   methods: {
+    onRowClicked: function (rawItem) {
+      this.$router.push('/policeDispatchCall/' + rawItem.callNumber);
+    }
   },
   mounted () {
     this.$store.dispatch("loadPoliceDispatchCallTypes");

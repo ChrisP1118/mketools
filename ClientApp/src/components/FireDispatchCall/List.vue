@@ -69,7 +69,6 @@ export default {
         defaultSortOrder: 'desc',
         getDefaultFilter: function () {
         },
-        openInfoWindowOnRowClick: true,
         getItemInfoWindowText: function (item) {
           let raw = item._raw;
 

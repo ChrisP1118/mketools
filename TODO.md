@@ -1,17 +1,21 @@
 # Launch
 
 * Relative times ("3 hours ago" on home page markers get out of date over time)
-* Dispatch call notifications
 * Check for faulty import processes
 * Hide "Properties" page?
 * Individual/detail pages for dispatch calls, crimes
 * Crime/police dispatch call detail pages link cross-link
 * Add "Developer" documentation/notes
+  * List sources used
+  * Mention API usage policy
 * Add "About" page
 * Add Google Analytics
+* Document what's "major" and "minor"
 
 # Backlog
 
+* Add way to lookup crime rate relative to specific address
+* Can we consolidate/cache the Google Maps instance to cut down on API requests? Or is it only counting as one API request right now?
 * Add trash day alerts (import users from MkeTrashDay)
 * PWA
 * PWA - add notifications API support
@@ -45,3 +49,4 @@
 * ~~Analysis on failed geocode requests - how can we get more hits?~~
 * ~~Consistent mapping icons (based on call types)~~
 * ~~Add database indexes (ReportedDateTime on Police/FireDispatchCalls)~~
+* ~~Dispatch call notifications~~

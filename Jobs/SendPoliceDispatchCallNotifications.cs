@@ -60,7 +60,7 @@ namespace MkeAlerts.Web.Jobs
 
                 if (policeDispatchCallType.IsMajor)
                     queryable = queryable.Where(x => x.DispatchCallType.HasFlag(DispatchCallType.JustMajorPoliceDispatchCall));
-                else if (policeDispatchCallType.IsMajor)
+                else if (policeDispatchCallType.IsMinor)
                     queryable = queryable.Where(x => x.DispatchCallType.HasFlag(DispatchCallType.JustMinorPoliceDispatchCall));
                 else
                     queryable = queryable.Where(x => x.DispatchCallType.HasFlag(DispatchCallType.JustNonCrimePoliceDispatchCall));

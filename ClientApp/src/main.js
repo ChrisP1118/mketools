@@ -40,6 +40,7 @@ import BasicMap from './components/Home/BasicMap.vue'
 
 // Pages
 import About from './components/About.vue'
+import Contact from './components/Contact.vue'
 import Developers from './components/Developers.vue'
 import Login from './components/Login.vue'
 import Logout from './components/Logout.vue'
@@ -50,6 +51,7 @@ import ApplicationUserList from './components/ApplicationUser/List.vue'
 import ApplicationUserFields from './components/ApplicationUser/Fields.vue'
 import ApplicationUserEdit from './components/ApplicationUser/Edit.vue'
 import PoliceDispatchCallList from './components/PoliceDispatchCall/List.vue'
+import PoliceDispatchCallView from './components/PoliceDispatchCall/View.vue'
 import FireDispatchCallList from './components/FireDispatchCall/List.vue'
 import CrimeList from './components/Crime/List.vue'
 
@@ -95,6 +97,7 @@ const routes = [
   { path: '/property', component: PropertyList, meta: { public: true } },
   { path: '/property/:id', component: PropertyView, meta: { public: true }, props: true },
   { path: '/policeDispatchCall', component: PoliceDispatchCallList, meta: { public: true } },
+  { path: '/policeDispatchCall/:id', component: PoliceDispatchCallView, meta: { public: true }, props: true },
   { path: '/fireDispatchCall', component: FireDispatchCallList, meta: { public: true } },
   { path: '/crime', component: CrimeList, meta: { public: true } },
   { path: '/applicationUser', component: ApplicationUserList },
