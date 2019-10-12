@@ -19,5 +19,14 @@ namespace MkeAlerts.Web.Models.Data.Incidents
         public bool IsCritical { get; set; }
         public bool IsFire { get; set; }
         public bool IsMedical { get; set; }
+
+        [NotMapped]
+        public bool IsMajor
+        {
+            get
+            {
+                return IsCritical || IsFire;
+            }
+        }
     }
 }
