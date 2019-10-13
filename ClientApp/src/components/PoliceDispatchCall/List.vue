@@ -77,7 +77,9 @@ export default {
           return '<p style="font-size: 150%; font-weight: bold;">' + raw.natureOfCall + '</p>' +
             raw.location + ' (Police District ' + raw.district + ')<hr />' +
             time + ' (' + fromNow + ')<br />' + 
-            '<b><i>' + raw.status + '</i></b>';
+            '<b><i>' + raw.status + '</i></b>' +
+            '<hr />' +
+            '<p style="font-size: 125%;"><a href="#/policeDispatchCall/' + raw.callNumber + '">Details</a></p>';
         },
         getItemMarkerGeometry: function (item) {
           if (!item || !item._raw || !item._raw.geometry || !item._raw.geometry.coordinates[0] || !item._raw.geometry.coordinates[0][0])

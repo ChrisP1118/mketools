@@ -3,7 +3,6 @@
 * Relative times ("3 hours ago" on home page markers get out of date over time)
 * Check for faulty import processes
 * Hide "Properties" page?
-* Individual/detail pages for dispatch calls, crimes
 * Crime/police dispatch call detail pages link cross-link
 * Add "Developer" documentation/notes
   * List sources used
@@ -11,6 +10,7 @@
 * Add "About" page
 * Add Google Analytics
 * Document what's "major" and "minor"
+* Bug: Slashes in policeDispatchCallType (e.g. /api/policeDispatchCallType/TRBL%20W/SUBJ)
 
 # Backlog
 
@@ -50,3 +50,4 @@
 * ~~Consistent mapping icons (based on call types)~~
 * ~~Add database indexes (ReportedDateTime on Police/FireDispatchCalls)~~
 * ~~Dispatch call notifications~~
+* ~~Individual/detail pages for dispatch calls, crimes~~

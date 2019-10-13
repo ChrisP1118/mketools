@@ -140,11 +140,11 @@ export default {
       //   });
     },
     loadProperties: function () {
-      let latDiff = 0.0006;
-      let lngDiff = 0.0006;
+      let latDiff = 0.0005;
+      let lngDiff = 0.0010;
 
       axios
-        .get('/api/property?limit=50&northBound=' + (this.position.lat + latDiff) + '&southBound=' + (this.position.lat - latDiff) + '&eastBound=' + (this.position.lng + lngDiff) + '&westBound=' + (this.position.lng - lngDiff))
+        .get('/api/property?limit=100&northBound=' + (this.position.lat + latDiff) + '&southBound=' + (this.position.lat - latDiff) + '&eastBound=' + (this.position.lng + lngDiff) + '&westBound=' + (this.position.lng - lngDiff))
         .then(response => {
           this.properties = response.data;
           this.showProperties();

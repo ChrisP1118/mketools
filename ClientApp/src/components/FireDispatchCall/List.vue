@@ -78,7 +78,9 @@ export default {
           return '<p style="font-size: 150%; font-weight: bold;">' + raw.natureOfCall + '</p>' +
             raw.address + (raw.apt ? ' APT. #' + raw.apt : '') + '<hr />' +
             time + ' (' + fromNow + ')<br />' + 
-            '<b><i>' + raw.disposition + '</i></b>';
+            '<b><i>' + raw.disposition + '</i></b>' +
+            '<hr />' +
+            '<p style="font-size: 125%;"><a href="#/fireDispatchCall/' + raw.cfs + '">Details</a></p>';
         },
         getItemMarkerGeometry: function (item) {
           if (!item || !item._raw || !item._raw.geometry || !item._raw.geometry.coordinates[0] || !item._raw.geometry.coordinates[0][0])
@@ -100,7 +102,7 @@ export default {
   },
   methods: {
     onRowClicked: function (rawItem) {
-      this.$router.push('/fireDispatchCall/' + rawItem.callNumber);
+      this.$router.push('/fireDispatchCall/' + rawItem.cfs);
     }
   },
   mounted () {
