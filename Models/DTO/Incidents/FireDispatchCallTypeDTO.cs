@@ -12,5 +12,7 @@ namespace MkeAlerts.Web.Models.DTO.Incidents
         public bool IsCritical { get; set; }
         public bool IsFire { get; set; }
         public bool IsMedical { get; set; }
+
+        public bool IsMajor { get; set; }
     }
 }

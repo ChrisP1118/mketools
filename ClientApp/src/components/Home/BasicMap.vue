@@ -74,7 +74,9 @@ export default {
               content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
                 i.location + ' (Police District ' + i.district + ')<hr />' +
                 time + ' (' + fromNow + ')<br />' + 
-                '<b><i>' + i.status + '</i></b>',
+                '<b><i>' + i.status + '</i></b>' +
+                '<hr />' +
+                '<p style="font-size: 125%;"><a href="#/policeDispatchCall/' + i.callNumber + '">Details</a></p>',
               icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
               marker: null
             });
@@ -105,7 +107,9 @@ export default {
               content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
                 i.address + (i.apt ? ' APT. #' + i.apt : '') + '<hr />' +
                 time + ' (' + fromNow + ')<br />' + 
-                '<b><i>' + i.disposition + '</i></b>',
+                '<b><i>' + i.disposition + '</i></b>' +
+                '<hr />' +
+                '<p style="font-size: 125%;"><a href="#/fireDispatchCall/' + i.cfs + '">Details</a></p>',
               icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
               marker: null
             });

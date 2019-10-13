@@ -1,31 +1,24 @@
 <template>
   <div>
-    <page-loading v-if="!policeDispatchCall" />
-    <page-title v-if="policeDispatchCall" :title="pageTitle" />
-    <b-link to="/policeDispatchCall">All Police Dispatch Calls</b-link>
-    <div v-if="policeDispatchCall">
+    <page-loading v-if="!fireDispatchCall" />
+    <page-title v-if="fireDispatchCall" :title="pageTitle" />
+    <b-link to="/fireDispatchCall">All Fire Dispatch Calls</b-link>
+    <div v-if="fireDispatchCall">
       <b-row>
         <b-col xs="12" md="6">
           <b-card class="mt-3">
             <h4 slot="header">Basic</h4>
             <ul>
-              <li>Call Number: {{policeDispatchCall.callNumber}}</li>
-              <li>Reported Date/Time: {{policeDispatchCall.reportedDateTime}} ({{relativeTime}})</li>
+              <li>Call Number (CFS): {{fireDispatchCall.cfs}}</li>
+              <li>Reported Date/Time: {{fireDispatchCall.reportedDateTime}} ({{relativeTime}})</li>
             </ul>            
           </b-card>
           <b-card class="mt-3">
             <h4 slot="header">Nature Of Call</h4>
             <ul>
-              <li>Nature of Call: {{policeDispatchCall.natureOfCall}}</li>
-              <li v-if="policeDispatchCall.isMajor">Type: Major Crime</li>
-              <li v-if="policeDispatchCall.isMinor">Type: Minor Crime</li>
-              <li v-if="!policeDispatchCall.isMajor && !policeDispatchCall.isMajor">Type: Non-Crime</li>
-              <li v-if="policeDispatchCall.isCritical">Category: Critical</li>
-              <li v-if="policeDispatchCall.isViolent">Category: Violent</li>
-              <li v-if="policeDispatchCall.isProperty">Category: Property</li>
-              <li v-if="policeDispatchCall.isDrug">Category: Drug</li>
-              <li v-if="policeDispatchCall.isTraffic">Category: Traffic</li>
-              <li v-if="policeDispatchCall.isOtherCrime">Category: Other</li>
+              <li>Nature of Call: {{fireDispatchCall.natureOfCall}}</li>
+              <li v-if="fireDispatchCall.isMajor">Type: Major</li>
+              <li v-if="!fireDispatchCall.isMajor">Type: Minor</li>
             </ul>
             <p class="small">Does this look incorrect? The way calls are categorized is fairly arbitrary and inexact. <b-link to="/contact">Contact us</b-link> if you think you could help improve this process.</p>
           </b-card>
@@ -34,8 +27,7 @@
           <b-card class="mt-3">
             <h4 slot="header">Location</h4>
             <ul>
-              <li>Location: {{policeDispatchCall.location}}</li>
-              <li>Police District: {{policeDispatchCall.district}}</li>
+              <li>Location: {{fireDispatchCall.address}}</li>
             </ul>
             <div id="map" class="map">
             </div>
@@ -54,12 +46,12 @@ import moment from 'moment'
 import gmapsInit from '../Common/googlemaps';
 
 export default {
-  name: "PoliceDispatchCallView",
+  name: "FireDispatchCallView",
   props: ['id'],
   data() {
     return {
-      policeDispatchCall: null,
-      policeDispatchCallType : null,
+      fireDispatchCall: null,
+      fireDispatchCallType : null,
       properties: null,
       relativeTime: null,
       google: null,
@@ -72,27 +64,27 @@ export default {
   },
   computed: {
     pageTitle: function () {
-      return 'Police Dispatch Call: ' + this.id;
+      return 'Fire Dispatch Call: ' + this.id;
     }
   },
   methods: {
     load: function () {
       axios
-        .get('/api/policeDispatchCall/' + this.id)
+        .get('/api/fireDispatchCall/' + this.id)
         .then(response => {
           console.log(response);
 
-          this.policeDispatchCall = response.data;
+          this.fireDispatchCall = response.data;
 
           this.position = {
-            lat: this.policeDispatchCall.geometry.coordinates[0][0][1], 
-            lng: this.policeDispatchCall.geometry.coordinates[0][0][0]
+            lat: this.fireDispatchCall.geometry.coordinates[0][0][1], 
+            lng: this.fireDispatchCall.geometry.coordinates[0][0][0]
           };
 
-          let time = moment(this.policeDispatchCall.reportedDateTime).format('llll');
-          this.relativeTime = moment(this.policeDispatchCall.reportedDateTime).fromNow();
+          let time = moment(this.fireDispatchCall.reportedDateTime).format('llll');
+          this.relativeTime = moment(this.fireDispatchCall.reportedDateTime).fromNow();
 
-          this.loadPoliceDispatchCallType();
+          this.loadFireDispatchCallType();
           this.loadMap();
           this.loadProperties();
         })
@@ -100,11 +92,11 @@ export default {
           console.log(error);
         });
     },
-    loadPoliceDispatchCallType: function() {
+    loadFireDispatchCallType: function() {
       axios
-        .get('/api/policeDispatchCallType/' + this.policeDispatchCall.natureOfCall)
+        .get('/api/fireDispatchCallType/' + this.fireDispatchCall.natureOfCall)
         .then(response => {
-          this.policeDispatchCallType = response.data;
+          this.fireDispatchCallType = response.data;
         })
         .catch(error => {
           console.log(error);
@@ -211,7 +203,7 @@ export default {
       this.propertiesShowing = true;
     },
     onClose(evt) {
-      this.$router.push('/policeDispatchCall');
+      this.$router.push('/fireDispatchCall');
     }
   },
   async mounted () {

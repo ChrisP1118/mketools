@@ -3,7 +3,7 @@
     <page-title title="Fire Dispatch Calls" />
     <b-row>
       <b-col>
-        <filtered-table :settings="tableSettings">
+        <filtered-table :settings="tableSettings" @rowClicked="onRowClicked">
         </filtered-table>
       </b-col>
     </b-row>
@@ -99,6 +99,9 @@ export default {
     }
   },
   methods: {
+    onRowClicked: function (rawItem) {
+      this.$router.push('/fireDispatchCall/' + rawItem.callNumber);
+    }
   },
   mounted () {
     this.$store.dispatch("loadFireDispatchCallTypes");
