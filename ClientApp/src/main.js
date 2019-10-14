@@ -92,6 +92,7 @@ Vue.config.productionTip = false;
 const routes = [
   { path: '/', component: Home, meta: { public: true } },
   { path: '/about', component: About, meta: { public: true } },
+  { path: '/contact', component: Contact, meta: { public: true } },
   { path: '/developers', component: Developers, meta: { public: true } },
   { path: '/login', component: Login, meta: { public: true } },
   { path: '/logout', component: Logout, meta: { public: true } },

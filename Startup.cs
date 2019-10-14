@@ -311,6 +311,9 @@ Note that not all fields can be sorted.
 
             //BackgroundJob.Enqueue<ImportAddressesJob>(x => x.Run());
 
+            // Run every 15 minutes
+            RecurringJob.AddOrUpdate<HealthCheckJob>(x => x.Run(), "*/15 * * * *");
+
             // Run every 5 minutes
             RecurringJob.AddOrUpdate<ImportPoliceDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 

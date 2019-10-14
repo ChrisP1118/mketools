@@ -2,7 +2,11 @@
   <div>
     <b-row v-show="!addressData">
       <b-col>
-        <b-jumbotron class="text-center" header="MKE Alerts" lead="See and get notified of police calls and crimes in Milwaukee">
+        <b-jumbotron class="text-center" lead="See and get notified of police calls and crimes in Milwaukee">
+          <template v-slot:header>
+            <img src="../assets/MkeAlerts_100_60.png" style="margin-bottom: 8px;" />
+            MKE Alerts
+          </template>
           <div v-if="subscriptions.length > 0">
             <user-subscription-list :subscriptions="subscriptions" @selected="onSubscriptionSelected" @deleted="onSubscriptionDeleted" />
             <hr />

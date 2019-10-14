@@ -38,7 +38,7 @@
               <b-dropdown-item to="/login" v-if="!$root.$data.authenticatedUser.username">Log In</b-dropdown-item>
               <b-dropdown-item to="/logout" v-if="$root.$data.authenticatedUser.username">Log Out</b-dropdown-item>
             </b-nav-item-dropdown>
-            <img src="./assets/Milwaukee_Flag_60px.png" style="max-height: 36px; border: 1px solid white;" />
+            <img src="./assets/MkeAlerts_60_36.png" style="max-height: 36px; border: 1px solid white;" />
           </b-navbar-nav>
 
         </b-collapse>
