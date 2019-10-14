@@ -98,6 +98,9 @@ namespace MkeAlerts.Web.Data
             modelBuilder.Entity<Crime>()
                 .HasKey(x => x.IncidentNum);
 
+            modelBuilder.Entity<Crime>()
+                .HasIndex(x => x.ReportedDateTime);
+
             modelBuilder.Entity<ExternalCredential>()
                 .HasOne(x => x.ApplicationUser)
                 .WithMany(x => x.ExternalCredentials)

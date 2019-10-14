@@ -4,15 +4,17 @@ using GeoAPI.Geometries;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MkeAlerts.Web.Data;
 
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191014212500_CrimeIndex1")]
+    partial class CrimeIndex1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,7 +139,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "e8dc75a3-5d6a-4fb9-b6bd-65d9fb923f0b",
+                            ConcurrencyStamp = "b9ffd01c-7ab9-4c31-9f03-c529789eb9b4",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +206,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "759edab8-5d91-4b0a-9dd5-df99e096f7db",
+                            ConcurrencyStamp = "e1b81862-1257-463c-b233-d0d077f3c9fa",
                             Email = "cwilson@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "cwilson@mkealerts.com",
                             NormalizedUserName = "cwilson@mkealerts.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAED74tH+xt9VyPtdDoOd6t2kikJ/lpplYuaCyBrrPqXsc54AmIZsJ9E7YkhbDgl933Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENP2poRyQuZ31EpYIy6SbDE4Q66kGuuUcoDMbitImD4b9knvWIN/eIk9DEnhqujrOQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -308,14 +310,6 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<decimal>("ZIP");
 
                     b.HasKey("IncidentNum");
-
-                    b.HasIndex("MaxLat");
-
-                    b.HasIndex("MaxLng");
-
-                    b.HasIndex("MinLat");
-
-                    b.HasIndex("MinLng");
 
                     b.HasIndex("ReportedDateTime");
 

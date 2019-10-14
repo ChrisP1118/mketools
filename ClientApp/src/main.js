@@ -55,6 +55,7 @@ import PoliceDispatchCallView from './components/PoliceDispatchCall/View.vue'
 import FireDispatchCallList from './components/FireDispatchCall/List.vue'
 import FireDispatchCallView from './components/FireDispatchCall/View.vue'
 import CrimeList from './components/Crime/List.vue'
+import CrimeView from './components/Crime/View.vue'
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -103,6 +104,7 @@ const routes = [
   { path: '/fireDispatchCall', component: FireDispatchCallList, meta: { public: true } },
   { path: '/fireDispatchCall/:id', component: FireDispatchCallView, meta: { public: true }, props: true },
   { path: '/crime', component: CrimeList, meta: { public: true } },
+  { path: '/crime/:id', component: CrimeView, meta: { public: true }, props: true },
   { path: '/applicationUser', component: ApplicationUserList },
   { path: '/applicationUser/:id', component: ApplicationUserEdit, props: true },
 ];

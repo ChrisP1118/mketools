@@ -3,6 +3,7 @@
     <page-title title="Fire Dispatch Calls" />
     <b-row>
       <b-col>
+        <hr />
         <filtered-table :settings="tableSettings" @rowClicked="onRowClicked">
         </filtered-table>
       </b-col>

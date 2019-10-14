@@ -1,6 +1,5 @@
 <template>
   <div>
-    <hr />
     <b-row>
       <b-col>
         <b-button-toolbar>
@@ -31,7 +30,7 @@
                   Hide map
               </b-dropdown-item-button>
               <b-dropdown-divider></b-dropdown-divider>
-              <b-dropdown-item-button :disabled="!canFilterBasedOnMap" @click="filterBasedOnMap = !filterBasedOnMap">
+              <b-dropdown-item-button :disabled="!canFilterBasedOnMap" @click="filterBasedOnMap = !filterBasedOnMap; refreshData()">
                 <font-awesome-icon icon="square" v-if="!filterBasedOnMap" />
                 <font-awesome-icon icon="check-square" v-if="filterBasedOnMap" />
                   Filter based on map {{!canFilterBasedOnMap ? '(Zoom in to filter based on the map)' : ''}}
@@ -78,6 +77,12 @@
     </b-row>
     <b-row>
       <b-col>
+        <b-modal v-model="refreshingData" centered title="Please wait..." hide-footer header-bg-variant="primary" header-text-variant="light">
+          <div class="text-center mt-3 mb-3">
+            <b-spinner variant="primary" label="Loading"></b-spinner>
+            Loading data...
+          </div>          
+        </b-modal>
         <b-table striped hover :items="items" :fields="visibleFields" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked" class="mt-2">
           <template slot="table-caption">
           </template>
@@ -131,6 +136,7 @@
 
 <script>
 import axios from "axios";
+import moment from 'moment'
 
 export default {
   name: "FilteredTable",
@@ -153,7 +159,8 @@ export default {
       filterBasedOnMap: false,
       canFilterBasedOnMap: true,
       showMap: 'right',
-      openInfoWindowItem: null
+      openInfoWindowItem: null,
+      refreshingData: false
     }
   },
   computed: {
@@ -179,15 +186,8 @@ export default {
         this.refreshData();
     },
     rowClicked: function (item, index, event) {
-      // if (!this.settings.rowClicked)
-      //   return;
-
-      
       let rawItem = this.rawItems[index];
       this.$emit('rowClicked', rawItem);
-
-      // if (this.settings.rowClicked)
-      //   this.settings.rowClicked(rawItem, this);
     },
     toggleColumn: function (column) {
       column.visible = !column.visible;
@@ -232,6 +232,8 @@ export default {
                 let selectItem = col.selectOptions.find(c => c.value == v);
                 if (selectItem)
                   item[col.key] = selectItem.text;
+              } else if (col.filter == 'date') {
+                item[col.key] = moment(v).format('llll');
               }
               else
                 item[col.key] = v;
@@ -258,6 +260,8 @@ export default {
       } else {
         this.refreshDataTimeout = null;
       }
+
+      this.refreshingData = true;
 
       // Refreshes rawItems -- hits the server to get new data
       let url = this.settings.endpoint + '?';
@@ -311,6 +315,8 @@ export default {
           this.rawItems = response.data;
           this.total = response.headers['x-total-count'];
           this.refreshItems();
+
+          this.refreshingData = false;
         })
         .catch(error => {
           console.log(error);
