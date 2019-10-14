@@ -10,7 +10,9 @@
 * Add "About" page
 * Add Google Analytics
 * Document what's "major" and "minor"
-* Bug: Slashes in policeDispatchCallType (e.g. /api/policeDispatchCallType/TRBL%20W/SUBJ)
+* Add some error handling inside of jobs
+* Smaller range of distances for alerts
+* Clean up Swagger spec (especially details/remarks at top)
 
 # Backlog
 
@@ -51,3 +53,4 @@
 * ~~Add database indexes (ReportedDateTime on Police/FireDispatchCalls)~~
 * ~~Dispatch call notifications~~
 * ~~Individual/detail pages for dispatch calls, crimes~~
+* ~~Bug: Slashes in policeDispatchCallType (e.g. /api/policeDispatchCallType/TRBL%20W/SUBJ)~~

@@ -4649,3 +4649,32 @@
 2019-10-13 17:27:28.7609 Info Adding target FileTarget(Name=Misc)
 2019-10-13 17:27:28.7609 Info Adding target FileTarget(Name=Full)
 2019-10-13 17:27:28.8168 Info Found 105 configuration items
+2019-10-13 19:58:40.5432 Info Shutdown() called. Logger closing...
+2019-10-13 19:58:40.5432 Info Closing old configuration.
+2019-10-13 19:58:40.5623 Info Logger has been closed down.
+2019-10-13 19:58:40.5623 Info AppDomain Shutting down. Logger closing...
+2019-10-13 19:58:40.5623 Info Logger has been shut down.
+2019-10-13 19:58:49.7393 Info Message Template Auto Format enabled
+2019-10-13 19:58:49.7730 Info Loading assembly: NLog.Web.AspNetCore
+2019-10-13 19:58:49.9010 Info Adding target FileTarget(Name=EF)
+2019-10-13 19:58:49.9010 Info Adding target FileTarget(Name=Hangfire)
+2019-10-13 19:58:49.9010 Info Adding target FileTarget(Name=MkeAlerts)
+2019-10-13 19:58:49.9170 Info Adding target FileTarget(Name=Misc)
+2019-10-13 19:58:49.9170 Info Adding target FileTarget(Name=Full)
+2019-10-13 19:58:50.0150 Info Found 105 configuration items
+2019-10-13 20:02:40.3741 Info Message Template Auto Format enabled
+2019-10-13 20:02:40.4002 Info Loading assembly: NLog.Web.AspNetCore
+2019-10-13 20:02:40.5615 Info Adding target FileTarget(Name=EF)
+2019-10-13 20:02:40.5615 Info Adding target FileTarget(Name=Hangfire)
+2019-10-13 20:02:40.5615 Info Adding target FileTarget(Name=MkeAlerts)
+2019-10-13 20:02:40.5773 Info Adding target FileTarget(Name=Misc)
+2019-10-13 20:02:40.5773 Info Adding target FileTarget(Name=Full)
+2019-10-13 20:02:40.6503 Info Found 105 configuration items
+2019-10-13 20:14:46.6091 Info Message Template Auto Format enabled
+2019-10-13 20:14:46.6222 Info Loading assembly: NLog.Web.AspNetCore
+2019-10-13 20:14:46.7117 Info Adding target FileTarget(Name=EF)
+2019-10-13 20:14:46.7159 Info Adding target FileTarget(Name=Hangfire)
+2019-10-13 20:14:46.7159 Info Adding target FileTarget(Name=MkeAlerts)
+2019-10-13 20:14:46.7159 Info Adding target FileTarget(Name=Misc)
+2019-10-13 20:14:46.7159 Info Adding target FileTarget(Name=Full)
+2019-10-13 20:14:46.8104 Info Found 105 configuration items

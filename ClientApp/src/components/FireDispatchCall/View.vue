@@ -94,7 +94,7 @@ export default {
     },
     loadFireDispatchCallType: function() {
       axios
-        .get('/api/fireDispatchCallType/' + this.fireDispatchCall.natureOfCall)
+        .get('/api/fireDispatchCallType/' + encodeURIComponent(this.fireDispatchCall.natureOfCall))
         .then(response => {
           this.fireDispatchCallType = response.data;
         })

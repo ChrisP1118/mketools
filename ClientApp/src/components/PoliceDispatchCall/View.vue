@@ -102,7 +102,7 @@ export default {
     },
     loadPoliceDispatchCallType: function() {
       axios
-        .get('/api/policeDispatchCallType/' + this.policeDispatchCall.natureOfCall)
+        .get('/api/policeDispatchCallType/' + encodeURIComponent(this.policeDispatchCall.natureOfCall))
         .then(response => {
           this.policeDispatchCallType = response.data;
         })

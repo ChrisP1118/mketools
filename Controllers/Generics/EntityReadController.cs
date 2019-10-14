@@ -66,7 +66,7 @@ namespace MkeAlerts.Web.Controllers
         /// </summary>
         /// <param name="id">The ID of the item to return</param>
         /// <returns></returns>
-        [HttpGet("{id}")]
+        [HttpGet("{*id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<TDTOModel>> GetOne(TIdType id)
