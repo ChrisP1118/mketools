@@ -20,11 +20,11 @@
           </b-navbar-nav>
 
           <b-navbar-nav class="ml-auto">
-            <b-nav-item right to="/applicationUser">Users</b-nav-item>
+            <b-nav-item right to="/applicationUser" v-if="isSiteAdmin">Users</b-nav-item>
             <b-nav-item right to="/about">About</b-nav-item>
             <b-nav-item right to="/contact">Contact</b-nav-item>
             <b-nav-item right to="/developers">Developers</b-nav-item>
-            <b-nav-item-dropdown right>
+            <b-nav-item-dropdown right v-if="isSiteAdmin">
               <template slot="button-content">
                 Debug
               </template>
@@ -44,6 +44,7 @@
         </b-collapse>
       </b-navbar>
 
+
       <!-- Ths if/else here clears the keep-alive when a user logs in/out: https://stackoverflow.com/questions/52967418/refresh-pages-in-vue-js-keep-alive-section -->
       <!-- <keep-alive v-if="$root.$data.authenticatedUser.username">
         <router-view :key="$route.fullPath"></router-view>
@@ -60,6 +61,11 @@
 
 export default {
   name: 'app',
+  computed: {
+    isSiteAdmin: function () {
+      return this.$root.$data.authenticatedUser && this.$root.$data.authenticatedUser.roles && this.$root.$data.authenticatedUser.roles.includes('SiteAdmin');
+    }
+  },
   methods: {
       showToast: function (text, options) {
         this.$bvToast.toast(text, options);
