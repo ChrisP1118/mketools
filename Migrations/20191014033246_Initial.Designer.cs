@@ -11,7 +11,7 @@ using MkeAlerts.Web.Data;
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190925142424_Initial")]
+    [Migration("20191014033246_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,7 +139,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "18f9751b-34d1-4430-be27-35780f48ddd4",
+                            ConcurrencyStamp = "71d5294f-51f0-4335-a019-2cb1347855a8",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -206,18 +206,36 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "331700ce-8fa5-4d4a-82db-f8ec44c629e1",
-                            Email = "siteadmin@test.com",
+                            ConcurrencyStamp = "d8172ca1-2a41-4c3b-8bd5-50bd14e25518",
+                            Email = "cwilson@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "siteadmin@test.com",
-                            NormalizedUserName = "siteadmin",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEoiyZhGY8oXMNAAxh9h5IMKpcdjIV7Awg3G0O0zvW6AKeK3epjMEAxElsX/Mr4jUA==",
+                            NormalizedEmail = "cwilson@mkealerts.com",
+                            NormalizedUserName = "cwilson@mkealerts.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGyN3f/Y/DCPpo0bXPVAc9TTQYh6+NMlCO+I0M/puyKL1JdntvIbv6ACz+hUqAHCqQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
-                            UserName = "siteadmin"
+                            UserName = "cwilson@mkealerts.com"
                         });
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Accounts.ExternalCredential", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("ApplicationUserId");
+
+                    b.Property<string>("ExternalId");
+
+                    b.Property<string>("Provider");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("ExternalCredentials");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.Crime", b =>
@@ -282,9 +300,6 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<int>("Theft");
 
-                    b.Property<string>("TypeOfCrime")
-                        .HasMaxLength(20);
-
                     b.Property<int>("VehicleTheft");
 
                     b.Property<decimal>("WARD");
@@ -339,7 +354,7 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<string>("NatureOfCall")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .HasMaxLength(40);
 
                     b.Property<DateTime>("ReportedDateTime");
 
@@ -347,7 +362,25 @@ namespace MkeAlerts.Web.Migrations
 
                     b.HasKey("CFS");
 
+                    b.HasIndex("ReportedDateTime");
+
                     b.ToTable("FireDispatchCalls");
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.FireDispatchCallType", b =>
+                {
+                    b.Property<string>("NatureOfCall")
+                        .HasMaxLength(40);
+
+                    b.Property<bool>("IsCritical");
+
+                    b.Property<bool>("IsFire");
+
+                    b.Property<bool>("IsMedical");
+
+                    b.HasKey("NatureOfCall");
+
+                    b.ToTable("FireDispatchCallTypes");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.PoliceDispatchCall", b =>
@@ -394,7 +427,31 @@ namespace MkeAlerts.Web.Migrations
 
                     b.HasKey("CallNumber");
 
+                    b.HasIndex("ReportedDateTime");
+
                     b.ToTable("PoliceDispatchCalls");
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.PoliceDispatchCallType", b =>
+                {
+                    b.Property<string>("NatureOfCall")
+                        .HasMaxLength(20);
+
+                    b.Property<bool>("IsCritical");
+
+                    b.Property<bool>("IsDrug");
+
+                    b.Property<bool>("IsOtherCrime");
+
+                    b.Property<bool>("IsProperty");
+
+                    b.Property<bool>("IsTraffic");
+
+                    b.Property<bool>("IsViolent");
+
+                    b.HasKey("NatureOfCall");
+
+                    b.ToTable("PoliceDispatchCallTypes");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Address", b =>
@@ -1113,6 +1170,37 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("Streets");
                 });
 
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Subscriptions.DispatchCallSubscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("ApplicationUserId");
+
+                    b.Property<int>("DispatchCallType");
+
+                    b.Property<int>("Distance");
+
+                    b.Property<int>("HOUSE_NR");
+
+                    b.Property<IPoint>("Point");
+
+                    b.Property<string>("SDIR")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("STREET")
+                        .HasMaxLength(18);
+
+                    b.Property<string>("STTYPE")
+                        .HasMaxLength(2);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("DispatchCallSubscriptions");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationRole")
@@ -1158,6 +1246,14 @@ namespace MkeAlerts.Web.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Accounts.ExternalCredential", b =>
+                {
+                    b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser", "ApplicationUser")
+                        .WithMany("ExternalCredentials")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Address", b =>
                 {
                     b.HasOne("MkeAlerts.Web.Models.Data.Places.Property", "Property")
@@ -1170,6 +1266,14 @@ namespace MkeAlerts.Web.Migrations
                     b.HasOne("MkeAlerts.Web.Models.Data.Places.Property", "Property")
                         .WithOne("Parcel")
                         .HasForeignKey("MkeAlerts.Web.Models.Data.Places.Parcel", "TAXKEY")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Subscriptions.DispatchCallSubscription", b =>
+                {
+                    b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser", "ApplicationUser")
+                        .WithMany("DispatchCallSubscriptions")
+                        .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

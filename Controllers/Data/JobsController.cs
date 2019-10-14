@@ -112,23 +112,6 @@ namespace MkeAlerts.Web.Controllers.Data
             var job4 = BackgroundJob.ContinueJobWith<ImportStreetsJob>(job3, x => x.Run());
             var job5 = BackgroundJob.ContinueJobWith<ImportCrimesJob>(job4, x => x.Run());
 
-
-            //ImportPropertiesJob importPropertiesJob = new ImportPropertiesJob(_configuration, _signInManager, _userManager, _importPropertiesJobLogger, _propertyWriteService);
-            //ImportParcelsJob importParcelsJob = new ImportParcelsJob(_configuration, _signInManager, _userManager, _importParcelsJobLogger, _parcelWriteService);
-            //ImportAddressesJob importAddressesJob = new ImportAddressesJob(_configuration, _signInManager, _userManager, _importAddressesJobLogger, _addressWriteService);
-            //ImportStreetsJob importStreetsJob = new ImportStreetsJob(_configuration, _signInManager, _userManager, _importStreetsJobLogger, _streetWriteService);
-            //ImportCrimesJob importCrimesJob = new ImportCrimesJob(_configuration, _signInManager, _userManager, _importCrimesJobLogger, _crimeWriteService);
-
-            //await importPropertiesJob.Run();
-
-            //List<Task> tasks = new List<Task>();
-            //tasks.Add(importParcelsJob.Run());
-            //tasks.Add(importAddressesJob.Run());
-            //tasks.Add(importStreetsJob.Run());
-            //tasks.Add(importCrimesJob.Run());
-
-            //await Task.WhenAll(tasks);
-
             return Ok();
         }
 

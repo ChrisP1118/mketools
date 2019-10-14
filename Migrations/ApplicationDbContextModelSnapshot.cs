@@ -137,7 +137,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "1b532dc1-b3ff-4bb9-abaa-6c44b3a9131e",
+                            ConcurrencyStamp = "bb5cab09-d24c-460d-a849-37253f71e7de",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,17 +204,17 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "852e42e8-fe76-451c-9e4c-dfe182d012f1",
-                            Email = "admin@mkealerts.com",
+                            ConcurrencyStamp = "e0bd83dc-9736-44ea-834e-16903e05eb50",
+                            Email = "cwilson@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "admin@mkealerts.com",
-                            NormalizedUserName = "admin@mkealerts.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENo5Zp86vk2L01hwMB0g5Kq5O+MX5Npeq7q24T6UmvMjlkjmPH92db1tsAmUQrBCpA==",
+                            NormalizedEmail = "cwilson@mkealerts.com",
+                            NormalizedUserName = "cwilson@mkealerts.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOvjnicGG3yY3ccTRIrq1PZ0e58JVBGSPwAuzz/tMJ5HKVxcn23TZBizl6E84zUYKQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
-                            UserName = "admin@mkealerts.com"
+                            UserName = "cwilson@mkealerts.com"
                         });
                 });
 

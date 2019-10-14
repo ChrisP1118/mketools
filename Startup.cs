@@ -267,6 +267,8 @@ Note that not all fields can be sorted.
                 app.UseHsts();
             }
 
+            dbContext.Database.Migrate();
+
             app.UseHangfireDashboard();
 
             //app.UseHttpsRedirection();
@@ -307,7 +309,7 @@ Note that not all fields can be sorted.
                 }
             });
 
-            dbContext.Database.EnsureCreated();
+            //dbContext.Database.EnsureCreated();
 
             //BackgroundJob.Enqueue<ImportAddressesJob>(x => x.Run());
 

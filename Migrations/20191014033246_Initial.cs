@@ -82,8 +82,7 @@ namespace MkeAlerts.Web.Migrations
                     Robbery = table.Column<int>(nullable: false),
                     SexOffense = table.Column<int>(nullable: false),
                     Theft = table.Column<int>(nullable: false),
-                    VehicleTheft = table.Column<int>(nullable: false),
-                    TypeOfCrime = table.Column<string>(maxLength: 20, nullable: true)
+                    VehicleTheft = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,7 +98,7 @@ namespace MkeAlerts.Web.Migrations
                     Address = table.Column<string>(maxLength: 60, nullable: false),
                     Apt = table.Column<string>(maxLength: 50, nullable: true),
                     City = table.Column<string>(maxLength: 50, nullable: true),
-                    NatureOfCall = table.Column<string>(maxLength: 20, nullable: false),
+                    NatureOfCall = table.Column<string>(maxLength: 40, nullable: false),
                     Disposition = table.Column<string>(maxLength: 60, nullable: true),
                     Geometry = table.Column<IGeometry>(nullable: true),
                     MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
@@ -112,6 +111,20 @@ namespace MkeAlerts.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FireDispatchCalls", x => x.CFS);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FireDispatchCallTypes",
+                columns: table => new
+                {
+                    NatureOfCall = table.Column<string>(maxLength: 40, nullable: false),
+                    IsCritical = table.Column<bool>(nullable: false),
+                    IsFire = table.Column<bool>(nullable: false),
+                    IsMedical = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FireDispatchCallTypes", x => x.NatureOfCall);
                 });
 
             migrationBuilder.CreateTable(
@@ -135,6 +148,23 @@ namespace MkeAlerts.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PoliceDispatchCalls", x => x.CallNumber);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PoliceDispatchCallTypes",
+                columns: table => new
+                {
+                    NatureOfCall = table.Column<string>(maxLength: 20, nullable: false),
+                    IsCritical = table.Column<bool>(nullable: false),
+                    IsViolent = table.Column<bool>(nullable: false),
+                    IsProperty = table.Column<bool>(nullable: false),
+                    IsDrug = table.Column<bool>(nullable: false),
+                    IsTraffic = table.Column<bool>(nullable: false),
+                    IsOtherCrime = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PoliceDispatchCallTypes", x => x.NatureOfCall);
                 });
 
             migrationBuilder.CreateTable(
@@ -518,6 +548,51 @@ namespace MkeAlerts.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DispatchCallSubscriptions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ApplicationUserId = table.Column<Guid>(nullable: false),
+                    DispatchCallType = table.Column<int>(nullable: false),
+                    Point = table.Column<IPoint>(nullable: true),
+                    Distance = table.Column<int>(nullable: false),
+                    SDIR = table.Column<string>(maxLength: 1, nullable: true),
+                    STREET = table.Column<string>(maxLength: 18, nullable: true),
+                    STTYPE = table.Column<string>(maxLength: 2, nullable: true),
+                    HOUSE_NR = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DispatchCallSubscriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DispatchCallSubscriptions_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExternalCredentials",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ApplicationUserId = table.Column<Guid>(nullable: false),
+                    Provider = table.Column<string>(nullable: true),
+                    ExternalId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExternalCredentials", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ExternalCredentials_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Addresses",
                 columns: table => new
                 {
@@ -573,12 +648,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "18f9751b-34d1-4430-be27-35780f48ddd4", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "71d5294f-51f0-4335-a019-2cb1347855a8", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "331700ce-8fa5-4d4a-82db-f8ec44c629e1", "siteadmin@test.com", true, null, null, false, null, "siteadmin@test.com", "siteadmin", "AQAAAAEAACcQAAAAEEoiyZhGY8oXMNAAxh9h5IMKpcdjIV7Awg3G0O0zvW6AKeK3epjMEAxElsX/Mr4jUA==", null, false, "", false, "siteadmin" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "d8172ca1-2a41-4c3b-8bd5-50bd14e25518", "cwilson@mkealerts.com", true, null, null, false, null, "cwilson@mkealerts.com", "cwilson@mkealerts.com", "AQAAAAEAACcQAAAAEGyN3f/Y/DCPpo0bXPVAc9TTQYh6+NMlCO+I0M/puyKL1JdntvIbv6ACz+hUqAHCqQ==", null, false, "", false, "cwilson@mkealerts.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -630,6 +705,21 @@ namespace MkeAlerts.Web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DispatchCallSubscriptions_ApplicationUserId",
+                table: "DispatchCallSubscriptions",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ExternalCredentials_ApplicationUserId",
+                table: "ExternalCredentials",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FireDispatchCalls_ReportedDateTime",
+                table: "FireDispatchCalls",
+                column: "ReportedDateTime");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Parcels_MaxLat",
                 table: "Parcels",
                 column: "MaxLat");
@@ -648,6 +738,11 @@ namespace MkeAlerts.Web.Migrations
                 name: "IX_Parcels_MinLng",
                 table: "Parcels",
                 column: "MinLng");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PoliceDispatchCalls_ReportedDateTime",
+                table: "PoliceDispatchCalls",
+                column: "ReportedDateTime");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -674,13 +769,25 @@ namespace MkeAlerts.Web.Migrations
                 name: "Crimes");
 
             migrationBuilder.DropTable(
+                name: "DispatchCallSubscriptions");
+
+            migrationBuilder.DropTable(
+                name: "ExternalCredentials");
+
+            migrationBuilder.DropTable(
                 name: "FireDispatchCalls");
+
+            migrationBuilder.DropTable(
+                name: "FireDispatchCallTypes");
 
             migrationBuilder.DropTable(
                 name: "Parcels");
 
             migrationBuilder.DropTable(
                 name: "PoliceDispatchCalls");
+
+            migrationBuilder.DropTable(
+                name: "PoliceDispatchCallTypes");
 
             migrationBuilder.DropTable(
                 name: "Streets");

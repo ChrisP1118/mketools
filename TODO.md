@@ -1,7 +1,6 @@
 # Launch
 
 * Relative times ("3 hours ago" on home page markers get out of date over time)
-* Check for faulty import processes
 * Hide "Properties" page?
 * Crime/police dispatch call detail pages link cross-link
 * Add "Developer" documentation/notes
@@ -13,6 +12,10 @@
 * Add some error handling inside of jobs
 * Smaller range of distances for alerts
 * Clean up Swagger spec (especially details/remarks at top)
+* Show friendlier dates in dispatch call list
+
+# Minor Issues
+* Caching headers - why Cache-Control: no-cache?
 
 # Backlog
 
@@ -29,9 +32,6 @@
 * Add TAXKEY (and property) for crimes?
 * Add TAXKEY (and property) for dispatch calls -- might have multiple properties nearby?
 * Regular, automated dispatch call data export to static file (available for download)
-
-# Minor Issues
-* Caching headers - why Cache-Control: no-cache?
 
 # Done
 
@@ -54,3 +54,4 @@
 * ~~Dispatch call notifications~~
 * ~~Individual/detail pages for dispatch calls, crimes~~
 * ~~Bug: Slashes in policeDispatchCallType (e.g. /api/policeDispatchCallType/TRBL%20W/SUBJ)~~
+* ~~Health check -- watch for faulty import processes~~
