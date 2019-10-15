@@ -58,9 +58,6 @@ export default {
             if (this.items.some(x => x.id == i.callNumber))
               return;
 
-            let time = moment(i.reportedDateTime).format('llll');
-            let fromNow = moment(i.reportedDateTime).fromNow();
-
             let icon = this.getPoliceDispatchCallTypeIcon(i.natureOfCall);
 
             this.items.push({
@@ -71,12 +68,17 @@ export default {
                 lng: i.geometry.coordinates[0][0][0]
               },
               status: i.status,
-              content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
-                i.location + ' (Police District ' + i.district + ')<hr />' +
-                time + ' (' + fromNow + ')<br />' + 
-                '<b><i>' + i.status + '</i></b>' +
-                '<hr />' +
-                '<p style="font-size: 125%;"><a href="#/policeDispatchCall/' + i.callNumber + '">Details</a></p>',
+              getContent: () => {
+                let time = moment(i.reportedDateTime).format('llll');
+                let fromNow = moment(i.reportedDateTime).fromNow();
+
+                return '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
+                  i.location + ' (Police District ' + i.district + ')<hr />' +
+                  time + ' (' + fromNow + ')<br />' + 
+                  '<b><i>' + i.status + '</i></b>' +
+                  '<hr />' +
+                  '<p style="font-size: 125%;"><a href="#/policeDispatchCall/' + i.callNumber + '">Details</a></p>';
+              },
               icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
               marker: null
             });
@@ -91,9 +93,6 @@ export default {
             if (this.items.some(x => x.id == i.cfs))
               return;
 
-            let time = moment(i.reportedDateTime).format('llll');
-            let fromNow = moment(i.reportedDateTime).fromNow();
-
             let icon = this.getFireDispatchCallTypeIcon(i.natureOfCall);
 
             this.items.push({
@@ -104,12 +103,17 @@ export default {
                 lng: i.geometry.coordinates[0][0][0]
               },
               disposition: i.disposition,
-              content: '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
-                i.address + (i.apt ? ' APT. #' + i.apt : '') + '<hr />' +
-                time + ' (' + fromNow + ')<br />' + 
-                '<b><i>' + i.disposition + '</i></b>' +
-                '<hr />' +
-                '<p style="font-size: 125%;"><a href="#/fireDispatchCall/' + i.cfs + '">Details</a></p>',
+              getContent: () => {
+                let time = moment(i.reportedDateTime).format('llll');
+                let fromNow = moment(i.reportedDateTime).fromNow();
+
+                return '<p style="font-size: 150%; font-weight: bold;">' + i.natureOfCall + '</p>' +
+                  i.address + (i.apt ? ' APT. #' + i.apt : '') + '<hr />' +
+                  time + ' (' + fromNow + ')<br />' + 
+                  '<b><i>' + i.disposition + '</i></b>' +
+                  '<hr />' +
+                  '<p style="font-size: 125%;"><a href="#/fireDispatchCall/' + i.cfs + '">Details</a></p>';
+              },
               icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
               marker: null
             });
@@ -152,7 +156,7 @@ export default {
                 this.openInfoWindow.close();
 
               this.openInfoWindow = new google.maps.InfoWindow({
-                content: i.content
+                content: i.getContent()
               });
               this.openInfoWindow.open(this.map, i.marker);
             });

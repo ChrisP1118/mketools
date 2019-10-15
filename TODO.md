@@ -1,6 +1,5 @@
 # Launch
 
-* Relative times ("3 hours ago" on home page markers get out of date over time)
 * Hide "Properties" page?
 * Crime/police dispatch call detail pages link cross-link
 * Add "Developer" documentation/notes
@@ -12,7 +11,6 @@
 * Add some error handling inside of jobs
 * Smaller range of distances for alerts
 * Clean up Swagger spec (especially details/remarks at top)
-* Show friendlier dates in dispatch call list (all tables?)
 * Add "share" link on filtered table that creates a link with URL parameters for filter
 * Create component for nearby properties map
 * Date filter doesn't work correctly on filtered table (it's doing equality on the date, rather than a greater/less than)
@@ -60,3 +58,5 @@
 * ~~Health check -- watch for faulty import processes~~
 * ~~Add loading indicator to maps (the lag is especially noticeable on Crime page when filtering based on map)~~
 * ~~Checking the box for "Filter based on map" should refresh~~
+* ~~Show friendlier dates in dispatch call list (all tables?)~~
+* ~~Relative times ("3 hours ago" on home page markers get out of date over time)~~
