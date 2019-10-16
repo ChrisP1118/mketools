@@ -65,6 +65,8 @@ namespace MkeAlerts.Web.Controllers
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Update(TIdType id, [FromBody] TDTOModel dtoModel)
         {
+            id = GetOneId(id);
+
             TDataModel dataModel = _mapper.Map<TDTOModel, TDataModel>(dtoModel);
 
             await _writeService.Update(HttpContext.User, dataModel);
@@ -85,6 +87,8 @@ namespace MkeAlerts.Web.Controllers
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Delete(TIdType id)
         {
+            id = GetOneId(id);
+
             await _writeService.Delete(HttpContext.User, id);
 
             return NoContent();

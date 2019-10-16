@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MkeAlerts.Web.Models.DTO.Incidents;
+using System.Net;
 
 namespace MkeAlerts.Web.Controllers.Data
 {
@@ -15,6 +16,11 @@ namespace MkeAlerts.Web.Controllers.Data
     {
         public PoliceDispatchCallTypeController(IConfiguration configuration, IMapper mapper, IEntityReadService<PoliceDispatchCallType, string> service) : base(configuration, mapper, service)
         {
+        }
+
+        protected override string GetOneId(string id)
+        {
+            return WebUtility.UrlDecode(id);
         }
     }
 }

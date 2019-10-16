@@ -41,7 +41,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getPoliceDispatchCallTypeIcon', 'getFireDispatchCallTypeIcon']),
+    ...mapGetters(['getPoliceDispatchCallTypeIcon', 'getFireDispatchCallTypeIcon', 'getGeometryPosition']),
   },
   methods: {
     loadMarkers: function () {
@@ -53,7 +53,7 @@ export default {
       let promise1 = axios
         .get('/api/policeDispatchCall?limit=1000&filter=' + filter)
         .then(response => {
-          let x = response.data.filter(i => i.geometry && i.geometry.coordinates && i.geometry.coordinates[0] && i.geometry.coordinates[0][0]);
+          let x = response.data.filter(i => i.geometry && this.getGeometryPosition(i.geometry));
           x.forEach(i => {
             if (this.items.some(x => x.id == i.callNumber))
               return;
@@ -63,10 +63,7 @@ export default {
             this.items.push({
               type: 'PoliceDispatchCall',
               id: i.callNumber,
-              position: {
-                lat: i.geometry.coordinates[0][0][1],
-                lng: i.geometry.coordinates[0][0][0]
-              },
+              position: this.getGeometryPosition(i.geometry),
               status: i.status,
               getContent: () => {
                 let time = moment(i.reportedDateTime).format('llll');
@@ -88,7 +85,7 @@ export default {
       let promise2 = axios
         .get('/api/fireDispatchCall?limit=1000&filter=' + filter)
         .then(response => {
-          let x = response.data.filter(i => i.geometry && i.geometry.coordinates && i.geometry.coordinates[0] && i.geometry.coordinates[0][0]);
+          let x = response.data.filter(i => i.geometry && this.getGeometryPosition(i.geometry));
           x.forEach(i => {
             if (this.items.some(x => x.id == i.cfs))
               return;
@@ -98,10 +95,7 @@ export default {
             this.items.push({
               type: 'FireDispatchCall',
               id: i.cfs,
-              position: {
-                lat: i.geometry.coordinates[0][0][1],
-                lng: i.geometry.coordinates[0][0][0]
-              },
+              position: this.getGeometryPosition(i.geometry),
               disposition: i.disposition,
               getContent: () => {
                 let time = moment(i.reportedDateTime).format('llll');

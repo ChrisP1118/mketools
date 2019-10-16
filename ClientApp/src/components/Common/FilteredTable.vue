@@ -288,8 +288,11 @@ export default {
             filters.push(col.key + '=' + f);
           else if (col.filter == 'select')
             filters.push(col.key + '="' + f + '"');
-          else if (col.filter == 'date')
-            filters.push(col.key + '="' + f + '"');
+          else if (col.filter == 'date') {
+            let d = moment(f).add(1, 'days');
+            let e = moment(f);
+            filters.push(col.key + '>="' + e.format('YYYY-MM-DD') + '" and ' + col.key + '<"' + d.format('YYYY-MM-DD') + '"');
+          }
         }
       });
 

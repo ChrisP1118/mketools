@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -71,6 +72,8 @@ namespace MkeAlerts.Web.Controllers
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
         public async Task<ActionResult<TDTOModel>> GetOne(TIdType id)
         {
+            id = GetOneId(id);
+
             TDataModel dataModel = await _readService.GetOne(HttpContext.User, id);
 
             if (dataModel == null)
@@ -80,5 +83,7 @@ namespace MkeAlerts.Web.Controllers
 
             return Ok(dtoModel);
         }
+
+        protected virtual TIdType GetOneId(TIdType id) { return id; }
     }
 }

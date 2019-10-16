@@ -83,13 +83,10 @@ export default {
             '<p style="font-size: 125%;"><a href="#/policeDispatchCall/' + raw.callNumber + '">Details</a></p>';
         },
         getItemMarkerGeometry: function (item) {
-          if (!item || !item._raw || !item._raw.geometry || !item._raw.geometry.coordinates[0] || !item._raw.geometry.coordinates[0][0])
+          if (!item || !item._raw || !item._raw.geometry)
             return null;
-            
-          return {
-            lat: item._raw.geometry.coordinates[0][0][1],
-            lng: item._raw.geometry.coordinates[0][0][0]
-          };          
+
+          return this.$store.getters.getGeometryPosition(item._raw.geometry);
         },
         getItemIcon: function (item) {
           return this.$store.getters.getPoliceDispatchCallTypeIcon(item._raw.natureOfCall);

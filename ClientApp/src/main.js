@@ -32,6 +32,7 @@ import PageLoading from './components/Common/PageLoading.vue'
 import PageTitle from './components/Common/PageTitle.vue'
 import FilteredTable from './components/Common/FilteredTable.vue'
 import FilteredTableMap from './components/Common/FilteredTableMap.vue'
+import NearbyMap from './components/Common/NearbyMap.vue'
 
 import AddressLookup from './components/Home/AddressLookup.vue'
 import AuthForm from './components/Home/AuthForm.vue'
@@ -75,6 +76,7 @@ Vue.component('page-loading', PageLoading);
 Vue.component('page-title', PageTitle);
 Vue.component('filtered-table', FilteredTable);
 Vue.component('filtered-table-map', FilteredTableMap);
+Vue.component('nearby-map', NearbyMap);
 
 Vue.component('address-lookup', AddressLookup);
 Vue.component('auth-form', AuthForm);

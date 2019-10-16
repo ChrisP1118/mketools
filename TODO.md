@@ -1,5 +1,8 @@
 # Launch
 
+* Password reset
+* Test SSO with prod URLs
+* Change "Contact" page to "Support"
 * Hide "Properties" page?
 * Crime/police dispatch call detail pages link cross-link
 * Add "Developer" documentation/notes
@@ -9,14 +12,13 @@
 * Add Google Analytics
 * Document what's "major" and "minor"
 * Add some error handling inside of jobs
-* Smaller range of distances for alerts
 * Clean up Swagger spec (especially details/remarks at top)
 * Add "share" link on filtered table that creates a link with URL parameters for filter
-* Create component for nearby properties map
-* Date filter doesn't work correctly on filtered table (it's doing equality on the date, rather than a greater/less than)
+* On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
 
 # Minor Issues
 * Caching headers - why Cache-Control: no-cache?
+* When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
 
 # Backlog
 
@@ -60,3 +62,7 @@
 * ~~Checking the box for "Filter based on map" should refresh~~
 * ~~Show friendlier dates in dispatch call list (all tables?)~~
 * ~~Relative times ("3 hours ago" on home page markers get out of date over time)~~
+* ~~Smaller range of distances for alerts~~
+* ~~Date filter doesn't work correctly on filtered table (it's doing equality on the date, rather than a greater/less than)~~
+* ~~Create component for nearby properties map~~
+* ~~If the page loads on a dispatch page, and then you switch over to home, no dispatch calls are loaded on the home page map~~

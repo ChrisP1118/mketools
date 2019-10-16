@@ -21,7 +21,7 @@ export const store = new Vuex.Store({
     callTypes: [
       { text: 'any major police dispatch call', value: 'JustMajorPoliceDispatchCall'},
       { text: 'any major or minor police dispatch call', value: 'MinorOrMajorPoliceDispatchCall'},
-      { text: 'any police dispatch call', value: 'AnyPoliceDispatchCall'},
+      //{ text: 'any police dispatch call', value: 'AnyPoliceDispatchCall'},
       { text: 'any major fire dispatch call', value: 'JustMajorFireDispatchCall'},
       { text: 'any fire dispatch call', value: 'AnyFireDispatchCall'},
       { text: 'any major police or fire dispatch call', value: 'AnyMajorDispatchCall' }
@@ -102,7 +102,10 @@ export const store = new Vuex.Store({
   actions: {
     loadStreetReferences({ commit }) {
       return new Promise((resolve, reject) => {
-        if (this.state.streetReferences.loadState > 0)
+        if (this.state.streetReferences.loadState == STATE_LOADED)
+          resolve();
+
+        if (this.state.streetReferences.loadState == STATE_LOADING)
           return;
 
         commit('SET_STREET_REFERENCES_LOAD_STATE', STATE_LOADING);
@@ -129,7 +132,10 @@ export const store = new Vuex.Store({
     },
     loadPoliceDispatchCallTypes({ commit }) {
       return new Promise((resolve, reject) => {
-        if (this.state.policeDispatchCallTypes.loadState > 0)
+        if (this.state.policeDispatchCallTypes.loadState == STATE_LOADED)
+          resolve();
+
+        if (this.state.policeDispatchCallTypes.loadState == STATE_LOADING)
           return;
 
         commit('SET_POLICE_DISPATCH_CALL_TYPES_LOAD_STATE', STATE_LOADING);
@@ -149,7 +155,10 @@ export const store = new Vuex.Store({
     },
     loadFireDispatchCallTypes({ commit }) {
       return new Promise((resolve, reject) => {
-        if (this.state.fireDispatchCallTypes.loadState > 0)
+        if (this.state.fireDispatchCallTypes.loadState == STATE_LOADED)
+          resolve();
+
+        if (this.state.fireDispatchCallTypes.loadState == STATE_LOADING)
           return;
 
         commit('SET_FIRE_DISPATCH_CALL_TYPES_LOAD_STATE', STATE_LOADING);
@@ -267,5 +276,24 @@ export const store = new Vuex.Store({
 
       return 'wht-blank.png';
     },
+    getGeometryPosition: state => geometry => {
+      if (geometry.type == 'Point') {
+        if (!geometry.coordinates)
+          return null;
+          
+        return {
+          lat: geometry.coordinates[1],
+          lng: geometry.coordinates[0]
+        };
+      } else if (geometry.type == 'Polygon') {
+        if (!geometry.coordinates || !geometry.coordinates[0] || !geometry.coordinates[0][0])
+          return null;
+
+        return {
+          lat: geometry.coordinates[0][0][1], 
+          lng: geometry.coordinates[0][0][0]
+        };
+      }
+    }
   }
 })
