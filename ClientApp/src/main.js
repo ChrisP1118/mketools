@@ -58,6 +58,25 @@ import FireDispatchCallView from './components/FireDispatchCall/View.vue'
 import CrimeList from './components/Crime/List.vue'
 import CrimeView from './components/Crime/View.vue'
 
+// Leaflet
+import { LMap, LTileLayer, LMarker, LPopup, LCircle } from 'vue2-leaflet';
+import { Icon } from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+
+Vue.component('l-map', LMap);
+Vue.component('l-tile-layer', LTileLayer);
+Vue.component('l-marker', LMarker);
+Vue.component('l-popup', LPopup);
+Vue.component('l-circle', LCircle);
+
+delete Icon.Default.prototype._getIconUrl;
+
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+});
+
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
 Vue.use(require('vue-moment'));
