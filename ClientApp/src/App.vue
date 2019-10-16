@@ -22,7 +22,7 @@
           <b-navbar-nav class="ml-auto">
             <b-nav-item right to="/applicationUser" v-if="isSiteAdmin">Users</b-nav-item>
             <b-nav-item right to="/about">About</b-nav-item>
-            <b-nav-item right to="/contact">Contact</b-nav-item>
+            <b-nav-item right to="/support">Support</b-nav-item>
             <b-nav-item right to="/developers">Developers</b-nav-item>
             <b-nav-item-dropdown right v-if="isSiteAdmin">
               <template slot="button-content">

@@ -2,7 +2,6 @@
 
 * Password reset
 * Test SSO with prod URLs
-* Change "Contact" page to "Support"
 * Hide "Properties" page?
 * Crime/police dispatch call detail pages link cross-link
 * Add "Developer" documentation/notes
@@ -66,3 +65,4 @@
 * ~~Date filter doesn't work correctly on filtered table (it's doing equality on the date, rather than a greater/less than)~~
 * ~~Create component for nearby properties map~~
 * ~~If the page loads on a dispatch page, and then you switch over to home, no dispatch calls are loaded on the home page map~~
+* ~~Change "Contact" page to "Support"~~

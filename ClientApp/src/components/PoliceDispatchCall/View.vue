@@ -27,7 +27,7 @@
               <li v-if="policeDispatchCall.isTraffic">Category: Traffic</li>
               <li v-if="policeDispatchCall.isOtherCrime">Category: Other</li>
             </ul>
-            <p class="small">Does this look incorrect? The way calls are categorized is fairly arbitrary and inexact. <b-link to="/contact">Contact us</b-link> if you think you could help improve this process.</p>
+            <p class="small">Does this look incorrect? The way calls are categorized is fairly arbitrary and inexact. <b-link to="/support">Contact us if you think you could help improve this process.</b-link></p>
           </b-card>
         </b-col>
         <b-col xs="12" md="6">
