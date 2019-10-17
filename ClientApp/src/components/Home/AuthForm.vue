@@ -29,7 +29,7 @@
     <b-row>
       <b-col md="3"></b-col>
       <b-col md="6" class="text-center">
-        <div v-if="page == 'create'">
+        <div v-if="authPage == 'create'">
           <h2>Sign Up</h2>
           <b-form @submit.prevent="onSignUp">
             <b-form-group>
@@ -47,13 +47,13 @@
             <b-button type="submit" variant="primary">Sign Up</b-button>
           </b-form>
           <div>
-            <a href="#" @click.prevent="page = 'login'">Already have an account? Log in.</a>
+            <a href="#" @click.prevent="authPage = 'login'">Already have an account? Log in.</a>
           </div>
           <div>
-            <a href="#" @click.prevent="page = 'reset'">Forgot your password? Reset it.</a>
+            <a href="#" @click.prevent="authPage = 'requestReset'">Forgot your password? Reset it.</a>
           </div>          
         </div>
-        <div v-if="page == 'login'">
+        <div v-if="authPage == 'login'">
           <h2>Log In</h2>
           <b-form @submit.prevent="onLogIn">
             <b-form-group>
@@ -67,26 +67,51 @@
             <b-button type="submit" variant="primary">Log In</b-button>
           </b-form>
           <div>
-            <a href="#" @click.prevent="page = 'create'">Don't have an account? Sign up.</a>
+            <a href="#" @click.prevent="authPage = 'create'">Don't have an account? Sign up.</a>
           </div>
           <div>
-            <a href="#" @click.prevent="page = 'reset'">Forgot your password? Reset it.</a>
+            <a href="#" @click.prevent="authPage = 'requestReset'">Forgot your password? Reset it.</a>
           </div>          
         </div>
-        <div v-if="page == 'reset'">
-          <h2>Reset Password</h2>
-          <b-form>
+        <div v-if="authPage == 'requestReset'">
+          <h2>Request Password Reset</h2>
+          <b-alert v-if="requestPasswordResetDone" variant="success" show>An email has been sent to the address you provided with a link to reset your password.</b-alert>
+          <b-form @submit.prevent="onRequestPasswordReset">
             <b-form-group>
               <label class="sr-only" for="EmailAddress">Email Address</label>
-              <b-form-input v-model="emailAddress" id="EmailAddress" placeholder="Email Address" type="email" />
+              <b-form-input v-model="requestPasswordResetEmail" id="EmailAddress" placeholder="Email Address" type="email" />
             </b-form-group>
-            <b-button>Reset Password</b-button>
+            <b-button type="submit" variant="primary">Reset Password</b-button>
           </b-form>
           <div>
-            <a href="#" @click.prevent="page = 'login'">Already have an account? Log in.</a>
+            <a href="#" @click.prevent="authPage = 'login'">Already have an account? Log in.</a>
           </div>
           <div>
-            <a href="#" @click.prevent="page = 'create'">Don't have an account? Sign up.</a>
+            <a href="#" @click.prevent="authPage = 'create'">Don't have an account? Sign up.</a>
+          </div>
+        </div>
+        <div v-if="authPage == 'reset'">
+          <h2>Reset Password</h2>
+          <b-form @submit.prevent="onResetPassword">
+            <b-form-group>
+              <label class="sr-only" for="resetPasswordEmail">Email Address</label>
+              <b-form-input v-model="resetPasswordEmail" id="resetPasswordEmail" type="email" placeholder="Email Address" required />
+            </b-form-group>
+            <b-form-group>
+              <label class="sr-only" for="resetPasswordPassword">New Password</label>
+              <b-form-input v-model="resetPasswordPassword" id="resetPasswordPassword" type="password" placeholder="Password" required />
+            </b-form-group>
+            <b-form-group>
+              <label class="sr-only" for="resetPasswordConfirm">New Confirm Password</label>
+              <b-form-input v-model="resetPasswordConfirm" id="resetPasswordConfirm" type="password" placeholder="Confirm Password" required />
+            </b-form-group>
+            <b-button type="submit" variant="primary">Reset Password</b-button>
+          </b-form>
+          <div>
+            <a href="#" @click.prevent="authPage = 'login'">Already have an account? Log in.</a>
+          </div>
+          <div>
+            <a href="#" @click.prevent="authPage = 'create'">Don't have an account? Sign up.</a>
           </div>
         </div>
       </b-col>
@@ -105,10 +130,6 @@ export default {
   props: {},
   data() {
     return {
-      page: 'create',
-      emailAddress: '',
-      password: '',
-      confirmPassword: '',
     }
   },
   computed: {
@@ -118,7 +139,12 @@ export default {
   },
   watch: {
   },
-  async mounted () {
+  mounted () {
+    if (this.$route.query.token) {
+      console.log('Resetting');
+      this.resetPasswordToken = this.$route.query.token;
+      this.authPage = 'reset';
+    }
   }
 };
 </script>

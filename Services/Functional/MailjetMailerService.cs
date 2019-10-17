@@ -21,6 +21,11 @@ namespace MkeAlerts.Web.Services.Functional
             _logger = logger;
         }
 
+        public async Task SendEmail(string to, string subject, string text)
+        {
+            await SendEmail(to, subject, text, null);
+        }
+
         public async Task SendEmail(string to, string subject, string text, string html)
         {
             if (!string.IsNullOrEmpty(_configuration["MailSenderOverride"]))
@@ -28,6 +33,35 @@ namespace MkeAlerts.Web.Services.Functional
                 subject = "[Redirect: " + to + "] " + subject;
                 to = _configuration["MailSenderOverride"];
             }
+
+            JObject properties = new JObject
+            {
+                {
+                    "From", new JObject
+                    {
+                        {"Email", _configuration["MailSenderFromEmail"]},
+                        {"Name", _configuration["MailSenderFromName"]}
+                    }
+                },
+                {
+                    "To", new JArray
+                    {
+                        new JObject
+                        {
+                            {"Email", to}
+                        }
+                    }
+                },
+                {
+                    "Subject", subject
+                },
+                {
+                    "TextPart", text
+                }
+            };
+
+            if (html != null)
+                properties["HTMLPart"] = html;
 
             MailjetClient client = new MailjetClient(_configuration["MailjetPublicKey"], _configuration["MailjetPrivateKey"])
             {
@@ -39,34 +73,7 @@ namespace MkeAlerts.Web.Services.Functional
             }
             .Property(Send.Messages, new JArray
             {
-                new JObject
-                {
-                    {
-                        "From", new JObject
-                        {
-                            {"Email", _configuration["MailSenderFromEmail"]},
-                            {"Name", _configuration["MailSenderFromName"]}
-                        }
-                    },
-                    {
-                        "To", new JArray
-                        {
-                            new JObject
-                            {
-                                {"Email", to}
-                            }
-                        }
-                    },
-                    {
-                        "Subject", subject
-                    },
-                    {
-                        "TextPart", text
-                    },
-                    {
-                        "HTMLPart", html
-                    }
-                }
+                properties
             });
 
             MailjetResponse response = await client.PostAsync(request);

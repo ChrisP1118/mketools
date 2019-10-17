@@ -6,6 +6,8 @@ export default {
   props: {},
   data() {
     return {
+      authPage: 'create',
+
       // Sign up form
       signUpEmail: null,
       signUpPassword: null,
@@ -14,6 +16,16 @@ export default {
       // Log in form
       logInEmail: null,
       logInPassword: null,
+
+      // Reset password request form
+      requestPasswordResetEmail: null,
+      requestPasswordResetDone: false,
+
+      // Reset password form
+      resetPasswordEmail: null,
+      resetPasswordToken: null,
+      resetPasswordPassword: null,
+      resetPasswordConfirm: null,
 
       // External providers
       googleSignInParams: {
@@ -117,6 +129,33 @@ export default {
       {
         "email": this.logInEmail,
         "password": this.logInPassword
+      })
+      .then(response => {
+        this.processAuthResponse(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    },
+    onRequestPasswordReset: function (evt) {
+      axios.post('/api/account/requestPasswordReset',
+      {
+        "email": this.requestPasswordResetEmail
+      })
+      .then(response => {
+        //this.processAuthResponse(response);
+        this.requestPasswordResetDone = true;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    },
+    onResetPassword: function (evt) {
+      axios.post('/api/account/resetPassword',
+      {
+        "email": this.resetPasswordEmail,
+        "token": this.resetPasswordToken,
+        "password": this.resetPasswordPassword
       })
       .then(response => {
         this.processAuthResponse(response);

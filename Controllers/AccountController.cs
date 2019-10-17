@@ -21,6 +21,7 @@ using MkeAlerts.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using MkeAlerts.Web.Utilities;
 using MkeAlerts.Web.Services.Functional;
+using System.Net;
 
 namespace MkeAlerts.Web.Controllers
 {
@@ -217,12 +218,53 @@ namespace MkeAlerts.Web.Controllers
             //    throw new IdentityException("Email address has not been confirmed", new List<string>());
 
             string token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            string resetPasswordUrl = _configuration["ResetPasswordUrl"];
 
-            // http://www.binaryintellect.net/articles/df920caf-ba69-4714-938f-fbb358532c0f.aspx
+            resetPasswordUrl += (resetPasswordUrl.Contains("?") ? "&" : "?") + "token=" + WebUtility.UrlEncode(token);
 
-            //BackgroundJob.Enqueue(() => System.IO.File.WriteAllText("token.txt", token));
+            await _mailerService.SendEmail(
+                user.Email,
+                "Password Reset Request",
+                "To reset your password for MkeAlerts, click on the following link or visit this URL: " + resetPasswordUrl
+            );
 
             return new RequestPasswordResetResultsDTO();
+        }
+
+        /// <summary>
+        /// Resets a password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [ProducesResponseType(typeof(ResetPasswordResultsDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IdentityErrorDetails), StatusCodes.Status400BadRequest)]
+        public async Task<ResetPasswordResultsDTO> ResetPassword([FromBody] ResetPasswordDTO model)
+        {
+            ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
+                throw new IdentityException("Invalid email address", new List<string>());
+
+            var result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
+
+            if (result.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, false);
+
+                var roles = await _userManager.GetRolesAsync(user);
+
+                return new ResetPasswordResultsDTO()
+                {
+                    UserName = user.UserName,
+                    Id = user.Id,
+                    Roles = roles.ToList(),
+                    JwtToken = await GenerateJwtToken(user)
+                };
+            }
+
+            throw new IdentityException("Unable to reset password", result.Errors.Select(e => e.Description).ToList());
         }
 
         /// <summary>

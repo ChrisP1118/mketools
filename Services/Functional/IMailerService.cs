@@ -7,6 +7,7 @@ namespace MkeAlerts.Web.Services.Functional
 {
     public interface IMailerService
     {
+        Task SendEmail(string to, string subject, string text);
         Task SendEmail(string to, string subject, string text, string html);
     }
 }
