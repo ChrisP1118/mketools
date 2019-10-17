@@ -68,10 +68,9 @@
         <filtered-table-map class="mt-2" :items="items" @bounds-changed="boundsChanged" 
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
-          :get-item-marker-geometry="settings.getItemMarkerGeometry"
+          :get-item-marker-position="settings.getItemMarkerPosition"
           :get-item-icon="settings.getItemIcon"
-          :get-item-id="settings.getItemId"
-          :open-info-window-item="openInfoWindowItem">
+          :get-item-id="settings.getItemId">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -124,10 +123,9 @@
         <filtered-table-map :items="items" @bounds-changed="boundsChanged" 
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
-          :get-item-marker-geometry="settings.getItemMarkerGeometry"
+          :get-item-marker-position="settings.getItemMarkerPosition"
           :get-item-icon="settings.getItemIcon"
-          :get-item-id="settings.getItemId"
-          :open-info-window-item="openInfoWindowItem">
+          :get-item-id="settings.getItemId">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -159,7 +157,6 @@ export default {
       filterBasedOnMap: false,
       canFilterBasedOnMap: true,
       showMap: 'right',
-      openInfoWindowItem: null,
       refreshingData: false
     }
   },

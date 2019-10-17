@@ -88,7 +88,6 @@
 
 <script>
 import axios from "axios";
-import gmapsInit from './Common/googlemaps';
 import moment from 'moment'
 import AuthMixin from './Mixins/AuthMixin.vue';
 import { mapState, mapGetters } from 'vuex'

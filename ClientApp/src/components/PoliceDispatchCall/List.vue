@@ -82,7 +82,7 @@ export default {
             '<hr />' +
             '<p style="font-size: 125%;"><a href="#/policeDispatchCall/' + raw.callNumber + '">Details</a></p>';
         },
-        getItemMarkerGeometry: function (item) {
+        getItemMarkerPosition: function (item) {
           if (!item || !item._raw || !item._raw.geometry)
             return null;
 

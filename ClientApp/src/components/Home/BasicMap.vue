@@ -1,12 +1,17 @@
 <template>
   <div>
-    <div class="map" id="basicMap" />
+    <l-map style="height: 80vh; width: 100%" :zoom="zoom" :center="center">
+      <l-tile-layer :url="tileUrl" :attribution="attribution"></l-tile-layer>
+      <l-circle v-if="circleCenter" :lat-lng="circleCenter" :radius="circleRadius" color="#bd2130" />
+      <l-marker v-for="marker in markers" v-bind:key="marker.id" :lat-lng="marker.position" :icon="marker.icon">
+        <l-popup :content="marker.popup"></l-popup>
+      </l-marker>
+    </l-map>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import gmapsInit from '../Common/googlemaps';
 import moment from 'moment'
 import { mapState, mapGetters } from 'vuex'
 
@@ -34,10 +39,17 @@ export default {
   },
   data() {
     return {
-      google: null,
-      map: null,
       items: [],
-      circle: null
+
+      //tileUrl: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
+      //tileUrl: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png',
+      tileUrl: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+      zoom: 12,
+      center: [43.0315528, -87.9730566],
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      markers: [],
+      circleCenter: null,
+      circleRadius: null
     }
   },
   computed: {
@@ -64,7 +76,6 @@ export default {
               type: 'PoliceDispatchCall',
               id: i.callNumber,
               position: this.getGeometryPosition(i.geometry),
-              status: i.status,
               getContent: () => {
                 let time = moment(i.reportedDateTime).format('llll');
                 let fromNow = moment(i.reportedDateTime).fromNow();
@@ -76,8 +87,7 @@ export default {
                   '<hr />' +
                   '<p style="font-size: 125%;"><a href="#/policeDispatchCall/' + i.callNumber + '">Details</a></p>';
               },
-              icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
-              marker: null
+              icon: icon
             });
           });
         });
@@ -96,7 +106,6 @@ export default {
               type: 'FireDispatchCall',
               id: i.cfs,
               position: this.getGeometryPosition(i.geometry),
-              disposition: i.disposition,
               getContent: () => {
                 let time = moment(i.reportedDateTime).format('llll');
                 let fromNow = moment(i.reportedDateTime).fromNow();
@@ -108,8 +117,7 @@ export default {
                   '<hr />' +
                   '<p style="font-size: 125%;"><a href="#/fireDispatchCall/' + i.cfs + '">Details</a></p>';
               },
-              icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon,
-              marker: null
+              icon: icon
             });
           });
         });
@@ -121,11 +129,7 @@ export default {
         });
     },
     showMarkers: function () {
-      if (!google)
-        return;
-
-      if (!this.map)
-        return;
+      this.markers = [];
 
       this.items.forEach(i => {
 
@@ -135,52 +139,26 @@ export default {
           visible = i.type == this.filterType;
 
         if (visible) {
-          if (!i.marker) {
-            i.marker = new google.maps.Marker({
-              position: i.position,
-              icon: {
-                url: i.icon,
-                scaledSize: new google.maps.Size(50, 50),
-              },
-              map: this.map
-            });
-
-            i.marker.addListener('click', e => {
-              if (this.openInfoWindow)
-                this.openInfoWindow.close();
-
-              this.openInfoWindow = new google.maps.InfoWindow({
-                content: i.getContent()
-              });
-              this.openInfoWindow.open(this.map, i.marker);
-            });
-          } else {
-            if (i.marker.map == null)
-              i.marker.setMap(this.map);
-          }
-        } else {
-          if (i.marker && i.marker.map)
-            i.marker.setMap(null)
+          this.markers.push({
+            id: i.id,
+            icon: L.icon({
+              iconUrl: i.icon,
+              iconSize: [40, 40],
+              iconAnchor: [20, 0]
+            }),
+            position: i.position,
+            popup: i.getContent()
+          });
         }
+
       });
     },
     distanceUpdated: function (value) {
-      if (this.circle)
-        this.circle.setMap(null);
-
       if (!this.locationData)
         return;
 
-      this.circle = new google.maps.Circle({
-        strokeColor: '#bd2130',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#0d2240',
-        fillOpacity: 0.10,
-        map: this.map,
-        center: this.locationData,
-        radius: (value * 0.3048) // Feet to meters
-      });
+      this.circleCenter = this.locationData;
+      this.circleRadius = (value * 0.3048);
     }
   },
   watch: {
@@ -188,8 +166,8 @@ export default {
       this.showMarkers();
     },
     locationData: function (newValue, oldValue) {
-      this.map.setCenter(newValue);
-      this.map.setZoom(15);
+      this.center = newValue;
+      this.zoom = 15;
 
       this.distanceUpdated(this.distance);
     },
@@ -199,18 +177,7 @@ export default {
   },
   created() {
   },
-  async mounted () {
-
-    this.google = await gmapsInit();
-    this.map = new google.maps.Map(document.getElementById('basicMap'), {
-      center: { lat: 43.0315528, lng: -87.9730566 },
-      zoom: 12,
-      //gestureHandling: 'greedy'
-    });
-
-    google.maps.event.addListenerOnce(this.map, 'idle', () => {
-      this.showMarkers();
-    });
+  mounted () {
 
     Promise.all([this.$store.dispatch("loadPoliceDispatchCallTypes"), this.$store.dispatch("loadFireDispatchCallTypes")]).then(() => {
       this.loadMarkers();

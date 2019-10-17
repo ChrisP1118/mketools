@@ -1,14 +1,19 @@
 <template>
   <div>
-    <div id="map" class="map">
-    </div>
+    <l-map v-if="position" style="height: 80vh; width: 100%" :zoom="zoom" :center="position">
+      <l-tile-layer :url="tileUrl" :attribution="attribution"></l-tile-layer>
+      <l-marker :lat-lng="position" :icon="icon">
+      </l-marker>
+      <l-polygon v-for="polygon in polygons" v-bind:key="polygon.id" :lat-lngs="polygon.coordinates" color="#dc3545" :weight="1" fill-color="#fd7e14" :fill-opacity="0.2">
+        <l-popup :content="polygon.popup"></l-popup>
+      </l-polygon>
+    </l-map>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import moment from 'moment'
-import gmapsInit from './googlemaps';
 
 export default {
   name: "NearbyMap",
@@ -18,37 +23,22 @@ export default {
   data() {
     return {
       properties: null,
-      google: null,
-      map: null,
-      marker: null,
-      propertiesShowing: false
+
+      tileUrl: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+      zoom: 18,
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      polygons: [],
+      icon: L.icon({
+        iconUrl: 'https://maps.google.com/mapfiles/kml/paddle/wht-blank.png',
+        iconSize: [40, 40],
+        iconAnchor: [20, 0]
+      })
     };
   },
   computed: {
   },
   methods: {
     load: function () {
-      // This sure seems like a hack -- but the HTML element doesn't seem to exist initially
-      if (!document.getElementById('map')) {
-        setTimeout(this.loadMap, 100);
-        return;
-      }
-
-      this.map = new google.maps.Map(
-        document.getElementById('map'), 
-        {
-          center: this.position,
-          zoom: 18,
-        });
-
-      this.marker = new google.maps.Marker({
-        position: this.position,
-        map: this.map
-      });
-
-      this.loadProperties();
-    },
-    loadProperties: function () {
       let latDiff = 0.0005;
       let lngDiff = 0.0010;
 
@@ -63,61 +53,37 @@ export default {
         });
     },
     showProperties: function () {
-      if (this.propertiesShowing)
-        return;
-
-      if (!this.map)
-        return;
-
-      if (!this.properties)
-        return;
-
-      this.properties.forEach(p => {
+      this.polygons = [];
+      this.properties.forEach(i => {
         let coords = [];
-
-        let x = p.parcel.outline.coordinates[0].forEach(y => {
+        i.parcel.outline.coordinates[0].forEach(y => {
           coords.push({
             lat: y[1],
             lng: y[0]
           });
         });
 
-        let polygon = new google.maps.Polygon({
-          paths: coords,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35
+        let address = i.house_nr_lo;
+        if (i.house_nr_hi != i.house_nr_lo)
+          address += '-' + i.house_nr_hi;
+        address += ' ' + i.sdir + ' ' + i.street + ' ' + i.sttype;
+
+        let owner = i.owner_name_1;
+        if (i.owner_name_2)
+          owner += '<br />' + i.owner_name_2;
+        if (i.owner_name_3)
+          owner += '<br />' + i.owner_name_3;
+        owner += '<br />' + i.owner_mail_addr + '<br />' + i.owner_city_state;
+        
+        this.polygons.push({
+          id: i.taxkey,
+          coordinates: [
+            coords
+          ],
+          popup: '<h4>' + address + '</h4><div>' + owner + '</div>'
         });
-        polygon.setMap(this.map);
-
-        polygon.addListener('click', e => {
-          if (this.openInfoWindow)
-            this.openInfoWindow.close();
-
-          let address = p.house_nr_lo;
-          if (p.house_nr_hi != p.house_nr_lo)
-            address += '-' + p.house_nr_hi;
-          address += ' ' + p.sdir + ' ' + p.street + ' ' + p.sttype;
-
-          let owner = p.owner_name_1;
-          if (p.owner_name_2)
-            owner += '<br />' + p.owner_name_2;
-          if (p.owner_name_3)
-            owner += '<br />' + p.owner_name_3;
-          owner += '<br />' + p.owner_mail_addr + '<br />' + p.owner_city_state;
-            
-          this.openInfoWindow = new google.maps.InfoWindow({
-            content: '<h4>' + address + '</h4>' +
-              owner
-          });
-          this.openInfoWindow.setPosition(e.latLng);
-          this.openInfoWindow.open(this.map);
-        });          
       });
 
-      this.propertiesShowing = true;
     },
   },
   watch: {
@@ -127,8 +93,6 @@ export default {
     }
   },
   async mounted () {
-    this.google = await gmapsInit();
-
     if (this.position)
       this.load();
   }
