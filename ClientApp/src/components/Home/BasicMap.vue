@@ -87,7 +87,7 @@ export default {
                   '<hr />' +
                   '<p style="font-size: 125%;"><a href="#/policeDispatchCall/' + i.callNumber + '">Details</a></p>';
               },
-              icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon
+              icon: icon
             });
           });
         });
@@ -117,7 +117,7 @@ export default {
                   '<hr />' +
                   '<p style="font-size: 125%;"><a href="#/fireDispatchCall/' + i.cfs + '">Details</a></p>';
               },
-              icon: 'https://maps.google.com/mapfiles/kml/paddle/' + icon
+              icon: icon
             });
           });
         });
@@ -167,7 +167,7 @@ export default {
     },
     locationData: function (newValue, oldValue) {
       this.center = newValue;
-      this.zoom = 16;
+      this.zoom = 15;
 
       this.distanceUpdated(this.distance);
     },

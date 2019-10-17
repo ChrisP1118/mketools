@@ -68,7 +68,7 @@
         <filtered-table-map class="mt-2" :items="items" @bounds-changed="boundsChanged" 
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
-          :get-item-marker-geometry="settings.getItemMarkerGeometry"
+          :get-item-marker-position="settings.getItemMarkerPosition"
           :get-item-icon="settings.getItemIcon"
           :get-item-id="settings.getItemId">
         </filtered-table-map>
@@ -123,7 +123,7 @@
         <filtered-table-map :items="items" @bounds-changed="boundsChanged" 
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
-          :get-item-marker-geometry="settings.getItemMarkerGeometry"
+          :get-item-marker-position="settings.getItemMarkerPosition"
           :get-item-icon="settings.getItemIcon"
           :get-item-id="settings.getItemId">
         </filtered-table-map>

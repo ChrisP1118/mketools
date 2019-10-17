@@ -208,7 +208,7 @@ export default {
           let raw = item._raw;
           return raw.location;
         },
-        getItemMarkerGeometry: function (item) {
+        getItemMarkerPosition: function (item) {
           if (!item || !item._raw || !item._raw.point || !item._raw.point.coordinates)
             return null;
 

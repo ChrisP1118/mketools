@@ -240,41 +240,41 @@ export const store = new Vuex.Store({
       let type = state.policeDispatchCallTypes.values.find(x => x.natureOfCall == natureOfCall);
 
       if (!type)
-        return 'wht-blank.png';
+        return 'https://maps.google.com/mapfiles/kml/paddle/wht-blank.png';
 
       if (type.isCritical)
-        return 'red-circle.png';
+        return 'https://maps.google.com/mapfiles/kml/paddle/red-circle.png';
 
       if (type.isViolent)
-        return 'red-blank.png';
+        return 'https://maps.google.com/mapfiles/kml/paddle/red-blank.png';
 
       if (type.isProperty)
-        return 'orange-blank.png';
+        return 'https://maps.google.com/mapfiles/kml/paddle/orange-blank.png';
 
       if (type.isDrug)
-        return 'purple-blank.png';
+        return 'https://maps.google.com/mapfiles/kml/paddle/purple-blank.png';
 
       if (type.isTraffic)
-        return 'ylw-blank.png';
+        return 'https://maps.google.com/mapfiles/kml/paddle/ylw-blank.png';
 
-      return 'wht-blank.png';
+      return 'https://maps.google.com/mapfiles/kml/paddle/wht-blank.png';
     },
     getFireDispatchCallTypeIcon: state => natureOfCall => {
       let type = state.fireDispatchCallTypes.values.find(x => x.natureOfCall == natureOfCall);
 
       if (!type)
-        return 'wht-blank.png';
+        return 'https://maps.google.com/mapfiles/kml/paddle/wht-blank.png';
 
       if (type.isCritical)
-        return 'red-square.png';
+        return 'https://maps.google.com/mapfiles/kml/paddle/red-square.png';
 
       if (type.isFire)
-        return 'red-blank.png';
+        return 'https://maps.google.com/mapfiles/kml/paddle/red-blank.png';
 
       if (type.isMedical)
-        return 'orange-blank.png';
+        return 'https://maps.google.com/mapfiles/kml/paddle/orange-blank.png';
 
-      return 'wht-blank.png';
+      return 'https://maps.google.com/mapfiles/kml/paddle/wht-blank.png';
     },
     getGeometryPosition: state => geometry => {
       if (geometry.type == 'Point') {
