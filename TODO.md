@@ -1,19 +1,13 @@
 # Launch
 
-* Create README.MD file
 * Test SSO with prod URLs
 * Hide "Properties" page?
 * On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
 * Better map icons/markers
 * Crime/police dispatch call detail pages link cross-link
 * Add some error handling inside of jobs
-* Add "Developer" documentation/notes
-  * List sources used
-  * Mention API usage policy
-* Add "About" page
 * Add Google Analytics
 * Document what's "major" and "minor"
-* Clean up Swagger spec (especially details/remarks at top)
 
 # Minor Issues
 * Caching headers - why Cache-Control: no-cache?
@@ -70,3 +64,9 @@
 * ~~The call to getIcon should include the full URL (maybe even the entire Icon object?)~~
 * ~~FilteredTableMap: Rename "getItemMarkerGeometry" to "getItemMarkerPosition"~~
 * ~~Password reset~~
+* ~~Clean up Swagger spec (especially details/remarks at top)~~
+* ~~Create README.MD file~~
+* ~~Add "Developer" documentation/notes~~
+  * ~~List sources used~~
+  * ~~Mention API usage policy~~
+* ~~Add "About" page~~

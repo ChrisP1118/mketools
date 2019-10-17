@@ -3,10 +3,12 @@ import axios from "axios";
 
 export default {
   name: "AuthMixin",
-  props: {},
+  props: [
+    'defaultAuthPage'
+  ],
   data() {
     return {
-      authPage: 'create',
+      authPage: null,
 
       // Sign up form
       signUpEmail: null,
@@ -181,6 +183,12 @@ export default {
         this.$emit('authenticated', this.$root.$data.authenticatedUser);
       }
     }
+  },
+  mounted () {
+    if (this.defaultAuthPage)
+      this.authPage = this.defaultAuthPage;
+    else
+      this.authPage = 'create';
   }
 };
 </script>

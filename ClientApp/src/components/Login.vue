@@ -6,7 +6,7 @@
         <p>You are already logged in as {{$root.$data.authenticatedUser.username}}.</p>
       </b-col>
     </b-row>
-    <auth-form v-if="!authUser" @authenticated="onAuthenticated" />
+    <auth-form v-if="!authUser" @authenticated="onAuthenticated" default-auth-page="login" />
   </div>
 </template>
 

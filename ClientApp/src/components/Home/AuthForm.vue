@@ -141,7 +141,6 @@ export default {
   },
   mounted () {
     if (this.$route.query.token) {
-      console.log('Resetting');
       this.resetPasswordToken = this.$route.query.token;
       this.authPage = 'reset';
     }
