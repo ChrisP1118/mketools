@@ -1,6 +1,6 @@
 # Launch
 
-* Password reset
+* Create README.MD file
 * Test SSO with prod URLs
 * Hide "Properties" page?
 * On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
@@ -69,3 +69,4 @@
 * ~~Change "Contact" page to "Support"~~
 * ~~The call to getIcon should include the full URL (maybe even the entire Icon object?)~~
 * ~~FilteredTableMap: Rename "getItemMarkerGeometry" to "getItemMarkerPosition"~~
+* ~~Password reset~~

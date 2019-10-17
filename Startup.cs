@@ -145,18 +145,24 @@ namespace MkeAlerts.Web
                     Title = "Milwaukee Alerts API",
                     Version = "v1",
                     Description = @"
+## Using the API
+
+This API is designed for public consumption -- feel free to use it in your own application. I want this to be easily usable by other civic-oriented applications; accordingly, there aren't any API
+keys or registration process for applications that want to use this API. However, because I manage this on my own (and fund it out of my own pocket), please:
+
+* __Let me know if you're using the API.__ Send an email to cwilson at mkealerts.com and let me know what you're doing with it. This will help me keep track of what's being used, and also allow me to contact you if there might be any breaking changes coming.
+* __Keep consumption to reasonable levels.__ To keep the cost manageable on this site, the underlying infrastructure is fairly limited. Don't do anything that will hog all the resources or prevent this site (or others using the API) from working.
+* __Don't charge for anything that's using the API.__ The data in this API is from public sources, and I'm making it all available free of charge.
+
+If you have any questions about how the API works, feel free to contact me. If you're interested in making changes/improvements, visit the project on GitHub: https://github.com/ChrisP1118/mkealerts
+
 ## Authentication
 
-Many of these API endpoints are only available to authenticated users. To authenticate, make a call to `GET /api/Account/Login`. Assuming valid credentials are provided, a JWT token will be
+Some of these API endpoints are only available to authenticated users. To authenticate, make a call to `GET /api/account/login`. Assuming valid credentials are provided, a JWT token will be
 returned. This token should be included in the `Authorization` header as a bearer token on subsequent requests.
 
 Within Swagger UI, you can click the 'Authorize' button to use a token on requests. Make sure that the value entered includes the word `Bearer` before the token -- the value Swagger UI is
 sending is the entire `Authorization` header.
-
-## Errors
-
-A 4xx or 5xx HTTP status code indicates an error. Errors include an `ErrorDetails` object (or an object derived from `ErrorDetails`, such as `ValidationErrorDetails`) in the response with 
-additional details about the error.
 
 ## Filtering Results
 

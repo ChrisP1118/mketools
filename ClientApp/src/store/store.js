@@ -277,6 +277,9 @@ export const store = new Vuex.Store({
       return 'https://maps.google.com/mapfiles/kml/paddle/wht-blank.png';
     },
     getGeometryPosition: state => geometry => {
+      if (!geometry)
+        return null;
+        
       if (geometry.type == 'Point') {
         if (!geometry.coordinates)
           return null;

@@ -1,5 +1,7 @@
 # MkeAlerts App
 
+Interested in contributing? Let me know - cwilson at mkealerts.com.
+
 ## VS Code
 * Open the root folder in VS Code
 * To run the solution, in the VS Code terminal, type: dotnet run
@@ -55,6 +57,7 @@
 * Vue CLI 3
 * Vue Router
 * Vuelidate
+* Leaflet and vue2-leaflet
 * Webpack
 * Bootstrap and BootstrapVue
 
