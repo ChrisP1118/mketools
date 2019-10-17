@@ -1,12 +1,12 @@
 <template>
   <div style="height: 80vh; width: 100%;">
-    <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center">
+    <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center" @update:zoom="zoomUpdated" @update:center="centerUpdated" @update:bounds="boundsUpdated">
       <l-tile-layer :url="tileUrl" :attribution="attribution"></l-tile-layer>
       <l-circle v-if="circleCenter" :lat-lng="circleCenter" :radius="circleRadius" color="#bd2130" />
       <l-marker v-for="marker in markers" v-bind:key="marker.id" :lat-lng="marker.position" :icon="marker.icon">
         <l-popup :content="marker.popup"></l-popup>
       </l-marker>
-      <l-polygon v-for="polygon in polygons" v-bind:key="polygon.id" :lat-lngs="polygon.coordinates" color="#dc3545" weight="1" fill-color="#fd7e14" fill-opacity="0.2">
+      <l-polygon v-for="polygon in polygons" v-bind:key="polygon.id" :lat-lngs="polygon.coordinates" color="#dc3545" :weight="1" fill-color="#fd7e14" :fill-opacity="0.2">
         <l-popup :content="polygon.popup"></l-popup>
       </l-polygon>
     </l-map>
@@ -36,6 +36,7 @@ export default {
       tileUrl: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
       zoom: 12,
       center: [43.0315528, -87.9730566],
+      bounds: null,
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       markers: [],
       polygons: [],
@@ -45,6 +46,27 @@ export default {
     }
   },
   methods: {
+    zoomUpdated (zoom) {
+      this.zoom = zoom;
+    },
+    centerUpdated (center) {
+      this.center = center;
+    },
+    boundsUpdated (bounds) {
+      this.bounds = bounds;
+
+      this.$emit('bounds-changed', {
+        ne: {
+          lat: this.bounds._northEast.lat,
+          lng: this.bounds._northEast.lng
+        },
+        sw: {
+          lat: this.bounds._southWest.lat,
+          lng: this.bounds._southWest.lng
+        }
+      });
+
+    },
     drawMarkers(map) {
 
       this.markers = [];
