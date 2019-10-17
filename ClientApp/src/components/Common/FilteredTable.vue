@@ -70,8 +70,7 @@
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-geometry="settings.getItemMarkerGeometry"
           :get-item-icon="settings.getItemIcon"
-          :get-item-id="settings.getItemId"
-          :open-info-window-item="openInfoWindowItem">
+          :get-item-id="settings.getItemId">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -126,8 +125,7 @@
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-geometry="settings.getItemMarkerGeometry"
           :get-item-icon="settings.getItemIcon"
-          :get-item-id="settings.getItemId"
-          :open-info-window-item="openInfoWindowItem">
+          :get-item-id="settings.getItemId">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -159,7 +157,6 @@ export default {
       filterBasedOnMap: false,
       canFilterBasedOnMap: true,
       showMap: 'right',
-      openInfoWindowItem: null,
       refreshingData: false
     }
   },

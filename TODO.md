@@ -14,6 +14,8 @@
 * Clean up Swagger spec (especially details/remarks at top)
 * Add "share" link on filtered table that creates a link with URL parameters for filter
 * On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
+* FilteredTableMap: Rename "getItemMarkerGeometry" to "getItemMarkerPosition"
+* The call to getIcon should include the full URL (maybe even the entire Icon object?)
 
 # Minor Issues
 * Caching headers - why Cache-Control: no-cache?

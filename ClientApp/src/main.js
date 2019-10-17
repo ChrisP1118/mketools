@@ -59,13 +59,14 @@ import CrimeList from './components/Crime/List.vue'
 import CrimeView from './components/Crime/View.vue'
 
 // Leaflet
-import { LMap, LTileLayer, LMarker, LPopup, LCircle } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker, LPopup, LCircle, LPolygon } from 'vue2-leaflet';
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
 Vue.component('l-marker', LMarker);
+Vue.component('l-polygon', LPolygon);
 Vue.component('l-popup', LPopup);
 Vue.component('l-circle', LCircle);
 

@@ -12,7 +12,6 @@
 
 <script>
 import axios from "axios";
-import gmapsInit from '../Common/googlemaps';
 import moment from 'moment'
 import { mapState, mapGetters } from 'vuex'
 
@@ -40,10 +39,7 @@ export default {
   },
   data() {
     return {
-      google: null,
-      map: null,
       items: [],
-      circle: null,
 
       //tileUrl: 'https://{s}.tile.osm.org/{z}/{x}/{y}.png',
       //tileUrl: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png',
@@ -148,7 +144,7 @@ export default {
             icon: L.icon({
               iconUrl: i.icon,
               iconSize: [40, 40],
-              iconAnchor: [20, 40]
+              iconAnchor: [20, 0]
             }),
             position: i.position,
             popup: i.getContent()
@@ -158,25 +154,11 @@ export default {
       });
     },
     distanceUpdated: function (value) {
-      // if (this.circle)
-      //   this.circle.setMap(null);
-
       if (!this.locationData)
         return;
 
       this.circleCenter = this.locationData;
       this.circleRadius = (value * 0.3048);
-
-      // this.circle = new google.maps.Circle({
-      //   strokeColor: '#bd2130',
-      //   strokeOpacity: 0.8,
-      //   strokeWeight: 2,
-      //   fillColor: '#0d2240',
-      //   fillOpacity: 0.10,
-      //   map: this.map,
-      //   center: this.locationData,
-      //   radius: (value * 0.3048) // Feet to meters
-      // });
     }
   },
   watch: {
@@ -186,8 +168,6 @@ export default {
     locationData: function (newValue, oldValue) {
       this.center = newValue;
       this.zoom = 16;
-      //this.map.setCenter(newValue);
-      //this.map.setZoom(15);
 
       this.distanceUpdated(this.distance);
     },
@@ -197,18 +177,7 @@ export default {
   },
   created() {
   },
-  async mounted () {
-
-    // this.google = await gmapsInit();
-    // this.map = new google.maps.Map(document.getElementById('basicMap'), {
-    //   center: { lat: 43.0315528, lng: -87.9730566 },
-    //   zoom: 12,
-    //   //gestureHandling: 'greedy'
-    // });
-
-    // google.maps.event.addListenerOnce(this.map, 'idle', () => {
-    //   this.showMarkers();
-    // });
+  mounted () {
 
     Promise.all([this.$store.dispatch("loadPoliceDispatchCallTypes"), this.$store.dispatch("loadFireDispatchCallTypes")]).then(() => {
       this.loadMarkers();
