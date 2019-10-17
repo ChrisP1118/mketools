@@ -54,16 +54,9 @@ export default {
       // `googleUser` is the GoogleUser object that represents the just-signed-in user.
       // See https://developers.google.com/identity/sign-in/web/reference#users
       const profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId());
-      console.log('Full Name: ' + profile.getName());
-      console.log('Given Name: ' + profile.getGivenName());
-      console.log('Family Name: ' + profile.getFamilyName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail());
 
       // The ID token you need to pass to your backend:
       var id_token = googleUser.getAuthResponse().id_token;
-      console.log("ID Token: " + id_token);
 
       axios.post('/api/account/loginExternalCredential',
       {
@@ -80,7 +73,7 @@ export default {
     },
     onGoogleSignInError (error) {
       // `error` contains any error occurred.
-      console.log('OH NOES', error);
+      console.log('Google Sign In Error', error);
     },
     onFacebookSignInSuccess (response) {
       FB.api('/me?fields=name,email', user => {
@@ -104,7 +97,7 @@ export default {
       });
     },
     onFacebookSignInError (error) {
-      console.log('OH NOES', error);
+      console.log('Facebook Sign In Error', error);
     },
     onSignUp: function (evt) {
       axios.post('/api/account/register',

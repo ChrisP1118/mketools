@@ -3,19 +3,17 @@
 * Password reset
 * Test SSO with prod URLs
 * Hide "Properties" page?
+* On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
+* Better map icons/markers
 * Crime/police dispatch call detail pages link cross-link
+* Add some error handling inside of jobs
 * Add "Developer" documentation/notes
   * List sources used
   * Mention API usage policy
 * Add "About" page
 * Add Google Analytics
 * Document what's "major" and "minor"
-* Add some error handling inside of jobs
 * Clean up Swagger spec (especially details/remarks at top)
-* Add "share" link on filtered table that creates a link with URL parameters for filter
-* On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
-* FilteredTableMap: Rename "getItemMarkerGeometry" to "getItemMarkerPosition"
-* Better map icons/markers
 
 # Minor Issues
 * Caching headers - why Cache-Control: no-cache?
@@ -23,6 +21,7 @@
 
 # Backlog
 
+* Add "share" link on filtered table that creates a link with URL parameters for filter
 * Add way to lookup crime rate relative to specific address
 * Can we consolidate/cache the Google Maps instance to cut down on API requests? Or is it only counting as one API request right now?
 * Add trash day alerts (import users from MkeTrashDay)
@@ -69,3 +68,4 @@
 * ~~If the page loads on a dispatch page, and then you switch over to home, no dispatch calls are loaded on the home page map~~
 * ~~Change "Contact" page to "Support"~~
 * ~~The call to getIcon should include the full URL (maybe even the entire Icon object?)~~
+* ~~FilteredTableMap: Rename "getItemMarkerGeometry" to "getItemMarkerPosition"~~

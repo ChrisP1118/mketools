@@ -48,7 +48,6 @@
 <script>
 import axios from "axios";
 import moment from 'moment'
-import gmapsInit from '../Common/googlemaps';
 
 export default {
   name: "PoliceDispatchCallView",

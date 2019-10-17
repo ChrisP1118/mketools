@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import gmapsInit from '../Common/googlemaps';
-
 export default {
   name: 'FilteredTableMap',
   props: [
