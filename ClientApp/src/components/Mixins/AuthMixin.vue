@@ -14,20 +14,24 @@ export default {
       signUpEmail: null,
       signUpPassword: null,
       signUpConfirm: null,
+      signUpError: null,
 
       // Log in form
       logInEmail: null,
       logInPassword: null,
+      logInError: null,
 
       // Reset password request form
       requestPasswordResetEmail: null,
       requestPasswordResetDone: false,
+      requestPasswordResetError: null,
 
       // Reset password form
       resetPasswordEmail: null,
       resetPasswordToken: null,
       resetPasswordPassword: null,
       resetPasswordConfirm: null,
+      resetPasswordError: null,
 
       // External providers
       googleSignInParams: {
@@ -123,7 +127,7 @@ export default {
         this.processAuthResponse(response);
       })
       .catch(error => {
-        console.log(error);
+        this.signUpError = this.createErrorMessage(error);
       });
     },
     onLogIn: function (evt) {
@@ -136,7 +140,7 @@ export default {
         this.processAuthResponse(response);
       })
       .catch(error => {
-        console.log(error);
+        this.logInError = this.createErrorMessage(error);
       });
     },
     onRequestPasswordReset: function (evt) {
@@ -149,7 +153,7 @@ export default {
         this.requestPasswordResetDone = true;
       })
       .catch(error => {
-        console.log(error);
+        this.requestPasswordResetError = this.createErrorMessage(error);
       });
     },
     onResetPassword: function (evt) {
@@ -163,7 +167,7 @@ export default {
         this.processAuthResponse(response);
       })
       .catch(error => {
-        console.log(error);
+        this.resetPasswordError = this.createErrorMessage(error);
       });
     },
     processAuthResponse: function (response) {
@@ -182,6 +186,18 @@ export default {
 
         this.$emit('authenticated', this.$root.$data.authenticatedUser);
       }
+    },
+    createErrorMessage: function (error) {
+      if (!error || !error.response || !error.response.data || !error.response.data.Details)
+        return 'An unexpected error occurred. Please try again.';
+
+      let parts = [];
+      parts.push(error.response.data.Details);
+
+      if (error.response.data.SubErrors)
+        parts.push(...error.response.data.SubErrors);
+
+      return parts.join('<br />');
     }
   },
   mounted () {

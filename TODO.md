@@ -1,5 +1,9 @@
 # Launch
 
+* Loading message when performing initial geolookup
+* On mobile, default filtered table map to top; desktop to right
+* Navbar icon is skewed on mobile
+* Error messages when log in fails
 * Test SSO with prod URLs
 * Hide "Properties" page?
 * On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
@@ -8,6 +12,8 @@
 * Add some error handling inside of jobs
 * Add Google Analytics
 * Document what's "major" and "minor"
+* Add unsubscribe link to notification emails
+* Confirm email address before sending notifications?
 
 # Minor Issues
 * Caching headers - why Cache-Control: no-cache?

@@ -31,6 +31,7 @@
       <b-col md="6" class="text-center">
         <div v-if="authPage == 'create'">
           <h2>Sign Up</h2>
+          <b-alert :show="signUpError" variant="danger"><span v-html="signUpError"></span></b-alert>
           <b-form @submit.prevent="onSignUp">
             <b-form-group>
               <label class="sr-only" for="signUpEmail">Email Address</label>
@@ -55,6 +56,7 @@
         </div>
         <div v-if="authPage == 'login'">
           <h2>Log In</h2>
+          <b-alert :show="logInError" variant="danger"><span v-html="logInError"></span></b-alert>
           <b-form @submit.prevent="onLogIn">
             <b-form-group>
               <label class="sr-only" for="logInEmail">Email Address</label>
@@ -75,6 +77,7 @@
         </div>
         <div v-if="authPage == 'requestReset'">
           <h2>Request Password Reset</h2>
+          <b-alert :show="requestPasswordResetError" variant="danger"><span v-html="requestPasswordResetError"></span></b-alert>
           <b-alert v-if="requestPasswordResetDone" variant="success" show>An email has been sent to the address you provided with a link to reset your password.</b-alert>
           <b-form @submit.prevent="onRequestPasswordReset">
             <b-form-group>
@@ -92,6 +95,7 @@
         </div>
         <div v-if="authPage == 'reset'">
           <h2>Reset Password</h2>
+          <b-alert :show="resetPasswordError" variant="danger"><span v-html="resetPasswordError"></span></b-alert>
           <b-form @submit.prevent="onResetPassword">
             <b-form-group>
               <label class="sr-only" for="resetPasswordEmail">Email Address</label>
