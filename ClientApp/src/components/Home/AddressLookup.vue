@@ -1,5 +1,11 @@
 <template>
   <div>
+    <b-alert :show="isGettingAddress" variant="info">
+      <div class="text-center">
+        <b-spinner variant="primary" label="Loading"></b-spinner>
+        Loading address...
+      </div>          
+    </b-alert>
     <b-form @submit="onSubmit" @submit.stop.prevent>
       <b-form-row class="justify-content-center">
         <b-form-group>
@@ -65,6 +71,8 @@ export default {
       this.lat = position.coords.latitude;
       this.lng = position.coords.longitude;
 
+      this.isGettingAddress = true;
+
       this.$store.dispatch('getAddressFromCoordinates', {
         lat: this.lat, 
         lng: this.lng
@@ -76,6 +84,8 @@ export default {
 
         this.emitAddressData();
         this.emitLocationData();
+
+        this.isGettingAddress = false;
       });
     },
     onSubmit: function () {

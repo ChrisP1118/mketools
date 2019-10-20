@@ -7,7 +7,8 @@
 
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
         <b-navbar-brand to="/">
-            MKE Alerts
+          <img src="./assets/MkeAlerts_60_36.png" style="max-height: 36px; max-width: 60px; border: 1px solid white;" alt="MKE Alerts" />
+          MKE Alerts
         </b-navbar-brand>
 
         <b-collapse is-nav id="nav_collapse">
@@ -38,7 +39,7 @@
               <b-dropdown-item to="/login" v-if="!$root.$data.authenticatedUser.username">Log In</b-dropdown-item>
               <b-dropdown-item to="/logout" v-if="$root.$data.authenticatedUser.username">Log Out</b-dropdown-item>
             </b-nav-item-dropdown>
-            <img src="./assets/MkeAlerts_60_36.png" style="max-height: 36px; border: 1px solid white;" />
+            
           </b-navbar-nav>
 
         </b-collapse>

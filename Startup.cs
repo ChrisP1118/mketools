@@ -328,23 +328,24 @@ Note that not all fields can be sorted.
             // Run every 5 minutes
             RecurringJob.AddOrUpdate<ImportFireDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 
-            /*
-            // Every day at 1:00am (Dataset is updated daily: https://data.milwaukee.gov/dataset/mai)
-            RecurringJob.AddOrUpdate<ImportAddressesJob>("ImportAddressesJob", x => x.Run(), "0 1 * * *");
+            if (!env.IsDevelopment())
+            {
+                // Every day at 1:00am (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
+                RecurringJob.AddOrUpdate<ImportCrimesJob>("ImportCrimesJob", x => x.Run(), "0 1 * * *");
 
-            // Every day at 3:00am (Dataset is updated daily: https://data.milwaukee.gov/dataset/mprop)
-            RecurringJob.AddOrUpdate<ImportPropertiesJob>("ImportPropertiesJob", x => x.Run(), "0 3 * * *");
+                // Every Saturday at 1:00am (Dataset is updated daily: https://data.milwaukee.gov/dataset/mai)
+                RecurringJob.AddOrUpdate<ImportAddressesJob>("ImportAddressesJob", x => x.Run(), "0 1 * * SAT");
 
-            // Every day at 5:00am (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
-            RecurringJob.AddOrUpdate<ImportCrimesJob>("ImportCrimesJob", x => x.Run(), "0 5 * * *");
+                // Every Sunday at 1:00am (Dataset is updated daily: https://data.milwaukee.gov/dataset/mprop)
+                RecurringJob.AddOrUpdate<ImportPropertiesJob>("ImportPropertiesJob", x => x.Run(), "0 1 * * SUN");
 
-            // Every day at 6:00pm on Sundays
-            RecurringJob.AddOrUpdate<ImportParcelsJob>("ImportParcelsJob", x => x.Run(), "0 18 * * SUN");
-            //BackgroundJob.Enqueue<ImportParcelsJob>(x => x.Run());
+                // Every Monday at 1:00am
+                RecurringJob.AddOrUpdate<ImportParcelsJob>("ImportParcelsJob", x => x.Run(), "0 1 * * MON");
+                //BackgroundJob.Enqueue<ImportParcelsJob>(x => x.Run());
 
-            // Every day at 9:00pm on Sundays
-            RecurringJob.AddOrUpdate<ImportStreetsJob>("ImportStreetsJob", x => x.Run(), "0 21 * * SUN");
-            */
+                // Every Tuesday at 1:00am
+                RecurringJob.AddOrUpdate<ImportStreetsJob>("ImportStreetsJob", x => x.Run(), "0 1 * * TUE");
+            }
         }
     }
 
