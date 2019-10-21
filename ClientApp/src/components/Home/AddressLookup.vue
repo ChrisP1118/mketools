@@ -3,7 +3,7 @@
     <b-alert :show="isGettingAddress" variant="info">
       <div class="text-center">
         <b-spinner variant="primary" label="Loading"></b-spinner>
-        Loading address...
+        Finding your address based on your current location...
       </div>          
     </b-alert>
     <b-form @submit="onSubmit" @submit.stop.prevent>
@@ -55,6 +55,8 @@ export default {
 
       lat: null,
       lng: null,
+
+      isGettingAddress: false
     }
   },
   computed: {

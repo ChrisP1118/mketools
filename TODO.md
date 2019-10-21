@@ -2,26 +2,27 @@
 
 * Add unsubscribe link to notification emails
 * Confirm email address before sending notifications?
-* On mobile, default filtered table map to top; desktop to right
-* Navbar icon is skewed on mobile
+* Reset password/my profile page
+* Error messages when logging in/creating account that's tied to external provider ("That email is associated with Facebook...")
 * Test SSO with prod URLs
 * Hide "Properties" page?
 * On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
 * Better map icons/markers
 * Crime/police dispatch call detail pages link cross-link
 * Add some error handling inside of jobs
-* Add Google Analytics
 * Document what's "major" and "minor"
 
 # Minor Issues
+* On mobile, default filtered table map to top; desktop to right
 * Caching headers - why Cache-Control: no-cache?
 * When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
+* Update page meta tags (title, description, etc.) on route changes: https://alligator.io/vuejs/vue-router-modify-head/
+* When importing crime data, we probably don't need to update/upsert any older than a certain span (or maybe do a complete import on a weekly/monthly basis, but just the last x weeks on a daily basis)
 
 # Backlog
 
 * Add "share" link on filtered table that creates a link with URL parameters for filter
 * Add way to lookup crime rate relative to specific address
-* Can we consolidate/cache the Google Maps instance to cut down on API requests? Or is it only counting as one API request right now?
 * Add trash day alerts (import users from MkeTrashDay)
 * PWA
 * PWA - add notifications API support
@@ -76,3 +77,5 @@
 * ~~Add "About" page~~
 * ~~Error messages when log in fails~~
 * ~~Loading message when performing initial geolookup~~
+* ~~Navbar icon is skewed on mobile~~
+* ~~Add Google Analytics~~

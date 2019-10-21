@@ -58,7 +58,9 @@ namespace MkeAlerts.Web.Jobs
                     .Include(x => x.ApplicationUser)
                     .Where(x => x.Point.Distance(policeDispatchCall.Geometry) < x.Distance * 0.3048); // Distance is stored in feet, which we convert here to meters
 
-                if (policeDispatchCallType.IsMajor)
+                if (policeDispatchCallType == null)
+                    queryable = queryable.Where(x => x.DispatchCallType.HasFlag(DispatchCallType.JustNonCrimePoliceDispatchCall));
+                else if (policeDispatchCallType.IsMajor)
                     queryable = queryable.Where(x => x.DispatchCallType.HasFlag(DispatchCallType.JustMajorPoliceDispatchCall));
                 else if (policeDispatchCallType.IsMinor)
                     queryable = queryable.Where(x => x.DispatchCallType.HasFlag(DispatchCallType.JustMinorPoliceDispatchCall));

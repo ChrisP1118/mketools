@@ -151,6 +151,11 @@ router.beforeEach((to, from, next) => {
   }
 });
 
+router.afterEach((to, from) => {
+  ga('set', 'page', to.path);
+  ga('send', 'pageview');
+});
+
 new Vue({
   store,
   router,
