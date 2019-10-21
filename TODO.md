@@ -3,7 +3,6 @@
 * Add unsubscribe link to notification emails
 * Confirm email address before sending notifications?
 * Reset password/my profile page
-* Error messages when logging in/creating account that's tied to external provider ("That email is associated with Facebook...")
 * Test SSO with prod URLs
 * Hide "Properties" page?
 * On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
@@ -79,3 +78,5 @@
 * ~~Loading message when performing initial geolookup~~
 * ~~Navbar icon is skewed on mobile~~
 * ~~Add Google Analytics~~
+* ~~Show errors if OAuth fails~~
+* ~~Error messages when logging in/creating account that's tied to external provider ("That email is associated with Facebook...")~~

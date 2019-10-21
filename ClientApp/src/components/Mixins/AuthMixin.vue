@@ -10,6 +10,8 @@ export default {
     return {
       authPage: null,
 
+      externalLogInError: null,
+
       // Sign up form
       signUpEmail: null,
       signUpPassword: null,
@@ -86,11 +88,12 @@ export default {
         this.processAuthResponse(response);
       })
       .catch(error => {
+        this.externalLogInError = this.createErrorMessage(error);
         console.log(error);
       });      
     },
     onGoogleSignInError (error) {
-      // `error` contains any error occurred.
+      this.externalLogInError = "Unable to sign in to Google: " + error;
       console.log('Google Sign In Error', error);
     },
     onFacebookSignInSuccess (response) {
@@ -110,11 +113,13 @@ export default {
           this.processAuthResponse(response);
         })
         .catch(error => {
+          this.externalLogInError = this.createErrorMessage(error);
           console.log(error);
         });        
       });
     },
     onFacebookSignInError (error) {
+      this.externalLogInError = "Unable to sign in to Facebook: " + error;
       console.log('Facebook Sign In Error', error);
     },
     onSignUp: function (evt) {

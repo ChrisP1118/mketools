@@ -2,6 +2,7 @@
   <div>
     <b-row>
       <b-col>
+        <b-alert :show="externalLogInError" variant="danger"><span v-html="externalLogInError"></span></b-alert>
         <div class="text-center">
           Log in with: 
           <b-button>

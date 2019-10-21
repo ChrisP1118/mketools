@@ -80,7 +80,16 @@ namespace MkeAlerts.Web.Controllers
                 };
             }
 
-            throw new IdentityException("Invalid username or password", new List<string>());
+            ExternalCredential externalCredential = await _dbContext.ExternalCredentials
+                .Where(ec => ec.ApplicationUser.Email == model.Email)
+                .FirstOrDefaultAsync();
+
+            List<string> subErrors = new List<string>();
+
+            if (externalCredential != null)
+                subErrors.Add("That email address is used by a " + externalCredential.Provider + " account. Try signing in with " + externalCredential.Provider + ".");
+
+            throw new IdentityException("Invalid username or password", subErrors);
         }
 
         /// <summary>
