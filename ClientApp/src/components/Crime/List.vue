@@ -1,7 +1,7 @@
 <template>
   <div>
     <page-title title="Crimes" />
-    <p class="small">Crime data is updated weekly.</p>
+    <p class="small">Crime data is updated daily, but it often takes several days for the data to be available.</p>
     <b-row>
       <b-col>
         <hr />
