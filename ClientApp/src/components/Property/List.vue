@@ -1,8 +1,14 @@
 <template>
   <div>
     <page-title title="Properties" />
+    <p class="small">
+      This page displays data from the city's Master Property Record. It contains assessment data -- and more than 90 other data points -- for each property in
+      the city. 
+      <a href="https://data.milwaukee.gov/dataset/mprop" target="_blank">More details are available here.</a>
+    </p>
     <b-row>
       <b-col>
+        <hr />
         <filtered-table :settings="tableSettings">
         </filtered-table>
       </b-col>

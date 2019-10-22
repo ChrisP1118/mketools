@@ -14,7 +14,7 @@ export const store = new Vuex.Store({
     distances: [
       { text: '1/16 mile', value: 330 },
       { text: '1/8 mile', value: 660 },
-      { text: '1/4 mile', value: 1320 }
+      { text: '1/4 mile', value: 1320 },
       //{ text: '1/2 mile', value: 2640 },
       //{ text: '1 mile', value: 5280 }      
     ],
@@ -227,8 +227,12 @@ export const store = new Vuex.Store({
     getDistanceLabel: state => distance => {
       if (!distance)
         return '';
-  
-      return state.distances.find(x => x.value == distance).text;
+
+      let x = state.distances.find(x => x.value == distance);
+      if (x)  
+        return x.text;
+
+      return distance + ' feet';
     },  
     getCallTypeLabel: state => callType => {
       if (!callType)

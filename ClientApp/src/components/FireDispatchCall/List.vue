@@ -1,6 +1,10 @@
 <template>
   <div>
     <page-title title="Fire Dispatch Calls" />
+    <p class="small">This list contains fire dispatch calls as reported by the Milwaukee Fire Department. The data is updated constantly, but there's a lag
+      of around 15-30 minutes between when the calls are made and when the data is available.
+      <a href="https://itmdapps.milwaukee.gov/MFDCallData/index.jsp" target="_blank">More details are available here.</a>
+    </p>
     <b-row>
       <b-col>
         <hr />

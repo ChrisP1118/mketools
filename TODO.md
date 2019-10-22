@@ -1,11 +1,9 @@
 # Launch
 
-* Remove "Loading data" message on filtered table (or at least make it not interfere with user typing)
-* Add descriptions to each page -- e.g. police dispatch call vs. crime data ("Not all police calls are crimes ... and vice versa") -- maybe link to data sources?
+* Clean up: "Exceptions" folder vs "Middleware\Exceptions" folder
 * Crime page - filters lost after clicking through to detail page
 * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
 * THEFT appears as non-crime? https://localhost:5001/#/policeDispatchCall/192931850
-* Add unsubscribe link to notification emails
 * Confirm email address before sending notifications?
 * Reset password/my profile page
 * Test SSO with prod URLs
@@ -85,3 +83,6 @@
 * ~~Add Google Analytics~~
 * ~~Show errors if OAuth fails~~
 * ~~Error messages when logging in/creating account that's tied to external provider ("That email is associated with Facebook...")~~
+* ~~Remove "Loading data" message on filtered table (or at least make it not interfere with user typing)~~
+* ~~Add descriptions to each page -- e.g. police dispatch call vs. crime data ("Not all police calls are crimes ... and vice versa") -- maybe link to data sources?~~
+* ~~Add unsubscribe link to notification emails~~

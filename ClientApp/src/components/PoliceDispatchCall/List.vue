@@ -1,6 +1,11 @@
 <template>
   <div>
     <page-title title="Dispatch Calls" />
+    <p class="small">This list contains police dispatch calls as reported by the Milwaukee Police Department. The data is updated every 5 minutes, but there's a lag
+      of around 30-45 minutes between when the calls are made and when the data is available. A call does not necessarily indicate a crime, and the time/location of
+      the call does not necessarily indicate the time/location of the underlying incident.
+      <a href="https://itmdapps.milwaukee.gov/MPDCallData/index.jsp?district=All" target="_blank">More details are available here.</a>
+    </p>
     <b-row>
       <b-col>
         <hr />

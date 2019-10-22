@@ -76,13 +76,7 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-modal v-model="refreshingData" centered title="Please wait..." hide-footer header-bg-variant="primary" header-text-variant="light">
-          <div class="text-center mt-3 mb-3">
-            <b-spinner variant="primary" label="Loading"></b-spinner>
-            Loading data...
-          </div>          
-        </b-modal>
-        <b-table striped hover :items="items" :fields="visibleFields" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked" class="mt-2">
+        <b-table striped hover :items="items" :fields="visibleFields" :busy="refreshingData" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked" class="mt-2">
           <template slot="table-caption">
           </template>
           <template slot="thead-top">
@@ -109,6 +103,12 @@
                 <router-link :to="action.getUrl(rawItems[data.index])"><font-awesome-icon :icon="action.icon" /></router-link>
               </b-button>
             </b-button-group>
+          </template>
+          <template v-slot:table-busy>
+            <div class="text-center text-danger my-2">
+              <b-spinner class="align-middle"></b-spinner>
+              <strong>Loading...</strong>
+            </div>
           </template>
         </b-table>
         <span v-if="total > 0">
@@ -157,7 +157,8 @@ export default {
       filterBasedOnMap: false,
       canFilterBasedOnMap: true,
       showMap: 'right',
-      refreshingData: false
+      refreshingData: false,
+      refreshDataTime: null
     }
   },
   computed: {
@@ -252,13 +253,15 @@ export default {
 
         this.refreshDataTimeout = setTimeout(() => {
           this.refreshData();
-        }, 250);
+        }, 350);
         return;
       } else {
         this.refreshDataTimeout = null;
       }
 
       this.refreshingData = true;
+      let refreshDataTime = new Date().getTime();
+      this.refreshDataTime = refreshDataTime;
 
       // Refreshes rawItems -- hits the server to get new data
       let url = this.settings.endpoint + '?';
@@ -308,9 +311,9 @@ export default {
       axios
         .get(url)
         .then(response => {
-          //console.log(response);
-
-          // TODO: Check for 200?
+          // This isn't the most recent refresh request, so don't bother doing anything with it
+          if (this.refreshDataTime != refreshDataTime)
+            return;
 
           this.rawItems = response.data;
           this.total = response.headers['x-total-count'];

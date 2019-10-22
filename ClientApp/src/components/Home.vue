@@ -137,8 +137,6 @@ export default {
       axios
         .get('/api/dispatchCallSubscription?filter=applicationUserId%3D%22' + id + '%22')
         .then(response => {
-          console.log(response);
-          
           this.subscriptions = response.data;
         })
         .catch(error => {

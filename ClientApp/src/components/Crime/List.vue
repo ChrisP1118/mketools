@@ -1,7 +1,11 @@
 <template>
   <div>
     <page-title title="Crimes" />
-    <p class="small">Crime data is updated daily, but it often takes several days for the data to be available.</p>
+    <p class="small">This list contains crimes reported in the city of Milwaukee. This is very different from the police dispatch call data, which includes all
+      types of police calls, not just crimes. In other words, not every crime listed here has a corresponding dispatch call and vice versa. This data is updated
+      daily, but it often takes several days for the data to be available. 
+      <a href="https://data.milwaukee.gov/dataset/wibr" target="_blank">More details are available here.</a>
+    </p>
     <b-row>
       <b-col>
         <hr />
