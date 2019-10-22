@@ -7,7 +7,7 @@
           {{getCallTypeLabel(subscription.dispatchCallType)}} 
           within {{getDistanceLabel(subscription.distance)}} 
           of {{subscription.house_nr}} {{subscription.sdir}} {{subscription.street}} {{subscription.sttype}}.</a>
-        <a href="#" class="small" @click.prevent="deleteSubscription(subscription)">(Delete)</a>
+        <a href="#" class="small" style="padding-left: 5px;" @click.prevent="deleteSubscription(subscription)">(Delete)</a>
       </div>
     </div>
     <div v-if="subscriptions.length > 1">
@@ -18,7 +18,7 @@
             {{getCallTypeLabel(subscription.dispatchCallType)}} 
             within {{getDistanceLabel(subscription.distance)}}
             of {{subscription.house_nr}} {{subscription.sdir}} {{subscription.street}} {{subscription.sttype}}.</a>
-          <a href="#" class="small" @click.prevent="deleteSubscription(subscription)">(Delete)</a>
+          <a href="#" class="small" style="padding-left: 5px;" @click.prevent="deleteSubscription(subscription)">(Delete)</a>
         </div>
       </div>
     </div>

@@ -22,7 +22,8 @@ export default {
     'getItemPolygonGeometry',
     'getItemMarkerPosition',
     'getItemIcon',
-    'getItemId'
+    'getItemId',
+    'locationData'
   ],
   data() {
     return {
@@ -124,6 +125,17 @@ export default {
     async items() {
       this.redraw();
     },
+    locationData: function (newValue, oldValue) {
+      //console.log('filtered data map - location: ' + (newValue ? newValue.lat + ',' + newValue.lng : '(null)'));
+
+      if (newValue) {
+        this.center = [newValue.lat, newValue.lng];
+        this.zoom = 16;
+      } else {
+        this.center = [43.0315528, -87.9730566];
+        this.zoom = 11;
+      }
+    }
   },
   mounted() {
     if (this.items)

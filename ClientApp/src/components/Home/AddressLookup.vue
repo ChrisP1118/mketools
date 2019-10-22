@@ -7,7 +7,7 @@
       </div>          
     </b-alert>
     <b-form @submit="onSubmit" @submit.stop.prevent>
-      <b-form-row class="justify-content-center">
+      <b-form-row class="justify-content-center" style="margin-bottom: -15px;">
         <b-form-group>
           <label class="sr-only" for="Number">Number</label>
           <b-form-input v-model="number" id="Number" placeholder="Number" type="number" />
@@ -60,7 +60,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['streetReferences'])
+    ...mapState(['streetReferences']),
+    ...mapGetters(['getAddressData', 'getLocationData']),
   },
   methods: {
     getPosition: function () {
@@ -121,28 +122,60 @@ export default {
       this.emitLocationData();
     },
     emitAddressData: function () {
-      if (!this.number)
-        this.$emit('update:addressData', null);
-      else
-        this.$emit('update:addressData', {
+      let addressData = null;
+      if (this.number) {
+        addressData = {
           number: this.number,
           streetDirection: this.streetDirection,
           streetName: this.streetName,
           streetType: this.streetType
-        });
+        };
+      }
+
+      this.$store.dispatch('setAddressData', addressData);
+      this.$emit('update:addressData', addressData);
     },
     emitLocationData: function () {
-      if (!this.lat)
-        this.$emit('update:locationData',  null);
-      else
-        this.$emit('update:locationData', {
+      let locationData = null;
+      if (this.lat) {
+        locationData = {
           lat: this.lat,
           lng: this.lng
-        });
+        };
+      }
+
+      this.$store.dispatch('setLocationData', locationData);
+      this.$emit('update:locationData', locationData);
     }
   },
   mounted () {
-    this.getPosition();
+    let addressData = this.getAddressData();
+    let locationData = this.getLocationData();
+
+    // if (addressData)
+    //   console.log(addressData.number + ' ' + addressData.streetName);
+    // else
+    //   console.log('null');
+
+    // if (locationData)
+    //   console.log(locationData.lat + ', ' + locationData.lng);
+    // else
+    //   console.log('null');
+
+    if (locationData || addressData) {
+      this.number = addressData.number;
+      this.streetDirection = addressData.streetDirection;
+      this.streetName = addressData.streetName;
+      this.streetType = addressData.streetType;
+
+      this.lat = locationData.lat;
+      this.lng = locationData.lng;
+
+      this.emitAddressData();
+      this.emitLocationData();
+    } else {
+      this.getPosition();
+    }
   },
   created() {
     this.$store.dispatch("loadStreetReferences");

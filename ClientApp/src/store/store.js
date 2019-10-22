@@ -10,6 +10,8 @@ const STATE_LOADING = 1;
 const STATE_LOADED = 2;
 
 export const store = new Vuex.Store({
+  addressData: null,
+  locationData: null,
   state: {
     distances: [
       { text: '1/16 mile', value: 330 },
@@ -45,6 +47,12 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
+    SET_ADDRESS_DATA(state, addressData) {
+      state.addressData = addressData;
+    },
+    SET_LOCATION_DATA(state, locationData) {
+      state.locationData = locationData;
+    },
     SET_STREET_REFERENCES_LOAD_STATE(state, loadState) {
       state.streetReferences.loadState = loadState;
     },
@@ -221,6 +229,12 @@ export const store = new Vuex.Store({
           });
         });
 
+    },
+    setAddressData(context, addressData) {
+      context.commit('SET_ADDRESS_DATA', addressData);
+    },
+    setLocationData(context, locationData) {
+      context.commit('SET_LOCATION_DATA', locationData);
     }
   },
   getters: {
@@ -301,6 +315,12 @@ export const store = new Vuex.Store({
           lng: geometry.coordinates[0][0][0]
         };
       }
+    },
+    getAddressData: state => () => {
+      return state.addressData;
+    },
+    getLocationData: state => () => {
+      return state.locationData;
     }
   }
 })

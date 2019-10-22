@@ -70,7 +70,8 @@
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-position="settings.getItemMarkerPosition"
           :get-item-icon="settings.getItemIcon"
-          :get-item-id="settings.getItemId">
+          :get-item-id="settings.getItemId"
+          :location-data="locationData">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -125,7 +126,8 @@
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-position="settings.getItemMarkerPosition"
           :get-item-icon="settings.getItemIcon"
-          :get-item-id="settings.getItemId">
+          :get-item-id="settings.getItemId"
+          :location-data="locationData">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -139,7 +141,8 @@ import moment from 'moment'
 export default {
   name: "FilteredTable",
   props: [
-    'settings'
+    'settings',
+    'locationData'
   ],
   data() {
     return {
@@ -324,6 +327,16 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    }
+  },
+  watch: {
+    locationData: function (newValue, oldValue) {
+      if (newValue)
+        this.filterBasedOnMap = true;
+      else {
+        this.filterBasedOnMap = false;
+        this.refreshData();
+      }
     }
   },
   mounted () {
