@@ -23,7 +23,7 @@ export default {
   methods: {
     load: function () {
       this.subscriptionId = this.$route.query.subscriptionId;
-      this.applicationId = this.$route.query.applicationId;
+      this.applicationUserId = this.$route.query.applicationUserId;
       this.hash = this.$route.query.hash;
 
       axios
@@ -33,8 +33,6 @@ export default {
           hash: this.hash
         })
         .then(response => {
-          console.log(response);
-
           this.$bvToast.toast('You will no longer receive these notifications.', {
             title: 'Unsubscribed',
             autoHideDelay: 5000,

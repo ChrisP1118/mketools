@@ -41,16 +41,9 @@ namespace MkeAlerts.Web.Controllers.Data
 
             ClaimsPrincipal claimsPrincipal = UserUtilities.GetClaimsPrincipal(model.ApplicationUserId);
 
-            DispatchCallSubscription dataModel = await _readService.GetOne(claimsPrincipal, model.SubscriptionId);
-
-            if (dataModel == null)
-                return NotFound();
-
             await _writeService.Delete(claimsPrincipal, model.SubscriptionId);
 
-            DispatchCallSubscriptionDTO dtoModel = _mapper.Map<DispatchCallSubscription, DispatchCallSubscriptionDTO>(dataModel);
-
-            return Ok(dtoModel);
+            return NoContent();
         }
     }
 }
