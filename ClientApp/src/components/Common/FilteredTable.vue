@@ -65,13 +65,14 @@
     </b-row>
     <b-row v-if="showMap == 'top'">
       <b-col>
-        <filtered-table-map class="mt-2" :items="items" @bounds-changed="boundsChanged" 
+        <filtered-table-map class="mt-2" :items="items" @bounds-changed="boundsChanged" @zoom-changed="zoomChanged"
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-position="settings.getItemMarkerPosition"
           :get-item-icon="settings.getItemIcon"
           :get-item-id="settings.getItemId"
-          :location-data="locationData">
+          :location-data="locationData"
+          :info-message="infoMessage">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -121,13 +122,14 @@
         <b-pagination v-model="page" :total-rows="total" :per-page="limit" @input="refreshData"></b-pagination>
       </b-col>
       <b-col v-if="showMap == 'right'">
-        <filtered-table-map :items="items" @bounds-changed="boundsChanged" 
+        <filtered-table-map :items="items" @bounds-changed="boundsChanged" @zoom-changed="zoomChanged"
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-position="settings.getItemMarkerPosition"
           :get-item-icon="settings.getItemIcon"
           :get-item-id="settings.getItemId"
-          :location-data="locationData">
+          :location-data="locationData"
+          :info-message="infoMessage">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -161,7 +163,9 @@ export default {
       canFilterBasedOnMap: true,
       showMap: 'right',
       refreshingData: false,
-      refreshDataTime: null
+      refreshDataTime: null,
+      zoom: null,
+      infoMessage: null
     }
   },
   computed: {
@@ -178,13 +182,24 @@ export default {
       this.filterBasedOnMap = false;
     },
     boundsChanged: function (bounds) {
-      this.canFilterBasedOnMap = Math.abs(bounds.sw.lat - bounds.ne.lat) < 0.015 && Math.abs(bounds.ne.lng - bounds.sw.lng) < 0.030;
-      if (!this.canFilterBasedOnMap)
-        this.filterBasedOnMap = false;
       this.bounds = bounds;
 
       if (this.filterBasedOnMap)
         this.refreshData();
+    },
+    zoomChanged: function (zoom) {
+      this.zoom = zoom;
+
+      this.canFilterBasedOnMap = zoom >= 15;
+      if (!this.canFilterBasedOnMap && this.filterBasedOnMap) {
+        this.infoMessage = 'Data is no longer filtered based on the map. Zoom back in and check the "Filter based on map" option to filter based on the map.';
+        this.filterBasedOnMap = false;
+        this.refreshData();
+      }
+
+      if (this.canFilterBasedOnMap && this.filterBasedOnMap) {
+        this.infoMessage = null;
+      }
     },
     rowClicked: function (item, index, event) {
       let rawItem = this.rawItems[index];

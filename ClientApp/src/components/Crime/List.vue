@@ -1,6 +1,15 @@
 <template>
   <div>
     <page-title title="Crimes" />
+    <b-row class="mb-3">
+      <b-col>
+        <b-card bg-variant="light">
+          <b-card-text>
+            <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" />
+          </b-card-text>
+        </b-card>        
+      </b-col>
+    </b-row>
     <p class="small">This list contains crimes reported in the city of Milwaukee. This is very different from the police dispatch call data, which includes all
       types of police calls, not just crimes. In other words, not every crime listed here has a corresponding dispatch call and vice versa. This data is updated
       daily, but it often takes several days for the data to be available. 
@@ -9,7 +18,7 @@
     <b-row>
       <b-col>
         <hr />
-        <filtered-table :settings="tableSettings" @rowClicked="onRowClicked">
+        <filtered-table :settings="tableSettings" :locationData="locationData" @rowClicked="onRowClicked">
         </filtered-table>
       </b-col>
     </b-row>
@@ -25,6 +34,9 @@ export default {
   data() {
     let base = this;
     return {
+      addressData: null,
+      locationData: null,
+
       tableSettings: {
         endpoint: '/api/crime',
         columns: [

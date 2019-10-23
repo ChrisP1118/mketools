@@ -1,6 +1,15 @@
 <template>
   <div>
     <page-title title="Fire Dispatch Calls" />
+    <b-row class="mb-3">
+      <b-col>
+        <b-card bg-variant="light">
+          <b-card-text>
+            <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" />
+          </b-card-text>
+        </b-card>        
+      </b-col>
+    </b-row>
     <p class="small">This list contains fire dispatch calls as reported by the Milwaukee Fire Department. The data is updated constantly, but there's a lag
       of around 15-30 minutes between when the calls are made and when the data is available.
       <a href="https://itmdapps.milwaukee.gov/MFDCallData/index.jsp" target="_blank">More details are available here.</a>
@@ -22,8 +31,10 @@ export default {
   name: "FireDispatchCallList",
   props: {},
   data() {
-    let base = this;
     return {
+      addressData: null,
+      locationData: null,
+
       tableSettings: {
         endpoint: '/api/fireDispatchCall',
         columns: [

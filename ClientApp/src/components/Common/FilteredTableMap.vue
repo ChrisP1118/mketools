@@ -1,5 +1,8 @@
 <template>
   <div style="height: 80vh; width: 100%;">
+    <b-alert :show="infoMessage" variant="info">
+      {{infoMessage}}
+    </b-alert>    
     <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center" @update:zoom="zoomUpdated" @update:center="centerUpdated" @update:bounds="boundsUpdated">
       <l-tile-layer :url="tileUrl" :attribution="attribution"></l-tile-layer>
       <l-circle v-if="circleCenter" :lat-lng="circleCenter" :radius="circleRadius" color="#bd2130" />
@@ -23,11 +26,11 @@ export default {
     'getItemMarkerPosition',
     'getItemIcon',
     'getItemId',
-    'locationData'
+    'locationData',
+    'infoMessage'
   ],
   data() {
     return {
-
       tileUrl: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
       zoom: 11,
       center: [43.0315528, -87.9730566],
@@ -37,12 +40,13 @@ export default {
       polygons: [],
       circleCenter: null,
       circleRadius: null
-
     }
   },
   methods: {
     zoomUpdated (zoom) {
       this.zoom = zoom;
+
+      this.$emit('zoom-changed', zoom);
     },
     centerUpdated (center) {
       this.center = center;

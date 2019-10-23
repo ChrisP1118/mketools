@@ -1,5 +1,11 @@
 # Launch
 
+* Filtered table map issues
+  * Changing position (top vs. left)
+  * When map on top, table column headers are hidden
+  * Can we get rid of top/right option?
+  * ~~Zooming out~~
+* Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?
 * Clean up: "Exceptions" folder vs "Middleware\Exceptions" folder
 * Crime page - filters lost after clicking through to detail page
 * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
