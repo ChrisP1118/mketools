@@ -142,7 +142,8 @@ export default {
         },
         getItemId: function (item) {
           return item._raw.taxkey;
-        }
+        },
+        defaultLimit: 100
       }
     }
   },

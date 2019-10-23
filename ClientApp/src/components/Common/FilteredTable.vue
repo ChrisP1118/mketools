@@ -220,6 +220,9 @@ export default {
 
         //console.log(this.items);
       });
+
+      if (this.total > this.limit && this.filterBasedOnMap)
+        this.infoMessage = 'The map is displaying the first ' + this.limit + ' items. Zoom in to view all items on the map.';
     },
     refreshData: function (wait) {
       if (wait) {
@@ -316,6 +319,9 @@ export default {
       this.sortColumn = this.settings.defaultSortColumn;
     if (this.settings.defaultSortOrder)
       this.sortOrder = this.settings.defaultSortOrder;
+
+    if (this.settings.defaultLimit)
+      this.limit = this.settings.defaultLimit;
     
     this.refreshData();
   },
