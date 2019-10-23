@@ -1,6 +1,15 @@
 <template>
   <div>
     <page-title title="Properties" />
+    <b-row class="mb-3">
+      <b-col>
+        <b-card bg-variant="light">
+          <b-card-text>
+            <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" />
+          </b-card-text>
+        </b-card>        
+      </b-col>
+    </b-row>
     <p class="small">
       This page displays data from the city's Master Property Record. It contains assessment data -- and more than 90 other data points -- for each property in
       the city. 
@@ -9,7 +18,7 @@
     <b-row>
       <b-col>
         <hr />
-        <filtered-table :settings="tableSettings">
+        <filtered-table :settings="tableSettings" :locationData="locationData" @rowClicked="onRowClicked">
         </filtered-table>
       </b-col>
     </b-row>
@@ -23,8 +32,10 @@ export default {
   name: "PropertyList",
   props: {},
   data() {
-    let base = this;
     return {
+      addressData: null,
+      locationData: null,
+
       tableSettings: {
         endpoint: '/api/property',
         columns: [
@@ -136,6 +147,9 @@ export default {
     }
   },
   methods: {
+    onRowClicked: function (rawItem) {
+      this.$router.push('/property/' + rawItem.taxkey);
+    }
   },
   mounted () {
   }

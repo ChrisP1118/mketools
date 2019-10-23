@@ -1,6 +1,8 @@
 # Launch
 
 * Crime data locations are block-based, not address-based
+* Properties list - more data in info window
+* Properties detail/view page
 * Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?
 * Clean up: "Exceptions" folder vs "Middleware\Exceptions" folder
 * Crime page - filters lost after clicking through to detail page
