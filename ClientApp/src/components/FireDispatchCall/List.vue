@@ -17,7 +17,7 @@
     <b-row>
       <b-col>
         <hr />
-        <filtered-table :settings="tableSettings" @rowClicked="onRowClicked">
+        <filtered-table :settings="tableSettings" :locationData="locationData" @rowClicked="onRowClicked">
         </filtered-table>
       </b-col>
     </b-row>

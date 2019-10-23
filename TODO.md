@@ -1,10 +1,6 @@
 # Launch
 
-* Filtered table map issues
-  * Changing position (top vs. left)
-  * When map on top, table column headers are hidden
-  * Can we get rid of top/right option?
-  * ~~Zooming out~~
+* Crime data locations are block-based, not address-based
 * Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?
 * Clean up: "Exceptions" folder vs "Middleware\Exceptions" folder
 * Crime page - filters lost after clicking through to detail page
@@ -21,6 +17,7 @@
 * Document what's "major" and "minor"
 
 # Minor Issues
+* Overflow-x: scroll on filtered table container
 * On mobile, default filtered table map to top; desktop to right
 * Caching headers - why Cache-Control: no-cache?
 * When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
@@ -92,3 +89,8 @@
 * ~~Remove "Loading data" message on filtered table (or at least make it not interfere with user typing)~~
 * ~~Add descriptions to each page -- e.g. police dispatch call vs. crime data ("Not all police calls are crimes ... and vice versa") -- maybe link to data sources?~~
 * ~~Add unsubscribe link to notification emails~~
+* ~~Filtered table map issues~~
+  * ~~Changing position (top vs. left)~~
+  * ~~When map on top, table column headers are hidden~~
+  * ~~Can we get rid of top/right option?~~
+  * ~~Zooming out~~

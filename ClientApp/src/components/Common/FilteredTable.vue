@@ -2,40 +2,12 @@
   <div>
     <b-row>
       <b-col>
-        <b-button-toolbar>
+        <b-button-toolbar class="mb-2">
           <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) !== 'function'">
             <b-button :to="settings.newUrl"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
           </b-button-group>
           <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) === 'function'">
             <b-button :to="settings.newUrl()"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
-          </b-button-group>
-          <b-button-group class="mx-2">
-            <b-dropdown>
-              <template slot="button-content">
-                <font-awesome-icon icon="globe" />
-              </template>
-              <b-dropdown-item-button @click="setMapView('top')">
-                <font-awesome-icon icon="square" v-if="showMap != 'top'" />
-                <font-awesome-icon icon="check-square" v-if="showMap == 'top'" />
-                  Show map on top
-              </b-dropdown-item-button>
-              <b-dropdown-item-button @click="setMapView('right')">
-                <font-awesome-icon icon="square" v-if="showMap != 'right'" />
-                <font-awesome-icon icon="check-square" v-if="showMap == 'right'" />
-                  Show map on right
-              </b-dropdown-item-button>
-              <b-dropdown-item-button @click="setMapView('')">
-                <font-awesome-icon icon="square" v-if="showMap != ''" />
-                <font-awesome-icon icon="check-square" v-if="showMap == ''" />
-                  Hide map
-              </b-dropdown-item-button>
-              <b-dropdown-divider></b-dropdown-divider>
-              <b-dropdown-item-button :disabled="!canFilterBasedOnMap" @click="filterBasedOnMap = !filterBasedOnMap; refreshData()">
-                <font-awesome-icon icon="square" v-if="!filterBasedOnMap" />
-                <font-awesome-icon icon="check-square" v-if="filterBasedOnMap" />
-                  Filter based on map {{!canFilterBasedOnMap ? '(Zoom in to filter based on the map)' : ''}}
-              </b-dropdown-item-button>
-            </b-dropdown>
           </b-button-group>
           <b-button-group class="mx-2">
             <b-dropdown>
@@ -52,6 +24,9 @@
               <b-dropdown-item-button v-for="limit in limits" v-bind:key="limit" v-on:click="setLimit(limit)">{{limit}}</b-dropdown-item-button>
             </b-dropdown>
           </b-button-group>
+          <b-form-checkbox class="mt-2" :disabled="!canFilterBasedOnMap" v-model="filterBasedOnMap" @change="filterBasedOnMap = !filterBasedOnMap; refreshData()">
+            Filter based on map
+          </b-form-checkbox>
         </b-button-toolbar>
       </b-col>
       <b-col class="text-right">
@@ -63,22 +38,9 @@
         </span>
       </b-col>
     </b-row>
-    <b-row v-if="showMap == 'top'">
-      <b-col>
-        <filtered-table-map class="mt-2" :items="items" @bounds-changed="boundsChanged" @zoom-changed="zoomChanged"
-          :get-item-info-window-text="settings.getItemInfoWindowText"
-          :get-item-polygon-geometry="settings.getItemPolygonGeometry"
-          :get-item-marker-position="settings.getItemMarkerPosition"
-          :get-item-icon="settings.getItemIcon"
-          :get-item-id="settings.getItemId"
-          :location-data="locationData"
-          :info-message="infoMessage">
-        </filtered-table-map>
-      </b-col>
-    </b-row>
     <b-row>
-      <b-col>
-        <b-table striped hover :items="items" :fields="visibleFields" :busy="refreshingData" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked" class="mt-2">
+      <b-col lg="6" order-lg="1" order="2" style="overflow-x: scroll;">
+        <b-table striped hover :items="items" :fields="visibleFields" :busy="refreshingData" caption-top thead-class="hidden_header" @row-clicked="rowClicked">
           <template slot="table-caption">
           </template>
           <template slot="thead-top">
@@ -121,7 +83,7 @@
         </span>
         <b-pagination v-model="page" :total-rows="total" :per-page="limit" @input="refreshData"></b-pagination>
       </b-col>
-      <b-col v-if="showMap == 'right'">
+      <b-col lg="6" order-lg="2" order="1">
         <filtered-table-map :items="items" @bounds-changed="boundsChanged" @zoom-changed="zoomChanged"
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
@@ -161,7 +123,6 @@ export default {
       bounds: null,
       filterBasedOnMap: false,
       canFilterBasedOnMap: true,
-      showMap: 'right',
       refreshingData: false,
       refreshDataTime: null,
       zoom: null,
@@ -177,10 +138,6 @@ export default {
     }
   },
   methods: {
-    setMapView: function (view) {
-      this.showMap = view;
-      this.filterBasedOnMap = false;
-    },
     boundsChanged: function (bounds) {
       this.bounds = bounds;
 
