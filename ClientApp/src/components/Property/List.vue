@@ -131,8 +131,20 @@ export default {
         },
         getItemInfoWindowText: function (item) {
           let raw = item._raw;
-          return (raw.house_nr_lo == raw.house_nr_hi ? raw.house_nr_lo : raw.house_nr_lo + '-' + raw.house_nr_hi) + ' ' + raw.sdir + ' ' + raw.street + ' ' + raw.sttype + '<br />' +
-            raw.owner_name_1;
+
+          let address = raw.house_nr_lo;
+          if (raw.house_nr_hi != raw.house_nr_lo)
+            address += '-' + raw.house_nr_hi;
+          address += ' ' + raw.sdir + ' ' + raw.street + ' ' + raw.sttype;
+
+          let owner = raw.owner_name_1;
+          if (raw.owner_name_2)
+            owner += '<br />' + raw.owner_name_2;
+          if (raw.owner_name_3)
+            owner += '<br />' + raw.owner_name_3;
+          owner += '<br />' + raw.owner_mail_addr + '<br />' + raw.owner_city_state;
+          
+          return '<h4>' + address + '</h4><div>' + owner + '</div>';
         },
         getItemPolygonGeometry: function (item) {
           if (!item || !item._raw || !item._raw.parcel)

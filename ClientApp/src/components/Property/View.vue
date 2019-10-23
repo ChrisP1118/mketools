@@ -2,6 +2,7 @@
   <div>
     <page-loading v-if="!item" />
     <page-title v-if="item" :title="pageTitle" />
+    <b-link to="/property">All Properties</b-link>
     <div v-if="item">
       <b-row>
         <b-col xs="12" md="6">
@@ -11,10 +12,29 @@
           </b-card>
           <b-card class="mt-3">
             <h4 slot="header">Owner</h4>
-            {{item.owner_name}}
+            <ul>
+              <li>Owner Name 1: {{item.owner_name_1}}</li>
+              <li>Owner Name 2: {{item.owner_name_2}}</li>
+              <li>Owner Name 3: {{item.owner_name_3}}</li>
+              <li>Owner Mailing Address: {{item.owner_mail_addr}}</li>
+              <li>Owner City and State: {{item.owner_city_state}}</li>
+              <li>Owner Zip: {{item.owner_zip}}</li>
+            </ul>            
           </b-card>
         </b-col>
         <b-col xs="12" md="6">
+          <b-card class="mt-3">
+            <h4 slot="header">Location</h4>
+            <ul>
+              <li>House Number Low: {{item.house_nr_lo}}</li>
+              <li>House Number High: {{item.house_nr_hi}}</li>
+              <li>House Number Suffix: {{item.house_nr_sfx}}</li>
+              <li>Street Direction: {{item.sdir}}</li>
+              <li>Street: {{item.street}}</li>
+              <li>Street Type: {{item.sttype}}</li>
+            </ul>
+            <nearby-map :position="position"></nearby-map>
+          </b-card>
           <b-card class="mt-3">
             <h4 slot="header">Property</h4>
             ... to do ...
@@ -46,7 +66,8 @@ export default {
   props: ['id'],
   data() {
     return {
-      item: null
+      item: null,
+      position: null
     };
   },
   computed: {
@@ -66,6 +87,8 @@ export default {
           // TODO: Check for 200?
 
           this.item = response.data;
+          this.position = this.$store.getters.getGeometryPosition(this.item.parcel.outline);
+          console.log(this.position);
         })
         .catch(error => {
           console.log(error);
