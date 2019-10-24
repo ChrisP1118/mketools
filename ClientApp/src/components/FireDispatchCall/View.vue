@@ -13,12 +13,12 @@
               <li>Reported Date/Time: {{reportedDateTime}} ({{relativeTime}})</li>
             </ul>            
           </b-card>
-          <b-card class="mt-3">
+          <b-card class="mt-3" v-if="fireDispatchCallType">
             <h4 slot="header">Nature Of Call</h4>
             <ul>
               <li>Nature of Call: {{fireDispatchCall.natureOfCall}}</li>
-              <li v-if="fireDispatchCall.isMajor">Type: Major</li>
-              <li v-if="!fireDispatchCall.isMajor">Type: Minor</li>
+              <li v-if="fireDispatchCallType.isMajor">Major</li>
+              <li v-if="!fireDispatchCallType.isMajor">Minor</li>
             </ul>
             <p class="small">Does this look incorrect? The way calls are categorized is fairly arbitrary and inexact. <b-link to="/support">Contact us if you think you could help improve this process.</b-link></p>
           </b-card>

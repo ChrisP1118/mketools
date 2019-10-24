@@ -13,19 +13,18 @@
               <li>Reported Date/Time: {{reportedDateTime}} ({{relativeTime}})</li>
             </ul>            
           </b-card>
-          <b-card class="mt-3">
+          <b-card class="mt-3" v-if="policeDispatchCallType">
             <h4 slot="header">Nature Of Call</h4>
             <ul>
               <li>Nature of Call: {{policeDispatchCall.natureOfCall}}</li>
-              <li v-if="policeDispatchCall.isMajor">Type: Major Crime</li>
-              <li v-if="policeDispatchCall.isMinor">Type: Minor Crime</li>
-              <li v-if="!policeDispatchCall.isMajor && !policeDispatchCall.isMajor">Type: Non-Crime</li>
-              <li v-if="policeDispatchCall.isCritical">Category: Critical</li>
-              <li v-if="policeDispatchCall.isViolent">Category: Violent</li>
-              <li v-if="policeDispatchCall.isProperty">Category: Property</li>
-              <li v-if="policeDispatchCall.isDrug">Category: Drug</li>
-              <li v-if="policeDispatchCall.isTraffic">Category: Traffic</li>
-              <li v-if="policeDispatchCall.isOtherCrime">Category: Other</li>
+              <li v-if="policeDispatchCallType.isMajor">Major Crime</li>
+              <li v-if="policeDispatchCallType.isMinor">Minor Crime</li>
+              <li v-if="policeDispatchCallType.isCritical">Critical</li>
+              <li v-if="policeDispatchCallType.isViolent">Violent</li>
+              <li v-if="policeDispatchCallType.isProperty">Property</li>
+              <li v-if="policeDispatchCallType.isDrug">Drug</li>
+              <li v-if="policeDispatchCallType.isTraffic">Traffic</li>
+              <li v-if="policeDispatchCallType.isOtherCrime">Misc. Crime</li>
             </ul>
             <p class="small">Does this look incorrect? The way calls are categorized is fairly arbitrary and inexact. <b-link to="/support">Contact us if you think you could help improve this process.</b-link></p>
           </b-card>

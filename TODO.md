@@ -1,12 +1,9 @@
 # Launch
 
-* Load table filters from URL (and link from info windows?)
 * Is the ImportCrimes job running correctly on schedule?
-* Base nearby map location (and loaded properties) on map bounds (and only show properties at a certain zoom level)
 * Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?
 * Clean up: "Exceptions" folder vs "Middleware\Exceptions" folder
 * Crime page - filters lost after clicking through to detail page
-* Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
 * THEFT appears as non-crime? https://localhost:5001/#/policeDispatchCall/192931850
 * Confirm email address before sending notifications?
 * Reset password/my profile page
@@ -28,6 +25,9 @@
 
 # Backlog
 
+* Open keyword search on table (for example: property search across owner fields)
+  * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
+* Load table filters from URL (and link from info windows?)
 * Add "share" link on filtered table that creates a link with URL parameters for filter
 * Add way to lookup crime rate relative to specific address
 * Add trash day alerts (import users from MkeTrashDay)
@@ -98,3 +98,4 @@
   * ~~Zooming out~~
 * ~~Properties list - more data in info window~~
 * ~~Properties detail/view page~~
+* ~~Base nearby map location (and loaded properties) on map bounds (and only show properties at a certain zoom level)~~

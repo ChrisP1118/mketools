@@ -43,20 +43,20 @@ export default {
           {
             key: 'taxkey',
             name: 'TAXKEY',
-            visible: true,
+            visible: false,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'house_nr_hi',
-            name: 'HOUSE_NR_HI',
+            key: 'house_nr_lo',
+            name: 'HOUSE_NR_LO',
             visible: true,
             sortable: true,
             filter: 'number'
           },
           {
-            key: 'house_nr_lo',
-            name: 'HOUSE_NR_LO',
+            key: 'house_nr_hi',
+            name: 'HOUSE_NR_HI',
             visible: true,
             sortable: true,
             filter: 'number'
@@ -147,41 +147,10 @@ export default {
         },
         getItemPolygonFillColor: function (item) {
           return this.$store.getters.getItemPolygonFillColor(item._raw);
-          if (item._raw.c_A_CLASS == 1)
-            // Residential
-            return '#28a745';
-          else if (item._raw.c_A_CLASS == 5)
-            // Condominiums
-            return '#f7a800';
-          else if (item._raw.c_A_CLASS == 2 || item._raw.c_A_CLASS == 4)
-            // Mercantile
-            return '#fd7e14';
-          else if (item._raw.c_A_CLASS == 3)
-            // Manufacturing
-            return '#dc3545';
-          else if (item._raw.c_A_CLASS == 7)
-            // Mercantile apartments
-            return '#28a745';
-          else
-            return '#3f3f3f';
         },
         getItemPolygonFillOpacity: function (item) {
           return this.$store.getters.getItemPolygonFillOpacity(item._raw);
-          if (item._raw.c_A_CLASS == 1)
-            // Residential
-            return 0.2;
-          else
-            return 0.4;
         },
-        // getItemPolygonWeight: function (item) {
-
-        // },
-        // getItemPolygonFillColor: function (item) {
-
-        // },
-        // getItemPolygonFillOpacity: function (item) {
-
-        // },
         defaultLimit: 100
       }
     }

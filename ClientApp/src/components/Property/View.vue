@@ -52,15 +52,6 @@
           </b-card>
         </b-col>
       </b-row>
-      <b-row class="mt-3">
-        <b-col>
-          <b-button-toolbar key-nav>
-            <b-button-group class="mx-2">
-              <b-button type="button" @click="onClose">Close</b-button>
-            </b-button-group>
-          </b-button-toolbar>
-        </b-col>
-      </b-row>
     </div>
   </div>
 </template>
