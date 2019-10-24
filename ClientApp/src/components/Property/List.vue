@@ -18,7 +18,7 @@
     <b-row>
       <b-col>
         <hr />
-        <filtered-table :settings="tableSettings" :locationData="locationData" @rowClicked="onRowClicked">
+        <filtered-table :settings="tableSettings" :locationData="locationData" :defaultZoomWithLocationData="18" @rowClicked="onRowClicked">
         </filtered-table>
       </b-col>
     </b-row>
@@ -27,6 +27,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from 'vuex'
 
 export default {
   name: "PropertyList",
@@ -130,21 +131,7 @@ export default {
           context.$router.push('/property/' + item.taxkey)
         },
         getItemInfoWindowText: function (item) {
-          let raw = item._raw;
-
-          let address = raw.house_nr_lo;
-          if (raw.house_nr_hi != raw.house_nr_lo)
-            address += '-' + raw.house_nr_hi;
-          address += ' ' + raw.sdir + ' ' + raw.street + ' ' + raw.sttype;
-
-          let owner = raw.owner_name_1;
-          if (raw.owner_name_2)
-            owner += '<br />' + raw.owner_name_2;
-          if (raw.owner_name_3)
-            owner += '<br />' + raw.owner_name_3;
-          owner += '<br />' + raw.owner_mail_addr + '<br />' + raw.owner_city_state;
-          
-          return '<h4>' + address + '</h4><div>' + owner + '</div>';
+          return this.$store.getters.getPropertyInfoWindow(item._raw);
         },
         getItemPolygonGeometry: function (item) {
           if (!item || !item._raw || !item._raw.parcel)
@@ -155,9 +142,52 @@ export default {
         getItemId: function (item) {
           return item._raw.taxkey;
         },
+        getItemPolygonColor: function (item) {
+          return this.$store.getters.getItemPolygonColor(item._raw);
+        },
+        getItemPolygonFillColor: function (item) {
+          return this.$store.getters.getItemPolygonFillColor(item._raw);
+          if (item._raw.c_A_CLASS == 1)
+            // Residential
+            return '#28a745';
+          else if (item._raw.c_A_CLASS == 5)
+            // Condominiums
+            return '#f7a800';
+          else if (item._raw.c_A_CLASS == 2 || item._raw.c_A_CLASS == 4)
+            // Mercantile
+            return '#fd7e14';
+          else if (item._raw.c_A_CLASS == 3)
+            // Manufacturing
+            return '#dc3545';
+          else if (item._raw.c_A_CLASS == 7)
+            // Mercantile apartments
+            return '#28a745';
+          else
+            return '#3f3f3f';
+        },
+        getItemPolygonFillOpacity: function (item) {
+          return this.$store.getters.getItemPolygonFillOpacity(item._raw);
+          if (item._raw.c_A_CLASS == 1)
+            // Residential
+            return 0.2;
+          else
+            return 0.4;
+        },
+        // getItemPolygonWeight: function (item) {
+
+        // },
+        // getItemPolygonFillColor: function (item) {
+
+        // },
+        // getItemPolygonFillOpacity: function (item) {
+
+        // },
         defaultLimit: 100
       }
     }
+  },
+  computed: {
+    ...mapGetters(['getPropertyInfoWindow']),
   },
   methods: {
     onRowClicked: function (rawItem) {

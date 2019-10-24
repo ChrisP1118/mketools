@@ -321,6 +321,53 @@ export const store = new Vuex.Store({
     },
     getLocationData: state => () => {
       return state.locationData;
-    }
+    },
+    getPropertyInfoWindow: state => property => {
+      let address = property.house_nr_lo;
+      if (property.house_nr_hi != property.house_nr_lo)
+        address += '-' + property.house_nr_hi;
+      address += ' ' + property.sdir + ' ' + property.street + ' ' + property.sttype;
+
+      let owner = property.owner_name_1;
+      if (property.owner_name_2)
+        owner += '<br />' + property.owner_name_2;
+      if (property.owner_name_3)
+        owner += '<br />' + property.owner_name_3;
+      owner += '<br />' + property.owner_mail_addr + '<br />' + property.owner_city_state;
+      
+      return '<div style="font-size: 125%; font-weight: bold;"><a href="#/property/' + property.taxkey + '">' + address + '</a></div><div>' + owner + '</div>';
+    },
+    getItemPolygonColor: state => property => {
+      return '#333333';
+    },
+    getItemPolygonWeight: state => property => {
+      return 1;
+    },
+    getItemPolygonFillColor: state => property => {
+      if (property.c_A_CLASS == 1)
+        // Residential
+        return '#28a745';
+      else if (property.c_A_CLASS == 5)
+        // Condominiums
+        return '#f7a800';
+      else if (property.c_A_CLASS == 2 || property.c_A_CLASS == 4)
+        // Mercantile
+        return '#fd7e14';
+      else if (property.c_A_CLASS == 3)
+        // Manufacturing
+        return '#dc3545';
+      else if (property.c_A_CLASS == 7)
+        // Mercantile apartments
+        return '#28a745';
+      else
+        return '#3f3f3f';
+    },
+    getItemPolygonFillOpacity: state => property => {
+      if (property.c_A_CLASS == 1)
+        // Residential
+        return 0.2;
+      else
+        return 0.4;
+    },    
   }
 })

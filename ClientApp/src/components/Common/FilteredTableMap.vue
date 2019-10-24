@@ -9,7 +9,7 @@
       <l-marker v-for="marker in markers" v-bind:key="marker.id" :lat-lng="marker.position" :icon="marker.icon">
         <l-popup :content="marker.popup"></l-popup>
       </l-marker>
-      <l-polygon v-for="polygon in polygons" v-bind:key="polygon.id" :lat-lngs="polygon.coordinates" color="#dc3545" :weight="1" fill-color="#fd7e14" :fill-opacity="0.2">
+      <l-polygon v-for="polygon in polygons" v-bind:key="polygon.id" :lat-lngs="polygon.coordinates" :color="polygon.color" :weight="polygon.weight" :fill-color="polygon.fillColor" :fill-opacity="polygon.fillOpacity">
         <l-popup :content="polygon.popup"></l-popup>
       </l-polygon>
     </l-map>
@@ -20,19 +20,25 @@
 export default {
   name: 'FilteredTableMap',
   props: [
+    'defaultZoomWithLocationData',
+    'defaultZoomWithoutLocationData',
     'items',
     'getItemInfoWindowText',
     'getItemPolygonGeometry',
     'getItemMarkerPosition',
     'getItemIcon',
     'getItemId',
+    'getItemPolygonColor',
+    'getItemPolygonWeight',
+    'getItemPolygonFillColor',
+    'getItemPolygonFillOpacity',
     'locationData',
     'infoMessage'
   ],
   data() {
     return {
       tileUrl: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-      zoom: 11,
+      zoom: this.defaultZoomWithoutLocationData,
       center: [43.0315528, -87.9730566],
       bounds: null,
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -113,7 +119,11 @@ export default {
           coordinates: [
             coords
           ],
-          popup: this.getItemInfoWindowText(i)
+          popup: this.getItemInfoWindowText(i),
+          color: this.getItemPolygonColor ? this.getItemPolygonColor(i) : '#dc3545',
+          weight: this.getItemPolygonWeight ? this.getItemPolygonWeight(i) : 1,
+          fillColor: this.getItemPolygonFillColor ? this.getItemPolygonFillColor(i) : '#fd7e14',
+          fillOpacity: this.getItemPolygonFillOpacity ? this.getItemPolygonFillOpacity(i) : 0.2
         });
       });
     },
@@ -134,10 +144,10 @@ export default {
 
       if (newValue) {
         this.center = [newValue.lat, newValue.lng];
-        this.zoom = 16;
+        this.zoom = this.defaultZoomWithLocationData;
       } else {
         this.center = [43.0315528, -87.9730566];
-        this.zoom = 11;
+        this.zoom = this.defaultZoomWithoutLocationData;
       }
     }
   },

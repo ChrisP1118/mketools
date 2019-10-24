@@ -85,11 +85,17 @@
       </b-col>
       <b-col lg="6" order-lg="2" order="1">
         <filtered-table-map :items="items" @bounds-changed="boundsChanged" @zoom-changed="zoomChanged"
+          :default-zoom-with-location-data="defaultZoomWithLocationData"
+          :default-zoom-without-location-data="defaultZoomWithoutLocationData"
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-position="settings.getItemMarkerPosition"
           :get-item-icon="settings.getItemIcon"
           :get-item-id="settings.getItemId"
+          :get-item-polygon-color="settings.getItemPolygonColor"
+          :get-item-polygon-weight="settings.getItemPolygonWeight"
+          :get-item-polygon-fill-color="settings.getItemPolygonFillColor"
+          :get-item-polygon-fill-opacity="settings.getItemPolygonFillOpacity"
           :location-data="locationData"
           :info-message="infoMessage">
         </filtered-table-map>
@@ -104,10 +110,22 @@ import moment from 'moment'
 
 export default {
   name: "FilteredTable",
-  props: [
-    'settings',
-    'locationData'
-  ],
+  props: {
+    settings: {
+      type: Object
+    },
+    locationData: {
+      type: Object
+    },
+    defaultZoomWithLocationData: {
+      type: Number,
+      default: 16
+    },
+    defaultZoomWithoutLocationData: {
+      type: Number,
+      default: 11
+    }
+  },
   data() {
     return {
       limit: 10,
@@ -222,7 +240,7 @@ export default {
       });
 
       if (this.total > this.limit && this.filterBasedOnMap)
-        this.infoMessage = 'The map is displaying the first ' + this.limit + ' items. Zoom in to view all items on the map.';
+        this.infoMessage = 'The map is displaying the first ' + this.limit + ' items. Zoom in to view all items on the map, or select a different page to see more items.';
     },
     refreshData: function (wait) {
       if (wait) {

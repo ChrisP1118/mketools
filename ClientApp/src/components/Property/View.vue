@@ -7,10 +7,6 @@
       <b-row>
         <b-col xs="12" md="6">
           <b-card class="mt-3">
-            <h4 slot="header">Basic</h4>
-            {{item.taxkey}}
-          </b-card>
-          <b-card class="mt-3">
             <h4 slot="header">Owner</h4>
             <ul>
               <li>Owner Name 1: {{item.owner_name_1}}</li>
@@ -20,6 +16,25 @@
               <li>Owner City and State: {{item.owner_city_state}}</li>
               <li>Owner Zip: {{item.owner_zip}}</li>
             </ul>            
+          </b-card>
+          <b-card class="mt-3">
+            <h4 slot="header">Assessment</h4>
+            <ul>
+              <li>Current Assessment Year: {{item.yr_assmt}}</li>
+              <li>Land: {{item.c_A_LAND}}</li>
+              <li>Improvements: {{item.c_A_IMPRV}}</li>
+              <li>Total: {{item.c_A_TOTAL}}</li>
+              <li>Tax Key: {{item.taxkey}}</li>
+            </ul>
+          </b-card>
+          <b-card class="mt-3">
+            <h4 slot="header">Property</h4>
+            <ul>
+              <li>Number of Units: {{item.nr_units}}</li>
+              <li>Number of Stories: {{item.nr_stories}}</li>
+              <li>Year Built: {{item.yr_built}}</li>
+              <li>Lot Area: {{item.lot_area}} sq. ft.</li>
+            </ul>
           </b-card>
         </b-col>
         <b-col xs="12" md="6">
@@ -34,14 +49,6 @@
               <li>Street Type: {{item.sttype}}</li>
             </ul>
             <nearby-map :position="position"></nearby-map>
-          </b-card>
-          <b-card class="mt-3">
-            <h4 slot="header">Property</h4>
-            ... to do ...
-          </b-card>
-          <b-card class="mt-3">
-            <h4 slot="header">Assessment</h4>
-            ... to do ...
           </b-card>
         </b-col>
       </b-row>
@@ -72,7 +79,14 @@ export default {
   },
   computed: {
     pageTitle: function () {
-      return 'Property: ' + this.item.taxkey;
+      let x = this.item.house_nr_lo;
+      if (this.item.house_nr_hi != this.item.house_nr_lo)
+        x += '-' + this.item.house_nr_hi;
+      if (this.item.house_nr_sfx)
+        x += this.item.house_nr_sfx;
+
+      x += ' ' + this.item.sdir + ' ' + this.item.street + ' ' + this.item.sttype;
+      return x;
     }
   },
   methods: {
@@ -84,11 +98,8 @@ export default {
         .then(response => {
           console.log(response);
 
-          // TODO: Check for 200?
-
           this.item = response.data;
           this.position = this.$store.getters.getGeometryPosition(this.item.parcel.outline);
-          console.log(this.position);
         })
         .catch(error => {
           console.log(error);
@@ -96,6 +107,11 @@ export default {
     },
     onClose(evt) {
       this.$router.push('/property');
+    }
+  },
+  watch: {
+    $route (to, from){
+      this.load();
     }
   },
   mounted () {
