@@ -337,13 +337,13 @@ export const store = new Vuex.Store({
       
       return '<div style="font-size: 125%; font-weight: bold;"><a href="#/property/' + property.taxkey + '">' + address + '</a></div><div>' + owner + '</div>';
     },
-    getItemPolygonColor: state => property => {
+    getPropertyItemPolygonColor: state => property => {
       return '#333333';
     },
-    getItemPolygonWeight: state => property => {
+    getPropertyItemPolygonWeight: state => property => {
       return 1;
     },
-    getItemPolygonFillColor: state => property => {
+    getPropertyItemPolygonFillColor: state => property => {
       if (property.c_A_CLASS == 1)
         // Residential
         return '#28a745';
@@ -362,7 +362,7 @@ export const store = new Vuex.Store({
       else
         return '#3f3f3f';
     },
-    getItemPolygonFillOpacity: state => property => {
+    getPropertyItemPolygonFillOpacity: state => property => {
       if (property.c_A_CLASS == 1)
         // Residential
         return 0.2;

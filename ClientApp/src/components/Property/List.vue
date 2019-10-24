@@ -143,13 +143,13 @@ export default {
           return item._raw.taxkey;
         },
         getItemPolygonColor: function (item) {
-          return this.$store.getters.getItemPolygonColor(item._raw);
+          return this.$store.getters.getPropertyItemPolygonColor(item._raw);
         },
         getItemPolygonFillColor: function (item) {
-          return this.$store.getters.getItemPolygonFillColor(item._raw);
+          return this.$store.getters.getPropertyItemPolygonFillColor(item._raw);
         },
         getItemPolygonFillOpacity: function (item) {
-          return this.$store.getters.getItemPolygonFillOpacity(item._raw);
+          return this.$store.getters.getPropertyItemPolygonFillOpacity(item._raw);
         },
         defaultLimit: 100
       }

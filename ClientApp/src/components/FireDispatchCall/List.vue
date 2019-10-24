@@ -91,6 +91,41 @@ export default {
           let time = moment(raw.reportedDateTime).format('llll');
           let fromNow = moment(raw.reportedDateTime).fromNow();
 
+          let v = [];
+
+          v.push('<div><span style="float: right;">');
+          v.push(fromNow);
+          v.push('</span>');
+          v.push('<span style="font-size: 125%; font-weight: bold;">')
+          v.push(raw.natureOfCall)
+          v.push('</span></div>');
+
+          v.push('<hr style="margin-top: 5px; margin-bottom: 5px;" />');
+
+          v.push('<div><b>');
+          v.push(raw.address);
+          if (raw.apt) {
+            v.push(' APT. #')
+            v.push(raw.apt);
+          }            
+          v.push('</b></div>');
+
+          v.push('<div>');
+          v.push(time);
+          v.push(' (<i>');
+          v.push(fromNow);
+          v.push('</i>)</div>' );
+
+          v.push('<div>');
+          v.push(raw.disposition);
+          v.push('</div>');
+
+          v.push('<div><a href="#/fireDispatchCall/');
+          v.push(raw.cfs);
+          v.push('">Details</a></div>');
+
+          return v.join('');
+
           return '<p style="font-size: 150%; font-weight: bold;">' + raw.natureOfCall + '</p>' +
             raw.address + (raw.apt ? ' APT. #' + raw.apt : '') + '<hr />' +
             time + ' (' + fromNow + ')<br />' + 

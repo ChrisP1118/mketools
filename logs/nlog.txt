@@ -5184,3 +5184,17 @@
 2019-10-22 15:28:21.4507 Info Adding target FileTarget(Name=Misc)
 2019-10-22 15:28:21.4507 Info Adding target FileTarget(Name=Full)
 2019-10-22 15:28:21.4975 Info Found 125 configuration items
+2019-10-23 22:56:29.2855 Info Shutdown() called. Logger closing...
+2019-10-23 22:56:29.2951 Info Closing old configuration.
+2019-10-23 22:56:29.3231 Info Logger has been closed down.
+2019-10-23 22:56:29.3231 Info AppDomain Shutting down. Logger closing...
+2019-10-23 22:56:29.3231 Info Logger has been shut down.
+2019-10-23 22:56:38.1686 Info Message Template Auto Format enabled
+2019-10-23 22:56:38.1686 Info Loading assembly: NLog.Web.AspNetCore
+2019-10-23 22:56:38.2452 Info Adding target FileTarget(Name=EF)
+2019-10-23 22:56:38.2452 Info Adding target FileTarget(Name=Hangfire)
+2019-10-23 22:56:38.2452 Info Adding target FileTarget(Name=MkeAlerts)
+2019-10-23 22:56:38.2638 Info Adding target FileTarget(Name=Web)
+2019-10-23 22:56:38.2638 Info Adding target FileTarget(Name=Misc)
+2019-10-23 22:56:38.2638 Info Adding target FileTarget(Name=Full)
+2019-10-23 22:56:38.3055 Info Found 125 configuration items

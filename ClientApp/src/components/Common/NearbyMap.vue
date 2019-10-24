@@ -46,18 +46,6 @@ export default {
     boundsUpdated (bounds) {
       this.bounds = bounds;
       this.loadProperties();
-
-      // this.$emit('bounds-changed', {
-      //   ne: {
-      //     lat: this.bounds._northEast.lat,
-      //     lng: this.bounds._northEast.lng
-      //   },
-      //   sw: {
-      //     lat: this.bounds._southWest.lat,
-      //     lng: this.bounds._southWest.lng
-      //   }
-      // });
-
     },
     loadProperties: function () {
       let latDiff = 0.0010;
@@ -85,6 +73,7 @@ export default {
     },
     showProperties: function () {
       this.polygons = [];
+
       this.properties.forEach(i => {
         let coords = [];
         i.parcel.outline.coordinates[0].forEach(y => {
@@ -100,10 +89,10 @@ export default {
             coords
           ],
           popup: this.$store.getters.getPropertyInfoWindow(i),
-          color: this.$store.getters.getItemPolygonColor(i),
-          weight: this.$store.getters.getItemPolygonWeight(i),
-          fillColor: this.$store.getters.getItemPolygonFillColor(i),
-          fillOpacity: this.$store.getters.getItemPolygonFillOpacity(i),
+          color: this.$store.getters.getPropertyItemPolygonColor(i),
+          weight: this.$store.getters.getPropertyItemPolygonWeight(i),
+          fillColor: this.$store.getters.getPropertyItemPolygonFillColor(i),
+          fillOpacity: this.$store.getters.getPropertyItemPolygonFillOpacity(i),
         });
       });
 
