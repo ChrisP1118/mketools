@@ -1,15 +1,13 @@
 # Launch
 
-* Remove "Loading data" message on filtered table (or at least make it not interfere with user typing)
-* Add descriptions to each page -- e.g. police dispatch call vs. crime data ("Not all police calls are crimes ... and vice versa") -- maybe link to data sources?
+* Is the ImportCrimes job running correctly on schedule?
+* Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?
+* Clean up: "Exceptions" folder vs "Middleware\Exceptions" folder
 * Crime page - filters lost after clicking through to detail page
-* Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
 * THEFT appears as non-crime? https://localhost:5001/#/policeDispatchCall/192931850
-* Add unsubscribe link to notification emails
 * Confirm email address before sending notifications?
 * Reset password/my profile page
 * Test SSO with prod URLs
-* Hide "Properties" page?
 * On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
 * Better map icons/markers
 * Crime/police dispatch call detail pages link cross-link
@@ -17,14 +15,19 @@
 * Document what's "major" and "minor"
 
 # Minor Issues
+* Overflow-x: scroll on filtered table container
 * On mobile, default filtered table map to top; desktop to right
 * Caching headers - why Cache-Control: no-cache?
 * When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
 * Update page meta tags (title, description, etc.) on route changes: https://alligator.io/vuejs/vue-router-modify-head/
 * When importing crime data, we probably don't need to update/upsert any older than a certain span (or maybe do a complete import on a weekly/monthly basis, but just the last x weeks on a daily basis)
+* Crime data locations are block-based, not address-based
 
 # Backlog
 
+* Open keyword search on table (for example: property search across owner fields)
+  * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
+* Load table filters from URL (and link from info windows?)
 * Add "share" link on filtered table that creates a link with URL parameters for filter
 * Add way to lookup crime rate relative to specific address
 * Add trash day alerts (import users from MkeTrashDay)
@@ -85,3 +88,14 @@
 * ~~Add Google Analytics~~
 * ~~Show errors if OAuth fails~~
 * ~~Error messages when logging in/creating account that's tied to external provider ("That email is associated with Facebook...")~~
+* ~~Remove "Loading data" message on filtered table (or at least make it not interfere with user typing)~~
+* ~~Add descriptions to each page -- e.g. police dispatch call vs. crime data ("Not all police calls are crimes ... and vice versa") -- maybe link to data sources?~~
+* ~~Add unsubscribe link to notification emails~~
+* ~~Filtered table map issues~~
+  * ~~Changing position (top vs. left)~~
+  * ~~When map on top, table column headers are hidden~~
+  * ~~Can we get rid of top/right option?~~
+  * ~~Zooming out~~
+* ~~Properties list - more data in info window~~
+* ~~Properties detail/view page~~
+* ~~Base nearby map location (and loaded properties) on map bounds (and only show properties at a certain zoom level)~~

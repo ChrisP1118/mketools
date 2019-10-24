@@ -57,6 +57,7 @@ import FireDispatchCallList from './components/FireDispatchCall/List.vue'
 import FireDispatchCallView from './components/FireDispatchCall/View.vue'
 import CrimeList from './components/Crime/List.vue'
 import CrimeView from './components/Crime/View.vue'
+import DispatchCallSubscriptionUnsubscribe from './components/DispatchCallSubscription/Unsubscribe.vue'
 
 // Leaflet
 import { LMap, LTileLayer, LMarker, LPopup, LCircle, LPolygon } from 'vue2-leaflet';
@@ -129,6 +130,7 @@ const routes = [
   { path: '/crime/:id', component: CrimeView, meta: { public: true }, props: true },
   { path: '/applicationUser', component: ApplicationUserList },
   { path: '/applicationUser/:id', component: ApplicationUserEdit, props: true },
+  { path: '/dispatchCallSubscription/unsubscribe', component: DispatchCallSubscriptionUnsubscribe, meta: {public: true }}
 ];
 
 const router = new VueRouter({

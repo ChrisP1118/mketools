@@ -83,11 +83,14 @@ namespace MkeAlerts.Web.Jobs
 
                 _logger.LogInformation("Subscription notification for police dispatch call " + policeDispatchCall.GetId() + ": " + dispatchCallSubscription.Id + " (" + dispatchCallSubscription.ApplicationUser.Email + ")");
 
+                string hash = EncryptionUtilities.GetHash(dispatchCallSubscription.Id.ToString() + ":" + dispatchCallSubscription.ApplicationUserId.ToString(), _configuration["HashKey"]);
+                string unsubscribeUrl = string.Format(_configuration["UnsubscribeUrl"], dispatchCallSubscription.Id, dispatchCallSubscription.ApplicationUserId, hash);
+
                 await _mailerService.SendEmail(
                     dispatchCallSubscription.ApplicationUser.Email,
                     "Police Dispatch Call: " + policeDispatchCall.NatureOfCall + " at " + policeDispatchCall.Location,
-                    "A new " + policeDispatchCall.NatureOfCall + " police dispatch call was made at " + policeDispatchCall.ReportedDateTime.ToShortTimeString() + " on " + policeDispatchCall.ReportedDateTime.ToShortDateString() + " at " + policeDispatchCall.Location + ".",
-                    "<p>A new " + policeDispatchCall.NatureOfCall + " police dispatch call was made at " + policeDispatchCall.ReportedDateTime.ToShortTimeString() + " on " + policeDispatchCall.ReportedDateTime.ToShortDateString() + " at " + policeDispatchCall.Location + ".</p>"
+                    "A new " + policeDispatchCall.NatureOfCall + " police dispatch call was made at " + policeDispatchCall.ReportedDateTime.ToShortTimeString() + " on " + policeDispatchCall.ReportedDateTime.ToShortDateString() + " at " + policeDispatchCall.Location + ".\r\n\r\n" +
+                    "You are receiving this message because you receive notifications for dispatch calls near " + dispatchCallSubscription.HOUSE_NR + " " + dispatchCallSubscription.SDIR + " " + dispatchCallSubscription.STREET + " " + dispatchCallSubscription.STTYPE + ". To stop receiving these email notifications, go to: " + unsubscribeUrl
                 );
 
                 emailAddresses.Add(dispatchCallSubscription.ApplicationUser.Email);

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <l-map v-if="position" style="height: 80vh; width: 100%" :zoom="zoom" :center="position">
+    <l-map v-if="position" style="height: 80vh; width: 100%" :zoom="zoom" :center="position" @update:zoom="zoomUpdated" @update:bounds="boundsUpdated">
       <l-tile-layer :url="tileUrl" :attribution="attribution"></l-tile-layer>
       <l-marker :lat-lng="position" :icon="icon">
       </l-marker>
-      <l-polygon v-for="polygon in polygons" v-bind:key="polygon.id" :lat-lngs="polygon.coordinates" color="#dc3545" :weight="1" fill-color="#fd7e14" :fill-opacity="0.2">
+      <l-polygon v-for="polygon in polygons" v-bind:key="polygon.id" :lat-lngs="polygon.coordinates" :color="polygon.color" :weight="polygon.weight" :fill-color="polygon.fillColor" :fill-opacity="polygon.fillOpacity">
         <l-popup :content="polygon.popup"></l-popup>
       </l-polygon>
     </l-map>
@@ -32,25 +32,56 @@ export default {
         iconUrl: 'https://maps.google.com/mapfiles/kml/paddle/wht-blank.png',
         iconSize: [40, 40],
         iconAnchor: [20, 0]
-      })
+      }),
+
+      bounds: null
     };
   },
   computed: {
   },
   methods: {
-    load: function () {
-      let latDiff = 0.0005;
-      let lngDiff = 0.0010;
+    zoomUpdated (zoom) {
+      this.zoom = zoom;
+    },
+    boundsUpdated (bounds) {
+      this.bounds = bounds;
+      this.loadProperties();
 
-      axios
-        .get('/api/property?limit=100&northBound=' + (this.position.lat + latDiff) + '&southBound=' + (this.position.lat - latDiff) + '&eastBound=' + (this.position.lng + lngDiff) + '&westBound=' + (this.position.lng - lngDiff))
-        .then(response => {
-          this.properties = response.data;
-          this.showProperties();
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      // this.$emit('bounds-changed', {
+      //   ne: {
+      //     lat: this.bounds._northEast.lat,
+      //     lng: this.bounds._northEast.lng
+      //   },
+      //   sw: {
+      //     lat: this.bounds._southWest.lat,
+      //     lng: this.bounds._southWest.lng
+      //   }
+      // });
+
+    },
+    loadProperties: function () {
+      let latDiff = 0.0010;
+      let lngDiff = 0.0015;
+
+      if (this.zoom >= 18) {
+        let url = '';
+        if (this.bounds)
+          url = '/api/property?limit=100&northBound=' + this.bounds._northEast.lat + '&southBound=' + this.bounds._southWest.lat + '&eastBound=' + this.bounds._northEast.lng + '&westBound=' + this.bounds._southWest.lng;
+        else
+          url = '/api/property?limit=100&northBound=' + (this.position.lat + latDiff) + '&southBound=' + (this.position.lat - latDiff) + '&eastBound=' + (this.position.lng + lngDiff) + '&westBound=' + (this.position.lng - lngDiff);
+
+        axios
+          .get(url)
+          .then(response => {
+            this.properties = response.data;
+            this.showProperties();
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      } else {
+        this.properties = [];
+      }
     },
     showProperties: function () {
       this.polygons = [];
@@ -63,24 +94,16 @@ export default {
           });
         });
 
-        let address = i.house_nr_lo;
-        if (i.house_nr_hi != i.house_nr_lo)
-          address += '-' + i.house_nr_hi;
-        address += ' ' + i.sdir + ' ' + i.street + ' ' + i.sttype;
-
-        let owner = i.owner_name_1;
-        if (i.owner_name_2)
-          owner += '<br />' + i.owner_name_2;
-        if (i.owner_name_3)
-          owner += '<br />' + i.owner_name_3;
-        owner += '<br />' + i.owner_mail_addr + '<br />' + i.owner_city_state;
-        
         this.polygons.push({
           id: i.taxkey,
           coordinates: [
             coords
           ],
-          popup: '<h4>' + address + '</h4><div>' + owner + '</div>'
+          popup: this.$store.getters.getPropertyInfoWindow(i),
+          color: this.$store.getters.getItemPolygonColor(i),
+          weight: this.$store.getters.getItemPolygonWeight(i),
+          fillColor: this.$store.getters.getItemPolygonFillColor(i),
+          fillOpacity: this.$store.getters.getItemPolygonFillOpacity(i),
         });
       });
 
@@ -89,12 +112,12 @@ export default {
   watch: {
     position: function () {
       if (this.position)
-        this.load();
+        this.loadProperties();
     }
   },
   async mounted () {
     if (this.position)
-      this.load();
+      this.loadProperties();
   }
 };
 </script>

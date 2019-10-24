@@ -10,11 +10,13 @@ const STATE_LOADING = 1;
 const STATE_LOADED = 2;
 
 export const store = new Vuex.Store({
+  addressData: null,
+  locationData: null,
   state: {
     distances: [
       { text: '1/16 mile', value: 330 },
       { text: '1/8 mile', value: 660 },
-      { text: '1/4 mile', value: 1320 }
+      { text: '1/4 mile', value: 1320 },
       //{ text: '1/2 mile', value: 2640 },
       //{ text: '1 mile', value: 5280 }      
     ],
@@ -45,6 +47,12 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
+    SET_ADDRESS_DATA(state, addressData) {
+      state.addressData = addressData;
+    },
+    SET_LOCATION_DATA(state, locationData) {
+      state.locationData = locationData;
+    },
     SET_STREET_REFERENCES_LOAD_STATE(state, loadState) {
       state.streetReferences.loadState = loadState;
     },
@@ -221,14 +229,24 @@ export const store = new Vuex.Store({
           });
         });
 
+    },
+    setAddressData(context, addressData) {
+      context.commit('SET_ADDRESS_DATA', addressData);
+    },
+    setLocationData(context, locationData) {
+      context.commit('SET_LOCATION_DATA', locationData);
     }
   },
   getters: {
     getDistanceLabel: state => distance => {
       if (!distance)
         return '';
-  
-      return state.distances.find(x => x.value == distance).text;
+
+      let x = state.distances.find(x => x.value == distance);
+      if (x)  
+        return x.text;
+
+      return distance + ' feet';
     },  
     getCallTypeLabel: state => callType => {
       if (!callType)
@@ -297,6 +315,59 @@ export const store = new Vuex.Store({
           lng: geometry.coordinates[0][0][0]
         };
       }
-    }
+    },
+    getAddressData: state => () => {
+      return state.addressData;
+    },
+    getLocationData: state => () => {
+      return state.locationData;
+    },
+    getPropertyInfoWindow: state => property => {
+      let address = property.house_nr_lo;
+      if (property.house_nr_hi != property.house_nr_lo)
+        address += '-' + property.house_nr_hi;
+      address += ' ' + property.sdir + ' ' + property.street + ' ' + property.sttype;
+
+      let owner = property.owner_name_1;
+      if (property.owner_name_2)
+        owner += '<br />' + property.owner_name_2;
+      if (property.owner_name_3)
+        owner += '<br />' + property.owner_name_3;
+      owner += '<br />' + property.owner_mail_addr + '<br />' + property.owner_city_state;
+      
+      return '<div style="font-size: 125%; font-weight: bold;"><a href="#/property/' + property.taxkey + '">' + address + '</a></div><div>' + owner + '</div>';
+    },
+    getItemPolygonColor: state => property => {
+      return '#333333';
+    },
+    getItemPolygonWeight: state => property => {
+      return 1;
+    },
+    getItemPolygonFillColor: state => property => {
+      if (property.c_A_CLASS == 1)
+        // Residential
+        return '#28a745';
+      else if (property.c_A_CLASS == 5)
+        // Condominiums
+        return '#f7a800';
+      else if (property.c_A_CLASS == 2 || property.c_A_CLASS == 4)
+        // Mercantile
+        return '#fd7e14';
+      else if (property.c_A_CLASS == 3)
+        // Manufacturing
+        return '#dc3545';
+      else if (property.c_A_CLASS == 7)
+        // Mercantile apartments
+        return '#28a745';
+      else
+        return '#3f3f3f';
+    },
+    getItemPolygonFillOpacity: state => property => {
+      if (property.c_A_CLASS == 1)
+        // Residential
+        return 0.2;
+      else
+        return 0.4;
+    },    
   }
 })

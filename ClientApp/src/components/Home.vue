@@ -45,7 +45,7 @@
       <b-col>
         <b-form-group>
           <b-form-radio-group v-model="mapFilterType" :options="mapFilterTypes" buttons button-variant="outline-primary" size="sm" />
-          <span v-show="mapLastUpdated" class="ml-3">Last updated at {{mapLastUpdated}}</span>
+          <span v-show="mapLastUpdated" class="ml-3">Last updated at {{mapLastUpdated}} (showing previous 6 hours)</span>
         </b-form-group>        
       </b-col>
     </b-row>
@@ -137,8 +137,6 @@ export default {
       axios
         .get('/api/dispatchCallSubscription?filter=applicationUserId%3D%22' + id + '%22')
         .then(response => {
-          console.log(response);
-          
           this.subscriptions = response.data;
         })
         .catch(error => {

@@ -1,12 +1,15 @@
 <template>
   <div style="height: 80vh; width: 100%;">
+    <b-alert :show="infoMessage" variant="info">
+      {{infoMessage}}
+    </b-alert>    
     <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center" @update:zoom="zoomUpdated" @update:center="centerUpdated" @update:bounds="boundsUpdated">
       <l-tile-layer :url="tileUrl" :attribution="attribution"></l-tile-layer>
       <l-circle v-if="circleCenter" :lat-lng="circleCenter" :radius="circleRadius" color="#bd2130" />
       <l-marker v-for="marker in markers" v-bind:key="marker.id" :lat-lng="marker.position" :icon="marker.icon">
         <l-popup :content="marker.popup"></l-popup>
       </l-marker>
-      <l-polygon v-for="polygon in polygons" v-bind:key="polygon.id" :lat-lngs="polygon.coordinates" color="#dc3545" :weight="1" fill-color="#fd7e14" :fill-opacity="0.2">
+      <l-polygon v-for="polygon in polygons" v-bind:key="polygon.id" :lat-lngs="polygon.coordinates" :color="polygon.color" :weight="polygon.weight" :fill-color="polygon.fillColor" :fill-opacity="polygon.fillOpacity">
         <l-popup :content="polygon.popup"></l-popup>
       </l-polygon>
     </l-map>
@@ -17,18 +20,25 @@
 export default {
   name: 'FilteredTableMap',
   props: [
+    'defaultZoomWithLocationData',
+    'defaultZoomWithoutLocationData',
     'items',
     'getItemInfoWindowText',
     'getItemPolygonGeometry',
     'getItemMarkerPosition',
     'getItemIcon',
-    'getItemId'
+    'getItemId',
+    'getItemPolygonColor',
+    'getItemPolygonWeight',
+    'getItemPolygonFillColor',
+    'getItemPolygonFillOpacity',
+    'locationData',
+    'infoMessage'
   ],
   data() {
     return {
-
       tileUrl: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
-      zoom: 11,
+      zoom: this.defaultZoomWithoutLocationData,
       center: [43.0315528, -87.9730566],
       bounds: null,
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -36,12 +46,13 @@ export default {
       polygons: [],
       circleCenter: null,
       circleRadius: null
-
     }
   },
   methods: {
     zoomUpdated (zoom) {
       this.zoom = zoom;
+
+      this.$emit('zoom-changed', zoom);
     },
     centerUpdated (center) {
       this.center = center;
@@ -108,7 +119,11 @@ export default {
           coordinates: [
             coords
           ],
-          popup: this.getItemInfoWindowText(i)
+          popup: this.getItemInfoWindowText(i),
+          color: this.getItemPolygonColor ? this.getItemPolygonColor(i) : '#dc3545',
+          weight: this.getItemPolygonWeight ? this.getItemPolygonWeight(i) : 1,
+          fillColor: this.getItemPolygonFillColor ? this.getItemPolygonFillColor(i) : '#fd7e14',
+          fillOpacity: this.getItemPolygonFillOpacity ? this.getItemPolygonFillOpacity(i) : 0.2
         });
       });
     },
@@ -124,6 +139,17 @@ export default {
     async items() {
       this.redraw();
     },
+    locationData: function (newValue, oldValue) {
+      //console.log('filtered data map - location: ' + (newValue ? newValue.lat + ',' + newValue.lng : '(null)'));
+
+      if (newValue) {
+        this.center = [newValue.lat, newValue.lng];
+        this.zoom = this.defaultZoomWithLocationData;
+      } else {
+        this.center = [43.0315528, -87.9730566];
+        this.zoom = this.defaultZoomWithoutLocationData;
+      }
+    }
   },
   mounted() {
     if (this.items)

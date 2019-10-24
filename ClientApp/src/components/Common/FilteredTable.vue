@@ -2,40 +2,12 @@
   <div>
     <b-row>
       <b-col>
-        <b-button-toolbar>
+        <b-button-toolbar class="mb-2">
           <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) !== 'function'">
             <b-button :to="settings.newUrl"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
           </b-button-group>
           <b-button-group v-if="settings.newUrl && typeof(settings.newUrl) === 'function'">
             <b-button :to="settings.newUrl()"><font-awesome-icon icon="plus"></font-awesome-icon> New</b-button>
-          </b-button-group>
-          <b-button-group class="mx-2">
-            <b-dropdown>
-              <template slot="button-content">
-                <font-awesome-icon icon="globe" />
-              </template>
-              <b-dropdown-item-button @click="setMapView('top')">
-                <font-awesome-icon icon="square" v-if="showMap != 'top'" />
-                <font-awesome-icon icon="check-square" v-if="showMap == 'top'" />
-                  Show map on top
-              </b-dropdown-item-button>
-              <b-dropdown-item-button @click="setMapView('right')">
-                <font-awesome-icon icon="square" v-if="showMap != 'right'" />
-                <font-awesome-icon icon="check-square" v-if="showMap == 'right'" />
-                  Show map on right
-              </b-dropdown-item-button>
-              <b-dropdown-item-button @click="setMapView('')">
-                <font-awesome-icon icon="square" v-if="showMap != ''" />
-                <font-awesome-icon icon="check-square" v-if="showMap == ''" />
-                  Hide map
-              </b-dropdown-item-button>
-              <b-dropdown-divider></b-dropdown-divider>
-              <b-dropdown-item-button :disabled="!canFilterBasedOnMap" @click="filterBasedOnMap = !filterBasedOnMap; refreshData()">
-                <font-awesome-icon icon="square" v-if="!filterBasedOnMap" />
-                <font-awesome-icon icon="check-square" v-if="filterBasedOnMap" />
-                  Filter based on map {{!canFilterBasedOnMap ? '(Zoom in to filter based on the map)' : ''}}
-              </b-dropdown-item-button>
-            </b-dropdown>
           </b-button-group>
           <b-button-group class="mx-2">
             <b-dropdown>
@@ -52,6 +24,9 @@
               <b-dropdown-item-button v-for="limit in limits" v-bind:key="limit" v-on:click="setLimit(limit)">{{limit}}</b-dropdown-item-button>
             </b-dropdown>
           </b-button-group>
+          <b-form-checkbox class="mt-2" :disabled="!canFilterBasedOnMap" v-model="filterBasedOnMap" @change="filterBasedOnMap = !filterBasedOnMap; refreshData()">
+            Filter based on map
+          </b-form-checkbox>
         </b-button-toolbar>
       </b-col>
       <b-col class="text-right">
@@ -63,26 +38,9 @@
         </span>
       </b-col>
     </b-row>
-    <b-row v-if="showMap == 'top'">
-      <b-col>
-        <filtered-table-map class="mt-2" :items="items" @bounds-changed="boundsChanged" 
-          :get-item-info-window-text="settings.getItemInfoWindowText"
-          :get-item-polygon-geometry="settings.getItemPolygonGeometry"
-          :get-item-marker-position="settings.getItemMarkerPosition"
-          :get-item-icon="settings.getItemIcon"
-          :get-item-id="settings.getItemId">
-        </filtered-table-map>
-      </b-col>
-    </b-row>
     <b-row>
-      <b-col>
-        <b-modal v-model="refreshingData" centered title="Please wait..." hide-footer header-bg-variant="primary" header-text-variant="light">
-          <div class="text-center mt-3 mb-3">
-            <b-spinner variant="primary" label="Loading"></b-spinner>
-            Loading data...
-          </div>          
-        </b-modal>
-        <b-table striped hover :items="items" :fields="visibleFields" caption-top thead-class="hidden_header" responsive="md" @row-clicked="rowClicked" class="mt-2">
+      <b-col lg="6" order-lg="1" order="2" style="overflow-x: scroll;">
+        <b-table striped hover :items="items" :fields="visibleFields" :busy="refreshingData" caption-top thead-class="hidden_header" @row-clicked="rowClicked">
           <template slot="table-caption">
           </template>
           <template slot="thead-top">
@@ -110,6 +68,12 @@
               </b-button>
             </b-button-group>
           </template>
+          <template v-slot:table-busy>
+            <div class="text-center text-danger my-2">
+              <b-spinner class="align-middle"></b-spinner>
+              <strong>Loading...</strong>
+            </div>
+          </template>
         </b-table>
         <span v-if="total > 0">
           {{page * limit - limit + 1}}-{{page * limit > total ? total : page * limit}} of {{total}} results
@@ -119,13 +83,21 @@
         </span>
         <b-pagination v-model="page" :total-rows="total" :per-page="limit" @input="refreshData"></b-pagination>
       </b-col>
-      <b-col v-if="showMap == 'right'">
-        <filtered-table-map :items="items" @bounds-changed="boundsChanged" 
+      <b-col lg="6" order-lg="2" order="1">
+        <filtered-table-map :items="items" @bounds-changed="boundsChanged" @zoom-changed="zoomChanged"
+          :default-zoom-with-location-data="defaultZoomWithLocationData"
+          :default-zoom-without-location-data="defaultZoomWithoutLocationData"
           :get-item-info-window-text="settings.getItemInfoWindowText"
           :get-item-polygon-geometry="settings.getItemPolygonGeometry"
           :get-item-marker-position="settings.getItemMarkerPosition"
           :get-item-icon="settings.getItemIcon"
-          :get-item-id="settings.getItemId">
+          :get-item-id="settings.getItemId"
+          :get-item-polygon-color="settings.getItemPolygonColor"
+          :get-item-polygon-weight="settings.getItemPolygonWeight"
+          :get-item-polygon-fill-color="settings.getItemPolygonFillColor"
+          :get-item-polygon-fill-opacity="settings.getItemPolygonFillOpacity"
+          :location-data="locationData"
+          :info-message="infoMessage">
         </filtered-table-map>
       </b-col>
     </b-row>
@@ -138,9 +110,22 @@ import moment from 'moment'
 
 export default {
   name: "FilteredTable",
-  props: [
-    'settings'
-  ],
+  props: {
+    settings: {
+      type: Object
+    },
+    locationData: {
+      type: Object
+    },
+    defaultZoomWithLocationData: {
+      type: Number,
+      default: 16
+    },
+    defaultZoomWithoutLocationData: {
+      type: Number,
+      default: 11
+    }
+  },
   data() {
     return {
       limit: 10,
@@ -156,8 +141,10 @@ export default {
       bounds: null,
       filterBasedOnMap: false,
       canFilterBasedOnMap: true,
-      showMap: 'right',
-      refreshingData: false
+      refreshingData: false,
+      refreshDataTime: null,
+      zoom: null,
+      infoMessage: null
     }
   },
   computed: {
@@ -169,18 +156,25 @@ export default {
     }
   },
   methods: {
-    setMapView: function (view) {
-      this.showMap = view;
-      this.filterBasedOnMap = false;
-    },
     boundsChanged: function (bounds) {
-      this.canFilterBasedOnMap = Math.abs(bounds.sw.lat - bounds.ne.lat) < 0.015 && Math.abs(bounds.ne.lng - bounds.sw.lng) < 0.030;
-      if (!this.canFilterBasedOnMap)
-        this.filterBasedOnMap = false;
       this.bounds = bounds;
 
       if (this.filterBasedOnMap)
         this.refreshData();
+    },
+    zoomChanged: function (zoom) {
+      this.zoom = zoom;
+
+      this.canFilterBasedOnMap = zoom >= 15;
+      if (!this.canFilterBasedOnMap && this.filterBasedOnMap) {
+        this.infoMessage = 'Data is no longer filtered based on the map. Zoom back in and check the "Filter based on map" option to filter based on the map.';
+        this.filterBasedOnMap = false;
+        this.refreshData();
+      }
+
+      if (this.canFilterBasedOnMap && this.filterBasedOnMap) {
+        this.infoMessage = null;
+      }
     },
     rowClicked: function (item, index, event) {
       let rawItem = this.rawItems[index];
@@ -244,6 +238,9 @@ export default {
 
         //console.log(this.items);
       });
+
+      if (this.total > this.limit && this.filterBasedOnMap)
+        this.infoMessage = 'The map is displaying the first ' + this.limit + ' items. Zoom in to view all items on the map, or select a different page to see more items.';
     },
     refreshData: function (wait) {
       if (wait) {
@@ -252,13 +249,15 @@ export default {
 
         this.refreshDataTimeout = setTimeout(() => {
           this.refreshData();
-        }, 250);
+        }, 350);
         return;
       } else {
         this.refreshDataTimeout = null;
       }
 
       this.refreshingData = true;
+      let refreshDataTime = new Date().getTime();
+      this.refreshDataTime = refreshDataTime;
 
       // Refreshes rawItems -- hits the server to get new data
       let url = this.settings.endpoint + '?';
@@ -308,9 +307,9 @@ export default {
       axios
         .get(url)
         .then(response => {
-          //console.log(response);
-
-          // TODO: Check for 200?
+          // This isn't the most recent refresh request, so don't bother doing anything with it
+          if (this.refreshDataTime != refreshDataTime)
+            return;
 
           this.rawItems = response.data;
           this.total = response.headers['x-total-count'];
@@ -323,11 +322,24 @@ export default {
         });
     }
   },
+  watch: {
+    locationData: function (newValue, oldValue) {
+      if (newValue)
+        this.filterBasedOnMap = true;
+      else {
+        this.filterBasedOnMap = false;
+        this.refreshData();
+      }
+    }
+  },
   mounted () {
     if (this.settings.defaultSortColumn)
       this.sortColumn = this.settings.defaultSortColumn;
     if (this.settings.defaultSortOrder)
       this.sortOrder = this.settings.defaultSortOrder;
+
+    if (this.settings.defaultLimit)
+      this.limit = this.settings.defaultLimit;
     
     this.refreshData();
   },
