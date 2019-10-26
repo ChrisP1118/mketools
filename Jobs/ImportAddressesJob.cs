@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Services;
+using MkeAlerts.Web.Services.Functional;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,8 @@ namespace MkeAlerts.Web.Jobs
 {
     public class ImportAddressesJob : ImportXmlJob<Address>
     {
-        public ImportAddressesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportXmlJob<Address>> logger, IEntityWriteService<Address, string> writeService) :
-            base(configuration, signInManager, userManager, logger, writeService)
+        public ImportAddressesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, ILogger<ImportXmlJob<Address>> logger, IEntityWriteService<Address, string> writeService) :
+            base(configuration, signInManager, userManager, mailerService, logger, writeService)
         {
         }
 

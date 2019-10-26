@@ -11,6 +11,10 @@
 * Crime/police dispatch call detail pages link cross-link
 * Add some error handling inside of jobs
 * Document what's "major" and "minor"
+* EntityWriteService logger should use service type, not entity, as generic
+* Send admin alert when downloads/imports fail (parcels, mprop, etc.)
+* Add AsNoTracking to EF Core queries?
+* Crime data import can be sped up -- regularly, only import things in last month; on a weekly basis do a full import
 
 # Minor Issues
 * Overflow-x: scroll on filtered table container
@@ -100,3 +104,4 @@
 * ~~Is the ImportCrimes job running correctly on schedule? I think so - just keep monitoring it~~
 * ~~Crime\List - needs better info windows~~
 * ~~THEFT appears as non-crime? https://localhost:5001/#/policeDispatchCall/192931850~~
+* ~~Health check logic is backwards~~

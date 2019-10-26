@@ -29,16 +29,14 @@ namespace MkeAlerts.Web.Jobs
         private readonly IEntityReadService<PoliceDispatchCall, string> _policeDispatchCallService;
         private readonly IEntityReadService<PoliceDispatchCallType, string> _policeDispatchCallTypeService;
         private readonly IEntityReadService<DispatchCallSubscription, Guid> _dispatchCallSubscriptionService;
-        private readonly IMailerService _mailerService;
 
-        public SendPoliceDispatchCallNotifications(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<SendPoliceDispatchCallNotifications> logger, IEntityReadService<PoliceDispatchCall, string> policeDispatchCallService, IEntityReadService<PoliceDispatchCallType, string> policeDispatchCallTypeService, IEntityReadService<DispatchCallSubscription, Guid> dispatchCallSubscriptionService, IMailerService mailerService)
-            : base(configuration, signInManager, userManager)
+        public SendPoliceDispatchCallNotifications(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, ILogger<SendPoliceDispatchCallNotifications> logger, IEntityReadService<PoliceDispatchCall, string> policeDispatchCallService, IEntityReadService<PoliceDispatchCallType, string> policeDispatchCallTypeService, IEntityReadService<DispatchCallSubscription, Guid> dispatchCallSubscriptionService)
+            : base(configuration, signInManager, userManager, mailerService)
         {
             _policeDispatchCallService = policeDispatchCallService;
             _policeDispatchCallTypeService = policeDispatchCallTypeService;
             _dispatchCallSubscriptionService = dispatchCallSubscriptionService;
             _logger = logger;
-            _mailerService = mailerService;
         }
 
         public async Task Run(string policeDispatchCallId)

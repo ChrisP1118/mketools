@@ -19,7 +19,7 @@ namespace MkeAlerts.Web.Services.Data
 
         protected override async Task<IQueryable<Parcel>> ApplyIdFilter(IQueryable<Parcel> queryable, string id)
         {
-            return queryable.Where(x => x.TAXKEY == id);
+            return queryable.Where(x => x.Taxkey == id);
         }
 
         protected override async Task<IQueryable<Parcel>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<Parcel> queryable)
@@ -31,16 +31,16 @@ namespace MkeAlerts.Web.Services.Data
         {
             return queryable
                 .Where(x =>
-                    (x.MinLat <= northBound && x.MaxLat >= northBound) ||
-                    (x.MinLat <= southBound && x.MaxLat >= southBound) ||
-                    (x.MinLat >= northBound && x.MaxLat <= southBound) ||
-                    (x.MinLat >= southBound && x.MaxLat <= northBound))
+                    (x.CommonParcel.MinLat <= northBound && x.CommonParcel.MaxLat >= northBound) ||
+                    (x.CommonParcel.MinLat <= southBound && x.CommonParcel.MaxLat >= southBound) ||
+                    (x.CommonParcel.MinLat >= northBound && x.CommonParcel.MaxLat <= southBound) ||
+                    (x.CommonParcel.MinLat >= southBound && x.CommonParcel.MaxLat <= northBound))
                 .Where(x =>
-                    (x.MinLng <= westBound && x.MaxLng >= westBound) ||
-                    (x.MinLng <= eastBound && x.MaxLng >= eastBound) ||
-                    (x.MinLng >= westBound && x.MaxLng <= eastBound) ||
-                    (x.MinLng >= eastBound && x.MaxLng <= westBound))
-                .Where(x => x.Outline.Intersects(bounds));
+                    (x.CommonParcel.MinLng <= westBound && x.CommonParcel.MaxLng >= westBound) ||
+                    (x.CommonParcel.MinLng <= eastBound && x.CommonParcel.MaxLng >= eastBound) ||
+                    (x.CommonParcel.MinLng >= westBound && x.CommonParcel.MaxLng <= eastBound) ||
+                    (x.CommonParcel.MinLng >= eastBound && x.CommonParcel.MaxLng <= westBound))
+                .Where(x => x.CommonParcel.Outline.Intersects(bounds));
         }
 
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Parcel dataModel)

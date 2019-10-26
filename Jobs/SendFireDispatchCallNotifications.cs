@@ -29,16 +29,14 @@ namespace MkeAlerts.Web.Jobs
         private readonly IEntityReadService<FireDispatchCall, string> _fireDispatchCallService;
         private readonly IEntityReadService<FireDispatchCallType, string> _fireDispatchCallTypeService;
         private readonly IEntityReadService<DispatchCallSubscription, Guid> _dispatchCallSubscriptionService;
-        private readonly IMailerService _mailerService;
 
-        public SendFireDispatchCallNotifications(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<SendFireDispatchCallNotifications> logger, IEntityReadService<FireDispatchCall, string> fireDispatchCallService, IEntityReadService<FireDispatchCallType, string> fireDispatchCallTypeService, IEntityReadService<DispatchCallSubscription, Guid> dispatchCallSubscriptionService, IMailerService mailerService)
-            : base(configuration, signInManager, userManager)
+        public SendFireDispatchCallNotifications(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, ILogger<SendFireDispatchCallNotifications> logger, IEntityReadService<FireDispatchCall, string> fireDispatchCallService, IEntityReadService<FireDispatchCallType, string> fireDispatchCallTypeService, IEntityReadService<DispatchCallSubscription, Guid> dispatchCallSubscriptionService)
+            : base(configuration, signInManager, userManager, mailerService)
         {
             _fireDispatchCallService = fireDispatchCallService;
             _fireDispatchCallTypeService = fireDispatchCallTypeService;
             _dispatchCallSubscriptionService = dispatchCallSubscriptionService;
             _logger = logger;
-            _mailerService = mailerService;
         }
 
         public async Task Run(string fireDispatchCallId)

@@ -51,6 +51,22 @@ namespace MkeAlerts.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CommonParcels",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Outline = table.Column<IGeometry>(nullable: true),
+                    MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MaxLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MinLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    MaxLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommonParcels", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Crimes",
                 columns: table => new
                 {
@@ -627,19 +643,97 @@ namespace MkeAlerts.Web.Migrations
                 name: "Parcels",
                 columns: table => new
                 {
-                    TAXKEY = table.Column<string>(maxLength: 10, nullable: false),
-                    Outline = table.Column<IGeometry>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false)
+                    Taxkey = table.Column<string>(maxLength: 10, nullable: false),
+                    FK_Parcel = table.Column<int>(nullable: false),
+                    FK_LandUse = table.Column<int>(nullable: false),
+                    FK_Naics = table.Column<int>(nullable: false),
+                    FK_Histori = table.Column<int>(nullable: false),
+                    FK_Zoning = table.Column<string>(nullable: true),
+                    ZoningCFN = table.Column<string>(nullable: true),
+                    ComDiv = table.Column<int>(nullable: false),
+                    Source = table.Column<int>(nullable: false),
+                    RecordDate = table.Column<DateTime>(nullable: false),
+                    Comments = table.Column<string>(nullable: true),
+                    CondoName = table.Column<string>(nullable: true),
+                    CondoType = table.Column<string>(nullable: true),
+                    CondoUnitT = table.Column<string>(nullable: true),
+                    UpdatedDat = table.Column<DateTime>(nullable: false),
+                    ActivatedD = table.Column<DateTime>(nullable: false),
+                    InactiveFl = table.Column<int>(nullable: false),
+                    DistrictNa = table.Column<string>(nullable: true),
+                    Neighborho = table.Column<string>(nullable: true),
+                    PlatPage = table.Column<string>(nullable: true),
+                    StreetNumb = table.Column<int>(nullable: false),
+                    AlternateS = table.Column<int>(nullable: false),
+                    StreetNu_1 = table.Column<string>(nullable: true),
+                    StreetDire = table.Column<string>(nullable: true),
+                    StreetName = table.Column<string>(nullable: true),
+                    STTYPE = table.Column<string>(nullable: true),
+                    LandUse = table.Column<string>(nullable: true),
+                    PropertySt = table.Column<string>(nullable: true),
+                    PrimaryJur = table.Column<string>(nullable: true),
+                    PreviousYe = table.Column<string>(nullable: true),
+                    Previous_1 = table.Column<string>(nullable: true),
+                    CurrentYea = table.Column<string>(nullable: true),
+                    TotalLandV = table.Column<string>(nullable: true),
+                    TotalYardI = table.Column<string>(nullable: true),
+                    TotalAsses = table.Column<string>(nullable: true),
+                    TotalLandE = table.Column<string>(nullable: true),
+                    TotalYar_1 = table.Column<string>(nullable: true),
+                    TotalAss_1 = table.Column<string>(nullable: true),
+                    PrevNonExe = table.Column<string>(nullable: true),
+                    PreviousEx = table.Column<string>(nullable: true),
+                    TotalPrevN = table.Column<int>(nullable: false),
+                    TotalPre_1 = table.Column<int>(nullable: false),
+                    TotaPrevNo = table.Column<int>(nullable: false),
+                    TotalPrevL = table.Column<int>(nullable: false),
+                    TotalPrevY = table.Column<int>(nullable: false),
+                    TotalPrevE = table.Column<int>(nullable: false),
+                    AsmtChange = table.Column<string>(nullable: true),
+                    AsmtChan_1 = table.Column<string>(nullable: true),
+                    SaleDate = table.Column<DateTime>(nullable: false),
+                    Deed = table.Column<string>(nullable: true),
+                    CONVEY_FEE = table.Column<float>(nullable: false),
+                    Owner1 = table.Column<string>(nullable: true),
+                    Owner2 = table.Column<string>(nullable: true),
+                    Owner3 = table.Column<string>(nullable: true),
+                    OwnerBilli = table.Column<string>(nullable: true),
+                    OwnerCityS = table.Column<string>(nullable: true),
+                    OwnerZipCo = table.Column<string>(nullable: true),
+                    OwnerNameC = table.Column<DateTime>(nullable: false),
+                    BuildingTy = table.Column<string>(nullable: true),
+                    Commercial = table.Column<int>(nullable: false),
+                    Residentia = table.Column<int>(nullable: false),
+                    NR_STORIES = table.Column<string>(nullable: true),
+                    YearBuilt = table.Column<int>(nullable: false),
+                    NumberOfFi = table.Column<int>(nullable: false),
+                    PercentAir = table.Column<int>(nullable: false),
+                    NumberOfFu = table.Column<int>(nullable: false),
+                    NumberOfHa = table.Column<int>(nullable: false),
+                    NumberOfRo = table.Column<int>(nullable: false),
+                    NumberOfBe = table.Column<int>(nullable: false),
+                    ATTIC = table.Column<string>(nullable: true),
+                    BASEMENT = table.Column<string>(nullable: true),
+                    BLDG_AREA = table.Column<float>(nullable: false),
+                    ParkingTyp = table.Column<string>(nullable: true),
+                    Calculated = table.Column<float>(nullable: false),
+                    Calculat_1 = table.Column<int>(nullable: false),
+                    ParcelType = table.Column<int>(nullable: false),
+                    ParcelActi = table.Column<DateTime>(nullable: false),
+                    CommonParcelId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Parcels", x => x.TAXKEY);
+                    table.PrimaryKey("PK_Parcels", x => x.Taxkey);
                     table.ForeignKey(
-                        name: "FK_Parcels_Properties_TAXKEY",
-                        column: x => x.TAXKEY,
+                        name: "FK_Parcels_CommonParcels_CommonParcelId",
+                        column: x => x.CommonParcelId,
+                        principalTable: "CommonParcels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Parcels_Properties_Taxkey",
+                        column: x => x.Taxkey,
                         principalTable: "Properties",
                         principalColumn: "TAXKEY",
                         onDelete: ReferentialAction.Cascade);
@@ -648,12 +742,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "71d5294f-51f0-4335-a019-2cb1347855a8", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "19aa1538-bc60-44ca-bc39-1922d4778d0f", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "d8172ca1-2a41-4c3b-8bd5-50bd14e25518", "cwilson@mkealerts.com", true, null, null, false, null, "cwilson@mkealerts.com", "cwilson@mkealerts.com", "AQAAAAEAACcQAAAAEGyN3f/Y/DCPpo0bXPVAc9TTQYh6+NMlCO+I0M/puyKL1JdntvIbv6ACz+hUqAHCqQ==", null, false, "", false, "cwilson@mkealerts.com" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "33ddb975-493a-4b58-ae7a-c52c31ce1f2a", "cwilson@mkealerts.com", true, null, null, false, null, "cwilson@mkealerts.com", "cwilson@mkealerts.com", "AQAAAAEAACcQAAAAEADtoBi7KCmV2tLC6kGm7vmXzH8KP8Lb01WGcGPhABEJFa2gRFlR/qa6EMyY8sJ5og==", null, false, "", false, "cwilson@mkealerts.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -705,6 +799,31 @@ namespace MkeAlerts.Web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CommonParcels_MaxLat",
+                table: "CommonParcels",
+                column: "MaxLat");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommonParcels_MaxLng",
+                table: "CommonParcels",
+                column: "MaxLng");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommonParcels_MinLat",
+                table: "CommonParcels",
+                column: "MinLat");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommonParcels_MinLng",
+                table: "CommonParcels",
+                column: "MinLng");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Crimes_ReportedDateTime",
+                table: "Crimes",
+                column: "ReportedDateTime");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DispatchCallSubscriptions_ApplicationUserId",
                 table: "DispatchCallSubscriptions",
                 column: "ApplicationUserId");
@@ -720,24 +839,9 @@ namespace MkeAlerts.Web.Migrations
                 column: "ReportedDateTime");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Parcels_MaxLat",
+                name: "IX_Parcels_CommonParcelId",
                 table: "Parcels",
-                column: "MaxLat");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Parcels_MaxLng",
-                table: "Parcels",
-                column: "MaxLng");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Parcels_MinLat",
-                table: "Parcels",
-                column: "MinLat");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Parcels_MinLng",
-                table: "Parcels",
-                column: "MinLng");
+                column: "CommonParcelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PoliceDispatchCalls_ReportedDateTime",
@@ -797,6 +901,9 @@ namespace MkeAlerts.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "CommonParcels");
 
             migrationBuilder.DropTable(
                 name: "Properties");

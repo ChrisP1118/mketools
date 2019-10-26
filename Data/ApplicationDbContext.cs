@@ -19,6 +19,7 @@ namespace MkeAlerts.Web.Data
         public DbSet<ExternalCredential> ExternalCredentials { get; set; }
         public DbSet<Property> Properties { get; set; }
         public DbSet<Parcel> Parcels { get; set; }
+        public DbSet<CommonParcel> CommonParcels { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Street> Streets { get; set; }
         public DbSet<PoliceDispatchCall> PoliceDispatchCalls { get; set; }
@@ -50,25 +51,55 @@ namespace MkeAlerts.Web.Data
                 .WithOne(y => y.Property)
                 .IsRequired(false);
 
-            modelBuilder.Entity<Property>()
-                .HasOne(x => x.Parcel)
-                .WithOne(y => y.Property)
-                .HasForeignKey<Parcel>(y => y.TAXKEY)
-                .IsRequired(false);
+            //modelBuilder.Entity<Property>()
+            //    .HasOne(x => x.Parcel)
+            //    .WithOne(x => x.Property)
+            //    .IsRequired(false);
+
+            //modelBuilder.Entity<Parcel>()
+            //    .HasOne(x => x.Property)
+            //    .WithOne(x => x.Parcel)
 
             modelBuilder.Entity<Parcel>()
-                .HasKey(x => x.TAXKEY);
+                .HasOne(x => x.Property)
+                .WithOne(x => x.Parcel)
+                .HasForeignKey<Parcel>(x => x.Taxkey);
 
             modelBuilder.Entity<Parcel>()
+                .HasKey(x => x.Taxkey);
+
+            modelBuilder.Entity<CommonParcel>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<CommonParcel>()
+                .HasMany(x => x.Parcels)
+                .WithOne(x => x.CommonParcel)
+                .HasForeignKey(x => x.CommonParcelId);
+
+            //modelBuilder.Entity<Property>()
+            //    .HasOne(x => x.Parcel)
+            //    .WithOne(y => y.Property);
+
+            //modelBuilder.Entity<Parcel>()
+            //    .HasOne(x => x.CommonParcel)
+            //    .WithMany(x => x.Parcels);
+
+            //modelBuilder.Entity<CommonParcel>()
+            //    .HasMany(x => x.Parcels)
+            //    .WithOne(x => x.CommonParcel)
+            //    .HasForeignKey(x => x.CommonParcelId)
+            //    .IsRequired(true);
+
+            modelBuilder.Entity<CommonParcel>()
                 .HasIndex(x => x.MinLat);
 
-            modelBuilder.Entity<Parcel>()
+            modelBuilder.Entity<CommonParcel>()
                 .HasIndex(x => x.MaxLat);
 
-            modelBuilder.Entity<Parcel>()
+            modelBuilder.Entity<CommonParcel>()
                 .HasIndex(x => x.MinLng);
 
-            modelBuilder.Entity<Parcel>()
+            modelBuilder.Entity<CommonParcel>()
                 .HasIndex(x => x.MaxLng);
 
             modelBuilder.Entity<Address>()

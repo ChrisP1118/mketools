@@ -137,7 +137,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "e8dc75a3-5d6a-4fb9-b6bd-65d9fb923f0b",
+                            ConcurrencyStamp = "f2f1cdac-0b2c-4c9e-9d4a-323b91093eff",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -204,13 +204,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "759edab8-5d91-4b0a-9dd5-df99e096f7db",
+                            ConcurrencyStamp = "a91c71e3-5e20-4cd8-b7e6-0ada73835ca3",
                             Email = "cwilson@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "cwilson@mkealerts.com",
                             NormalizedUserName = "cwilson@mkealerts.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAED74tH+xt9VyPtdDoOd6t2kikJ/lpplYuaCyBrrPqXsc54AmIZsJ9E7YkhbDgl933Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPel9MEt3DaAcAKioAAbNNH6U+Z5tcn1geGuxpGitAEkVSSK+tGzW8b6Utmvua8olw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -308,14 +308,6 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<decimal>("ZIP");
 
                     b.HasKey("IncidentNum");
-
-                    b.HasIndex("MaxLat");
-
-                    b.HasIndex("MaxLng");
-
-                    b.HasIndex("MinLat");
-
-                    b.HasIndex("MinLng");
 
                     b.HasIndex("ReportedDateTime");
 
@@ -511,10 +503,9 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Parcel", b =>
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.CommonParcel", b =>
                 {
-                    b.Property<string>("TAXKEY")
-                        .HasMaxLength(10);
+                    b.Property<Guid>("Id");
 
                     b.Property<decimal>("MaxLat")
                         .HasConversion(new ValueConverter<decimal, decimal>(v => default(decimal), v => default(decimal), new ConverterMappingHints(precision: 38, scale: 17)))
@@ -534,7 +525,7 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<IGeometry>("Outline");
 
-                    b.HasKey("TAXKEY");
+                    b.HasKey("Id");
 
                     b.HasIndex("MaxLat");
 
@@ -543,6 +534,172 @@ namespace MkeAlerts.Web.Migrations
                     b.HasIndex("MinLat");
 
                     b.HasIndex("MinLng");
+
+                    b.ToTable("CommonParcels");
+                });
+
+            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Parcel", b =>
+                {
+                    b.Property<string>("Taxkey")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("ATTIC");
+
+                    b.Property<DateTime>("ActivatedD");
+
+                    b.Property<int>("AlternateS");
+
+                    b.Property<string>("AsmtChan_1");
+
+                    b.Property<string>("AsmtChange");
+
+                    b.Property<string>("BASEMENT");
+
+                    b.Property<float>("BLDG_AREA");
+
+                    b.Property<string>("BuildingTy");
+
+                    b.Property<float>("CONVEY_FEE");
+
+                    b.Property<float>("Calculat_1");
+
+                    b.Property<float>("Calculated");
+
+                    b.Property<int>("ComDiv");
+
+                    b.Property<string>("Comments");
+
+                    b.Property<int>("Commercial");
+
+                    b.Property<Guid>("CommonParcelId");
+
+                    b.Property<string>("CondoName");
+
+                    b.Property<string>("CondoType");
+
+                    b.Property<string>("CondoUnitT");
+
+                    b.Property<string>("CurrentYea");
+
+                    b.Property<string>("Deed");
+
+                    b.Property<string>("DistrictNa");
+
+                    b.Property<int>("FK_Histori");
+
+                    b.Property<int>("FK_LandUse");
+
+                    b.Property<int>("FK_Naics");
+
+                    b.Property<int>("FK_Parcel");
+
+                    b.Property<string>("FK_Zoning");
+
+                    b.Property<int>("InactiveFl");
+
+                    b.Property<string>("LandUse");
+
+                    b.Property<string>("NR_STORIES");
+
+                    b.Property<string>("Neighborho");
+
+                    b.Property<int>("NumberOfBe");
+
+                    b.Property<int>("NumberOfFi");
+
+                    b.Property<int>("NumberOfFu");
+
+                    b.Property<int>("NumberOfHa");
+
+                    b.Property<int>("NumberOfRo");
+
+                    b.Property<string>("Owner1");
+
+                    b.Property<string>("Owner2");
+
+                    b.Property<string>("Owner3");
+
+                    b.Property<string>("OwnerBilli");
+
+                    b.Property<string>("OwnerCityS");
+
+                    b.Property<DateTime>("OwnerNameC");
+
+                    b.Property<string>("OwnerZipCo");
+
+                    b.Property<DateTime>("ParcelActi");
+
+                    b.Property<int>("ParcelType");
+
+                    b.Property<string>("ParkingTyp");
+
+                    b.Property<float>("PercentAir");
+
+                    b.Property<string>("PlatPage");
+
+                    b.Property<string>("PrevNonExe");
+
+                    b.Property<string>("PreviousEx");
+
+                    b.Property<string>("PreviousYe");
+
+                    b.Property<string>("Previous_1");
+
+                    b.Property<string>("PrimaryJur");
+
+                    b.Property<string>("PropertySt");
+
+                    b.Property<DateTime>("RecordDate");
+
+                    b.Property<int>("Residentia");
+
+                    b.Property<string>("STTYPE");
+
+                    b.Property<DateTime>("SaleDate");
+
+                    b.Property<int>("Source");
+
+                    b.Property<string>("StreetDire");
+
+                    b.Property<string>("StreetName");
+
+                    b.Property<string>("StreetNu_1");
+
+                    b.Property<int>("StreetNumb");
+
+                    b.Property<int>("TotaPrevNo");
+
+                    b.Property<string>("TotalAss_1");
+
+                    b.Property<string>("TotalAsses");
+
+                    b.Property<string>("TotalLandE");
+
+                    b.Property<string>("TotalLandV");
+
+                    b.Property<int>("TotalPre_1");
+
+                    b.Property<int>("TotalPrevE");
+
+                    b.Property<int>("TotalPrevL");
+
+                    b.Property<int>("TotalPrevN");
+
+                    b.Property<int>("TotalPrevY");
+
+                    b.Property<string>("TotalYar_1");
+
+                    b.Property<string>("TotalYardI");
+
+                    b.Property<DateTime>("UpdatedDat");
+
+                    b.Property<int>("YearBuilt");
+
+                    b.Property<string>("ZoningCFN");
+
+                    b.HasKey("Taxkey");
+
+                    b.HasIndex("CommonParcelId");
 
                     b.ToTable("Parcels");
                 });
@@ -1271,9 +1428,14 @@ namespace MkeAlerts.Web.Migrations
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Parcel", b =>
                 {
+                    b.HasOne("MkeAlerts.Web.Models.Data.Places.CommonParcel", "CommonParcel")
+                        .WithMany("Parcels")
+                        .HasForeignKey("CommonParcelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("MkeAlerts.Web.Models.Data.Places.Property", "Property")
                         .WithOne("Parcel")
-                        .HasForeignKey("MkeAlerts.Web.Models.Data.Places.Parcel", "TAXKEY")
+                        .HasForeignKey("MkeAlerts.Web.Models.Data.Places.Parcel", "Taxkey")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

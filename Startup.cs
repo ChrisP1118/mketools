@@ -226,6 +226,9 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityWriteService<Property, string>, PropertyService>();
             services.AddTransient<IEntityReadService<Parcel, string>, ParcelService>();
             services.AddTransient<IEntityWriteService<Parcel, string>, ParcelService>();
+            services.AddTransient<IEntityReadService<CommonParcel, Guid>, CommonParcelService>();
+            services.AddTransient<IEntityWriteService<CommonParcel, Guid>, CommonParcelService>();
+            services.AddTransient<ICommonParcelService, CommonParcelService>();
             services.AddTransient<IEntityReadService<Address, string>, AddressService>();
             services.AddTransient<IEntityWriteService<Address, string>, AddressService>();
             services.AddTransient<IEntityReadService<Street, string>, StreetService>();
@@ -250,6 +253,7 @@ Note that not all fields can be sorted.
             services.AddSingleton<IValidator<Property>, PropertyValidator>();
             services.AddSingleton<IValidator<Address>, AddressValidator>();
             services.AddSingleton<IValidator<Parcel>, ParcelValidator>();
+            services.AddSingleton<IValidator<CommonParcel>, CommonParcelValidator>();
             services.AddSingleton<IValidator<Street>, StreetValidator>();
             services.AddSingleton<IValidator<PoliceDispatchCall>, PoliceDispatchCallValidator>();
             services.AddSingleton<IValidator<PoliceDispatchCallType>, PoliceDispatchCallTypeValidator>();

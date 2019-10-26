@@ -245,7 +245,7 @@ namespace MkeAlerts.Web.Services.Functional
 
             if (address != null)
             {
-                request.Results.Geometry = address.Property.Parcel.Outline;
+                request.Results.Geometry = address.Property.Parcel.CommonParcel.Outline;
                 request.Results.Accuracy = GeometryAccuracy.High;
                 request.Results.Source = GeometrySource.AddressAndLocation;
 
@@ -256,7 +256,7 @@ namespace MkeAlerts.Web.Services.Functional
 
             if (address != null)
             {
-                request.Results.Geometry = address.Property.Parcel.Outline;
+                request.Results.Geometry = address.Property.Parcel.CommonParcel.Outline;
                 request.Results.Accuracy = GeometryAccuracy.Medium;
                 request.Results.Source = GeometrySource.AddressBlock;
 
@@ -339,16 +339,16 @@ namespace MkeAlerts.Web.Services.Functional
                 .Include(p => p.Property)
                 .Where(p => p.Property != null)
                 .Where(x =>
-                    (x.MinLat <= northBound && x.MaxLat >= northBound) ||
-                    (x.MinLat <= southBound && x.MaxLat >= southBound) ||
-                    (x.MinLat >= northBound && x.MaxLat <= southBound) ||
-                    (x.MinLat >= southBound && x.MaxLat <= northBound))
+                    (x.CommonParcel.MinLat <= northBound && x.CommonParcel.MaxLat >= northBound) ||
+                    (x.CommonParcel.MinLat <= southBound && x.CommonParcel.MaxLat >= southBound) ||
+                    (x.CommonParcel.MinLat >= northBound && x.CommonParcel.MaxLat <= southBound) ||
+                    (x.CommonParcel.MinLat >= southBound && x.CommonParcel.MaxLat <= northBound))
                 .Where(x =>
-                    (x.MinLng <= westBound && x.MaxLng >= westBound) ||
-                    (x.MinLng <= eastBound && x.MaxLng >= eastBound) ||
-                    (x.MinLng >= westBound && x.MaxLng <= eastBound) ||
-                    (x.MinLng >= eastBound && x.MaxLng <= westBound))
-                .OrderBy(p => p.Outline.Distance(location))
+                    (x.CommonParcel.MinLng <= westBound && x.CommonParcel.MaxLng >= westBound) ||
+                    (x.CommonParcel.MinLng <= eastBound && x.CommonParcel.MaxLng >= eastBound) ||
+                    (x.CommonParcel.MinLng >= westBound && x.CommonParcel.MaxLng <= eastBound) ||
+                    (x.CommonParcel.MinLng >= eastBound && x.CommonParcel.MaxLng <= westBound))
+                .OrderBy(p => p.CommonParcel.Outline.Distance(location))
                 .FirstOrDefaultAsync();
 
             if (parcel == null)
@@ -357,7 +357,7 @@ namespace MkeAlerts.Web.Services.Functional
             return new ReverseGeocodeResults()
             {
                 Property = parcel.Property,
-                Distance = parcel.Outline.Distance(location)
+                Distance = parcel.CommonParcel.Outline.Distance(location)
             };
         }
     }

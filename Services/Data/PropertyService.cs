@@ -32,16 +32,16 @@ namespace MkeAlerts.Web.Services.Data
             return queryable
                 .Where(x => x.Parcel != null)
                 .Where(x => 
-                    (x.Parcel.MinLat <= northBound && x.Parcel.MaxLat >= northBound) ||
-                    (x.Parcel.MinLat <= southBound && x.Parcel.MaxLat >= southBound) ||
-                    (x.Parcel.MinLat >= northBound && x.Parcel.MaxLat <= southBound) ||
-                    (x.Parcel.MinLat >= southBound && x.Parcel.MaxLat <= northBound))
+                    (x.Parcel.CommonParcel.MinLat <= northBound && x.Parcel.CommonParcel.MaxLat >= northBound) ||
+                    (x.Parcel.CommonParcel.MinLat <= southBound && x.Parcel.CommonParcel.MaxLat >= southBound) ||
+                    (x.Parcel.CommonParcel.MinLat >= northBound && x.Parcel.CommonParcel.MaxLat <= southBound) ||
+                    (x.Parcel.CommonParcel.MinLat >= southBound && x.Parcel.CommonParcel.MaxLat <= northBound))
                 .Where(x =>
-                    (x.Parcel.MinLng <= westBound && x.Parcel.MaxLng >= westBound) ||
-                    (x.Parcel.MinLng <= eastBound && x.Parcel.MaxLng >= eastBound) ||
-                    (x.Parcel.MinLng >= westBound && x.Parcel.MaxLng <= eastBound) ||
-                    (x.Parcel.MinLng >= eastBound && x.Parcel.MaxLng <= westBound))
-                .Where(x => x.Parcel.Outline.Intersects(bounds));
+                    (x.Parcel.CommonParcel.MinLng <= westBound && x.Parcel.CommonParcel.MaxLng >= westBound) ||
+                    (x.Parcel.CommonParcel.MinLng <= eastBound && x.Parcel.CommonParcel.MaxLng >= eastBound) ||
+                    (x.Parcel.CommonParcel.MinLng >= westBound && x.Parcel.CommonParcel.MaxLng <= eastBound) ||
+                    (x.Parcel.CommonParcel.MinLng >= eastBound && x.Parcel.CommonParcel.MaxLng <= westBound))
+                .Where(x => x.Parcel.CommonParcel.Outline.Intersects(bounds));
         }
 
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Property dataModel)
