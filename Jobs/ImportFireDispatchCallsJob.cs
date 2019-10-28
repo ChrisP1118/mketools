@@ -63,7 +63,7 @@ namespace MkeAlerts.Web.Jobs
                     {
                         try
                         {
-                            FireDispatchCall fireDispatchCall = await _fireDispatchCallWriteService.GetOne(claimsPrincipal, (string)item.Property("cfs").Value);
+                            FireDispatchCall fireDispatchCall = await _fireDispatchCallWriteService.GetOne(claimsPrincipal, (string)item.Property("cfs").Value, null);
 
                             if (fireDispatchCall == null)
                             {

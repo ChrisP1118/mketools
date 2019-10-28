@@ -55,7 +55,7 @@ namespace MkeAlerts.Web.Jobs
                     {
                         var cols = row.SelectNodes("td");
 
-                        PoliceDispatchCall dispatchCall = await _policeDispatchCallWriteService.GetOne(claimsPrincipal, cols[0].InnerText);
+                        PoliceDispatchCall dispatchCall = await _policeDispatchCallWriteService.GetOne(claimsPrincipal, cols[0].InnerText, null);
 
                         if (dispatchCall == null)
                         {

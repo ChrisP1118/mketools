@@ -279,13 +279,15 @@ namespace MkeAlerts.Web.Services.Functional
         {
             return await _dbContext.Addresses
                 .Include(a => a.Property)
-                .Include(a => a.Property.Parcel)
+                .ThenInclude(p => p.Parcel)
+                .ThenInclude(p => p.CommonParcel)
                 .Where(a => a.HSE_NBR == request.HouseNumber)
                 .Where(a => a.DIR == request.Direction)
                 .Where(a => a.STREET == request.Street)
                 .Where(a => a.STTYPE == request.StreetType || request.StreetType == "")
                 .Where(a => a.Property != null)
                 .Where(a => a.Property.Parcel != null)
+                .Where(a => a.Property.Parcel.CommonParcel != null)
                 .FirstOrDefaultAsync();
         }
 
@@ -335,29 +337,30 @@ namespace MkeAlerts.Web.Services.Functional
             westBound -= 0.01;
             eastBound += 0.01;
 
-            Parcel parcel = await _dbContext.Parcels
-                .Include(p => p.Property)
-                .Where(p => p.Property != null)
+            CommonParcel commonParcel = await _dbContext.CommonParcels
+                .Include(p => p.Parcels)
+                .ThenInclude(p => p.Property)
+                .Where(p => p.Parcels != null)
                 .Where(x =>
-                    (x.CommonParcel.MinLat <= northBound && x.CommonParcel.MaxLat >= northBound) ||
-                    (x.CommonParcel.MinLat <= southBound && x.CommonParcel.MaxLat >= southBound) ||
-                    (x.CommonParcel.MinLat >= northBound && x.CommonParcel.MaxLat <= southBound) ||
-                    (x.CommonParcel.MinLat >= southBound && x.CommonParcel.MaxLat <= northBound))
+                    (x.MinLat <= northBound && x.MaxLat >= northBound) ||
+                    (x.MinLat <= southBound && x.MaxLat >= southBound) ||
+                    (x.MinLat >= northBound && x.MaxLat <= southBound) ||
+                    (x.MinLat >= southBound && x.MaxLat <= northBound))
                 .Where(x =>
-                    (x.CommonParcel.MinLng <= westBound && x.CommonParcel.MaxLng >= westBound) ||
-                    (x.CommonParcel.MinLng <= eastBound && x.CommonParcel.MaxLng >= eastBound) ||
-                    (x.CommonParcel.MinLng >= westBound && x.CommonParcel.MaxLng <= eastBound) ||
-                    (x.CommonParcel.MinLng >= eastBound && x.CommonParcel.MaxLng <= westBound))
-                .OrderBy(p => p.CommonParcel.Outline.Distance(location))
+                    (x.MinLng <= westBound && x.MaxLng >= westBound) ||
+                    (x.MinLng <= eastBound && x.MaxLng >= eastBound) ||
+                    (x.MinLng >= westBound && x.MaxLng <= eastBound) ||
+                    (x.MinLng >= eastBound && x.MaxLng <= westBound))
+                .OrderBy(p => p.Outline.Distance(location))
                 .FirstOrDefaultAsync();
 
-            if (parcel == null)
+            if (commonParcel == null)
                 return null;
 
             return new ReverseGeocodeResults()
             {
-                Property = parcel.Property,
-                Distance = parcel.CommonParcel.Outline.Distance(location)
+                CommonParcel = commonParcel,
+                Distance = commonParcel.Outline.Distance(location)
             };
         }
     }

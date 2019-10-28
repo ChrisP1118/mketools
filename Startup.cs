@@ -164,6 +164,12 @@ returned. This token should be included in the `Authorization` header as a beare
 Within Swagger UI, you can click the 'Authorize' button to use a token on requests. Make sure that the value entered includes the word `Bearer` before the token -- the value Swagger UI is
 sending is the entire `Authorization` header.
 
+## Including Related Data
+
+The `includes` parameter on many of these calls lets you specify related objects to include in the results. The parameter is a comma-delimited list of related objects; the objects use dotted
+notation. For instance, to include `parcel` properties when calling `/api/properties`, set `includes` to `parcel`. If you also wanted to include `commonParcel`, which is a property of `parcel`,
+you'd set `includes` to `parcel,parcel.commonParcel`.
+
 ## Filtering Results
 
 Results can be filtered with the `filter` parameter. You can use basic conditional operations, parentheses for grouping, null checks, and operators like AND and OR. Here are some examples:

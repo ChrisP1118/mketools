@@ -8,7 +8,8 @@ namespace MkeAlerts.Web.Models.Internal
 {
     public class ReverseGeocodeResults
     {
-        public Property Property { get; set; }
+        //public Property Property { get; set; }
+        public CommonParcel CommonParcel { get; set; }
         public double Distance { get; set; }
     }
 }

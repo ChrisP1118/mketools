@@ -52,10 +52,5 @@ namespace MkeAlerts.Web.Services.Data
 
             return false;
         }
-
-        protected override async Task<IQueryable<Property>> GetDataSet(ApplicationUser applicationUser)
-        {
-            return (await base.GetDataSet(applicationUser)).Include(x => x.Parcel);
-        }
     }
 }

@@ -48,9 +48,9 @@ namespace MkeAlerts.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
         [SwaggerResponseHeader(StatusCodes.Status200OK, "X-Total-Count", "int", "Returns the total number of available items")]
-        public async Task<ActionResult<IEnumerable<TDTOModel>>> GetAllAsync(int offset = 0, int limit = 10, string order = null, string filter = null, double? northBound = null, double? southBound = null, double? eastBound = null, double? westBound = null)
+        public async Task<ActionResult<IEnumerable<TDTOModel>>> GetAllAsync(int offset = 0, int limit = 10, string order = null, string includes = null, string filter = null, double? northBound = null, double? southBound = null, double? eastBound = null, double? westBound = null)
         {
-            List<TDataModel> dataModelItems = await _readService.GetAll(HttpContext.User, offset, limit, order, filter, northBound, southBound, eastBound, westBound, null);
+            List<TDataModel> dataModelItems = await _readService.GetAll(HttpContext.User, offset, limit, order, includes, filter, northBound, southBound, eastBound, westBound, null);
 
             List<TDTOModel> dtoModelItems = dataModelItems
                 .Select(d => _mapper.Map<TDataModel, TDTOModel>(d))
@@ -70,11 +70,11 @@ namespace MkeAlerts.Web.Controllers
         [HttpGet("{*id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<TDTOModel>> GetOne(TIdType id)
+        public async Task<ActionResult<TDTOModel>> GetOne(TIdType id, string includes = null)
         {
             id = GetOneId(id);
 
-            TDataModel dataModel = await _readService.GetOne(HttpContext.User, id);
+            TDataModel dataModel = await _readService.GetOne(HttpContext.User, id, includes);
 
             if (dataModel == null)
                 return NotFound();

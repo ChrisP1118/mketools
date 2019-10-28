@@ -7,16 +7,19 @@
 * Reset password/my profile page
 * Test SSO with prod URLs
 * On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
-* Better map icons/markers
 * Crime/police dispatch call detail pages link cross-link
-* Add some error handling inside of jobs
 * Document what's "major" and "minor"
 * EntityWriteService logger should use service type, not entity, as generic
 * Send admin alert when downloads/imports fail (parcels, mprop, etc.)
 * Add AsNoTracking to EF Core queries?
 * Crime data import can be sped up -- regularly, only import things in last month; on a weekly basis do a full import
+* Cache StreetReferences data?
+* Abbreviated reverse geocode (currently returns ~267KB of data or more -- all we need is an address string)? Or add an "includes" property to this?
+* Maybe add an alternate DTO for getting geography data?
+* Fix casing with some of the JSON property names (e.g. "p_A_TOTAL")
 
 # Minor Issues
+* Better map icons/markers
 * Overflow-x: scroll on filtered table container
 * On mobile, default filtered table map to top; desktop to right
 * Caching headers - why Cache-Control: no-cache?
@@ -105,3 +108,4 @@
 * ~~Crime\List - needs better info windows~~
 * ~~THEFT appears as non-crime? https://localhost:5001/#/policeDispatchCall/192931850~~
 * ~~Health check logic is backwards~~
+* ~~Add some error handling inside of jobs~~

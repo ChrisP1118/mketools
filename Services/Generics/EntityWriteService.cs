@@ -136,7 +136,7 @@ namespace MkeAlerts.Web.Services
         {
             var applicationUser = await GetApplicationUser(user);
 
-            TDataModel dataModel = await GetItemById(applicationUser, id);
+            TDataModel dataModel = await GetItemById(applicationUser, id, null);
 
             if (!await CanDelete(applicationUser, dataModel))
                 throw new ForbiddenException();

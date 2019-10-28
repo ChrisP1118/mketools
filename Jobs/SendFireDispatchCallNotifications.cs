@@ -44,10 +44,10 @@ namespace MkeAlerts.Web.Jobs
             _logger.LogInformation("Starting job: " + fireDispatchCallId);
 
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
-            FireDispatchCall fireDispatchCall = await _fireDispatchCallService.GetOne(claimsPrincipal, fireDispatchCallId);
-            FireDispatchCallType fireDispatchCallType = await _fireDispatchCallTypeService.GetOne(claimsPrincipal, fireDispatchCall.NatureOfCall);
+            FireDispatchCall fireDispatchCall = await _fireDispatchCallService.GetOne(claimsPrincipal, fireDispatchCallId, null);
+            FireDispatchCallType fireDispatchCallType = await _fireDispatchCallTypeService.GetOne(claimsPrincipal, fireDispatchCall.NatureOfCall, null);
 
-            List<DispatchCallSubscription> dispatchCallSubscriptions = await _dispatchCallSubscriptionService.GetAll(claimsPrincipal, 0, 100000, null, null, null, null, null, null, queryable =>
+            List<DispatchCallSubscription> dispatchCallSubscriptions = await _dispatchCallSubscriptionService.GetAll(claimsPrincipal, 0, 100000, null, null, null, null, null, null, null, queryable =>
             {
                 // IPoint.Distance is confusing. When this gets translated into a SQL query, it ends up using STDistance which interprets in meters on our geography type. However, if you run it in managed
                 // code, it seems to be interpreting it as a geometry instead of geography, so it's the distance in the coordinate system, which is kind of useless.

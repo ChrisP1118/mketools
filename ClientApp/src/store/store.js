@@ -209,12 +209,12 @@ export const store = new Vuex.Store({
           .get('/api/geocoding/fromCoordinates?latitude=' + position.lat + '&longitude=' + position.lng)
           .then(response => {
               cachedItem.resolves.forEach(r => {
-                r(response.data.property);
+                r(response.data.commonParcel.parcels[0].property);
               });
 
               context.commit('UPDATE_GEOCODE_CACHE_ITEM', {
                 position: position,
-                property: response.data.property
+                property: response.data.commonParcel.parcels[0].property
               });
             })
           .catch(error => {

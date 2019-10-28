@@ -15,6 +15,6 @@ namespace MkeAlerts.Web.Models.DTO.Places
         [JsonConverter(typeof(GeometryConverter))]
         public IGeometry Outline { get; set; }
 
-        public PropertyDTO Property { get; set; }
+        public List<ParcelDTO> Parcels { get; set; }
     }
 }
