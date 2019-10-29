@@ -200,6 +200,12 @@ are some examples:
 * `state desc, city asc`
 
 Note that not all fields can be sorted.
+
+## Property Names
+
+As much as possible, this API attempts to stick to property names used in the original data sources. This often leads to names that are snake-cased, rather than camelCased as you'd expect for JSON
+data. It's also difficult to decipher the meaning of some of them. However, the goal is that it should make it easier for you to correlate them to the original data and determine their use and
+meaning from documentation with the original data sources.
 "
                 });
 
@@ -396,7 +402,7 @@ Note that not all fields can be sorted.
             if (!string.IsNullOrEmpty(s) && char.IsUpper(s[0]))
             {
                 char[] array = s.ToCharArray();
-                for (int i = 0; i < array.Length && (i != 1 || char.IsUpper(array[i])); i++)
+                for (int i = 0; i < array.Length && (i != 1 || char.IsUpper(array[i]) || (i == 1 && array[i] == '_')); i++)
                 {
                     bool flag = i + 1 < array.Length;
                     if ((i > 0 & flag) && array[i + 1] != '_' && !char.IsUpper(array[i + 1]) && !char.IsNumber(array[i + 1]))
