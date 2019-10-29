@@ -269,6 +269,9 @@ export default {
       if (this.sortColumn)
         url += '&order=' + encodeURIComponent(this.sortColumn + ' ' + this.sortOrder);
 
+      if (this.settings.includes)
+        url += '&includes=' + encodeURIComponent(this.settings.includes.join(','));
+        
       let filters = [];
       let defaultFilter = this.settings.getDefaultFilter();
       if (defaultFilter)

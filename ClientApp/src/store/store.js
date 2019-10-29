@@ -363,15 +363,19 @@ export const store = new Vuex.Store({
         return retVal;
       }
     },
+    getPropertyPolygonColor: state => property => {
+      return '#333333';
+    },
     getCommonParcelPolygonColor: state => commonParcel => {
       return '#333333';
+    },
+    getPropertyPolygonWeight: state => property => {
+      return 1;
     },
     getCommonParcelPolygonWeight: state => commonParcel => {
       return 1;
     },
-    getCommonParcelPolygonFillColor: state => commonParcel => {
-      let property = commonParcel.parcels[0].property;
-
+    getPropertyPolygonFillColor: state => property => {
       if (property.c_a_class == 1)
         // Residential
         return '#28a745';
@@ -390,14 +394,20 @@ export const store = new Vuex.Store({
       else
         return '#3f3f3f';
     },
-    getCommonParcelPolygonFillOpacity: state => commonParcel => {
+    getCommonParcelPolygonFillColor: (state, getters) => commonParcel => {
       let property = commonParcel.parcels[0].property;
-
+      return getters.getPropertyPolygonFillColor(property);
+    },
+    getPropertyPolygonFillOpacity: state => property => {
       if (property.c_a_class == 1)
         // Residential
         return 0.2;
       else
         return 0.4;
+    },    
+    getCommonParcelPolygonFillOpacity: (state, getters) => commonParcel => {
+      let property = commonParcel.parcels[0].property;
+      return getters.getPropertyPolygonFillOpacity(property);
     },    
   }
 })
