@@ -13,7 +13,7 @@ namespace MkeAlerts.Web.Services.Data
 {
     public class PropertyService : EntityWriteService<Property, string>
     {
-        public PropertyService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Property> validator, ILogger<Property> logger) : base(dbContext, userManager, validator, logger)
+        public PropertyService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Property> validator, ILogger<EntityWriteService<Property, string>> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 

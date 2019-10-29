@@ -10,6 +10,7 @@ using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Services.Data;
+using MkeAlerts.Web.Services.Data.Interfaces;
 using MkeAlerts.Web.Services.Functional;
 using MkeAlerts.Web.Utilities;
 using NetTopologySuite;

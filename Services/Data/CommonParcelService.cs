@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Places;
+using MkeAlerts.Web.Services.Data.Interfaces;
 using NetTopologySuite.Geometries;
 using System;
 using System.Linq;
@@ -13,14 +14,9 @@ using Coordinate = GeoAPI.Geometries.Coordinate;
 
 namespace MkeAlerts.Web.Services.Data
 {
-    public interface ICommonParcelService : IEntityWriteService<CommonParcel, Guid>
-    {
-        Task RemoveDuplicates();
-    }
-
     public class CommonParcelService : EntityWriteService<CommonParcel, Guid>, ICommonParcelService
     {
-        public CommonParcelService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<CommonParcel> validator, ILogger<CommonParcel> logger) : base(dbContext, userManager, validator, logger)
+        public CommonParcelService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<CommonParcel> validator, ILogger<EntityWriteService<CommonParcel, Guid>> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 

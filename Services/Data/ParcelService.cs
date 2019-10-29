@@ -13,7 +13,7 @@ namespace MkeAlerts.Web.Services.Data
 {
     public class ParcelService : EntityWriteService<Parcel, string>
     {
-        public ParcelService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Parcel> validator, ILogger<Parcel> logger) : base(dbContext, userManager, validator, logger)
+        public ParcelService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Parcel> validator, ILogger<EntityWriteService<Parcel, string>> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 

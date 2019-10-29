@@ -12,7 +12,7 @@ namespace MkeAlerts.Web.Services.Data
 {
     public class PoliceDispatchCallTypeService : EntityWriteService<PoliceDispatchCallType, string>
     {
-        public PoliceDispatchCallTypeService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<PoliceDispatchCallType> validator, ILogger<PoliceDispatchCallType> logger) : base(dbContext, userManager, validator, logger)
+        public PoliceDispatchCallTypeService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<PoliceDispatchCallType> validator, ILogger<EntityWriteService<PoliceDispatchCallType, string>> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 

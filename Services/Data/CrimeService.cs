@@ -13,7 +13,7 @@ namespace MkeAlerts.Web.Services.Data
 {
     public class CrimeService : EntityWriteService<Crime, string>
     {
-        public CrimeService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Crime> validator, ILogger<Crime> logger) : base(dbContext, userManager, validator, logger)
+        public CrimeService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Crime> validator, ILogger<EntityWriteService<Crime, string>> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 

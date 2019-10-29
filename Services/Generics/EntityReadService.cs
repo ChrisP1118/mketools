@@ -3,6 +3,7 @@ using GeoAPI.Geometries;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.DynamicLinq;
+using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Exceptions;
 using MkeAlerts.Web.Models.Data;
@@ -23,6 +24,7 @@ namespace MkeAlerts.Web.Services
     {
         protected readonly ApplicationDbContext _dbContext;
         protected readonly UserManager<ApplicationUser> _userManager;
+        protected readonly ILogger<EntityReadService<TDataModel, TIdType>> _logger;
 
         protected static ParsingConfig _parsingConfig;
         protected static ParsingConfig GetParsingConfig()
@@ -36,10 +38,11 @@ namespace MkeAlerts.Web.Services
             return _parsingConfig;
         }
 
-        public EntityReadService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
+        public EntityReadService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, ILogger<EntityReadService<TDataModel, TIdType>> logger)
         {
             _dbContext = dbContext;
             _userManager = userManager;
+            _logger = logger;
         }
 
         #region CRUD Operations
