@@ -50,7 +50,7 @@ namespace MkeAlerts.Web.Services
 
             IQueryable<TDataModel> queryable = (await GetDataSet(applicationUser));
 
-            await ApplyIncludes(queryable, includes);
+            queryable = await ApplyIncludes(queryable, includes);
 
             if (!string.IsNullOrEmpty(filter))
                 queryable = queryable.Where(GetParsingConfig(), filter);

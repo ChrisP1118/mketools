@@ -1,35 +1,32 @@
-# Launch
-
+# Launch - Front-End
 * Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?
-* Clean up: "Exceptions" folder vs "Middleware\Exceptions" folder
 * Crime page - filters lost after clicking through to detail page
+* Test SSO with prod URLs
+* Crime/police dispatch call detail pages link cross-link
+
+# Launch - Back-End
+* Improvement: Add AsNoTracking to EF Core queries?
+* Imporvement: Crime data import can be sped up -- regularly, only import things in last month; on a weekly basis do a full import
+* Improvement: Cache StreetReferences data?
+* Clean up: "Exceptions" folder vs "Middleware\Exceptions" folder
+* Fix: EntityWriteService logger should use service type, not entity, as generic
+
+# Launch
 * Confirm email address before sending notifications?
 * Reset password/my profile page
-* Test SSO with prod URLs
-* On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
-* Crime/police dispatch call detail pages link cross-link
-* Document what's "major" and "minor"
-* EntityWriteService logger should use service type, not entity, as generic
-* Send admin alert when downloads/imports fail (parcels, mprop, etc.)
-* Add AsNoTracking to EF Core queries?
-* Crime data import can be sped up -- regularly, only import things in last month; on a weekly basis do a full import
-* Cache StreetReferences data?
-* Abbreviated reverse geocode (currently returns ~267KB of data or more -- all we need is an address string)? Or add an "includes" property to this?
-* Maybe add an alternate DTO for getting geography data?
-* Fix casing with some of the JSON property names (e.g. "p_A_TOTAL")
+* Doc: Document what's "major" and "minor"
+* Improvement: Abbreviated reverse geocode (currently returns ~267KB of data or more -- all we need is an address string)? Or add an "includes" property to this?
+* Improvement: Maybe add an alternate DTO for getting geography data?
 
 # Minor Issues
 * Better map icons/markers
-* Overflow-x: scroll on filtered table container
-* On mobile, default filtered table map to top; desktop to right
+* Fix "overflow-x: scroll" on filtered table container
 * Caching headers - why Cache-Control: no-cache?
-* When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
-* Update page meta tags (title, description, etc.) on route changes: https://alligator.io/vuejs/vue-router-modify-head/
-* When importing crime data, we probably don't need to update/upsert any older than a certain span (or maybe do a complete import on a weekly/monthly basis, but just the last x weeks on a daily basis)
-* Crime data locations are block-based, not address-based
+* Improvement: When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
+* Improvement: Update page meta tags (title, description, etc.) on route changes: https://alligator.io/vuejs/vue-router-modify-head/
+* Improvement: Crime data locations are block-based, not address-based
 
 # Backlog
-
 * Open keyword search on table (for example: property search across owner fields)
   * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
 * Load table filters from URL (and link from info windows?)
@@ -48,7 +45,6 @@
 * Regular, automated dispatch call data export to static file (available for download)
 
 # Done
-
 * ~~Use Vuex~~
 * ~~Add page for "Crimes"~~
 * ~~Manage notifications and account~~
@@ -109,3 +105,7 @@
 * ~~THEFT appears as non-crime? https://localhost:5001/#/policeDispatchCall/192931850~~
 * ~~Health check logic is backwards~~
 * ~~Add some error handling inside of jobs~~
+* ~~Fix casing with some of the JSON property names (e.g. "p_A_TOTAL")~~
+* ~~On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings~~
+* ~~Send admin alert when downloads/imports fail (parcels, mprop, etc.)~~
+* ~~On mobile, default filtered table map to top; desktop to right~~

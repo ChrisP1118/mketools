@@ -93,5 +93,7 @@ namespace MkeAlerts.Web.Models.DTO.Places
 
         public Guid CommonParcelId { get; set; }
         public CommonParcelDTO CommonParcel { get; set; }
+
+        public PropertyDTO Property { get; set; }
     }
 }

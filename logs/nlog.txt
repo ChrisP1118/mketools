@@ -6061,3 +6061,31 @@
 2019-10-28 17:34:49.5937 Info Adding target FileTarget(Name=Misc)
 2019-10-28 17:34:49.5937 Info Adding target FileTarget(Name=Full)
 2019-10-28 17:34:49.6436 Info Found 125 configuration items
+2019-10-28 21:14:39.4180 Info Shutdown() called. Logger closing...
+2019-10-28 21:14:39.4180 Info Closing old configuration.
+2019-10-28 21:14:39.5112 Info Logger has been closed down.
+2019-10-28 21:14:39.5112 Info AppDomain Shutting down. Logger closing...
+2019-10-28 21:14:39.5112 Info Logger has been shut down.
+2019-10-28 21:14:53.8121 Info Message Template Auto Format enabled
+2019-10-28 21:14:53.8230 Info Loading assembly: NLog.Web.AspNetCore
+2019-10-28 21:14:53.9084 Info Adding target FileTarget(Name=EF)
+2019-10-28 21:14:53.9084 Info Adding target FileTarget(Name=Hangfire)
+2019-10-28 21:14:53.9084 Info Adding target FileTarget(Name=MkeAlerts)
+2019-10-28 21:14:53.9154 Info Adding target FileTarget(Name=Web)
+2019-10-28 21:14:53.9154 Info Adding target FileTarget(Name=Misc)
+2019-10-28 21:14:53.9154 Info Adding target FileTarget(Name=Full)
+2019-10-28 21:14:53.9642 Info Found 125 configuration items
+2019-10-28 21:18:58.9427 Info Shutdown() called. Logger closing...
+2019-10-28 21:18:58.9427 Info Closing old configuration.
+2019-10-28 21:18:58.9653 Info Logger has been closed down.
+2019-10-28 21:18:58.9653 Info AppDomain Shutting down. Logger closing...
+2019-10-28 21:18:58.9653 Info Logger has been shut down.
+2019-10-28 21:19:06.0497 Info Message Template Auto Format enabled
+2019-10-28 21:19:06.0607 Info Loading assembly: NLog.Web.AspNetCore
+2019-10-28 21:19:06.1334 Info Adding target FileTarget(Name=EF)
+2019-10-28 21:19:06.1334 Info Adding target FileTarget(Name=Hangfire)
+2019-10-28 21:19:06.1334 Info Adding target FileTarget(Name=MkeAlerts)
+2019-10-28 21:19:06.1334 Info Adding target FileTarget(Name=Web)
+2019-10-28 21:19:06.1334 Info Adding target FileTarget(Name=Misc)
+2019-10-28 21:19:06.1334 Info Adding target FileTarget(Name=Full)
+2019-10-28 21:19:06.1801 Info Found 125 configuration items

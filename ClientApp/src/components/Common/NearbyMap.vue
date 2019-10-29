@@ -22,7 +22,7 @@ export default {
   ],
   data() {
     return {
-      properties: null,
+      commonParcels: null,
 
       tileUrl: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
       zoom: 18,
@@ -45,38 +45,38 @@ export default {
     },
     boundsUpdated (bounds) {
       this.bounds = bounds;
-      this.loadProperties();
+      this.loadCommonParcels();
     },
-    loadProperties: function () {
+    loadCommonParcels: function () {
       let latDiff = 0.0010;
       let lngDiff = 0.0015;
 
       if (this.zoom >= 18) {
         let url = '';
         if (this.bounds)
-          url = '/api/property?limit=100&northBound=' + this.bounds._northEast.lat + '&southBound=' + this.bounds._southWest.lat + '&eastBound=' + this.bounds._northEast.lng + '&westBound=' + this.bounds._southWest.lng;
+          url = '/api/commonParcel?limit=100&includes=parcels%2Cparcels.property&northBound=' + this.bounds._northEast.lat + '&southBound=' + this.bounds._southWest.lat + '&eastBound=' + this.bounds._northEast.lng + '&westBound=' + this.bounds._southWest.lng;
         else
-          url = '/api/property?limit=100&northBound=' + (this.position.lat + latDiff) + '&southBound=' + (this.position.lat - latDiff) + '&eastBound=' + (this.position.lng + lngDiff) + '&westBound=' + (this.position.lng - lngDiff);
+          url = '/api/commonParcel?limit=100&includes=parcels%2Cparcels.property&northBound=' + (this.position.lat + latDiff) + '&southBound=' + (this.position.lat - latDiff) + '&eastBound=' + (this.position.lng + lngDiff) + '&westBound=' + (this.position.lng - lngDiff);
 
         axios
           .get(url)
           .then(response => {
-            this.properties = response.data;
-            this.showProperties();
+            this.commonParcels = response.data;
+            this.showCommonParcels();
           })
           .catch(error => {
             console.log(error);
           });
       } else {
-        this.properties = [];
+        this.commonParcels = [];
       }
     },
-    showProperties: function () {
+    showCommonParcels: function () {
       this.polygons = [];
 
-      this.properties.forEach(i => {
+      this.commonParcels.forEach(i => {
         let coords = [];
-        i.parcel.outline.coordinates[0].forEach(y => {
+        i.outline.coordinates[0].forEach(y => {
           coords.push({
             lat: y[1],
             lng: y[0]
@@ -88,11 +88,11 @@ export default {
           coordinates: [
             coords
           ],
-          popup: this.$store.getters.getPropertyInfoWindow(i),
-          color: this.$store.getters.getPropertyItemPolygonColor(i),
-          weight: this.$store.getters.getPropertyItemPolygonWeight(i),
-          fillColor: this.$store.getters.getPropertyItemPolygonFillColor(i),
-          fillOpacity: this.$store.getters.getPropertyItemPolygonFillOpacity(i),
+          popup: this.$store.getters.getCommonParcelInfoWindow(i),
+          color: this.$store.getters.getCommonParcelPolygonColor(i),
+          weight: this.$store.getters.getCommonParcelPolygonWeight(i),
+          fillColor: this.$store.getters.getCommonParcelPolygonFillColor(i),
+          fillOpacity: this.$store.getters.getCommonParcelPolygonFillOpacity(i),
         });
       });
 
@@ -101,12 +101,12 @@ export default {
   watch: {
     position: function () {
       if (this.position)
-        this.loadProperties();
+        this.loadCommonParcels();
     }
   },
   async mounted () {
     if (this.position)
-      this.loadProperties();
+      this.loadCommonParcels();
   }
 };
 </script>
