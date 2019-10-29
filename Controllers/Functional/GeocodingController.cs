@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using MkeAlerts.Web.Filters.Support;
 using MkeAlerts.Web.Middleware.Exceptions;
 using MkeAlerts.Web.Models.Data.Places;
+using MkeAlerts.Web.Models.DTO.Geocoding;
 using MkeAlerts.Web.Models.Internal;
 using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Services.Data;
@@ -43,11 +44,12 @@ namespace MkeAlerts.Web.Controllers.Functional
         [HttpGet("fromAddress")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<IEnumerable<string>>> GetLocation(string address)
+        public async Task<ActionResult<GeocodeResultsDTO>> GetLocation(string address)
         {
             GeocodeResults results = await _geocodingService.Geocode(address);
+            GeocodeResultsDTO dto = _mapper.Map<GeocodeResultsDTO>(results);
 
-            return Ok(results);
+            return Ok(dto);
         }
 
         /// <summary>
@@ -60,11 +62,12 @@ namespace MkeAlerts.Web.Controllers.Functional
         [HttpGet("fromCoordinates")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<Address>> GetAddress(double latitude, double longitude)
+        public async Task<ActionResult<ReverseGeocodeResultsDTO>> GetAddress(double latitude, double longitude)
         {
             ReverseGeocodeResults results = await _geocodingService.ReverseGeocode(latitude, longitude);
+            ReverseGeocodeResultsDTO dto = _mapper.Map<ReverseGeocodeResultsDTO>(results);
 
-            return Ok(results);
+            return Ok(dto);
         }
     }
 }

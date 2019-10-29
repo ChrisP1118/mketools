@@ -13,6 +13,8 @@ using MkeAlerts.Web.Models.Data.Subscriptions;
 using MkeAlerts.Web.Models.DTO.Subscriptions;
 using GeoAPI.Geometries;
 using MkeAlerts.Web.Models.DTO;
+using MkeAlerts.Web.Models.Internal;
+using MkeAlerts.Web.Models.DTO.Geocoding;
 
 namespace MkeAlerts.Web.Models.Data
 {
@@ -38,6 +40,9 @@ namespace MkeAlerts.Web.Models.Data
             CreateMap<DispatchCallSubscription, DispatchCallSubscriptionDTO>().ReverseMap();
 
             CreateMap<IPoint, PointDTO>().ReverseMap();
+
+            CreateMap<GeocodeResults, GeocodeResultsDTO>().ReverseMap();
+            CreateMap<ReverseGeocodeResults, ReverseGeocodeResultsDTO>().ReverseMap();
         }
     }
 }

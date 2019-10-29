@@ -15,8 +15,6 @@
 * Improvement: Confirm email address before sending notifications?
 * Improvement: Reset password/my profile page
 * Doc: Document what's "major" and "minor"
-* Improvement: Abbreviated reverse geocode (currently returns ~267KB of data or more -- all we need is an address string)? Or add an "includes" property to this?
-* Improvement: Maybe add an alternate DTO for getting geography data?
 
 # Minor Issues
 * Fix: Properties View page still only shows a single property per common parcel (ideally, we'd be able to use a function when displaying an info window that could make an API call to load all properties for the common parcel)
@@ -112,3 +110,4 @@
 * ~~On mobile, default filtered table map to top; desktop to right~~
 * ~~Fix: "Exceptions" folder vs "Middleware\Exceptions" folder~~
 * ~~Fix: EntityWriteService logger should use service type, not entity, as generic~~
+* ~~Improvement: Abbreviated reverse geocode (currently returns ~267KB of data or more -- all we need is an address string)? Or add an "includes" property to this? (Switched to using a DTO for geocode results)~~
