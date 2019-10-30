@@ -1,6 +1,5 @@
 # Launch - Front-End
 * Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)
-* Fix: Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?
 * Fix: Crime/List page - filters lost after clicking through to detail page
 * Test: SSO with prod URLs
 * Improvement: Crime/police dispatch call detail pages link cross-link
@@ -109,3 +108,4 @@
 * ~~Fix: "Exceptions" folder vs "Middleware\Exceptions" folder~~
 * ~~Fix: EntityWriteService logger should use service type, not entity, as generic~~
 * ~~Improvement: Abbreviated reverse geocode (currently returns ~267KB of data or more -- all we need is an address string)? Or add an "includes" property to this? (Switched to using a DTO for geocode results)~~
+* ~~Fix: Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?~~

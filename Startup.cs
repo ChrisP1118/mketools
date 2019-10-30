@@ -151,11 +151,11 @@ namespace MkeAlerts.Web
 This API is designed for public consumption -- feel free to use it in your own application. I want this to be easily usable by other civic-oriented applications; accordingly, there aren't any API
 keys or registration process for applications that want to use this API. However, because I manage this on my own (and fund it out of my own pocket), please:
 
-* __Let me know if you're using the API.__ Send an email to cwilson at mkealerts.com and let me know what you're doing with it. This will help me keep track of what's being used, and also allow me to contact you if there might be any breaking changes coming.
+* __Let me know if you're using the API.__ Send an email to cwilson at mkealerts.com and let me know what you're doing with it. This will help me keep track of what's being used, and also allow me to contact you if there might be any breaking changes coming. Also, I'm just interested in seeing any cool projects that use this!
 * __Keep consumption to reasonable levels.__ To keep the cost manageable on this site, the underlying infrastructure is fairly limited. Don't do anything that will hog all the resources or prevent this site (or others using the API) from working.
 * __Don't charge for anything that's using the API.__ The data in this API is from public sources, and I'm making it all available free of charge.
 
-If you have any questions about how the API works, feel free to contact me. If you're interested in making changes/improvements, visit the project on GitHub: https://github.com/ChrisP1118/mkealerts
+If you have any questions about how the API works, feel free to contact me. If you're interested in making changes/improvements, visit the project on GitHub: https://github.com/ChrisP1118/mkealerts.
 
 ## Authentication
 
@@ -173,22 +173,18 @@ you'd set `includes` to `parcel,parcel.commonParcel`.
 
 ## Filtering Results
 
-Results can be filtered with the `filter` parameter. You can use basic conditional operations, parentheses for grouping, null checks, and operators like AND and OR. Here are some examples:
-* `state = ""WI""`
-* `state = ""WI"" or State = ""CA""`
-* `state = null`
-* `state != null`
-* `state = ""WI"" or state = null`
-* `state = ""WI"" and city = ""Milwaukee""`
-* `(state = ""WI"" or state = ""CA"") and postalCode != null`
-* `isActive = true`
-* `city.StartsWith(""Mil"")`
-* `city.EndsWith(""ton"")`
-* `city.Contains(""Mil"")`
-* `city.EndsWith(""ton"") and state = ""MA""`
+Results can be filtered with the `filter` parameter. You can use basic conditional operations, parentheses for grouping, null checks, and operators like AND and OR. Here are some examples
+(using the `/api/policeDispatchCall` endpoint):
+* `natureOfCall=""ENTRY""`
+* `natureOfCall=""ENTRY"" or natureOfCall=""THEFT""`
+* `geometry != null`
+* `geometry = null`
+* `(natureOfCall=""ENTRY"" or natureOfCall=""THEFT"") and geometry != null`
+* `district = 1`
 
-The filter can also perform a LIKE operations like this:
-* `DbFunctionsExtensions.Like(EF.Functions, City, ""mil%"")`
+There are also a handful of functions you can use, including `StartsWith`, `EndsWith`, and `Contains`.
+* `location.Contains(""LINCOLN"")`
+* `location.Contains(""LINCOLN"") and !location.EndsWith("",MKE"")`
 
 Note that not all fields can be filtered.
 
@@ -197,8 +193,9 @@ Note that not all fields can be filtered.
 Results can be ordered with the `order` parameter. This is a comma-separted list of fields to sort on. Each field can have an optional `asc` or `desc` afterwards to indicate direction. Here
 are some examples:
 
-* `state`
-* `state desc, city asc`
+* `callNumber`
+* `reportedDateTime desc`
+* `district desc, location asc`
 
 Note that not all fields can be sorted.
 
@@ -207,6 +204,18 @@ Note that not all fields can be sorted.
 As much as possible, this API attempts to stick to property names used in the original data sources. This often leads to names that are snake-cased, rather than camelCased as you'd expect for JSON
 data. It's also difficult to decipher the meaning of some of them. However, the goal is that it should make it easier for you to correlate them to the original data and determine their use and
 meaning from documentation with the original data sources.
+
+## Data Sources
+
+Here are the original sources for the data exposed through this API. Additional documentation/explanations of the raw data is available here:
+* `/api/address`: https://data.milwaukee.gov/dataset/mai
+* `/api/commonParcel`: https://data.milwaukee.gov/dataset/parcel-outlines
+* `/api/crime`: https://data.milwaukee.gov/dataset/wibr
+* `/api/fireDispatchCall`: https://itmdapps.milwaukee.gov/MilRest/mfd/calls
+* `/api/parcel`: https://data.milwaukee.gov/dataset/parcel-outlines
+* `/api/policeDispatchCall`: https://itmdapps.milwaukee.gov/MPDCallData/index.jsp?district=All
+* `/api/property`: https://data.milwaukee.gov/dataset/mprop
+* `/api/street`: https://data.milwaukee.gov/dataset/streets
 "
                 });
 

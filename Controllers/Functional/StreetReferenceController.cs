@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using MkeAlerts.Web.Filters.Support;
 using MkeAlerts.Web.Middleware.Exceptions;
 using MkeAlerts.Web.Models.Data.Places;
+using MkeAlerts.Web.Models.DTO.Functional;
 using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Services.Data;
 using MkeAlerts.Web.Services.Functional;
@@ -31,13 +32,13 @@ namespace MkeAlerts.Web.Controllers.Functional
         }
 
         /// <summary>
-        /// Returns all street directions
+        /// Returns all street directions, names, and types
         /// </summary>
         /// <returns></returns>
         [HttpGet("")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<IEnumerable<string>>> GetAllAsync()
+        public async Task<ActionResult<StreetReferenceDTO>> GetAllAsync()
         {
             // TODO: This could benefit from some parallelism
             // TODO: All of these should be cached as well
@@ -46,11 +47,11 @@ namespace MkeAlerts.Web.Controllers.Functional
             List<string> streetNames = await _streetReferenceService.GetAllStreetNames(HttpContext.User);
             List<string> streetTypes = await _streetReferenceService.GetAllStreetTypes(HttpContext.User);
 
-            return Ok(new
+            return Ok(new StreetReferenceDTO
             {
-                streetDirections = streetDirections,
-                streetNames = streetNames,
-                streetTypes = streetTypes
+                StreetDirections = streetDirections,
+                StreetNames = streetNames,
+                StreetTypes = streetTypes
             });
         }
 
