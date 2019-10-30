@@ -7,8 +7,6 @@
 * Improvement: Properties/List - add additional table fields
 
 # Launch - Back-End
-* Improvement: Add AsNoTracking to EF Core queries?
-* Imporvement: Crime data import can be sped up -- regularly, only import things in last month; on a weekly basis do a full import
 * Improvement: Cache StreetReferences data?
 
 # Launch
@@ -24,24 +22,24 @@
 * Improvement: When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
 * Improvement: Update page meta tags (title, description, etc.) on route changes: https://alligator.io/vuejs/vue-router-modify-head/
 * Improvement: Crime data locations are block-based, not address-based
+* Improvement: Add AsNoTracking to EF Core queries?
+* Imporvement: Crime data import can be sped up -- regularly, only import things in last month; on a weekly basis do a full import
+* Improvement: In Swagger docs, add links to documentation on city site
 
 # Backlog
 * Open keyword search on table (for example: property search across owner fields)
   * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
 * Load table filters from URL (and link from info windows?)
 * Add "share" link on filtered table that creates a link with URL parameters for filter
-* Add way to lookup crime rate relative to specific address
-* Add trash day alerts (import users from MkeTrashDay)
-* PWA
-* PWA - add notifications API support
-* Add fire history
-* Add traffic accident data?
-* Crime notifications
-* Clear out status on dispatch calls after awhile?
-* Add GraphQL support
+* Epic: Add way to lookup crime rate relative to specific address
+* Epic: Add trash day alerts (import users from MkeTrashDay)
+* Epic: PWA - add notifications API support
+* Epic: Add fire history
+* Epic: Add traffic accident data?
+* Epic: Add GraphQL support
 * Add TAXKEY (and property) for crimes?
 * Add TAXKEY (and property) for dispatch calls -- might have multiple properties nearby?
-* Regular, automated dispatch call data export to static file (available for download)
+* Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
 * ~~Use Vuex~~
