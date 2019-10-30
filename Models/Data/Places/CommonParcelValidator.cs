@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data.Places
 {
-    public class ParcelValidator : AbstractValidator<Parcel>
+    public class CommonParcelValidator : AbstractValidator<CommonParcel>
     {
-        public ParcelValidator()
+        public CommonParcelValidator()
         {
-            RuleFor(x => x.Taxkey).NotNull().NotEmpty();
+            RuleFor(x => x.Id).NotNull().NotEmpty();
         }
     }
 }

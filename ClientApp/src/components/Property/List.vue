@@ -123,7 +123,18 @@ export default {
             visible: false,
             sortable: true,
             filter: 'text'
+          },
+          {
+            key: 'parcel.condoName',
+            name: 'Condo Name',
+            visible: false,
+            sortable: true,
+            filter: 'text'
           }
+        ],
+        includes: [
+          'parcel',
+          'parcel.commonParcel'
         ],
         getDefaultFilter: function () {
         },
@@ -137,19 +148,19 @@ export default {
           if (!item || !item._raw || !item._raw.parcel)
             return null;
 
-          return item._raw.parcel.outline;
+          return item._raw.parcel.commonParcel.outline;
         },
         getItemId: function (item) {
           return item._raw.taxkey;
         },
         getItemPolygonColor: function (item) {
-          return this.$store.getters.getItemPolygonColor(item._raw);
+          return this.$store.getters.getPropertyPolygonColor(item._raw);
         },
         getItemPolygonFillColor: function (item) {
-          return this.$store.getters.getItemPolygonFillColor(item._raw);
+          return this.$store.getters.getPropertyPolygonFillColor(item._raw);
         },
         getItemPolygonFillOpacity: function (item) {
-          return this.$store.getters.getItemPolygonFillOpacity(item._raw);
+          return this.$store.getters.getPropertyPolygonFillOpacity(item._raw);
         },
         defaultLimit: 100
       }

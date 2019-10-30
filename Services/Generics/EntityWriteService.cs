@@ -19,12 +19,12 @@ namespace MkeAlerts.Web.Services
     public abstract class EntityWriteService<TDataModel, TIdType> : EntityReadService<TDataModel, TIdType>, IEntityWriteService<TDataModel, TIdType>
         where TDataModel : class, IHasId<TIdType>
     {
-        protected readonly ILogger<TDataModel> _logger;
+        //protected readonly ILogger<EntityWriteService<TDataModel, TIdType>> _logger;
         protected readonly IValidator<TDataModel> _validator;
 
-        public EntityWriteService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<TDataModel> validator, ILogger<TDataModel> logger) : base(dbContext, userManager)
+        public EntityWriteService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<TDataModel> validator, ILogger<EntityWriteService<TDataModel, TIdType>> logger) : base(dbContext, userManager, logger)
         {
-            _logger = logger;
+            //_logger = logger;
             _validator = validator;
         }
 
@@ -136,7 +136,7 @@ namespace MkeAlerts.Web.Services
         {
             var applicationUser = await GetApplicationUser(user);
 
-            TDataModel dataModel = await GetItemById(applicationUser, id);
+            TDataModel dataModel = await GetItemById(applicationUser, id, null);
 
             if (!await CanDelete(applicationUser, dataModel))
                 throw new ForbiddenException();

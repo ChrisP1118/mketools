@@ -3,6 +3,7 @@ using GeoAPI.Geometries;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.DynamicLinq;
+using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Exceptions;
 using MkeAlerts.Web.Models.Data;
@@ -23,6 +24,7 @@ namespace MkeAlerts.Web.Services
     {
         protected readonly ApplicationDbContext _dbContext;
         protected readonly UserManager<ApplicationUser> _userManager;
+        protected readonly ILogger<EntityReadService<TDataModel, TIdType>> _logger;
 
         protected static ParsingConfig _parsingConfig;
         protected static ParsingConfig GetParsingConfig()
@@ -36,19 +38,22 @@ namespace MkeAlerts.Web.Services
             return _parsingConfig;
         }
 
-        public EntityReadService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager)
+        public EntityReadService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, ILogger<EntityReadService<TDataModel, TIdType>> logger)
         {
             _dbContext = dbContext;
             _userManager = userManager;
+            _logger = logger;
         }
 
         #region CRUD Operations
 
-        public async Task<List<TDataModel>> GetAll(ClaimsPrincipal user, int offset, int limit, string order, string filter, double? northBound, double? southBound, double? eastBound, double? westBound, Func<IQueryable<TDataModel>, IQueryable<TDataModel>> filterFunc = null)
+        public async Task<List<TDataModel>> GetAll(ClaimsPrincipal user, int offset, int limit, string order, string includes, string filter, double? northBound, double? southBound, double? eastBound, double? westBound, Func<IQueryable<TDataModel>, IQueryable<TDataModel>> filterFunc = null)
         {
             var applicationUser = await GetApplicationUser(user);
 
             IQueryable<TDataModel> queryable = (await GetDataSet(applicationUser));
+
+            queryable = await ApplyIncludes(queryable, includes);
 
             if (!string.IsNullOrEmpty(filter))
                 queryable = queryable.Where(GetParsingConfig(), filter);
@@ -87,11 +92,11 @@ namespace MkeAlerts.Web.Services
             return count;
         }
 
-        public async Task<TDataModel> GetOne(ClaimsPrincipal user, TIdType id)
+        public async Task<TDataModel> GetOne(ClaimsPrincipal user, TIdType id, string includes)
         {
             var applicationUser = await GetApplicationUser(user);
 
-            return await GetItemById(applicationUser, id);
+            return await GetItemById(applicationUser, id, includes);
         }
 
         #endregion
@@ -148,9 +153,10 @@ namespace MkeAlerts.Web.Services
         /// <param name="applicationUser"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        protected async Task<TDataModel> GetItemById(ApplicationUser applicationUser, TIdType id)
+        protected async Task<TDataModel> GetItemById(ApplicationUser applicationUser, TIdType id, string includes)
         {
             IQueryable<TDataModel> queryable = await GetDataSet(applicationUser);
+            queryable = await ApplyIncludes(queryable, includes);
             queryable = await ApplyIdFilter(queryable, id);
             return await queryable.SingleOrDefaultAsync();
         }
@@ -174,6 +180,22 @@ namespace MkeAlerts.Web.Services
 
         protected virtual async Task<IQueryable<TDataModel>> ApplyBounds(IQueryable<TDataModel> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
         {
+            return queryable;
+        }
+
+        protected virtual async Task<IQueryable<TDataModel>> ApplyIncludes(IQueryable<TDataModel> queryable, string includes)
+        {
+            if (string.IsNullOrEmpty(includes))
+                return queryable;
+
+            foreach (string include in includes.Split(","))
+            {
+                // Break this apart at the dots, and ensure that each character after a dot is upper case -- this converts it from camelCase to PascalCase. There's probably a regex that could do this more efficiently. But ugh, regex.
+                string[] parts = include.Split(".");
+                string pascalCasedInclude = string.Join(".", parts.Select(x => x.Substring(0, 1).ToUpper() + x.Substring(1)));
+                queryable = queryable.Include(pascalCasedInclude);
+            }
+
             return queryable;
         }
     }

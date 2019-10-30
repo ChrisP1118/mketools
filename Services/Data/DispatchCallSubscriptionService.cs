@@ -15,7 +15,7 @@ namespace MkeAlerts.Web.Services.Data
 {
     public class DispatchCallSubscriptionService : EntityWriteService<DispatchCallSubscription, Guid>
     {
-        public DispatchCallSubscriptionService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<DispatchCallSubscription> validator, ILogger<DispatchCallSubscription> logger) : base(dbContext, userManager, validator, logger)
+        public DispatchCallSubscriptionService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<DispatchCallSubscription> validator, ILogger<EntityWriteService<DispatchCallSubscription, Guid>> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 

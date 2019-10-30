@@ -26,8 +26,8 @@ namespace MkeAlerts.Web.Jobs
         private readonly IEntityWriteService<PoliceDispatchCall, string> _policeDispatchCallWriteService;
         private readonly IGeocodingService _geocodingService;
 
-        public ImportPoliceDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportPoliceDispatchCallsJob> logger, IEntityWriteService<PoliceDispatchCall, string> policeDispatchCallWriteService, IGeocodingService geocodingService)
-            : base(configuration, signInManager, userManager)
+        public ImportPoliceDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, ILogger<ImportPoliceDispatchCallsJob> logger, IEntityWriteService<PoliceDispatchCall, string> policeDispatchCallWriteService, IGeocodingService geocodingService)
+            : base(configuration, signInManager, userManager, mailerService)
         {
             _policeDispatchCallWriteService = policeDispatchCallWriteService;
             _logger = logger;
@@ -36,64 +36,73 @@ namespace MkeAlerts.Web.Jobs
 
         public async Task Run()
         {
-            _logger.LogInformation("Starting job");
-
-            ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
-
-            string url = @"https://itmdapps.milwaukee.gov/MPDCallData/index.jsp?district=All";
-            var web = new HtmlWeb();
-            var doc = web.Load(url);
-
-            int success = 0;
-            int failure = 0;
-
-            foreach (var row in doc.DocumentNode.SelectNodes("//table/tbody/tr"))
+            try
             {
-                try
+                _logger.LogInformation("Starting job");
+
+                ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
+
+                string url = @"https://itmdapps.milwaukee.gov/MPDCallData/index.jsp?district=All";
+                var web = new HtmlWeb();
+                var doc = web.Load(url);
+
+                int success = 0;
+                int failure = 0;
+
+                foreach (var row in doc.DocumentNode.SelectNodes("//table/tbody/tr"))
                 {
-                    var cols = row.SelectNodes("td");
-
-                    PoliceDispatchCall dispatchCall = await _policeDispatchCallWriteService.GetOne(claimsPrincipal, cols[0].InnerText);
-
-                    if (dispatchCall == null)
+                    try
                     {
-                        dispatchCall = new PoliceDispatchCall()
+                        var cols = row.SelectNodes("td");
+
+                        PoliceDispatchCall dispatchCall = await _policeDispatchCallWriteService.GetOne(claimsPrincipal, cols[0].InnerText, null);
+
+                        if (dispatchCall == null)
                         {
-                            CallNumber = cols[0].InnerText,
-                            ReportedDateTime = DateTime.Parse(cols[1].InnerText),
-                            Location = cols[2].InnerText,
-                            District = int.Parse(cols[3].InnerText),
-                            NatureOfCall = cols[4].InnerText,
-                            Status = cols[5].InnerText
-                        };
+                            dispatchCall = new PoliceDispatchCall()
+                            {
+                                CallNumber = cols[0].InnerText,
+                                ReportedDateTime = DateTime.Parse(cols[1].InnerText),
+                                Location = cols[2].InnerText,
+                                District = int.Parse(cols[3].InnerText),
+                                NatureOfCall = cols[4].InnerText,
+                                Status = cols[5].InnerText
+                            };
 
-                        GeocodeResults geocodeResults = await _geocodingService.Geocode(dispatchCall.Location);
-                        dispatchCall.Geometry = geocodeResults.Geometry;
-                        dispatchCall.Accuracy = geocodeResults.Accuracy;
-                        dispatchCall.Source = geocodeResults.Source;
+                            GeocodeResults geocodeResults = await _geocodingService.Geocode(dispatchCall.Location);
+                            dispatchCall.Geometry = geocodeResults.Geometry;
+                            dispatchCall.Accuracy = geocodeResults.Accuracy;
+                            dispatchCall.Source = geocodeResults.Source;
 
-                        GeographicUtilities.SetBounds(dispatchCall, geocodeResults.Geometry);
+                            GeographicUtilities.SetBounds(dispatchCall, geocodeResults.Geometry);
 
-                        await _policeDispatchCallWriteService.Create(claimsPrincipal, dispatchCall);
-                        ++success;
+                            await _policeDispatchCallWriteService.Create(claimsPrincipal, dispatchCall);
+                            ++success;
+                        }
+                        else
+                        {
+                            dispatchCall.Status = cols[5].InnerText;
+
+                            await _policeDispatchCallWriteService.Update(claimsPrincipal, dispatchCall);
+                            ++success;
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        dispatchCall.Status = cols[5].InnerText;
-
-                        await _policeDispatchCallWriteService.Update(claimsPrincipal, dispatchCall);
-                        ++success;
+                        _logger.LogError(ex, "Error importing DispatchCall");
+                        ++failure;
                     }
                 }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error importing DispatchCall");
-                    ++failure;
-                }
-            }
 
-            _logger.LogInformation("Import results: " + success.ToString() + " success, " + failure.ToString() + " failure");
-            _logger.LogInformation("Finishing job");
+                _logger.LogInformation("Import results: " + success.ToString() + " success, " + failure.ToString() + " failure");
+                _logger.LogInformation("Finishing job");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error running " + this.GetType().Name + ": " + ex);
+
+                await _mailerService.SendAdminAlert("Error running " + this.GetType().Name, ex.Message);
+            }
         }
     }
 }

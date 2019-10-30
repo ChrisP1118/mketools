@@ -82,5 +82,10 @@ namespace MkeAlerts.Web.Services.Functional
             else
                 _logger.LogError("Email failed to send to " + to + " (" + subject + "): " + response.StatusCode + ", " + response.GetErrorInfo() + ", " + response.GetErrorMessage());
         }
+
+        public async Task SendAdminAlert(string alertName, string alertMessage)
+        {
+            await SendEmail(_configuration["AdminEmail"], "Admin Alert: " + alertName, alertMessage);
+        }
     }
 }

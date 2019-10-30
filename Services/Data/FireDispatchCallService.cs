@@ -12,7 +12,7 @@ namespace MkeAlerts.Web.Services.Data
 {
     public class FireDispatchCallService : EntityWriteService<FireDispatchCall, string>
     {
-        public FireDispatchCallService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<FireDispatchCall> validator, ILogger<FireDispatchCall> logger) : base(dbContext, userManager, validator, logger)
+        public FireDispatchCallService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<FireDispatchCall> validator, ILogger<EntityWriteService<FireDispatchCall, string>> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 

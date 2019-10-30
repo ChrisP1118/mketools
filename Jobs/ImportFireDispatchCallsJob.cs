@@ -27,8 +27,8 @@ namespace MkeAlerts.Web.Jobs
         private readonly IEntityWriteService<FireDispatchCall, string> _fireDispatchCallWriteService;
         private readonly IGeocodingService _geocodingService;
 
-        public ImportFireDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportFireDispatchCallsJob> logger, IEntityWriteService<FireDispatchCall, string> fireDispatchCallWriteService, IGeocodingService geocodingService)
-            : base(configuration, signInManager, userManager)
+        public ImportFireDispatchCallsJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, ILogger<ImportFireDispatchCallsJob> logger, IEntityWriteService<FireDispatchCall, string> fireDispatchCallWriteService, IGeocodingService geocodingService)
+            : base(configuration, signInManager, userManager, mailerService)
         {
             _fireDispatchCallWriteService = fireDispatchCallWriteService;
             _logger = logger;
@@ -37,73 +37,82 @@ namespace MkeAlerts.Web.Jobs
 
         public async Task Run()
         {
-            _logger.LogInformation("Starting job");
-
-            ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
-
-            string url = @"https://itmdapps.milwaukee.gov/MilRest/mfd/calls";
-
-            string data = null;
-            using (HttpClient client = new HttpClient())
-            using (HttpResponseMessage response = await client.GetAsync(url))
+            try
             {
-                response.EnsureSuccessStatusCode();
-                data = await response.Content.ReadAsStringAsync();
-            }
+                _logger.LogInformation("Starting job");
 
-            int success = 0;
-            int failure = 0;
+                ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
-            if (data != null)
-            {
-                JArray items = JArray.Parse(data);
-                foreach (JObject item in items.Children<JObject>())
+                string url = @"https://itmdapps.milwaukee.gov/MilRest/mfd/calls";
+
+                string data = null;
+                using (HttpClient client = new HttpClient())
+                using (HttpResponseMessage response = await client.GetAsync(url))
                 {
-                    try
-                    {
-                        FireDispatchCall fireDispatchCall = await _fireDispatchCallWriteService.GetOne(claimsPrincipal, (string)item.Property("cfs").Value);
+                    response.EnsureSuccessStatusCode();
+                    data = await response.Content.ReadAsStringAsync();
+                }
 
-                        if (fireDispatchCall == null)
+                int success = 0;
+                int failure = 0;
+
+                if (data != null)
+                {
+                    JArray items = JArray.Parse(data);
+                    foreach (JObject item in items.Children<JObject>())
+                    {
+                        try
                         {
-                            fireDispatchCall = new FireDispatchCall()
+                            FireDispatchCall fireDispatchCall = await _fireDispatchCallWriteService.GetOne(claimsPrincipal, (string)item.Property("cfs").Value, null);
+
+                            if (fireDispatchCall == null)
                             {
-                                CFS = (string)item.Property("cfs").Value,
-                                ReportedDateTime = DateTime.Parse((string)item.Property("callDate").Value),
-                                Address = (string)item.Property("address").Value,
-                                Apt = (string)item.Property("apt").Value,
-                                City = (string)item.Property("city").Value,
-                                NatureOfCall = (string)item.Property("type").Value,
-                                Disposition = (string)item.Property("disposition").Value
-                            };
+                                fireDispatchCall = new FireDispatchCall()
+                                {
+                                    CFS = (string)item.Property("cfs").Value,
+                                    ReportedDateTime = DateTime.Parse((string)item.Property("callDate").Value),
+                                    Address = (string)item.Property("address").Value,
+                                    Apt = (string)item.Property("apt").Value,
+                                    City = (string)item.Property("city").Value,
+                                    NatureOfCall = (string)item.Property("type").Value,
+                                    Disposition = (string)item.Property("disposition").Value
+                                };
 
-                            GeocodeResults geocodeResults = await _geocodingService.Geocode(fireDispatchCall.Address);
-                            fireDispatchCall.Geometry = geocodeResults.Geometry;
-                            fireDispatchCall.Accuracy = geocodeResults.Accuracy;
-                            fireDispatchCall.Source = geocodeResults.Source;
+                                GeocodeResults geocodeResults = await _geocodingService.Geocode(fireDispatchCall.Address);
+                                fireDispatchCall.Geometry = geocodeResults.Geometry;
+                                fireDispatchCall.Accuracy = geocodeResults.Accuracy;
+                                fireDispatchCall.Source = geocodeResults.Source;
 
-                            GeographicUtilities.SetBounds(fireDispatchCall, geocodeResults.Geometry);
+                                GeographicUtilities.SetBounds(fireDispatchCall, geocodeResults.Geometry);
 
-                            await _fireDispatchCallWriteService.Create(claimsPrincipal, fireDispatchCall);
-                            ++success;
+                                await _fireDispatchCallWriteService.Create(claimsPrincipal, fireDispatchCall);
+                                ++success;
+                            }
+                            else
+                            {
+                                fireDispatchCall.Disposition = (string)item.Property("disposition").Value;
+
+                                await _fireDispatchCallWriteService.Update(claimsPrincipal, fireDispatchCall);
+                                ++success;
+                            }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            fireDispatchCall.Disposition = (string)item.Property("disposition").Value;
-
-                            await _fireDispatchCallWriteService.Update(claimsPrincipal, fireDispatchCall);
-                            ++success;
+                            _logger.LogError(ex, "Error importing FireDispatchCall");
+                            ++failure;
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Error importing FireDispatchCall");
-                        ++failure;
                     }
                 }
-            }
 
-            _logger.LogInformation("Import results: " + success.ToString() + " success, " + failure.ToString() + " failure");
-            _logger.LogInformation("Finishing job");
+                _logger.LogInformation("Import results: " + success.ToString() + " success, " + failure.ToString() + " failure");
+                _logger.LogInformation("Finishing job");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error running " + this.GetType().Name + ": " + ex);
+
+                await _mailerService.SendAdminAlert("Error running " + this.GetType().Name, ex.Message);
+            }
         }
     }
 }

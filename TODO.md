@@ -1,49 +1,47 @@
-# Launch
+# Launch - Front-End
+* Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)
+* Fix: Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?
+* Fix: Crime/List page - filters lost after clicking through to detail page
+* Test: SSO with prod URLs
+* Improvement: Crime/police dispatch call detail pages link cross-link
+* Improvement: Properties/List - add additional table fields
 
-* Is the ImportCrimes job running correctly on schedule?
-* Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?
-* Clean up: "Exceptions" folder vs "Middleware\Exceptions" folder
-* Crime page - filters lost after clicking through to detail page
-* THEFT appears as non-crime? https://localhost:5001/#/policeDispatchCall/192931850
-* Confirm email address before sending notifications?
-* Reset password/my profile page
-* Test SSO with prod URLs
-* On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings
-* Better map icons/markers
-* Crime/police dispatch call detail pages link cross-link
-* Add some error handling inside of jobs
-* Document what's "major" and "minor"
+# Launch - Back-End
+* Improvement: Cache StreetReferences data?
+
+# Launch
+* Improvement: Confirm email address before sending notifications?
+* Improvement: Reset password/my profile page
+* Doc: Document what's "major" and "minor"
 
 # Minor Issues
-* Overflow-x: scroll on filtered table container
-* On mobile, default filtered table map to top; desktop to right
-* Caching headers - why Cache-Control: no-cache?
-* When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
-* Update page meta tags (title, description, etc.) on route changes: https://alligator.io/vuejs/vue-router-modify-head/
-* When importing crime data, we probably don't need to update/upsert any older than a certain span (or maybe do a complete import on a weekly/monthly basis, but just the last x weeks on a daily basis)
-* Crime data locations are block-based, not address-based
+* Fix: Properties View page still only shows a single property per common parcel (ideally, we'd be able to use a function when displaying an info window that could make an API call to load all properties for the common parcel)
+* Improvement: Better map icons/markers
+* Fix: "overflow-x: scroll" on filtered table container
+* Fix: Caching headers - why Cache-Control: no-cache?
+* Improvement: When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
+* Improvement: Update page meta tags (title, description, etc.) on route changes: https://alligator.io/vuejs/vue-router-modify-head/
+* Improvement: Crime data locations are block-based, not address-based
+* Improvement: Add AsNoTracking to EF Core queries?
+* Imporvement: Crime data import can be sped up -- regularly, only import things in last month; on a weekly basis do a full import
+* Improvement: In Swagger docs, add links to documentation on city site
 
 # Backlog
-
 * Open keyword search on table (for example: property search across owner fields)
   * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
 * Load table filters from URL (and link from info windows?)
 * Add "share" link on filtered table that creates a link with URL parameters for filter
-* Add way to lookup crime rate relative to specific address
-* Add trash day alerts (import users from MkeTrashDay)
-* PWA
-* PWA - add notifications API support
-* Add fire history
-* Add traffic accident data?
-* Crime notifications
-* Clear out status on dispatch calls after awhile?
-* Add GraphQL support
+* Epic: Add way to lookup crime rate relative to specific address
+* Epic: Add trash day alerts (import users from MkeTrashDay)
+* Epic: PWA - add notifications API support
+* Epic: Add fire history
+* Epic: Add traffic accident data?
+* Epic: Add GraphQL support
 * Add TAXKEY (and property) for crimes?
 * Add TAXKEY (and property) for dispatch calls -- might have multiple properties nearby?
-* Regular, automated dispatch call data export to static file (available for download)
+* Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
-
 * ~~Use Vuex~~
 * ~~Add page for "Crimes"~~
 * ~~Manage notifications and account~~
@@ -99,3 +97,15 @@
 * ~~Properties list - more data in info window~~
 * ~~Properties detail/view page~~
 * ~~Base nearby map location (and loaded properties) on map bounds (and only show properties at a certain zoom level)~~
+* ~~Is the ImportCrimes job running correctly on schedule? I think so - just keep monitoring it~~
+* ~~Crime\List - needs better info windows~~
+* ~~THEFT appears as non-crime? https://localhost:5001/#/policeDispatchCall/192931850~~
+* ~~Health check logic is backwards~~
+* ~~Add some error handling inside of jobs~~
+* ~~Fix casing with some of the JSON property names (e.g. "p_A_TOTAL")~~
+* ~~On "Nearby Map", we end up with properties overlapping when it's the same parcel -- like condo buildings~~
+* ~~Send admin alert when downloads/imports fail (parcels, mprop, etc.)~~
+* ~~On mobile, default filtered table map to top; desktop to right~~
+* ~~Fix: "Exceptions" folder vs "Middleware\Exceptions" folder~~
+* ~~Fix: EntityWriteService logger should use service type, not entity, as generic~~
+* ~~Improvement: Abbreviated reverse geocode (currently returns ~267KB of data or more -- all we need is an address string)? Or add an "includes" property to this? (Switched to using a DTO for geocode results)~~

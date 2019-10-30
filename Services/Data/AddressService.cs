@@ -11,7 +11,7 @@ namespace MkeAlerts.Web.Services.Data
 {
     public class AddressService : EntityWriteService<Address, string>
     {
-        public AddressService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Address> validator, ILogger<Address> logger) : base(dbContext, userManager, validator, logger)
+        public AddressService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Address> validator, ILogger<EntityWriteService<Address, string>> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 

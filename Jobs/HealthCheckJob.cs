@@ -30,23 +30,18 @@ namespace MkeAlerts.Web.Jobs
         public async Task Run()
         {
             if (!await _dbContext.PoliceDispatchCalls
-                .Where(x => x.ReportedDateTime < DateTime.Now.AddHours(-6))
+                .Where(x => x.ReportedDateTime > DateTime.Now.AddHours(-6))
                 .AnyAsync())
             {
-                await SendAlert("Police Dispatch Calls Failing", "The most recent police dispatch call is at least 6 hours old.");
+                await _mailerService.SendAdminAlert("Police Dispatch Calls Failing", "The most recent police dispatch call is at least 6 hours old.");
             }
 
             if (!await _dbContext.FireDispatchCalls
-                .Where(x => x.ReportedDateTime < DateTime.Now.AddHours(-6))
+                .Where(x => x.ReportedDateTime > DateTime.Now.AddHours(-6))
                 .AnyAsync())
             {
-                await SendAlert("Fire Dispatch Calls Failing", "The most recent fire dispatch call is at least 6 hours old.");
+                await _mailerService.SendAdminAlert("Fire Dispatch Calls Failing", "The most recent fire dispatch call is at least 6 hours old.");
             }
-        }
-
-        private async Task SendAlert(string alertName, string alertMessage)
-        {
-            await _mailerService.SendEmail(_configuration["AdminEmail"], "Health Alert! " + alertName, alertMessage, "<p>" + alertMessage + "</p>");
         }
     }
 }

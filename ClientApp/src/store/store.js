@@ -209,12 +209,12 @@ export const store = new Vuex.Store({
           .get('/api/geocoding/fromCoordinates?latitude=' + position.lat + '&longitude=' + position.lng)
           .then(response => {
               cachedItem.resolves.forEach(r => {
-                r(response.data.property);
+                r(response.data.commonParcel.parcels[0].property);
               });
 
               context.commit('UPDATE_GEOCODE_CACHE_ITEM', {
                 position: position,
-                property: response.data.property
+                property: response.data.commonParcel.parcels[0].property
               });
             })
           .catch(error => {
@@ -334,40 +334,80 @@ export const store = new Vuex.Store({
       if (property.owner_name_3)
         owner += '<br />' + property.owner_name_3;
       owner += '<br />' + property.owner_mail_addr + '<br />' + property.owner_city_state;
+
+      let full = '<div style="font-size: 125%; font-weight: bold;"><a href="#/property/' + property.taxkey + '">' + address + '</a></div><div>' + owner + '</div>';
       
-      return '<div style="font-size: 125%; font-weight: bold;"><a href="#/property/' + property.taxkey + '">' + address + '</a></div><div>' + owner + '</div>';
+      return full;
     },
-    getItemPolygonColor: state => property => {
+    getCommonParcelInfoWindow: (state, getters) => commonParcel => {
+      if (commonParcel.parcels.length == 1) {
+        return getters.getPropertyInfoWindow(commonParcel.parcels[0].property);
+      } else {
+        let options = [];
+        commonParcel.parcels.forEach(i => {
+          let propertyInfo = getters.getPropertyInfoWindow(i.property);
+
+          let address = i.property.house_nr_lo;
+          if (i.property.house_nr_hi != i.property.house_nr_lo)
+            address += '-' + i.property.house_nr_hi;
+          address += ' ' + i.property.sdir + ' ' + i.property.street + ' ' + i.property.sttype;
+
+          options.push('<option data-text="' + encodeURIComponent(propertyInfo) + '">' + address + '</option>');
+        });
+
+        let retVal = '<select onchange="this.nextSibling.innerHTML = decodeURIComponent(this.querySelector(\':checked\').getAttribute(\'data-text\'))">' + options.join('') + '</select><div>' + getters.getPropertyInfoWindow(commonParcel.parcels[0].property) + '</div>';
+        
+        if (commonParcel.parcels[0].condoName)
+          retVal = '<div style="font-size: 125%; font-weight: bold;">' + commonParcel.parcels[0].condoName + '</div>' + retVal;
+
+        return retVal;
+      }
+    },
+    getPropertyPolygonColor: state => property => {
       return '#333333';
     },
-    getItemPolygonWeight: state => property => {
+    getCommonParcelPolygonColor: state => commonParcel => {
+      return '#333333';
+    },
+    getPropertyPolygonWeight: state => property => {
       return 1;
     },
-    getItemPolygonFillColor: state => property => {
-      if (property.c_A_CLASS == 1)
+    getCommonParcelPolygonWeight: state => commonParcel => {
+      return 1;
+    },
+    getPropertyPolygonFillColor: state => property => {
+      if (property.c_a_class == 1)
         // Residential
         return '#28a745';
-      else if (property.c_A_CLASS == 5)
+      else if (property.c_a_class == 5)
         // Condominiums
         return '#f7a800';
-      else if (property.c_A_CLASS == 2 || property.c_A_CLASS == 4)
+      else if (property.c_a_class == 2 || property.c_a_class == 4)
         // Mercantile
         return '#fd7e14';
-      else if (property.c_A_CLASS == 3)
+      else if (property.c_a_class == 3)
         // Manufacturing
         return '#dc3545';
-      else if (property.c_A_CLASS == 7)
+      else if (property.c_a_class == 7)
         // Mercantile apartments
         return '#28a745';
       else
         return '#3f3f3f';
     },
-    getItemPolygonFillOpacity: state => property => {
-      if (property.c_A_CLASS == 1)
+    getCommonParcelPolygonFillColor: (state, getters) => commonParcel => {
+      let property = commonParcel.parcels[0].property;
+      return getters.getPropertyPolygonFillColor(property);
+    },
+    getPropertyPolygonFillOpacity: state => property => {
+      if (property.c_a_class == 1)
         // Residential
         return 0.2;
       else
         return 0.4;
+    },    
+    getCommonParcelPolygonFillOpacity: (state, getters) => commonParcel => {
+      let property = commonParcel.parcels[0].property;
+      return getters.getPropertyPolygonFillOpacity(property);
     },    
   }
 })

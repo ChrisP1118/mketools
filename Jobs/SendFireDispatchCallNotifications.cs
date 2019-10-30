@@ -29,16 +29,14 @@ namespace MkeAlerts.Web.Jobs
         private readonly IEntityReadService<FireDispatchCall, string> _fireDispatchCallService;
         private readonly IEntityReadService<FireDispatchCallType, string> _fireDispatchCallTypeService;
         private readonly IEntityReadService<DispatchCallSubscription, Guid> _dispatchCallSubscriptionService;
-        private readonly IMailerService _mailerService;
 
-        public SendFireDispatchCallNotifications(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<SendFireDispatchCallNotifications> logger, IEntityReadService<FireDispatchCall, string> fireDispatchCallService, IEntityReadService<FireDispatchCallType, string> fireDispatchCallTypeService, IEntityReadService<DispatchCallSubscription, Guid> dispatchCallSubscriptionService, IMailerService mailerService)
-            : base(configuration, signInManager, userManager)
+        public SendFireDispatchCallNotifications(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, ILogger<SendFireDispatchCallNotifications> logger, IEntityReadService<FireDispatchCall, string> fireDispatchCallService, IEntityReadService<FireDispatchCallType, string> fireDispatchCallTypeService, IEntityReadService<DispatchCallSubscription, Guid> dispatchCallSubscriptionService)
+            : base(configuration, signInManager, userManager, mailerService)
         {
             _fireDispatchCallService = fireDispatchCallService;
             _fireDispatchCallTypeService = fireDispatchCallTypeService;
             _dispatchCallSubscriptionService = dispatchCallSubscriptionService;
             _logger = logger;
-            _mailerService = mailerService;
         }
 
         public async Task Run(string fireDispatchCallId)
@@ -46,10 +44,10 @@ namespace MkeAlerts.Web.Jobs
             _logger.LogInformation("Starting job: " + fireDispatchCallId);
 
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
-            FireDispatchCall fireDispatchCall = await _fireDispatchCallService.GetOne(claimsPrincipal, fireDispatchCallId);
-            FireDispatchCallType fireDispatchCallType = await _fireDispatchCallTypeService.GetOne(claimsPrincipal, fireDispatchCall.NatureOfCall);
+            FireDispatchCall fireDispatchCall = await _fireDispatchCallService.GetOne(claimsPrincipal, fireDispatchCallId, null);
+            FireDispatchCallType fireDispatchCallType = await _fireDispatchCallTypeService.GetOne(claimsPrincipal, fireDispatchCall.NatureOfCall, null);
 
-            List<DispatchCallSubscription> dispatchCallSubscriptions = await _dispatchCallSubscriptionService.GetAll(claimsPrincipal, 0, 100000, null, null, null, null, null, null, queryable =>
+            List<DispatchCallSubscription> dispatchCallSubscriptions = await _dispatchCallSubscriptionService.GetAll(claimsPrincipal, 0, 100000, null, null, null, null, null, null, null, queryable =>
             {
                 // IPoint.Distance is confusing. When this gets translated into a SQL query, it ends up using STDistance which interprets in meters on our geography type. However, if you run it in managed
                 // code, it seems to be interpreting it as a geometry instead of geography, so it's the distance in the coordinate system, which is kind of useless.

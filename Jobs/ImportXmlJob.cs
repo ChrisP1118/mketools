@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Services;
+using MkeAlerts.Web.Services.Functional;
 using MkeAlerts.Web.Utilities;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,8 @@ namespace MkeAlerts.Web.Jobs
         private readonly ILogger<ImportXmlJob<TDataModel>> _logger;
         private readonly IEntityWriteService<TDataModel, string> _writeService;
 
-        public ImportXmlJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportXmlJob<TDataModel>> logger, IEntityWriteService<TDataModel, string> writeService)
-            : base(configuration, signInManager, userManager)
+        public ImportXmlJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, ILogger<ImportXmlJob<TDataModel>> logger, IEntityWriteService<TDataModel, string> writeService)
+            : base(configuration, signInManager, userManager, mailerService)
         {
             _logger = logger;
             _writeService = writeService;
@@ -41,87 +42,96 @@ namespace MkeAlerts.Web.Jobs
 
         public async Task Run()
         {
-            _logger.LogInformation("Starting job");
-
-            string fileName = await PackageUtilities.DownloadPackageFile(_logger, PackageName, PackageFormat);
-
-            _logger.LogDebug("Download complete: " + fileName);
-
-            ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
-
-            List<TDataModel> items = new List<TDataModel>();
-
-            TDataModel item = null;
-            string currentElement = null;
-            int i = 0;
-
-            int success = 0;
-            int failure = 0;
-
-            using (XmlTextReader xmlReader = new XmlTextReader(fileName))
+            try
             {
-                while (xmlReader.Read())
+                _logger.LogInformation("Starting job");
+
+                string fileName = await PackageUtilities.DownloadPackageFile(_logger, PackageName, PackageFormat);
+
+                _logger.LogDebug("Download complete: " + fileName);
+
+                ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
+
+                List<TDataModel> items = new List<TDataModel>();
+
+                TDataModel item = null;
+                string currentElement = null;
+                int i = 0;
+
+                int success = 0;
+                int failure = 0;
+
+                using (XmlTextReader xmlReader = new XmlTextReader(fileName))
                 {
-                    if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "element")
-                        item = new TDataModel();
-                    else if (xmlReader.NodeType == XmlNodeType.Element)
-                        currentElement = xmlReader.Name;
-
-                    if (xmlReader.NodeType == XmlNodeType.Text)
-                        ProcessElement(item, currentElement, xmlReader.Value);
-
-                    if (xmlReader.NodeType == XmlNodeType.EndElement)
+                    while (xmlReader.Read())
                     {
-                        if (xmlReader.Name == "element")
+                        if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "element")
+                            item = new TDataModel();
+                        else if (xmlReader.NodeType == XmlNodeType.Element)
+                            currentElement = xmlReader.Name;
+
+                        if (xmlReader.NodeType == XmlNodeType.Text)
+                            ProcessElement(item, currentElement, xmlReader.Value);
+
+                        if (xmlReader.NodeType == XmlNodeType.EndElement)
                         {
-                            await BeforeSaveElement(item);
-                            items.Add(item);
-
-                            ++i;
-
-                            if (i % 100 == 0)
+                            if (xmlReader.Name == "element")
                             {
-                                try
-                                {
-                                    Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results1 = await _writeService.BulkCreate(claimsPrincipal, items, UseBulkInsert);
-                                    success += results1.Item1.Count();
-                                    failure += results1.Item2.Count();
+                                await BeforeSaveElement(item);
+                                items.Add(item);
 
-                                    _logger.LogDebug("Bulk inserted items at mod " + i.ToString());
-                                }
-                                catch (Exception ex)
-                                {
-                                    failure += items.Count;
+                                ++i;
 
-                                    _logger.LogError(ex, "Error bulk inserting items at mod " + i.ToString());
+                                if (i % 100 == 0)
+                                {
+                                    try
+                                    {
+                                        Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results1 = await _writeService.BulkCreate(claimsPrincipal, items, UseBulkInsert);
+                                        success += results1.Item1.Count();
+                                        failure += results1.Item2.Count();
+
+                                        _logger.LogDebug("Bulk inserted items at mod " + i.ToString());
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        failure += items.Count;
+
+                                        _logger.LogError(ex, "Error bulk inserting items at mod " + i.ToString());
+                                    }
+                                    items.Clear();
                                 }
-                                items.Clear();
                             }
                         }
                     }
+
+                    try
+                    {
+                        Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results2 = await _writeService.BulkCreate(claimsPrincipal, items, UseBulkInsert);
+                        success += results2.Item1.Count();
+                        failure += results2.Item2.Count();
+
+                        _logger.LogDebug("Bulk inserted items at mod " + i.ToString());
+                    }
+                    catch (Exception ex)
+                    {
+                        failure += items.Count;
+
+                        _logger.LogError(ex, "Error bulk inserting items at mod " + i.ToString());
+                    }
                 }
 
-                try
-                {
-                    Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results2 = await _writeService.BulkCreate(claimsPrincipal, items, UseBulkInsert);
-                    success += results2.Item1.Count();
-                    failure += results2.Item2.Count();
+                _logger.LogInformation("Import results: " + success.ToString() + " success, " + failure.ToString() + " failure");
 
-                    _logger.LogDebug("Bulk inserted items at mod " + i.ToString());
-                }
-                catch (Exception ex)
-                {
-                    failure += items.Count;
+                File.Delete(fileName);
 
-                    _logger.LogError(ex, "Error bulk inserting items at mod " + i.ToString());
-                }
+                _logger.LogInformation("Finishing job");
             }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error running " + this.GetType().Name + ": " + ex);
 
-            _logger.LogInformation("Import results: " + success.ToString() + " success, " + failure.ToString() + " failure");
-
-            File.Delete(fileName);
-
-            _logger.LogInformation("Finishing job");
+                await _mailerService.SendAdminAlert("Error running " + this.GetType().Name, ex.Message);
+            }
         }
     }
 }

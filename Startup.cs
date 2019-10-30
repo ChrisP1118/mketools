@@ -42,6 +42,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Globalization;
 using MkeAlerts.Web.Utilities;
+using MkeAlerts.Web.Services.Data.Interfaces;
 
 namespace MkeAlerts.Web
 {
@@ -164,6 +165,12 @@ returned. This token should be included in the `Authorization` header as a beare
 Within Swagger UI, you can click the 'Authorize' button to use a token on requests. Make sure that the value entered includes the word `Bearer` before the token -- the value Swagger UI is
 sending is the entire `Authorization` header.
 
+## Including Related Data
+
+The `includes` parameter on many of these calls lets you specify related objects to include in the results. The parameter is a comma-delimited list of related objects; the objects use dotted
+notation. For instance, to include `parcel` properties when calling `/api/properties`, set `includes` to `parcel`. If you also wanted to include `commonParcel`, which is a property of `parcel`,
+you'd set `includes` to `parcel,parcel.commonParcel`.
+
 ## Filtering Results
 
 Results can be filtered with the `filter` parameter. You can use basic conditional operations, parentheses for grouping, null checks, and operators like AND and OR. Here are some examples:
@@ -194,6 +201,12 @@ are some examples:
 * `state desc, city asc`
 
 Note that not all fields can be sorted.
+
+## Property Names
+
+As much as possible, this API attempts to stick to property names used in the original data sources. This often leads to names that are snake-cased, rather than camelCased as you'd expect for JSON
+data. It's also difficult to decipher the meaning of some of them. However, the goal is that it should make it easier for you to correlate them to the original data and determine their use and
+meaning from documentation with the original data sources.
 "
                 });
 
@@ -226,6 +239,9 @@ Note that not all fields can be sorted.
             services.AddTransient<IEntityWriteService<Property, string>, PropertyService>();
             services.AddTransient<IEntityReadService<Parcel, string>, ParcelService>();
             services.AddTransient<IEntityWriteService<Parcel, string>, ParcelService>();
+            services.AddTransient<IEntityReadService<CommonParcel, Guid>, CommonParcelService>();
+            services.AddTransient<IEntityWriteService<CommonParcel, Guid>, CommonParcelService>();
+            services.AddTransient<ICommonParcelService, CommonParcelService>();
             services.AddTransient<IEntityReadService<Address, string>, AddressService>();
             services.AddTransient<IEntityWriteService<Address, string>, AddressService>();
             services.AddTransient<IEntityReadService<Street, string>, StreetService>();
@@ -250,6 +266,7 @@ Note that not all fields can be sorted.
             services.AddSingleton<IValidator<Property>, PropertyValidator>();
             services.AddSingleton<IValidator<Address>, AddressValidator>();
             services.AddSingleton<IValidator<Parcel>, ParcelValidator>();
+            services.AddSingleton<IValidator<CommonParcel>, CommonParcelValidator>();
             services.AddSingleton<IValidator<Street>, StreetValidator>();
             services.AddSingleton<IValidator<PoliceDispatchCall>, PoliceDispatchCallValidator>();
             services.AddSingleton<IValidator<PoliceDispatchCallType>, PoliceDispatchCallTypeValidator>();
@@ -386,7 +403,7 @@ Note that not all fields can be sorted.
             if (!string.IsNullOrEmpty(s) && char.IsUpper(s[0]))
             {
                 char[] array = s.ToCharArray();
-                for (int i = 0; i < array.Length && (i != 1 || char.IsUpper(array[i])); i++)
+                for (int i = 0; i < array.Length && (i != 1 || char.IsUpper(array[i]) || (i == 1 && array[i] == '_')); i++)
                 {
                     bool flag = i + 1 < array.Length;
                     if ((i > 0 & flag) && array[i + 1] != '_' && !char.IsUpper(array[i + 1]) && !char.IsNumber(array[i + 1]))

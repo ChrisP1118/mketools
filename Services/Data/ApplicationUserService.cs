@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Models.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
@@ -11,7 +12,7 @@ namespace MkeAlerts.Web.Services.Data
 {
     public class ApplicationUserService : EntityReadService<ApplicationUser, Guid>
     {
-        public ApplicationUserService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager) : base(dbContext, userManager)
+        public ApplicationUserService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, ILogger<EntityReadService<ApplicationUser, Guid>> logger) : base(dbContext, userManager, logger)
         {
         }
 

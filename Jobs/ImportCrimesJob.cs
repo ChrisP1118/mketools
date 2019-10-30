@@ -7,6 +7,7 @@ using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Services;
+using MkeAlerts.Web.Services.Functional;
 using MkeAlerts.Web.Utilities;
 using NetTopologySuite;
 using System;
@@ -23,8 +24,8 @@ namespace MkeAlerts.Web.Jobs
     {
         protected ProjectionInfo _projectionInfo;
 
-        public ImportCrimesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<ImportXmlJob<Crime>> logger, IEntityWriteService<Crime, string> writeService) :
-            base(configuration, signInManager, userManager, logger, writeService)
+        public ImportCrimesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, ILogger<ImportXmlJob<Crime>> logger, IEntityWriteService<Crime, string> writeService) :
+            base(configuration, signInManager, userManager, mailerService, logger, writeService)
         {
             //string path = @"M:\My Documents\GitHub\mkealerts\DataSources\parcelbase_mprop_full\parcelbase_mprop_full.shp";
             //_projectionInfo = ProjectionInfo.Open(path.Replace(".shp", ".prj"));

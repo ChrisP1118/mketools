@@ -11,8 +11,9 @@
       </b-col>
     </b-row>
     <p class="small">This list contains crimes reported in the city of Milwaukee. This is very different from the police dispatch call data, which includes all
-      types of police calls, not just crimes. In other words, not every crime listed here has a corresponding dispatch call and vice versa. This data is updated
-      daily, but it often takes several days for the data to be available. 
+      types of police calls, not just crimes. In other words, not every crime listed here has a corresponding dispatch call and vice versa. Location data for crimes
+      is a bit inexact. The location data provided by MPD often seems to indicate the block where the crime occurred, but may not exactly match the address. This data
+      is updated daily, but it often takes several days for the data to be available. 
       <a href="https://data.milwaukee.gov/dataset/wibr" target="_blank">More details are available here.</a>
     </p>
     <b-row>
@@ -27,6 +28,7 @@
 
 <script>
 import axios from "axios";
+import moment from 'moment'
 
 export default {
   name: "CrimeList",
@@ -222,7 +224,42 @@ export default {
         },
         getItemInfoWindowText: function (item) {
           let raw = item._raw;
-          return raw.location;
+          let time = moment(raw.reportedDateTime).format('llll');
+          let fromNow = moment(raw.reportedDateTime).fromNow();
+
+          let v = [];
+
+          v.push('<div><span style="float: right;">');
+          v.push(fromNow);
+          v.push('</span>');
+          v.push('<span style="font-size: 125%; font-weight: bold;">')
+          v.push(raw.crimeTypes)
+          v.push('</span></div>');
+
+          v.push('<hr style="margin-top: 5px; margin-bottom: 5px;" />');
+
+          v.push('<div><b>');
+          v.push(raw.location);
+          v.push('</b></div>');
+
+          v.push('<div>');
+          v.push(time);
+          v.push(' (<i>');
+          v.push(fromNow);
+          v.push('</i>)</div>' );
+
+          if (raw.weaponUsed) {
+            v.push('<div>');
+            v.push('Weapon used: ');
+            v.push(raw.weaponUsed);
+            v.push('</div>');
+          }
+
+          v.push('<div><a href="#/crime/');
+          v.push(raw.incidentNum);
+          v.push('">Details</a></div>');
+          
+          return v.join('');
         },
         getItemMarkerPosition: function (item) {
           if (!item || !item._raw || !item._raw.point || !item._raw.point.coordinates)

@@ -11,7 +11,7 @@ namespace MkeAlerts.Web.Services.Data
 {
     public class StreetService : EntityWriteService<Street, string>
     {
-        public StreetService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Street> validator, ILogger<Street> logger) : base(dbContext, userManager, validator, logger)
+        public StreetService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Street> validator, ILogger<EntityWriteService<Street, string>> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 

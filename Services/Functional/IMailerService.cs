@@ -9,5 +9,6 @@ namespace MkeAlerts.Web.Services.Functional
     {
         Task SendEmail(string to, string subject, string text);
         Task SendEmail(string to, string subject, string text, string html);
+        Task SendAdminAlert(string alertName, string alertMessage);
     }
 }
