@@ -1,8 +1,5 @@
 <template>
   <div style="height: 80vh; width: 100%;">
-    <b-alert :show="infoMessage" variant="info">
-      {{infoMessage}}
-    </b-alert>    
     <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center" @update:zoom="zoomUpdated" @update:center="centerUpdated" @update:bounds="boundsUpdated">
       <l-tile-layer :url="tileUrl" :attribution="attribution"></l-tile-layer>
       <l-circle v-if="circleCenter" :lat-lng="circleCenter" :radius="circleRadius" color="#bd2130" />
@@ -13,6 +10,9 @@
         <l-popup :content="polygon.popup"></l-popup>
       </l-polygon>
     </l-map>
+    <b-alert :show="infoMessage" variant="info">
+      {{infoMessage}}
+    </b-alert>    
   </div>
 </template>
 

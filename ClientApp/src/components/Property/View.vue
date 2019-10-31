@@ -39,6 +39,10 @@
         </b-col>
         <b-col xs="12" md="6">
           <b-card class="mt-3">
+            <h4 slot="header">Map</h4>
+            <nearby-map :position="position"></nearby-map>
+          </b-card>
+          <b-card class="mt-3">
             <h4 slot="header">Location</h4>
             <ul>
               <li>House Number Low: {{item.house_nr_lo}}</li>
@@ -48,7 +52,6 @@
               <li>Street: {{item.street}}</li>
               <li>Street Type: {{item.sttype}}</li>
             </ul>
-            <nearby-map :position="position"></nearby-map>
           </b-card>
         </b-col>
       </b-row>
@@ -82,7 +85,7 @@ export default {
   },
   methods: {
     load: function () {
-      let url = '/api/property/' + this.id;
+      let url = '/api/property/' + this.id + '?includes=' + encodeURIComponent('parcel,parcel.commonParcel');
 
       axios
         .get(url)
@@ -90,7 +93,7 @@ export default {
           console.log(response);
 
           this.item = response.data;
-          this.position = this.$store.getters.getGeometryPosition(this.item.parcel.outline);
+          this.position = this.$store.getters.getGeometryPosition(this.item.parcel.commonParcel.outline);
         })
         .catch(error => {
           console.log(error);

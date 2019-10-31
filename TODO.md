@@ -1,7 +1,6 @@
 # Launch - Front-End
 * Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)
 * Fix: Crime/List page - filters lost after clicking through to detail page
-* Test: SSO with prod URLs
 * Improvement: Crime/police dispatch call detail pages link cross-link
 * Improvement: Properties/List - add additional table fields
 
@@ -10,7 +9,6 @@
 
 # Launch
 * Improvement: Confirm email address before sending notifications?
-* Improvement: Reset password/my profile page
 * Doc: Document what's "major" and "minor"
 
 # Minor Issues
@@ -23,7 +21,7 @@
 * Improvement: Crime data locations are block-based, not address-based
 * Improvement: Add AsNoTracking to EF Core queries?
 * Imporvement: Crime data import can be sped up -- regularly, only import things in last month; on a weekly basis do a full import
-* Improvement: In Swagger docs, add links to documentation on city site
+* Improvement: Reset password/my profile page
 
 # Backlog
 * Open keyword search on table (for example: property search across owner fields)
@@ -109,3 +107,5 @@
 * ~~Fix: EntityWriteService logger should use service type, not entity, as generic~~
 * ~~Improvement: Abbreviated reverse geocode (currently returns ~267KB of data or more -- all we need is an address string)? Or add an "includes" property to this? (Switched to using a DTO for geocode results)~~
 * ~~Fix: Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?~~
+* ~~Improvement: In Swagger docs, add links to documentation on city site~~
+* ~~Test: SSO with prod URLs~~

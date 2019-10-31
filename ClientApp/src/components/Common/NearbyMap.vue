@@ -54,9 +54,9 @@ export default {
       if (this.zoom >= 18) {
         let url = '';
         if (this.bounds)
-          url = '/api/commonParcel?limit=100&includes=parcels%2Cparcels.property&northBound=' + this.bounds._northEast.lat + '&southBound=' + this.bounds._southWest.lat + '&eastBound=' + this.bounds._northEast.lng + '&westBound=' + this.bounds._southWest.lng;
+          url = '/api/commonParcel?limit=200&includes=parcels%2Cparcels.property&northBound=' + this.bounds._northEast.lat + '&southBound=' + this.bounds._southWest.lat + '&eastBound=' + this.bounds._northEast.lng + '&westBound=' + this.bounds._southWest.lng;
         else
-          url = '/api/commonParcel?limit=100&includes=parcels%2Cparcels.property&northBound=' + (this.position.lat + latDiff) + '&southBound=' + (this.position.lat - latDiff) + '&eastBound=' + (this.position.lng + lngDiff) + '&westBound=' + (this.position.lng - lngDiff);
+          url = '/api/commonParcel?limit=200&includes=parcels%2Cparcels.property&northBound=' + (this.position.lat + latDiff) + '&southBound=' + (this.position.lat - latDiff) + '&eastBound=' + (this.position.lng + lngDiff) + '&westBound=' + (this.position.lng - lngDiff);
 
         axios
           .get(url)
