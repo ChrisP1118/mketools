@@ -218,7 +218,7 @@ export default {
               });
 
               if (col.render)
-                item[col.key] = col.render(v);
+                item[col.key] = col.render(v, row);
               else if (col.filter == 'select') {
                 let selectItem = col.selectOptions.find(c => c.value == v);
                 if (selectItem)

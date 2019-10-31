@@ -24,10 +24,10 @@
 * Improvement: Reset password/my profile page
 
 # Backlog
-* Open keyword search on table (for example: property search across owner fields)
+* Improvement: Open keyword search on table (for example: property search across owner fields)
   * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
-* Load table filters from URL (and link from info windows?)
-* Add "share" link on filtered table that creates a link with URL parameters for filter
+* Improvement: Load table filters from URL (and link from info windows?)
+* Improvement: Add "share" link on filtered table that creates a link with URL parameters for filter
 * Epic: Add way to lookup crime rate relative to specific address
 * Epic: Add trash day alerts (import users from MkeTrashDay)
 * Epic: PWA - add notifications API support

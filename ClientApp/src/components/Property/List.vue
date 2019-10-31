@@ -48,39 +48,70 @@ export default {
             filter: 'text'
           },
           {
+            key: 'v-address',
+            name: 'Address',
+            visible: true,
+            sortable: false,
+            render: (x, row) => {
+              return [
+                row.house_nr_lo,
+                row.house_nr_hi != row.house_nr_lo ? '-' + row.house_nr_hi : '',
+                ' ',
+                row.sdir,
+                ' ',
+                row.street,
+                ' ',
+                row.sttype
+              ].join('');
+            }
+          },
+          {
             key: 'house_nr_lo',
             name: 'HOUSE_NR_LO',
-            visible: true,
+            visible: false,
             sortable: true,
             filter: 'number'
           },
           {
             key: 'house_nr_hi',
             name: 'HOUSE_NR_HI',
-            visible: true,
+            visible: false,
             sortable: true,
             filter: 'number'
           },
           {
             key: 'sdir',
             name: 'SDIR',
-            visible: true,
+            visible: false,
             sortable: true,
             filter: 'text'
           },
           {
             key: 'street',
             name: 'STREET',
-            visible: true,
+            visible: false,
             sortable: true,
             filter: 'text'
           },
           {
             key: 'sttype',
             name: 'STTYPE',
-            visible: true,
+            visible: false,
             sortable: true,
             filter: 'text'
+          },
+          {
+            key: 'v-owners',
+            name: 'Owners',
+            visible: true,
+            sortable: false,
+            render: (x, row) => {
+              return [
+                row.owner_name_1,
+                row.owner_name_2 ? ', ' + row.owner_name_2 : '',
+                row.owner_name_3 ? ', ' + row.owner_name_3 : '',
+              ].join('');
+            }
           },
           {
             key: 'owner_name_1',
@@ -102,6 +133,21 @@ export default {
             visible: false,
             sortable: true,
             filter: 'text'
+          },
+          {
+            key: 'v-owners-address',
+            name: 'Owners Address',
+            visible: true,
+            sortable: false,
+            render: (x, row) => {
+              return [
+                row.owner_mail_addr,
+                ' ',
+                row.owner_city_state,
+                ' ',
+                row.owner_zip.substring(0, 5)
+              ].join('');
+            }
           },
           {
             key: 'owner_mail_addr',
