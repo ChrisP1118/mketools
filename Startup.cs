@@ -59,7 +59,11 @@ namespace MkeAlerts.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Add the database context
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default"), x => x.UseNetTopologySuite()));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default"), x =>
+            {
+                x.UseNetTopologySuite();
+                x.CommandTimeout(600);
+            }));
 
             services.AddHangfire(config =>
             {

@@ -57,7 +57,7 @@ namespace MkeAlerts.Web.Services.Data
 
         public async Task RemoveDuplicates()
         {
-            _dbContext.CommonParcels.FromSql(@"
+            await _dbContext.Database.ExecuteSqlCommandAsync(new RawSqlString(@"
 declare @Dupes table (
 	OutlineString nvarchar(max),
 	OneId uniqueidentifier,
@@ -96,7 +96,7 @@ where Id in (
 	select OldId
 	from @Replacements
 	where IsOneId = 0
-)");
+)"));
         }
     }
 }
