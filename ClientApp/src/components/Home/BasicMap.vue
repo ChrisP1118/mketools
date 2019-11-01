@@ -53,7 +53,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getPoliceDispatchCallTypeIcon', 'getFireDispatchCallTypeIcon', 'getGeometryPosition']),
+    ...mapGetters(['getPoliceDispatchCallTypeIcon', 'getFireDispatchCallTypeIcon', 'getGeometryPosition', 'getApiRoot']),
   },
   methods: {
     loadMarkers: function () {
@@ -63,7 +63,7 @@ export default {
       let filter = 'ReportedDateTime%20%3E%3D%20%22' + encodeURIComponent(now) + '%22';
 
       let promise1 = axios
-        .get('/api/policeDispatchCall?limit=1000&filter=' + filter)
+        .get(this.getApiRoot() + '/policeDispatchCall?limit=1000&filter=' + filter)
         .then(response => {
           let x = response.data.filter(i => i.geometry && this.getGeometryPosition(i.geometry));
           x.forEach(i => {
@@ -93,7 +93,7 @@ export default {
         });
 
       let promise2 = axios
-        .get('/api/fireDispatchCall?limit=1000&filter=' + filter)
+        .get(this.getApiRoot() + '/fireDispatchCall?limit=1000&filter=' + filter)
         .then(response => {
           let x = response.data.filter(i => i.geometry && this.getGeometryPosition(i.geometry));
           x.forEach(i => {

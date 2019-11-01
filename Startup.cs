@@ -322,6 +322,12 @@ Here are the original sources for the data exposed through this API. Additional 
             // This must be before UseMVC
             app.UseMiddleware<ExceptionMiddleware>();
 
+            app.Use((context, next) =>
+            {
+                context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+                return next.Invoke();
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

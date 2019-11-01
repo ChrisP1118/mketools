@@ -67,10 +67,16 @@ Interested in contributing? Let me know - cwilson at mkealerts.com.
 The basic ASP.NET Core/VueJS skeleton app was based on: https://medium.com/software-ateliers/asp-net-core-vue-template-with-custom-configuration-using-cli-3-0-8288e18ae80b
 
 When running Vue CLI commands, be in the "ClientApp" folder:
-* npm install ...
+* `npm ...`
+
+To build just the VueJS app:
+* `npm run build`
 
 When running .NET stuff, be in the root folder.
-* dotnet run
+* `dotnet run`
+
+To publish the solution, run:
+* `dotnet publish MkeAlerts.sln`
 
 
 ## Hosting

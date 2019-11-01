@@ -63,6 +63,7 @@ import DispatchCallSubscriptionUnsubscribe from './components/DispatchCallSubscr
 import { LMap, LTileLayer, LMarker, LPopup, LCircle, LPolygon } from 'vue2-leaflet';
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import './registerServiceWorker'
 
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);
@@ -154,6 +155,11 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach((to, from) => {
+  if (!ga) {
+    console.log('Google Analytics not running');
+    return;
+  }
+
   ga('set', 'page', to.path);
   ga('send', 'pageview');
 });

@@ -108,7 +108,7 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    loadStreetReferences({ commit }) {
+    loadStreetReferences({ commit, getters }) {
       return new Promise((resolve, reject) => {
         if (this.state.streetReferences.loadState == STATE_LOADED)
           resolve();
@@ -119,7 +119,7 @@ export const store = new Vuex.Store({
         commit('SET_STREET_REFERENCES_LOAD_STATE', STATE_LOADING);
 
         axios
-          .get('/api/streetReference')
+          .get(getters.getApiRoot() + '/streetReference')
           .then(response => {
             commit(
               'LOAD_STREET_REFERENCES',
@@ -138,7 +138,7 @@ export const store = new Vuex.Store({
           });
       });
     },
-    loadPoliceDispatchCallTypes({ commit }) {
+    loadPoliceDispatchCallTypes({ commit, getters }) {
       return new Promise((resolve, reject) => {
         if (this.state.policeDispatchCallTypes.loadState == STATE_LOADED)
           resolve();
@@ -149,7 +149,7 @@ export const store = new Vuex.Store({
         commit('SET_POLICE_DISPATCH_CALL_TYPES_LOAD_STATE', STATE_LOADING);
 
         axios
-          .get('/api/policeDispatchCallType?limit=1000')
+          .get(getters.getApiRoot() + '/policeDispatchCallType?limit=1000')
           .then(response => {
             commit('LOAD_POLICE_DISPATCH_CALL_TYPES', response.data);
             resolve();
@@ -161,7 +161,7 @@ export const store = new Vuex.Store({
           });
       });
     },
-    loadFireDispatchCallTypes({ commit }) {
+    loadFireDispatchCallTypes({ commit, getters }) {
       return new Promise((resolve, reject) => {
         if (this.state.fireDispatchCallTypes.loadState == STATE_LOADED)
           resolve();
@@ -172,7 +172,7 @@ export const store = new Vuex.Store({
         commit('SET_FIRE_DISPATCH_CALL_TYPES_LOAD_STATE', STATE_LOADING);
 
         axios
-          .get('/api/fireDispatchCallType?limit=1000')
+          .get(getters.getApiRoot() + '/fireDispatchCallType?limit=1000')
           .then(response => {
             commit('LOAD_FIRE_DISPATCH_CALL_TYPES', response.data);
             resolve();
@@ -238,6 +238,12 @@ export const store = new Vuex.Store({
     }
   },
   getters: {
+    getApiRoot: state => () => {
+      if (location.hostname == 'localhost' && location.port == '')
+        return 'https://localhost:5001/api';
+      else
+        return '/api';
+    },
     getDistanceLabel: state => distance => {
       if (!distance)
         return '';

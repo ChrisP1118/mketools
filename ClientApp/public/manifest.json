@@ -1,0 +1,21 @@
+{
+  "short_name": "mke-alerts",
+  "name": "MKE Alerts",
+  "icons": [
+    {
+      "src": "/img/MkeAlerts_192_192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/img/MkeAlerts_512_512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/#/",
+  "background_color": "#0d2240",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#0d2240"
+}

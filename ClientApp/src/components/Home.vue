@@ -118,7 +118,7 @@ export default {
   },
   computed: {
     ...mapState(['distances', 'callTypes']),
-    ...mapGetters(['getCallTypeLabel', 'getDistanceLabel']),
+    ...mapGetters(['getCallTypeLabel', 'getDistanceLabel', 'getApiRoot']),
     addressDataString: function () {
       if (!this.addressData)
         return '';
@@ -135,7 +135,7 @@ export default {
       }
 
       axios
-        .get('/api/dispatchCallSubscription?filter=applicationUserId%3D%22' + id + '%22')
+        .get(this.getApiRoot() + '/dispatchCallSubscription?filter=applicationUserId%3D%22' + id + '%22')
         .then(response => {
           this.subscriptions = response.data;
         })
@@ -152,7 +152,7 @@ export default {
       }
 
       axios
-        .post('/api/dispatchCallSubscription', {
+        .post(this.getApiRoot() + '/dispatchCallSubscription', {
           applicationUserId: this.$root.$data.authenticatedUser.id,
           dispatchCallType: this.callType,
           distance: this.distance,
@@ -203,7 +203,7 @@ export default {
           return;
 
         axios
-          .delete('/api/DispatchCallSubscription/' + subscription.id)
+          .delete(this.getApiRoot() + '/DispatchCallSubscription/' + subscription.id)
           .then(response => {
             console.log(response);
 
