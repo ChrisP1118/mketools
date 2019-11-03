@@ -155,7 +155,7 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach((to, from) => {
-  if (!ga) {
+  if (typeof ga === 'undefined') {
     console.log('Google Analytics not running');
     return;
   }
