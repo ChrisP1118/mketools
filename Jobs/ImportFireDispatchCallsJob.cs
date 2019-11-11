@@ -43,7 +43,7 @@ namespace MkeAlerts.Web.Jobs
 
                 ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
-                string url = @"https://itmdapps.milwaukee.gov/MilRest/mfd/calls";
+                string url = @"https://itmdapps.milwaukee.gov/MFDCallData/GetCalls";
 
                 string data = null;
                 using (HttpClient client = new HttpClient())
@@ -58,24 +58,25 @@ namespace MkeAlerts.Web.Jobs
 
                 if (data != null)
                 {
-                    JArray items = JArray.Parse(data);
-                    foreach (JObject item in items.Children<JObject>())
+                    JObject wrapper = JObject.Parse(data);
+                    //JArray items = JArray.Parse(data);
+                    foreach (JObject item in wrapper["result"].Children<JObject>())
                     {
                         try
                         {
-                            FireDispatchCall fireDispatchCall = await _fireDispatchCallWriteService.GetOne(claimsPrincipal, (string)item.Property("cfs").Value, null);
+                            FireDispatchCall fireDispatchCall = await _fireDispatchCallWriteService.GetOne(claimsPrincipal, (string)item.Property("CFS").Value, null);
 
                             if (fireDispatchCall == null)
                             {
                                 fireDispatchCall = new FireDispatchCall()
                                 {
-                                    CFS = (string)item.Property("cfs").Value,
-                                    ReportedDateTime = DateTime.Parse((string)item.Property("callDate").Value),
-                                    Address = (string)item.Property("address").Value,
-                                    Apt = (string)item.Property("apt").Value,
-                                    City = (string)item.Property("city").Value,
-                                    NatureOfCall = (string)item.Property("type").Value,
-                                    Disposition = (string)item.Property("disposition").Value
+                                    CFS = (string)item.Property("CFS").Value,
+                                    ReportedDateTime = DateTime.Parse((string)item.Property("DATEANDTIME").Value),
+                                    Address = (string)item.Property("ADDRESS").Value,
+                                    Apt = (string)item.Property("APT").Value,
+                                    City = (string)item.Property("CITY").Value,
+                                    NatureOfCall = (string)item.Property("ITYPE").Value,
+                                    Disposition = (string)item.Property("DISPOSITION").Value
                                 };
 
                                 GeocodeResults geocodeResults = await _geocodingService.Geocode(fireDispatchCall.Address);
