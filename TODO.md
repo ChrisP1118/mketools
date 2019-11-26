@@ -6,6 +6,7 @@
 
 # Launch - Back-End
 * Improvement: Cache StreetReferences data?
+* Improvement: Add link to dispatch call in email notification
 
 # Launch
 * Improvement: Confirm email address before sending notifications?

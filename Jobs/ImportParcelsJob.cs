@@ -296,6 +296,7 @@ namespace MkeAlerts.Web.Jobs
                 foreach (string file in Directory.EnumerateFiles(folderName))
                     File.Delete(file);
                 Directory.Delete(folderName);
+                File.Delete(fileName);
 
                 _logger.LogInformation("Finishing job");
             }
