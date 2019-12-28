@@ -83,12 +83,22 @@ namespace MkeAlerts.Web.Jobs
 
                 string hash = EncryptionUtilities.GetHash(dispatchCallSubscription.Id.ToString() + ":" + dispatchCallSubscription.ApplicationUserId.ToString(), _configuration["HashKey"]);
                 string unsubscribeUrl = string.Format(_configuration["UnsubscribeUrl"], dispatchCallSubscription.Id, dispatchCallSubscription.ApplicationUserId, hash);
+                string detailsUrl = string.Format(_configuration["PoliceDispatchCallUrl"], policeDispatchCall.CallNumber);
+
+                string text = $@"A new {policeDispatchCall.NatureOfCall} police dispatch call was made at {policeDispatchCall.ReportedDateTime.ToShortTimeString()} on {policeDispatchCall.ReportedDateTime.ToShortDateString() + " at " + policeDispatchCall.Location}.\r\n\r\n" +
+                    $@"More details are at: {detailsUrl}" + "\r\n\r\n" +
+                    $@"You are receiving this message because you receive notifications for dispatch calls near {dispatchCallSubscription.HOUSE_NR} {dispatchCallSubscription.SDIR} {dispatchCallSubscription.STREET} {dispatchCallSubscription.STTYPE}. To stop receiving these email notifications, go to: {unsubscribeUrl}.";
+
+                string html = $@"<p>A new <b>{policeDispatchCall.NatureOfCall}</b> police dispatch call was made at {policeDispatchCall.ReportedDateTime.ToShortTimeString()} on {policeDispatchCall.ReportedDateTime.ToShortDateString() + " at <b>" + policeDispatchCall.Location}</b>.</p>" +
+                    $@"<p><a href=""{detailsUrl}"">View Details</a></p>" +
+                    $@"<hr />" +
+                    $@"<p style=""font-size: 80%"">You are receiving this message because you receive notifications for dispatch calls near {dispatchCallSubscription.HOUSE_NR} {dispatchCallSubscription.SDIR} {dispatchCallSubscription.STREET} {dispatchCallSubscription.STTYPE}. <a href=""{unsubscribeUrl}"">Unsubscribe</a><p>";
 
                 await _mailerService.SendEmail(
                     dispatchCallSubscription.ApplicationUser.Email,
                     "Police Dispatch Call: " + policeDispatchCall.NatureOfCall + " at " + policeDispatchCall.Location,
-                    "A new " + policeDispatchCall.NatureOfCall + " police dispatch call was made at " + policeDispatchCall.ReportedDateTime.ToShortTimeString() + " on " + policeDispatchCall.ReportedDateTime.ToShortDateString() + " at " + policeDispatchCall.Location + ".\r\n\r\n" +
-                    "You are receiving this message because you receive notifications for dispatch calls near " + dispatchCallSubscription.HOUSE_NR + " " + dispatchCallSubscription.SDIR + " " + dispatchCallSubscription.STREET + " " + dispatchCallSubscription.STTYPE + ". To stop receiving these email notifications, go to: " + unsubscribeUrl
+                    text,
+                    html
                 );
 
                 emailAddresses.Add(dispatchCallSubscription.ApplicationUser.Email);
