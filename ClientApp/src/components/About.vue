@@ -1,10 +1,16 @@
 <template>
   <div>
     <page-title title="About This Site" />
+    <hr />
+    <b-alert show variant="info">This site is not affiliated with the City of Milwaukee or any official or government agency.</b-alert>
     <p>
       This site is designed to make data about crime in Milwaukee more accessible. It lets you see police and fire calls near you, receive email notifications
       whenever there are dispatch calls near you, and see general crime data.
     </p>
+    <p>
+      This site is also designed with other developers in mind. Milwaukee makes a lot of data publicly available, but it's not always easy to work with. All of
+      the data used on this site is regularly updated from official City of Milwaukee sources, and is made available here via RESTful API in the hopes that other
+      people will develop applications around this data.
     <p>
       <strong>Remember! An increased awareness of crime does not necessarily indicate an increase in crime.</strong>
       There is a general downward trend in major crimes in Milwaukee.
@@ -14,10 +20,21 @@
     <p>Thinking about the incident, I thought it'd be useful to have a site that would notify you if a situation like this occurred close to your home. This seems like it could be a valuable resource for others in the community, so I'm making this site free and available to anyone in Milwaukee.</p>
     <p>However, I remain somewhat conflicted about making this application available to anyone. All the data I'm using here is already available publicly. Nonetheless, the internet tends to cause people to distort data or skew facts to support their existing beliefs. By making it a lot easier for people to know about crimes taking place in their neighborhood, there's the risk of creating the impression that our city is becoming a more dangerous place. The data, however, shows the opposite -- crime is declining in Milwaukee.</p>
     <p>I hope to strike a balance with this site -- even as it makes people more aware of the crime in our community, I hope it can also better inform our citizens about general trends in crime in Milwaukee. If you have any ideas on how to better balance the way this data is presented, <b-link to="/support">feel free to get in touch</b-link>.</p>
+    <h2>Contact</h2>
+    <p>I always appreciate feedback -- if you have any, email me at cwilson at mkealerts.com.</p>
     <h2>Additional Resources</h2>
     <ul>
       <li><a href="https://city.milwaukee.gov/Directory/police/Crime-Maps-and-Statistics.htm" target="_blank">Milwaukee Crime Maps and Statistics</a> - this app has some great visualizations of crime trends in Milwaukee over time</li>
-    </ul>    
+    </ul>
+    <h2>Privacy Policy</h2>
+    <p>
+      I don't like spam, you don't like spam, no one likes spam. This site won't send you spam -- it'll only send you notifications emails to which you opt in. And every
+      email has a link in it to unsubscribe you from that notification.
+    </p>
+    <p>
+      This site uses Google Analytics to help me keep track of usage. If you sign in through Google or Facebook, I ask for the minimum permissions required, and don't
+      use any data from them aside from your email address (only to send notifications you request).
+    </p>
   </div>
 </template>
 

@@ -6,7 +6,6 @@
 
 # Launch - Back-End
 * Improvement: Cache StreetReferences data?
-* Improvement: Add link to dispatch call in email notification
 
 # Launch
 * Improvement: Confirm email address before sending notifications?
@@ -110,3 +109,4 @@
 * ~~Fix: Filtered table - refreshData called twice in quick succession when bounds change -- debounce this?~~
 * ~~Improvement: In Swagger docs, add links to documentation on city site~~
 * ~~Test: SSO with prod URLs~~
+* ~~Improvement: Add link to dispatch call in email notification~~

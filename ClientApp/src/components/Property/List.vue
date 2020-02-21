@@ -145,7 +145,7 @@ export default {
                 ' ',
                 row.owner_city_state,
                 ' ',
-                row.owner_zip.substring(0, 5)
+                row.owner_zip.substring(0, 5) == '00000' ? '' : row.owner_zip.substring(0, 5)
               ].join('');
             }
           },
