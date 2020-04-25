@@ -17,12 +17,6 @@ using Location = MkeAlerts.Web.Models.Data.Places.Parcel;
 
 namespace MkeAlerts.Web.Services.Functional
 {
-    public interface IGeocodingService
-    {
-        Task<GeocodeResults> Geocode(string value);
-        Task<ReverseGeocodeResults> ReverseGeocode(double latitude, double longitude);
-    }
-
     public class GeocodingService : IGeocodingService
     {
         protected readonly ApplicationDbContext _dbContext;

@@ -13,7 +13,7 @@ import { store } from './store/store';
 
 // Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSquare, faCheckSquare, faTable, faEdit, faSortAmountUp, faSortAmountDown, faTrash, faPlus, faGlobe } from '@fortawesome/free-solid-svg-icons'
+import { faSquare, faCheckSquare, faTable, faEdit, faSortAmountUp, faSortAmountDown, faTrash, faPlus, faGlobe, faRecycle } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons'
 //import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -58,6 +58,7 @@ import FireDispatchCallView from './components/FireDispatchCall/View.vue'
 import CrimeList from './components/Crime/List.vue'
 import CrimeView from './components/Crime/View.vue'
 import DispatchCallSubscriptionUnsubscribe from './components/DispatchCallSubscription/Unsubscribe.vue'
+import PickupDatesIndex from './components/PickupDates/Index.vue'
 
 // Leaflet
 import { LMap, LTileLayer, LMarker, LPopup, LCircle, LPolygon } from 'vue2-leaflet';
@@ -89,7 +90,7 @@ Vue.use(AuthMixin);
 Vue.use(GSignInButton);
 Vue.use(FBSignInButton);
 
-library.add(faSquare, faCheckSquare, faTable, faEdit, faSortAmountUp, faSortAmountDown, faTrash, faPlus, faGlobe, faFacebook, faGoogle);
+library.add(faSquare, faCheckSquare, faTable, faEdit, faSortAmountUp, faSortAmountDown, faTrash, faPlus, faGlobe, faFacebook, faGoogle, faRecycle);
 //library.add(fas);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
@@ -130,7 +131,8 @@ const routes = [
   { path: '/crime/:id', component: CrimeView, meta: { public: true }, props: true },
   { path: '/applicationUser', component: ApplicationUserList },
   { path: '/applicationUser/:id', component: ApplicationUserEdit, props: true },
-  { path: '/dispatchCallSubscription/unsubscribe', component: DispatchCallSubscriptionUnsubscribe, meta: {public: true }}
+  { path: '/dispatchCallSubscription/unsubscribe', component: DispatchCallSubscriptionUnsubscribe, meta: {public: true }},
+  { path: '/pickupDates', component: PickupDatesIndex, meta: { public: true } },
 ];
 
 const router = new VueRouter({

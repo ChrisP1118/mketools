@@ -17,6 +17,7 @@
             <b-nav-item to="/policeDispatchCall">Police Calls</b-nav-item>
             <b-nav-item to="/fireDispatchCall">Fire Calls</b-nav-item>
             <b-nav-item to="/crime">Crimes</b-nav-item>
+            <b-nav-item to="/pickupDates">Trash and Recycling</b-nav-item>
             <!-- <b-nav-item to="/property">Properties</b-nav-item> -->
           </b-navbar-nav>
 

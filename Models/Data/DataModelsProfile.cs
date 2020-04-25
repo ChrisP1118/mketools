@@ -15,6 +15,7 @@ using GeoAPI.Geometries;
 using MkeAlerts.Web.Models.DTO;
 using MkeAlerts.Web.Models.Internal;
 using MkeAlerts.Web.Models.DTO.Geocoding;
+using MkeAlerts.Web.Models.DTO.PickupDates;
 
 namespace MkeAlerts.Web.Models.Data
 {
@@ -43,6 +44,7 @@ namespace MkeAlerts.Web.Models.Data
 
             CreateMap<GeocodeResults, GeocodeResultsDTO>().ReverseMap();
             CreateMap<ReverseGeocodeResults, ReverseGeocodeResultsDTO>().ReverseMap();
+            CreateMap<PickupDatesResults, PickupDatesResultsDTO>().ReverseMap();
         }
     }
 }

@@ -43,7 +43,8 @@ export default {
   mixins: [],
   props: [
     'addressData',
-    'locationData'
+    'locationData',
+    'noGeolookup'
   ],
   data() {
     return {
@@ -173,7 +174,7 @@ export default {
 
       this.emitAddressData();
       this.emitLocationData();
-    } else {
+    } else if (!this.noGeolookup) {
       this.getPosition();
     }
   },
