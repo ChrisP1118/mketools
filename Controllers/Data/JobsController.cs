@@ -227,5 +227,36 @@ namespace MkeAlerts.Web.Controllers.Data
             return Ok();
         }
 
+        /// <summary>
+        /// Update next pickup dates notifications
+        /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
+        /// <returns></returns>
+        [HttpPost("updateNextPickupDatesNotifications")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> UpdateNextPickupDatesNotifications()
+        {
+            BackgroundJob.Enqueue<UpdateNextPickupDatesNotifications>(x => x.Run());
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Send pickup dates notifications
+        /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
+        /// <returns></returns>
+        [HttpPost("sendPickupDatesNotifications")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> SendPickupDatesNotifications()
+        {
+            BackgroundJob.Enqueue<SendPickupDatesNotifications>(x => x.Run());
+
+            return Ok();
+        }
     }
 }

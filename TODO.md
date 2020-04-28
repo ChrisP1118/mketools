@@ -1,4 +1,6 @@
 # Launch - Front-End
+* Requirement: Unsubscribe link for pickup dates notifications
+* Fix: Better use of bounds index on geographic filtering
 * Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)
 * Fix: Crime/List page - filters lost after clicking through to detail page
 * Improvement: Crime/police dispatch call detail pages link cross-link
@@ -29,7 +31,6 @@
 * Improvement: Load table filters from URL (and link from info windows?)
 * Improvement: Add "share" link on filtered table that creates a link with URL parameters for filter
 * Epic: Add way to lookup crime rate relative to specific address
-* Epic: Add trash day alerts (import users from MkeTrashDay)
 * Epic: PWA - add notifications API support
 * Epic: Add fire history
 * Epic: Add traffic accident data?
@@ -39,6 +40,7 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Epic: Add trash day alerts (import users from MkeTrashDay)~~
 * ~~Use Vuex~~
 * ~~Add page for "Crimes"~~
 * ~~Manage notifications and account~~

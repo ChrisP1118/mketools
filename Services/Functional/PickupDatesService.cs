@@ -25,6 +25,7 @@ namespace MkeAlerts.Web.Services.Functional
 
         public async Task<PickupDatesResults> GetPickupDates(string laddr, string sdir, string sname, string stype)
         {
+            PickupDatesResults pickupDatesResults = new PickupDatesResults();
             string pageUrl = _configuration["PickupDatesUrl"];
             string result = null;
 
@@ -38,38 +39,43 @@ namespace MkeAlerts.Web.Services.Functional
                 new KeyValuePair<string, string>("Submit", "Submit")
             });
 
-            using (HttpClient client = new HttpClient())
-            using (HttpResponseMessage response = await client.PostAsync(pageUrl, postContent))
-            using (HttpContent content = response.Content)
+            try
             {
-                result = await content.ReadAsStringAsync();
+                using (HttpClient client = new HttpClient())
+                using (HttpResponseMessage response = await client.PostAsync(pageUrl, postContent))
+                using (HttpContent content = response.Content)
+                {
+                    result = await content.ReadAsStringAsync();
+                }
+
+                HtmlDocument htmlDocument = new HtmlDocument();
+                htmlDocument.LoadHtml(result);
+
+                string garbageDate = htmlDocument.DocumentNode
+                    .Descendants()
+                    .Where(n => n.Name == "strong")
+                    .Where(n => n.PreviousSibling != null && n.PreviousSibling.InnerText.Contains("The next garbage collection pickup for this location is:"))
+                    .Select(n => n.InnerText)
+                    .FirstOrDefault();
+
+                string recyclingDate = htmlDocument.DocumentNode
+                    .Descendants()
+                    .Where(n => n.Name == "strong")
+                    .Where(n => n.PreviousSibling != null && n.PreviousSibling.InnerText.Contains("The next recycling collection pickup for this location is"))
+                    .Select(n => n.InnerText)
+                    .FirstOrDefault();
+
+                DateTime parsedGarbageDate;
+                DateTime parsedRecyclingDate;
+                if (garbageDate != null && DateTime.TryParse(garbageDate, out parsedGarbageDate))
+                    pickupDatesResults.NextGarbagePickupDate = parsedGarbageDate;
+                if (recyclingDate != null && DateTime.TryParse(recyclingDate, out parsedRecyclingDate))
+                    pickupDatesResults.NextRecyclingPickupDate = parsedRecyclingDate;
             }
-
-            HtmlDocument htmlDocument = new HtmlDocument();
-            htmlDocument.LoadHtml(result);
-
-            PickupDatesResults pickupDatesResults = new PickupDatesResults();
-
-            string garbageDate = htmlDocument.DocumentNode
-                .Descendants()
-                .Where(n => n.Name == "strong")
-                .Where(n => n.PreviousSibling != null && n.PreviousSibling.InnerText.Contains("The next garbage collection pickup for this location is:"))
-                .Select(n => n.InnerText)
-                .FirstOrDefault();
-
-            string recyclingDate = htmlDocument.DocumentNode
-                .Descendants()
-                .Where(n => n.Name == "strong")
-                .Where(n => n.PreviousSibling != null && n.PreviousSibling.InnerText.Contains("The next recycling collection pickup for this location is"))
-                .Select(n => n.InnerText)
-                .FirstOrDefault();
-
-            DateTime parsedGarbageDate;
-            DateTime parsedRecyclingDate;
-            if (DateTime.TryParse(garbageDate, out parsedGarbageDate))
-                pickupDatesResults.NextGarbagePickupDate = parsedGarbageDate;
-            if (DateTime.TryParse(recyclingDate, out parsedRecyclingDate))
-                pickupDatesResults.NextRecyclingPickupDate = parsedRecyclingDate;
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error getting pickup dates for {laddr} {sdir} {sname} {stype}", ex);
+            }
 
             return pickupDatesResults;
         }

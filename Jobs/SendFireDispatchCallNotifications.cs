@@ -69,22 +69,42 @@ namespace MkeAlerts.Web.Jobs
 
             foreach (DispatchCallSubscription dispatchCallSubscription in dispatchCallSubscriptions)
             {
-                if (emailAddresses.Contains(dispatchCallSubscription.ApplicationUser.Email))
+                try
                 {
-                    _logger.LogInformation("Skipping duplicate subscription notification for fire dispatch call " + fireDispatchCall.GetId() + ": " + dispatchCallSubscription.Id + " (" + dispatchCallSubscription.ApplicationUser.Email + ")");
-                    continue;
+                    if (emailAddresses.Contains(dispatchCallSubscription.ApplicationUser.Email))
+                    {
+                        _logger.LogInformation("Skipping duplicate subscription notification for fire dispatch call " + fireDispatchCall.GetId() + ": " + dispatchCallSubscription.Id + " (" + dispatchCallSubscription.ApplicationUser.Email + ")");
+                        continue;
+                    }
+
+                    _logger.LogInformation("Subscription notification for fire dispatch call " + fireDispatchCall.GetId() + ": " + dispatchCallSubscription.Id + " (" + dispatchCallSubscription.ApplicationUser.Email + ")");
+
+                    string hash = EncryptionUtilities.GetHash(dispatchCallSubscription.Id.ToString() + ":" + dispatchCallSubscription.ApplicationUserId.ToString(), _configuration["HashKey"]);
+                    string unsubscribeUrl = string.Format(_configuration["DispatchCallUnsubscribeUrl"], dispatchCallSubscription.Id, dispatchCallSubscription.ApplicationUserId, hash);
+                    string detailsUrl = string.Format(_configuration["FireDispatchCallUrl"], fireDispatchCall.CFS);
+
+                    string text = $@"A new {fireDispatchCall.NatureOfCall} fire dispatch call was made at {fireDispatchCall.ReportedDateTime.ToShortTimeString()} on {fireDispatchCall.ReportedDateTime.ToShortDateString() + " at " + fireDispatchCall.Address}.\r\n\r\n" +
+                        $@"More details are at: {detailsUrl}" + "\r\n\r\n" +
+                        $@"You are receiving this message because you receive notifications for dispatch calls near {dispatchCallSubscription.HOUSE_NR} {dispatchCallSubscription.SDIR} {dispatchCallSubscription.STREET} {dispatchCallSubscription.STTYPE}. To stop receiving these email notifications, go to: {unsubscribeUrl}.";
+
+                    string html = $@"<p>A new <b>{fireDispatchCall.NatureOfCall}</b> fire dispatch call was made at {fireDispatchCall.ReportedDateTime.ToShortTimeString()} on {fireDispatchCall.ReportedDateTime.ToShortDateString() + " at <b>" + fireDispatchCall.Address}</b>.</p>" +
+                        $@"<p><a href=""{detailsUrl}"">View Details</a></p>" +
+                        $@"<hr />" +
+                        $@"<p style=""font-size: 80%"">You are receiving this message because you receive notifications for dispatch calls near {dispatchCallSubscription.HOUSE_NR} {dispatchCallSubscription.SDIR} {dispatchCallSubscription.STREET} {dispatchCallSubscription.STTYPE}. <a href=""{unsubscribeUrl}"">Unsubscribe</a><p>";
+
+                    await _mailerService.SendEmail(
+                        dispatchCallSubscription.ApplicationUser.Email,
+                        "Fire Dispatch Call: " + fireDispatchCall.NatureOfCall + " at " + fireDispatchCall.Address,
+                        text,
+                        html
+                    );
+
+                    emailAddresses.Add(dispatchCallSubscription.ApplicationUser.Email);
                 }
-
-                _logger.LogInformation("Subscription notification for fire dispatch call " + fireDispatchCall.GetId() + ": " + dispatchCallSubscription.Id + " (" + dispatchCallSubscription.ApplicationUser.Email + ")");
-
-                await _mailerService.SendEmail(
-                    dispatchCallSubscription.ApplicationUser.Email,
-                    "Fire Dispatch Call: " + fireDispatchCall.NatureOfCall + " at " + fireDispatchCall.Address,
-                    "A new " + fireDispatchCall.NatureOfCall + " fire dispatch call was made at " + fireDispatchCall.ReportedDateTime.ToShortTimeString() + " on " + fireDispatchCall.ReportedDateTime.ToShortDateString() + " at " + fireDispatchCall.Address + ".",
-                    "<p>A new " + fireDispatchCall.NatureOfCall + " fire dispatch call was made at " + fireDispatchCall.ReportedDateTime.ToShortTimeString() + " on " + fireDispatchCall.ReportedDateTime.ToShortDateString() + " at " + fireDispatchCall.Address + ".</p>"
-                );
-
-                emailAddresses.Add(dispatchCallSubscription.ApplicationUser.Email);
+                catch (Exception ex)
+                {
+                    _logger.LogError($"Error sending fire dispatch call notification {dispatchCallSubscription.Id}", ex);
+                }
             }
 
         }

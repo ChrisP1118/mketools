@@ -362,6 +362,12 @@ Here are the original sources for the data exposed through this API. Additional 
             // Run every 5 minutes
             RecurringJob.AddOrUpdate<ImportFireDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 
+            // Run at 10am and 10pm
+            RecurringJob.AddOrUpdate<UpdateNextPickupDatesNotifications>(x => x.Run(), "0 10,22 * * *");
+
+            // Run every hour
+            RecurringJob.AddOrUpdate<SendPickupDatesNotifications>(x => x.Run(), "0 * * * *");
+
             if (!env.IsDevelopment())
             {
                 // Every day at 6:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
