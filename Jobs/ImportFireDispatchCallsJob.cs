@@ -91,7 +91,10 @@ namespace MkeAlerts.Web.Jobs
                             }
                             else
                             {
-                                fireDispatchCall.Disposition = (string)item.Property("disposition").Value;
+                                if (item.Property("DISPOSITION") != null)
+                                    fireDispatchCall.Disposition = (string)item.Property("DISPOSITION").Value;
+                                if (item.Property("disposition") != null)
+                                    fireDispatchCall.Disposition = (string)item.Property("disposition").Value;
 
                                 await _fireDispatchCallWriteService.Update(claimsPrincipal, fireDispatchCall);
                                 ++success;

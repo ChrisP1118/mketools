@@ -20,6 +20,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace MkeAlerts.Web.Jobs
 {
@@ -80,7 +81,7 @@ namespace MkeAlerts.Web.Jobs
                     _logger.LogInformation("Subscription notification for fire dispatch call " + fireDispatchCall.GetId() + ": " + dispatchCallSubscription.Id + " (" + dispatchCallSubscription.ApplicationUser.Email + ")");
 
                     string hash = EncryptionUtilities.GetHash(dispatchCallSubscription.Id.ToString() + ":" + dispatchCallSubscription.ApplicationUserId.ToString(), _configuration["HashKey"]);
-                    string unsubscribeUrl = string.Format(_configuration["DispatchCallUnsubscribeUrl"], dispatchCallSubscription.Id, dispatchCallSubscription.ApplicationUserId, hash);
+                    string unsubscribeUrl = string.Format(_configuration["DispatchCallUnsubscribeUrl"], dispatchCallSubscription.Id, dispatchCallSubscription.ApplicationUserId, HttpUtility.UrlEncode(hash));
                     string detailsUrl = string.Format(_configuration["FireDispatchCallUrl"], fireDispatchCall.CFS);
 
                     string text = $@"A new {fireDispatchCall.NatureOfCall} fire dispatch call was made at {fireDispatchCall.ReportedDateTime.ToShortTimeString()} on {fireDispatchCall.ReportedDateTime.ToShortDateString() + " at " + fireDispatchCall.Address}.\r\n\r\n" +

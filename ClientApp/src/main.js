@@ -59,6 +59,7 @@ import FireDispatchCallView from './components/FireDispatchCall/View.vue'
 import CrimeList from './components/Crime/List.vue'
 import CrimeView from './components/Crime/View.vue'
 import DispatchCallSubscriptionUnsubscribe from './components/DispatchCallSubscription/Unsubscribe.vue'
+import PickupDatesSubscriptionUnsubscribe from './components/PickupDatesSubscription/Unsubscribe.vue'
 import PickupDatesIndex from './components/PickupDates/Index.vue'
 
 // Leaflet
@@ -134,6 +135,7 @@ const routes = [
   { path: '/applicationUser', component: ApplicationUserList },
   { path: '/applicationUser/:id', component: ApplicationUserEdit, props: true },
   { path: '/dispatchCallSubscription/unsubscribe', component: DispatchCallSubscriptionUnsubscribe, meta: {public: true }},
+  { path: '/pickupDatesSubscription/unsubscribe', component: PickupDatesSubscriptionUnsubscribe, meta: {public: true }},
   { path: '/pickupDates', component: PickupDatesIndex, meta: { public: true } },
 ];
 

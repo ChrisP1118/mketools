@@ -20,6 +20,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace MkeAlerts.Web.Jobs
 {
@@ -79,7 +80,7 @@ namespace MkeAlerts.Web.Jobs
                 _logger.LogInformation($"Subscription notification for {type} pickup: " + subscription.Id + " (" + subscription.ApplicationUser.Email + ")");
 
                 string hash = EncryptionUtilities.GetHash(subscription.Id.ToString() + ":" + subscription.ApplicationUserId.ToString(), _configuration["HashKey"]);
-                string unsubscribeUrl = string.Format(_configuration["PickupDatesUnsubscribeUrl"], subscription.Id, subscription.ApplicationUserId, hash);
+                string unsubscribeUrl = string.Format(_configuration["PickupDatesUnsubscribeUrl"], subscription.Id, subscription.ApplicationUserId, HttpUtility.UrlEncode(hash));
                 string address = $"{subscription.LADDR} {subscription.SDIR} {subscription.SNAME} {subscription.STYPE}";
                 string day = nextPickup.Value.ToString("dddd, MMMM d");
 
