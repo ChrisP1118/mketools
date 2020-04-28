@@ -43,10 +43,10 @@ namespace MkeAlerts.Web.Controllers.Functional
         [HttpGet("fromAddress")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<PickupDatesResultsDTO>> GetLocation(string number, string direction, string street, string suffix)
+        public async Task<ActionResult<PickupDatesResultDTO>> GetPickupDates(string laddr, string sdir, string sname, string stype)
         {
-            PickupDatesResults results = await _pickupDatesService.GetPickupDates(number, direction, street, suffix);
-            PickupDatesResultsDTO dto = _mapper.Map<PickupDatesResultsDTO>(results);
+            PickupDatesResults results = await _pickupDatesService.GetPickupDates(laddr, sdir, sname, stype);
+            PickupDatesResultDTO dto = _mapper.Map<PickupDatesResultDTO>(results);
 
             return Ok(dto);
         }

@@ -6263,3 +6263,92 @@
 2020-04-25 14:15:48.0734 Info Adding target FileTarget(Name=Web)
 2020-04-25 14:15:48.0734 Info Adding target FileTarget(Name=Misc)
 2020-04-25 14:15:48.1407 Info Found 105 configuration items
+2020-04-25 15:35:28.7298 Info Shutdown() called. Logger closing...
+2020-04-25 15:35:28.7298 Info Closing old configuration.
+2020-04-25 15:35:28.7487 Info Logger has been closed down.
+2020-04-25 15:35:28.7487 Info AppDomain Shutting down. Logger closing...
+2020-04-25 15:35:28.7487 Info Logger has been shut down.
+2020-04-25 21:50:36.4984 Info Message Template Auto Format enabled
+2020-04-25 21:50:36.5414 Info Loading assembly: NLog.Web.AspNetCore
+2020-04-25 21:50:36.7246 Info Adding target FileTarget(Name=EF)
+2020-04-25 21:50:36.7299 Info Adding target FileTarget(Name=Hangfire)
+2020-04-25 21:50:36.7299 Info Adding target FileTarget(Name=MkeAlerts)
+2020-04-25 21:50:36.7485 Info Adding target FileTarget(Name=Web)
+2020-04-25 21:50:36.7485 Info Adding target FileTarget(Name=Misc)
+2020-04-25 21:50:36.8689 Info Found 105 configuration items
+2020-04-25 21:53:19.3382 Info Shutdown() called. Logger closing...
+2020-04-25 21:53:19.3382 Info Closing old configuration.
+2020-04-25 21:53:19.3588 Info Logger has been closed down.
+2020-04-25 21:53:19.3588 Info AppDomain Shutting down. Logger closing...
+2020-04-25 21:53:19.3588 Info Logger has been shut down.
+2020-04-25 21:55:08.4622 Info Message Template Auto Format enabled
+2020-04-25 21:55:08.4813 Info Loading assembly: NLog.Web.AspNetCore
+2020-04-25 21:55:08.6248 Info Adding target FileTarget(Name=EF)
+2020-04-25 21:55:08.6248 Info Adding target FileTarget(Name=Hangfire)
+2020-04-25 21:55:08.6248 Info Adding target FileTarget(Name=MkeAlerts)
+2020-04-25 21:55:08.6393 Info Adding target FileTarget(Name=Web)
+2020-04-25 21:55:08.6393 Info Adding target FileTarget(Name=Misc)
+2020-04-25 21:55:08.7429 Info Found 105 configuration items
+2020-04-25 22:11:10.2868 Info Shutdown() called. Logger closing...
+2020-04-25 22:11:10.2868 Info Closing old configuration.
+2020-04-25 22:11:10.3116 Info Logger has been closed down.
+2020-04-25 22:11:10.3116 Info AppDomain Shutting down. Logger closing...
+2020-04-25 22:11:10.3116 Info Logger has been shut down.
+2020-04-25 22:11:24.6670 Info Message Template Auto Format enabled
+2020-04-25 22:11:24.6856 Info Loading assembly: NLog.Web.AspNetCore
+2020-04-25 22:11:24.8132 Info Adding target FileTarget(Name=EF)
+2020-04-25 22:11:24.8132 Info Adding target FileTarget(Name=Hangfire)
+2020-04-25 22:11:24.8132 Info Adding target FileTarget(Name=MkeAlerts)
+2020-04-25 22:11:24.8132 Info Adding target FileTarget(Name=Web)
+2020-04-25 22:11:24.8208 Info Adding target FileTarget(Name=Misc)
+2020-04-25 22:11:24.8930 Info Found 105 configuration items
+2020-04-25 22:11:24.9235 Info Configuration initialized.
+2020-04-25 22:11:24.9329 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.4.10085. Product version: 4.6.4.
+2020-04-25 22:11:27.9802 Info AppDomain Shutting down. Logger closing...
+2020-04-25 22:11:28.0198 Info Logger has been shut down.
+2020-04-25 22:11:47.4011 Info Message Template Auto Format enabled
+2020-04-25 22:11:47.4187 Info Loading assembly: NLog.Web.AspNetCore
+2020-04-25 22:11:47.5936 Info Adding target FileTarget(Name=EF)
+2020-04-25 22:11:47.5936 Info Adding target FileTarget(Name=Hangfire)
+2020-04-25 22:11:47.5936 Info Adding target FileTarget(Name=MkeAlerts)
+2020-04-25 22:11:47.5936 Info Adding target FileTarget(Name=Web)
+2020-04-25 22:11:47.6017 Info Adding target FileTarget(Name=Misc)
+2020-04-25 22:11:47.7143 Info Found 105 configuration items
+2020-04-25 22:11:47.7549 Info Configuration initialized.
+2020-04-25 22:11:47.7649 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.4.10085. Product version: 4.6.4.
+2020-04-25 22:11:50.7628 Info AppDomain Shutting down. Logger closing...
+2020-04-25 22:11:50.8189 Info Logger has been shut down.
+2020-04-27 13:47:20.3302 Info Message Template Auto Format enabled
+2020-04-27 13:47:20.3682 Info Loading assembly: NLog.Web.AspNetCore
+2020-04-27 13:47:20.5342 Info Adding target FileTarget(Name=EF)
+2020-04-27 13:47:20.5342 Info Adding target FileTarget(Name=Hangfire)
+2020-04-27 13:47:20.5342 Info Adding target FileTarget(Name=MkeAlerts)
+2020-04-27 13:47:20.5517 Info Adding target FileTarget(Name=Web)
+2020-04-27 13:47:20.5517 Info Adding target FileTarget(Name=Misc)
+2020-04-27 13:47:20.6444 Info Found 105 configuration items
+2020-04-27 15:14:45.6693 Info Shutdown() called. Logger closing...
+2020-04-27 15:14:45.6839 Info Closing old configuration.
+2020-04-27 15:14:45.7129 Info Logger has been closed down.
+2020-04-27 15:14:45.7129 Info AppDomain Shutting down. Logger closing...
+2020-04-27 15:14:45.7129 Info Logger has been shut down.
+2020-04-27 15:15:47.6635 Info Message Template Auto Format enabled
+2020-04-27 15:15:47.6819 Info Loading assembly: NLog.Web.AspNetCore
+2020-04-27 15:15:47.8435 Info Adding target FileTarget(Name=EF)
+2020-04-27 15:15:47.8435 Info Adding target FileTarget(Name=Hangfire)
+2020-04-27 15:15:47.8614 Info Adding target FileTarget(Name=MkeAlerts)
+2020-04-27 15:15:47.8974 Info Adding target FileTarget(Name=Web)
+2020-04-27 15:15:47.8974 Info Adding target FileTarget(Name=Misc)
+2020-04-27 15:15:48.0752 Info Found 105 configuration items
+2020-04-27 15:31:02.5209 Info Shutdown() called. Logger closing...
+2020-04-27 15:31:02.5209 Info Closing old configuration.
+2020-04-27 15:31:02.5720 Info Logger has been closed down.
+2020-04-27 15:31:02.5720 Info AppDomain Shutting down. Logger closing...
+2020-04-27 15:31:02.5720 Info Logger has been shut down.
+2020-04-27 15:31:25.7219 Info Message Template Auto Format enabled
+2020-04-27 15:31:25.7468 Info Loading assembly: NLog.Web.AspNetCore
+2020-04-27 15:31:25.9284 Info Adding target FileTarget(Name=EF)
+2020-04-27 15:31:25.9380 Info Adding target FileTarget(Name=Hangfire)
+2020-04-27 15:31:25.9380 Info Adding target FileTarget(Name=MkeAlerts)
+2020-04-27 15:31:25.9477 Info Adding target FileTarget(Name=Web)
+2020-04-27 15:31:25.9477 Info Adding target FileTarget(Name=Misc)
+2020-04-27 15:31:26.0638 Info Found 105 configuration items

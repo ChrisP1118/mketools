@@ -5,7 +5,7 @@
 * Improvement: Properties/List - add additional table fields
 
 # Launch - Back-End
-* Improvement: Cache StreetReferences data?
+* Improvement: Cache StreetReferences data? (Or add some indexes to speed them up?)
 
 # Launch
 * Improvement: Confirm email address before sending notifications?

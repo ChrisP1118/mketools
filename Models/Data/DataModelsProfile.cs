@@ -39,12 +39,13 @@ namespace MkeAlerts.Web.Models.Data
             CreateMap<Crime, CrimeDTO>().ReverseMap();
 
             CreateMap<DispatchCallSubscription, DispatchCallSubscriptionDTO>().ReverseMap();
+            CreateMap<PickupDatesSubscription, PickupDatesSubscriptionDTO>().ReverseMap();
 
             CreateMap<IPoint, PointDTO>().ReverseMap();
 
             CreateMap<GeocodeResults, GeocodeResultsDTO>().ReverseMap();
             CreateMap<ReverseGeocodeResults, ReverseGeocodeResultsDTO>().ReverseMap();
-            CreateMap<PickupDatesResults, PickupDatesResultsDTO>().ReverseMap();
+            CreateMap<PickupDatesResults, PickupDatesResultDTO>().ReverseMap();
         }
     }
 }

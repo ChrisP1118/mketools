@@ -21,5 +21,6 @@ namespace MkeAlerts.Web.Models.Data.Accounts
         public List<ExternalCredential> ExternalCredentials { get; set; }
 
         public List<DispatchCallSubscription> DispatchCallSubscriptions { get; set; }
+        public List<PickupDatesSubscription> PickupDateSubscriptions { get; set; }
     }
 }

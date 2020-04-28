@@ -53,6 +53,19 @@
       <router-view v-else></router-view> -->
       <router-view></router-view>
 
+      <b-row class="mt-3">
+        <b-col>
+          <hr />
+        </b-col>
+      </b-row>
+      <b-row class="mt-3">
+        <b-col>
+          <b-alert show variant="info" class="small text-center">
+            <p>This is not an official City of Milwaukee website. This site is not affiliated in any way with the City of Milwaukee, Milwaukee Police Department, Milwaukee Fire Department, or any other government agency.</p>
+            <p>The data on this site is not real-time. Police dispatch call data is available within 30-90 minutes of the call; fire dispatch call data is available within 15-105 minutes of the call.</p>
+          </b-alert>
+        </b-col>
+      </b-row>
     </b-container>
 
   </div>

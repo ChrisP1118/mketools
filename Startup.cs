@@ -271,6 +271,8 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddTransient<IEntityWriteService<Crime, string>, CrimeService>();
             services.AddTransient<IEntityReadService<DispatchCallSubscription, Guid>, DispatchCallSubscriptionService>();
             services.AddTransient<IEntityWriteService<DispatchCallSubscription, Guid>, DispatchCallSubscriptionService>();
+            services.AddTransient<IEntityReadService<PickupDatesSubscription, Guid>, PickupDatesSubscriptionService>();
+            services.AddTransient<IEntityWriteService<PickupDatesSubscription, Guid>, PickupDatesSubscriptionService>();
 
             services.AddTransient<IStreetReferenceService, StreetReferenceService>();
             services.AddTransient<IGeocodingService, GeocodingService>();
@@ -288,6 +290,7 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddSingleton<IValidator<FireDispatchCallType>, FireDispatchCallTypeValidator>();
             services.AddSingleton<IValidator<Crime>, CrimeValidator>();
             services.AddSingleton<IValidator<DispatchCallSubscription>, DispatchCallSubscriptionValidator>();
+            services.AddSingleton<IValidator<PickupDatesSubscription>, PickupDatesSubscriptionValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

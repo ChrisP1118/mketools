@@ -8,6 +8,6 @@ namespace MkeAlerts.Web.Services.Functional
 {
     public interface IPickupDatesService
     {
-        Task<PickupDatesResults> GetPickupDates(string number, string direction, string street, string suffix);
+        Task<PickupDatesResults> GetPickupDates(string laddr, string sdir, string sname, string stype);
     }
 }

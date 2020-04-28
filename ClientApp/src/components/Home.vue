@@ -8,7 +8,7 @@
             MKE Alerts
           </template>
           <div v-if="subscriptions.length > 0">
-            <user-subscription-list :subscriptions="subscriptions" @selected="onSubscriptionSelected" @deleted="onSubscriptionDeleted" />
+            <user-dispatch-call-subscription-list :subscriptions="subscriptions" @selected="onSubscriptionSelected" @deleted="onSubscriptionDeleted" />
             <hr />
           </div>
           <p v-if="subscriptions.length == 0">Enter an address below to get started.</p>
@@ -23,7 +23,7 @@
           <b-card-text>
             <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" />
             <hr />
-            <user-subscription-list :subscriptions="subscriptions" @selected="onSubscriptionSelected" @deleted="onSubscriptionDeleted" />
+            <user-dispatch-call-subscription-list :subscriptions="subscriptions" @selected="onSubscriptionSelected" @deleted="onSubscriptionDeleted" />
             <hr v-if="subscriptions.length > 0" />
             <b-form inline class="justify-content-center" @submit.stop.prevent>
               Email me whenever there's
@@ -52,15 +52,6 @@
     <b-row>
       <b-col>
         <basic-map :filterType="mapFilterType" :locationData="locationData" :distance="distance" @updated="onMapUpdated" />
-      </b-col>
-    </b-row>
-    <b-row class="mt-3">
-      <b-col>
-        <b-alert show variant="secondary">
-          <h2>This is not an official City of Milwaukee website.</h2>
-          <p>This site is not affiliated in any way with the City of Milwaukee, Milwaukee Police Department, Milwaukee Fire Department, or any other government agency.</p>
-          <p>The data on this site is not real-time. Police dispatch call data is available within 30-90 minutes of the call; fire dispatch call data is available within 15-105 minutes of the call.</p>
-        </b-alert>
       </b-col>
     </b-row>
     <b-modal id="subscription-modal" size="lg" title="Sign Up for Email Notifications" 
@@ -169,8 +160,6 @@ export default {
           sttype: this.addressData.streetType
         })
         .then(response => {
-          console.log(response);
-
           this.$bvToast.toast('An email will be sent to ' + this.$root.$data.authenticatedUser.username + ' whenever there\'s ' + this.getCallTypeLabel(this.callType) + ' within ' + this.getDistanceLabel(this.distance) + ' of ' + this.addressDataString + '.', {
             title: 'Notification Created',
             autoHideDelay: 5000,

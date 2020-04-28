@@ -23,17 +23,17 @@ namespace MkeAlerts.Web.Services.Functional
             _logger = logger;
         }
 
-        public async Task<PickupDatesResults> GetPickupDates(string number, string direction, string street, string suffix)
+        public async Task<PickupDatesResults> GetPickupDates(string laddr, string sdir, string sname, string stype)
         {
             string pageUrl = _configuration["PickupDatesUrl"];
             string result = null;
 
             FormUrlEncodedContent postContent = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("laddr", number),
-                new KeyValuePair<string, string>("sdir", direction),
-                new KeyValuePair<string, string>("sname", street),
-                new KeyValuePair<string, string>("stype", suffix),
+                new KeyValuePair<string, string>("laddr", laddr),
+                new KeyValuePair<string, string>("sdir", sdir),
+                new KeyValuePair<string, string>("sname", sname),
+                new KeyValuePair<string, string>("stype", stype),
                 new KeyValuePair<string, string>("embed", "Y"),
                 new KeyValuePair<string, string>("Submit", "Submit")
             });

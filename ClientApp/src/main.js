@@ -36,7 +36,8 @@ import NearbyMap from './components/Common/NearbyMap.vue'
 
 import AddressLookup from './components/Home/AddressLookup.vue'
 import AuthForm from './components/Home/AuthForm.vue'
-import UserSubscriptionList from './components/Home/UserSubscriptionList.vue'
+import UserDispatchCallSubscriptionList from './components/Home/UserDispatchCallSubscriptionList.vue'
+import UserPickupDatesSubscriptionList from './components/PickupDates/UserPickupDatesSubscriptionList.vue'
 import BasicMap from './components/Home/BasicMap.vue'
 
 // Pages
@@ -102,7 +103,8 @@ Vue.component('nearby-map', NearbyMap);
 
 Vue.component('address-lookup', AddressLookup);
 Vue.component('auth-form', AuthForm);
-Vue.component('user-subscription-list', UserSubscriptionList);
+Vue.component('user-dispatch-call-subscription-list', UserDispatchCallSubscriptionList);
+Vue.component('user-pickup-dates-subscription-list', UserPickupDatesSubscriptionList);
 Vue.component('basic-map', BasicMap);
 
 Vue.component('text-control', TextControl);

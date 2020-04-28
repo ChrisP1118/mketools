@@ -45,6 +45,14 @@ export const store = new Vuex.Store({
       loadState: STATE_UNLOADED,
       values: []
     },
+    notificationTimes: [
+      { text: '6am the day before', value: -18 },
+      { text: '10am the day before', value: -14 },
+      { text: '2pm the day before', value: -10 },
+      { text: '6pm the day before', value: -6 },
+      { text: '10pm the day before', value: -2 },
+      { text: '6am the morning of', value: 6 },
+    ]
   },
   mutations: {
     SET_ADDRESS_DATA(state, addressData) {
@@ -253,6 +261,12 @@ export const store = new Vuex.Store({
         return '';
 
       return state.callTypes.find(x => x.value == callType).text;
+    },
+    getNotificationTimeLabel: state => notificationTime => {
+      if (!notificationTime)
+        return '';
+
+      return state.notificationTimes.find(x => x.value == notificationTime).text;
     },
     getPoliceDispatchCallTypeIcon: state => natureOfCall => {
       let type = state.policeDispatchCallTypes.values.find(x => x.natureOfCall == natureOfCall);
