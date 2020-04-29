@@ -36,16 +36,16 @@ namespace MkeAlerts.Web.Models.Data.Incidents
         //[Column(TypeName = "geometry")]
         public IGeometry Geometry { get; set; }
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(13, 10)")]
         public double MinLat { get; set; }
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(13, 10)")]
         public double MaxLat { get; set; }
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(13, 10)")]
         public double MinLng { get; set; }
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(13, 10)")]
         public double MaxLng { get; set; }
 
         public GeometryAccuracy Accuracy { get; set; }

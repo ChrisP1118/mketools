@@ -44,14 +44,14 @@ namespace MkeAlerts.Web.Jobs
 
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
-            List<PickupDatesSubscription> garbageSubscriptions = await _pickupDatesSubscriptionService.GetAll(claimsPrincipal, 0, 100000, null, null, null, null, null, null, null, queryable =>
+            List<PickupDatesSubscription> garbageSubscriptions = await _pickupDatesSubscriptionService.GetAll(claimsPrincipal, 0, 100000, null, null, null, null, null, null, null, true, false, queryable =>
             {
                 return queryable
                     .Include(x => x.ApplicationUser)
                     .Where(x => x.NextGarbagePickupNotification <= now);
             });
 
-            List<PickupDatesSubscription> recyclingSubscriptions = await _pickupDatesSubscriptionService.GetAll(claimsPrincipal, 0, 100000, null, null, null, null, null, null, null, queryable =>
+            List<PickupDatesSubscription> recyclingSubscriptions = await _pickupDatesSubscriptionService.GetAll(claimsPrincipal, 0, 100000, null, null, null, null, null, null, null, true, false, queryable =>
             {
                 return queryable
                     .Include(x => x.ApplicationUser)

@@ -48,15 +48,15 @@ namespace MkeAlerts.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
         [SwaggerResponseHeader(StatusCodes.Status200OK, "X-Total-Count", "int", "Returns the total number of available items")]
-        public async Task<ActionResult<IEnumerable<TDTOModel>>> GetAllAsync(int offset = 0, int limit = 10, string order = null, string includes = null, string filter = null, double? northBound = null, double? southBound = null, double? eastBound = null, double? westBound = null)
+        public async Task<ActionResult<IEnumerable<TDTOModel>>> GetAllAsync(int offset = 0, int limit = 10, string order = null, string includes = null, string filter = null, double? northBound = null, double? southBound = null, double? eastBound = null, double? westBound = null, bool useHighPrecision = true)
         {
-            List<TDataModel> dataModelItems = await _readService.GetAll(HttpContext.User, offset, limit, order, includes, filter, northBound, southBound, eastBound, westBound, null);
+            List<TDataModel> dataModelItems = await _readService.GetAll(HttpContext.User, offset, limit, order, includes, filter, northBound, southBound, eastBound, westBound, useHighPrecision, true, null);
 
             List<TDTOModel> dtoModelItems = dataModelItems
                 .Select(d => _mapper.Map<TDataModel, TDTOModel>(d))
                 .ToList();
 
-            long count = await _readService.GetAllCount(HttpContext.User, filter, northBound, southBound, eastBound, westBound);
+            long count = await _readService.GetAllCount(HttpContext.User, filter, northBound, southBound, eastBound, westBound, useHighPrecision);
             Response.Headers.Add("X-Total-Count", count.ToString());
 
             return Ok(dtoModelItems);

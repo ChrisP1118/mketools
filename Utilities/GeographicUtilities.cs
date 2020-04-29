@@ -55,7 +55,7 @@ namespace MkeAlerts.Web.Utilities
                 return;
 
             // Two digits after the decimal
-            double adjustment = Math.Pow(10, 2);
+            double adjustment = Math.Pow(10, 10);
             hasBounds.MinLat = Math.Floor(geometry.Coordinates.Select(x => x.Y).Min() * adjustment) / adjustment;
             hasBounds.MaxLat = Math.Ceiling(geometry.Coordinates.Select(x => x.Y).Max() * adjustment) / adjustment;
             hasBounds.MinLng = Math.Floor(geometry.Coordinates.Select(x => x.X).Min() * adjustment) / adjustment;

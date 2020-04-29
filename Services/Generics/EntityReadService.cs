@@ -47,7 +47,7 @@ namespace MkeAlerts.Web.Services
 
         #region CRUD Operations
 
-        public async Task<List<TDataModel>> GetAll(ClaimsPrincipal user, int offset, int limit, string order, string includes, string filter, double? northBound, double? southBound, double? eastBound, double? westBound, Func<IQueryable<TDataModel>, IQueryable<TDataModel>> filterFunc = null)
+        public async Task<List<TDataModel>> GetAll(ClaimsPrincipal user, int offset, int limit, string order, string includes, string filter, double? northBound, double? southBound, double? eastBound, double? westBound, bool useHighPrecision = true, bool noTracking = false, Func<IQueryable<TDataModel>, IQueryable<TDataModel>> filterFunc = null)
         {
             var applicationUser = await GetApplicationUser(user);
 
@@ -62,7 +62,7 @@ namespace MkeAlerts.Web.Services
                 queryable = filterFunc(queryable);
 
             if (northBound.HasValue && southBound.HasValue && eastBound.HasValue && westBound.HasValue)
-                queryable = await ApplyBounds(queryable, northBound.Value, southBound.Value, eastBound.Value, westBound.Value);
+                queryable = await ApplyBounds(queryable, northBound.Value, southBound.Value, eastBound.Value, westBound.Value, useHighPrecision);
 
             if (!string.IsNullOrEmpty(order))
                 queryable = queryable.OrderBy(order);
@@ -71,12 +71,15 @@ namespace MkeAlerts.Web.Services
                 .Skip(offset)
                 .Take(limit);
 
+            if (noTracking)
+                queryable = queryable.AsNoTracking();
+
             List<TDataModel> dataModelItems = await queryable.ToListAsync();
 
             return dataModelItems;
         }
 
-        public async Task<long> GetAllCount(ClaimsPrincipal user, string filter, double? northBound, double? southBound, double? eastBound, double? westBound)
+        public async Task<long> GetAllCount(ClaimsPrincipal user, string filter, double? northBound, double? southBound, double? eastBound, double? westBound, bool useHighPrecision = true)
         {
             var applicationUser = await GetApplicationUser(user);
 
@@ -86,7 +89,7 @@ namespace MkeAlerts.Web.Services
                 queryable = queryable.Where(GetParsingConfig(), filter);
 
             if (northBound.HasValue && southBound.HasValue && eastBound.HasValue && westBound.HasValue)
-                queryable = await ApplyBounds(queryable, northBound.Value, southBound.Value, eastBound.Value, westBound.Value);
+                queryable = await ApplyBounds(queryable, northBound.Value, southBound.Value, eastBound.Value, westBound.Value, useHighPrecision);
 
             long count = await queryable.LongCountAsync();
             return count;
@@ -163,7 +166,7 @@ namespace MkeAlerts.Web.Services
 
         protected abstract Task<IQueryable<TDataModel>> ApplyIdFilter(IQueryable<TDataModel> queryable, TIdType id);
 
-        protected async Task<IQueryable<TDataModel>> ApplyBounds(IQueryable<TDataModel> queryable, double northBound, double southBound, double eastBound, double westBound)
+        protected async Task<IQueryable<TDataModel>> ApplyBounds(IQueryable<TDataModel> queryable, double northBound, double southBound, double eastBound, double westBound, bool useHighPrecision)
         {
             Polygon bounds = new Polygon(new LinearRing(new Coordinate[]
             {
@@ -175,10 +178,10 @@ namespace MkeAlerts.Web.Services
             }));
             bounds.SRID = 4326;
 
-            return await ApplyBounds(queryable, northBound, southBound, eastBound, westBound, bounds);
+            return await ApplyBounds(queryable, northBound, southBound, eastBound, westBound, bounds, useHighPrecision);
         }
 
-        protected virtual async Task<IQueryable<TDataModel>> ApplyBounds(IQueryable<TDataModel> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
+        protected virtual async Task<IQueryable<TDataModel>> ApplyBounds(IQueryable<TDataModel> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds, bool useHighPrecision)
         {
             return queryable;
         }

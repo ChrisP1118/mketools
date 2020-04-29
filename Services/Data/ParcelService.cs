@@ -27,9 +27,9 @@ namespace MkeAlerts.Web.Services.Data
             return queryable;
         }
 
-        protected override async Task<IQueryable<Parcel>> ApplyBounds(IQueryable<Parcel> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
+        protected override async Task<IQueryable<Parcel>> ApplyBounds(IQueryable<Parcel> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds, bool useHighPrecision)
         {
-            return queryable
+            queryable = queryable
                 .Where(x =>
                     (x.CommonParcel.MinLat <= northBound && x.CommonParcel.MaxLat >= northBound) ||
                     (x.CommonParcel.MinLat <= southBound && x.CommonParcel.MaxLat >= southBound) ||
@@ -39,8 +39,13 @@ namespace MkeAlerts.Web.Services.Data
                     (x.CommonParcel.MinLng <= westBound && x.CommonParcel.MaxLng >= westBound) ||
                     (x.CommonParcel.MinLng <= eastBound && x.CommonParcel.MaxLng >= eastBound) ||
                     (x.CommonParcel.MinLng >= westBound && x.CommonParcel.MaxLng <= eastBound) ||
-                    (x.CommonParcel.MinLng >= eastBound && x.CommonParcel.MaxLng <= westBound))
-                .Where(x => x.CommonParcel.Outline.Intersects(bounds));
+                    (x.CommonParcel.MinLng >= eastBound && x.CommonParcel.MaxLng <= westBound));
+
+            if (useHighPrecision)
+                queryable = queryable
+                    .Where(x => x.CommonParcel.Outline.Intersects(bounds));
+
+            return queryable;
         }
 
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Parcel dataModel)

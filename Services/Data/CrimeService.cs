@@ -28,9 +28,9 @@ namespace MkeAlerts.Web.Services.Data
             return queryable;
         }
 
-        protected override async Task<IQueryable<Crime>> ApplyBounds(IQueryable<Crime> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
+        protected override async Task<IQueryable<Crime>> ApplyBounds(IQueryable<Crime> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds, bool useHighPrecision)
         {
-            return queryable
+            queryable = queryable
                 .Where(x =>
                     (x.MinLat <= northBound && x.MaxLat >= northBound) ||
                     (x.MinLat <= southBound && x.MaxLat >= southBound) ||
@@ -40,8 +40,13 @@ namespace MkeAlerts.Web.Services.Data
                     (x.MinLng <= westBound && x.MaxLng >= westBound) ||
                     (x.MinLng <= eastBound && x.MaxLng >= eastBound) ||
                     (x.MinLng >= westBound && x.MaxLng <= eastBound) ||
-                    (x.MinLng >= eastBound && x.MaxLng <= westBound))
-                .Where(x => x.Point.Intersects(bounds));
+                    (x.MinLng >= eastBound && x.MaxLng <= westBound));
+
+            if (useHighPrecision)
+                queryable = queryable
+                    .Where(x => x.Point.Intersects(bounds));
+
+            return queryable;
         }
 
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Crime dataModel)

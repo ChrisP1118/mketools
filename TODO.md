@@ -1,13 +1,18 @@
 # Launch - Front-End
-* Requirement: Unsubscribe link for pickup dates notifications
-* Fix: Better use of bounds index on geographic filtering
+* ~~Requirement: Unsubscribe link for pickup dates notifications~~
+* ~~Fix: Better use of bounds index on geographic filtering~~
 * Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)
 * Fix: Crime/List page - filters lost after clicking through to detail page
 * Improvement: Crime/police dispatch call detail pages link cross-link
 * Improvement: Properties/List - add additional table fields
 
 # Launch - Back-End
+* Improvement: Upgrade to .NET Core 3.1
 * Improvement: Cache StreetReferences data? (Or add some indexes to speed them up?)
+* Improvement: Better error handling/logging (error alert emails)
+* Verify: Facebook, Google accounts
+* Verify: Log retention policy
+* Convert MkeTrashDay accounts
 
 # Launch
 * Improvement: Confirm email address before sending notifications?

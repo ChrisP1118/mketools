@@ -19,16 +19,16 @@ namespace MkeAlerts.Web.Models.Data.Places
         //[Column(TypeName = "geometry")]
         public IGeometry Outline { get; set; }
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(13, 10)")]
         public double MinLat { get; set; }
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(13, 10)")]
         public double MaxLat { get; set; }
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(13, 10)")]
         public double MinLng { get; set; }
 
-        [Column(TypeName = "decimal(5, 2)")]
+        [Column(TypeName = "decimal(13, 10)")]
         public double MaxLng { get; set; }
 
         public List<Parcel> Parcels { get; set; }

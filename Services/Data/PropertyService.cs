@@ -27,11 +27,11 @@ namespace MkeAlerts.Web.Services.Data
             return queryable;
         }
 
-        protected override async Task<IQueryable<Property>> ApplyBounds(IQueryable<Property> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds)
+        protected override async Task<IQueryable<Property>> ApplyBounds(IQueryable<Property> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds, bool useHighPrecision)
         {
-            return queryable
+            queryable = queryable
                 .Where(x => x.Parcel != null)
-                .Where(x => 
+                .Where(x =>
                     (x.Parcel.CommonParcel.MinLat <= northBound && x.Parcel.CommonParcel.MaxLat >= northBound) ||
                     (x.Parcel.CommonParcel.MinLat <= southBound && x.Parcel.CommonParcel.MaxLat >= southBound) ||
                     (x.Parcel.CommonParcel.MinLat >= northBound && x.Parcel.CommonParcel.MaxLat <= southBound) ||
@@ -40,8 +40,13 @@ namespace MkeAlerts.Web.Services.Data
                     (x.Parcel.CommonParcel.MinLng <= westBound && x.Parcel.CommonParcel.MaxLng >= westBound) ||
                     (x.Parcel.CommonParcel.MinLng <= eastBound && x.Parcel.CommonParcel.MaxLng >= eastBound) ||
                     (x.Parcel.CommonParcel.MinLng >= westBound && x.Parcel.CommonParcel.MaxLng <= eastBound) ||
-                    (x.Parcel.CommonParcel.MinLng >= eastBound && x.Parcel.CommonParcel.MaxLng <= westBound))
-                .Where(x => x.Parcel.CommonParcel.Outline.Intersects(bounds));
+                    (x.Parcel.CommonParcel.MinLng >= eastBound && x.Parcel.CommonParcel.MaxLng <= westBound));
+
+            if (useHighPrecision)
+                queryable = queryable
+                    .Where(x => x.Parcel.CommonParcel.Outline.Intersects(bounds));
+
+            return queryable;
         }
 
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, Property dataModel)

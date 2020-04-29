@@ -45,7 +45,7 @@ namespace MkeAlerts.Web.Jobs
 
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
-            List<PickupDatesSubscription> pickupDatesSubscriptions = await _pickupDatesSubscriptionService.GetAll(claimsPrincipal, 0, 100000, null, null, null, null, null, null, null, queryable => { return queryable; });
+            List<PickupDatesSubscription> pickupDatesSubscriptions = await _pickupDatesSubscriptionService.GetAll(claimsPrincipal, 0, 100000, null, null, null, null, null, null, null, true, false, queryable => { return queryable; });
 
             foreach (PickupDatesSubscription pickupDatesSubscription in pickupDatesSubscriptions)
             {
