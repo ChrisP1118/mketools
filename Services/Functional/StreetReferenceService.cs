@@ -25,17 +25,17 @@ namespace MkeAlerts.Web.Services.Functional
 
         public async Task<List<string>> GetAllStreetDirections(ClaimsPrincipal user)
         {
-            return await GetAllValues(user, "SELECT Dir AS Value FROM Addresses GROUP BY Dir ORDER BY Dir");
+            return await GetAllValues(user, "SELECT COALESCE(Dir, '') AS Value FROM Addresses GROUP BY Dir ORDER BY Dir");
         }
 
         public async Task<List<string>> GetAllStreetNames(ClaimsPrincipal user)
         {
-            return await GetAllValues(user, "SELECT Street AS Value FROM Addresses GROUP BY Street ORDER BY CASE WHEN PATINDEX('%[^0-9]%', Street) = 1 THEN 1 ELSE 0 END, CAST(SUBSTRING(Street, 1, PATINDEX('%[^0-9]%', Street) - 1) AS int), Street");
+            return await GetAllValues(user, "SELECT COALESCE(Street, '') AS Value FROM Addresses GROUP BY Street ORDER BY CASE WHEN PATINDEX('%[^0-9]%', Street) = 1 THEN 1 ELSE 0 END, CAST(SUBSTRING(Street, 1, PATINDEX('%[^0-9]%', Street) - 1) AS int), Street");
         }
 
         public async Task<List<string>> GetAllStreetTypes(ClaimsPrincipal user)
         {
-            return await GetAllValues(user, "SELECT StType AS Value FROM Addresses GROUP BY StType ORDER BY StType");
+            return await GetAllValues(user, "SELECT COALESCE(StType, '') AS Value FROM Addresses GROUP BY StType ORDER BY StType");
         }
 
         protected async Task<List<string>> GetAllValues(ClaimsPrincipal user, string query)

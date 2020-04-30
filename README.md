@@ -47,7 +47,7 @@ Interested in contributing? Let me know - cwilson at mkealerts.com.
 * Add routing rules to ClientApp\src\main.js
 
 ## Tools Used in this Project
-* ASP.NET Core 2.2
+* ASP.NET Core 3.1
 * Entity Framework Core
 * AutoMapper
 * FluentValidation
@@ -75,7 +75,7 @@ When running .NET stuff, be in the root folder.
 
 ## Hosting
 * https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/index?tabs=aspnetcore2x&view=aspnetcore-2.2
-* The NET Core 2.2 Hosting Bundle for Windows: https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-2.2.5-windows-hosting-bundle-installer
+* The .NET Core 3.1.3 Hosting Bundle for Windows: https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-aspnetcore-3.1.3-windows-hosting-bundle-installer
 * You may also want to turn on stdout logging in the published web.config. If you do this, be sure to create a Logs folder.
 
 

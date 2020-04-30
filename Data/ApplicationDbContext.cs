@@ -31,9 +31,9 @@ namespace MkeAlerts.Web.Data
         public DbSet<DispatchCallSubscription> DispatchCallSubscriptions { get; set; }
         public DbSet<PickupDatesSubscription> PickupDateSubscriptions { get; set; }
 
-        public DbQuery<StringReference> StreetNames { get; set; }
-        public DbQuery<StringReference> StreetDirections { get; set; }
-        public DbQuery<StringReference> StreetTypes { get; set; }
+        public DbSet<StringReference> StreetNames { get; set; }
+        public DbSet<StringReference> StreetDirections { get; set; }
+        public DbSet<StringReference> StreetTypes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -152,6 +152,10 @@ namespace MkeAlerts.Web.Data
                 .HasOne(x => x.ApplicationUser)
                 .WithMany(x => x.PickupDateSubscriptions)
                 .HasForeignKey(x => x.ApplicationUserId);
+
+            modelBuilder.Entity<StringReference>()
+               .HasNoKey()
+               .ToView(null);
 
             //modelBuilder.Entity<Role>()
             //    .HasKey(x => new { x.ApplicationUserId, x.StationId });
