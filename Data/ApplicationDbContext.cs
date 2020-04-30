@@ -49,17 +49,22 @@ namespace MkeAlerts.Web.Data
 
             modelBuilder.Entity<Property>()
                 .HasMany(x => x.Addresses)
-                .WithOne(y => y.Property)
-                .IsRequired(false);
+                .WithOne(x => x.Property)
+                .HasForeignKey(x => x.TAXKEY);
+
+            //modelBuilder.Entity<Address>()
+            //    .HasOne(x => x.Property)
+            //    .WithMany()
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Entity<Address>()
+            //    .HasOne(x => x.Property)
+            //    .WithMany();
 
             //modelBuilder.Entity<Property>()
-            //    .HasOne(x => x.Parcel)
-            //    .WithOne(x => x.Property)
-            //    .IsRequired(false);
-
-            //modelBuilder.Entity<Parcel>()
-            //    .HasOne(x => x.Property)
-            //    .WithOne(x => x.Parcel)
+            //    .HasMany(x => x.Addresses)
+            //    .WithOne(y => y.Property)
+            //    .IsRequired(false)
 
             modelBuilder.Entity<Parcel>()
                 .HasOne(x => x.Property)

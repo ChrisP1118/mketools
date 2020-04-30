@@ -1,5 +1,4 @@
-﻿using GeoAPI.Geometries;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

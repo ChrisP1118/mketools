@@ -1,5 +1,4 @@
 ﻿using DotSpatial.Projections;
-using GeoAPI.Geometries;
 using MkeAlerts.Web.Models.Data;
 using NetTopologySuite.Geometries;
 using System;
@@ -29,7 +28,7 @@ namespace MkeAlerts.Web.Utilities
             return new Tuple<double, double>(xy[0], xy[1]);
         }
 
-        public static IPoint ReprojectCoordinates(ProjectionInfo source, IPoint point)
+        public static Point ReprojectCoordinates(ProjectionInfo source, Point point)
         {
             Tuple<double, double> coordinates = ReprojectCoordinates(source, point.X, point.Y);
             return new Point(coordinates.Item1, coordinates.Item2);
@@ -46,7 +45,7 @@ namespace MkeAlerts.Web.Utilities
             return retVal;
         }
 
-        public static void SetBounds(IHasBounds hasBounds, IGeometry geometry)
+        public static void SetBounds(IHasBounds hasBounds, Geometry geometry)
         {
             if (geometry?.Coordinates == null)
                 return;

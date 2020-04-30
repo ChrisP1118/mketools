@@ -1,5 +1,4 @@
-﻿using GeoAPI.Geometries;
-using NetTopologySuite.IO.Converters;
+﻿using NetTopologySuite.IO.Converters;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

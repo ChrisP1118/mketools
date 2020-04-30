@@ -1,12 +1,14 @@
 # Launch - Front-End
-* ~~Requirement: Unsubscribe link for pickup dates notifications~~
-* ~~Fix: Better use of bounds index on geographic filtering~~
 * Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)
 * Fix: Crime/List page - filters lost after clicking through to detail page
 * Improvement: Crime/police dispatch call detail pages link cross-link
 * Improvement: Properties/List - add additional table fields
+* Improvement: CommonParcels map instead of Properties?
 
 # Launch - Back-End
+* Fix: Take a look at the StringReference table that EF is creating
+* Fix: Split crime (WIBR) data into two jobs (historical and current)
+* Improvement: Change bulk import batch size (from 100 to ??)
 * Improvement: Upgrade to .NET Core 3.1
 * Improvement: Cache StreetReferences data? (Or add some indexes to speed them up?)
 * Improvement: Better error handling/logging (error alert emails)
@@ -26,7 +28,6 @@
 * Improvement: When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
 * Improvement: Update page meta tags (title, description, etc.) on route changes: https://alligator.io/vuejs/vue-router-modify-head/
 * Improvement: Crime data locations are block-based, not address-based
-* Improvement: Add AsNoTracking to EF Core queries?
 * Imporvement: Crime data import can be sped up -- regularly, only import things in last month; on a weekly basis do a full import
 * Improvement: Reset password/my profile page
 
@@ -45,6 +46,9 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Requirement: Unsubscribe link for pickup dates notifications~~
+* ~~Fix: Better use of bounds index on geographic filtering~~
+* ~~Improvement: Add AsNoTracking to EF Core queries?~~
 * ~~Epic: Add trash day alerts (import users from MkeTrashDay)~~
 * ~~Use Vuex~~
 * ~~Add page for "Crimes"~~

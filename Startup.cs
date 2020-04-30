@@ -1,6 +1,5 @@
 using MkeAlerts.Web.Data;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -43,6 +42,9 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Globalization;
 using MkeAlerts.Web.Utilities;
 using MkeAlerts.Web.Services.Data.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.SpaServices;
+using Microsoft.OpenApi.Models;
 
 namespace MkeAlerts.Web
 {
@@ -120,7 +122,7 @@ namespace MkeAlerts.Web
                     // Use camelCase in URLs and routing
                     options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
                 })
-                .AddJsonOptions(options =>
+                .AddNewtonsoftJson(options =>
                 {
                     options.SerializerSettings.Formatting = Formatting.Indented;
 
@@ -145,7 +147,7 @@ namespace MkeAlerts.Web
             // Add Swagger (via Swashbuckle)
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Milwaukee Alerts API",
                     Version = "v1",
@@ -223,23 +225,50 @@ Here are the original sources for the data exposed through this API. Additional 
 "
                 });
 
-                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    In = "header",
-                    Description = "Please insert JWT with Bearer into field",
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
                     Name = "Authorization",
-                    Type = "apiKey"
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
                 });
 
-                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    { "Bearer", new string[] { } }
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            },
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
                 });
+
+                //c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                //{
+                //    In = "header",
+                //    Description = "Please insert JWT with Bearer into field",
+                //    Name = "Authorization",
+                //    Type = "apiKey"
+                //});
+
+                //c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                //{
+                //    { "Bearer", new string[] { } }
+                //});
 
                 c.OperationFilter<ResponseHeaderOperationFilter>();
 
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MkeAlerts.Web.xml"));
             });
+            services.AddSwaggerGenNewtonsoftSupport();
 
             // In production, the VueJS files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -321,37 +350,56 @@ Here are the original sources for the data exposed through this API. Additional 
                 c.SwaggerEndpoint("v1/swagger.json", "Milwaukee Alerts API - V1");
             });
 
+            app.UseRouting();
+
             app.UseAuthentication();
+            app.UseAuthorization();
 
             // This must be before UseMVC
             app.UseMiddleware<ExceptionMiddleware>();
 
-            app.UseMvc(routes =>
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller}/{action=Index}/{id?}");
+            //});
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
+
+                // NOTE: VueCliProxy is meant for developement and hot module reload
+                // NOTE: SSR has not been tested
+                // Production systems should only need the UseSpaStaticFiles() (above)
+                // You could wrap this proxy in either
+                // if (System.Diagnostics.Debugger.IsAttached)
+                // or a preprocessor such as #if DEBUG
+                endpoints.MapToVueCliProxy(
+                    "{*path}",
+                    new SpaOptions { SourcePath = "ClientApp" },
+                    npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                    regex: "Compiled successfully",
+                    forceKill: true
+                    );
             });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
+            //app.UseSpa(spa =>
+            //{
+            //    spa.Options.SourcePath = "ClientApp";
 
-                if (env.IsDevelopment())
-                {
-                    //spa.UseReactDevelopmentServer(npmScript: "start");
+            //    if (env.IsDevelopment())
+            //    {
+            //        //spa.UseReactDevelopmentServer(npmScript: "start");
 
-                    // run npm process with client app
-                    spa.UseVueCli(npmScript: "serve", port: 5020);
-                    // if you just prefer to proxy requests from client app, use proxy to SPA dev server instead,
-                    // app should be already running before starting a .NET client:
-                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:8080"); // your Vue app port                    
-                }
-            });
+            //        // run npm process with client app
+            //        spa.UseVueCli(npmScript: "serve", port: 5020);
+            //        // if you just prefer to proxy requests from client app, use proxy to SPA dev server instead,
+            //        // app should be already running before starting a .NET client:
+            //        // spa.UseProxyToSpaDevelopmentServer("http://localhost:8080"); // your Vue app port                    
+            //    }
+            //});
 
             //dbContext.Database.EnsureCreated();
-
-            //BackgroundJob.Enqueue<ImportAddressesJob>(x => x.Run());
 
             // Run every 15 minutes
             RecurringJob.AddOrUpdate<HealthCheckJob>(x => x.Run(), "*/15 * * * *");

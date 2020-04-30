@@ -40,6 +40,13 @@ namespace MkeAlerts.Web.Jobs
 
         protected virtual bool UseBulkInsert => true;
 
+        protected int ParseInt(string value, int defaultValue = 0)
+        {
+            int n = defaultValue;
+            int.TryParse(value, out n);
+            return n;
+        }
+
         public async Task Run()
         {
             try

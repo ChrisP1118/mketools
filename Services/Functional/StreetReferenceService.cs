@@ -40,7 +40,8 @@ namespace MkeAlerts.Web.Services.Functional
 
         protected async Task<List<string>> GetAllValues(ClaimsPrincipal user, string query)
         {
-            IQueryable<StringReference> queryable = _dbContext.StreetNames.FromSql(query);
+            IQueryable<StringReference> queryable = _dbContext.StreetNames.FromSqlRaw(query);
+            //IQueryable<StringReference> queryable = _dbContext.StreetNames.FromSql(query);
 
             List<StringReference> items = await queryable.ToListAsync();
             return items.Select(i => i.Value).ToList();

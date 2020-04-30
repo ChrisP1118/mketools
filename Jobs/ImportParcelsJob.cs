@@ -1,7 +1,4 @@
 ﻿using DotSpatial.Projections;
-using GeoAPI.CoordinateSystems;
-using GeoAPI.CoordinateSystems.Transformations;
-using GeoAPI.Geometries;
 using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -187,7 +184,7 @@ namespace MkeAlerts.Web.Jobs
                             if (IsFieldValid(coll.Current.Attributes, "ParcelActi")) parcel.ParcelActi = DateTime.Parse(coll.Current.Attributes["ParcelActi"].ToString());
 
 
-                            IGeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+                            GeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
 
                             //IPoint projectedCentroid = GeographicUtilities.ReprojectCoordinates(projectionInfo, coll.Current.Geometry.Centroid);
                             //IPoint transformedCentroid = geometryFactory.CreatePoint(new Coordinate(projectedCentroid.X, projectedCentroid.Y));
@@ -202,8 +199,8 @@ namespace MkeAlerts.Web.Jobs
                             }
                             else if (coll.Current.Geometry.GeometryType == "MultiPolygon")
                             {
-                                List<IPolygon> polygons = new List<IPolygon>();
-                                foreach (IPolygon polygon in ((MultiPolygon)coll.Current.Geometry).Geometries)
+                                List<Polygon> polygons = new List<Polygon>();
+                                foreach (Polygon polygon in ((MultiPolygon)coll.Current.Geometry).Geometries)
                                 {
                                     Coordinate[] projectedCoordinates = GeographicUtilities.ReprojectCoordinates(projectionInfo, polygon.Coordinates);
                                     polygons.Add((Polygon)geometryFactory.CreatePolygon(projectedCoordinates));

@@ -10,7 +10,6 @@ using NetTopologySuite.Geometries;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Coordinate = GeoAPI.Geometries.Coordinate;
 
 namespace MkeAlerts.Web.Services.Data
 {
@@ -62,7 +61,7 @@ namespace MkeAlerts.Web.Services.Data
 
         public async Task RemoveDuplicates()
         {
-            await _dbContext.Database.ExecuteSqlCommandAsync(new RawSqlString(@"
+            await _dbContext.Database.ExecuteSqlRawAsync(@"
 declare @Dupes table (
 	OutlineString nvarchar(max),
 	OneId uniqueidentifier,
@@ -101,7 +100,47 @@ where Id in (
 	select OldId
 	from @Replacements
 	where IsOneId = 0
-)"));
+)");
+//            await _dbContext.Database.ExecuteSqlCommandAsync(new RawSqlString(@"
+//declare @Dupes table (
+//	OutlineString nvarchar(max),
+//	OneId uniqueidentifier,
+//	Count int
+//)
+
+//insert into @Dupes
+//select cast(Outline as nvarchar(max)), max(Id), count(*) as Ct
+//from CommonParcels
+//group by cast(Outline as nvarchar(max))
+//having count(*) > 1
+//order by Ct desc
+
+//declare @Replacements table (
+//	OutlineString nvarchar(max),
+//	OldId uniqueidentifier,
+//	OneId uniqueidentifier,
+//	IsOneId bit
+//)
+
+//insert into @Replacements
+//select d.OutlineString, cp.Id, d.OneId, case when cp.Id = d.OneId then 1 else 0 end as IsOneId
+//from CommonParcels cp
+//	join @Dupes d on cast(cp.Outline as nvarchar(max)) = d.OutlineString
+//order by d.OutlineString
+
+//update p
+//set p.CommonParcelId = r.OneId
+//from Parcels p
+//	join @Replacements r on p.CommonParcelId = r.OldId
+//where r.IsOneId = 0
+
+//delete
+//from CommonParcels
+//where Id in (
+//	select OldId
+//	from @Replacements
+//	where IsOneId = 0
+//)"));
         }
     }
 }

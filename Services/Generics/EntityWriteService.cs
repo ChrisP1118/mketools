@@ -1,6 +1,7 @@
 ﻿using EFCore.BulkExtensions;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
@@ -67,7 +68,10 @@ namespace MkeAlerts.Web.Services
             {
                 try
                 {
-                    await _dbContext.BulkInsertOrUpdateAsync<TDataModel>(dataModels);
+                    await _dbContext.BulkInsertOrUpdateAsync<TDataModel>(dataModels, new BulkConfig
+                    {
+                        SqlBulkCopyOptions = SqlBulkCopyOptions.Default
+                    });
                     success = dataModels;
                 }
                 catch (Exception ex)

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
@@ -22,28 +22,36 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="DotSpatial.Projections" Version="1.9.0" />
-    <PackageReference Include="EFCore.BulkExtensions" Version="2.5.2" />
-    <PackageReference Include="FlexLabs.EntityFrameworkCore.Upsert" Version="2.1.2" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0" />
-    <PackageReference Include="Hangfire" Version="1.7.6" />
+    <PackageReference Include="EFCore.BulkExtensions" Version="3.1.1" />
+    <PackageReference Include="FlexLabs.EntityFrameworkCore.Upsert" Version="3.1.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.6.2" />
+    <PackageReference Include="Hangfire" Version="1.7.11" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.23" />
     <PackageReference Include="Mailjet.Api" Version="1.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.0.18" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="2.2.6" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
-    <PackageReference Include="NetTopologySuite" Version="1.15.3" />
-    <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="1.15.5" />
-    <PackageReference Include="NetTopologySuite.IO.ShapeFile" Version="1.15.3" />
-    <PackageReference Include="NLog.Web.AspNetCore" Version="4.8.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="4.0.1" />
-    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.19" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.DynamicLinq" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite" Version="3.1.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
+    <PackageReference Include="NetTopologySuite" Version="2.0.0" />
+    <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="2.0.2" />
+    <PackageReference Include="NetTopologySuite.IO.ShapeFile" Version="2.0.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.4.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.1.0" />
     <PackageReference Include="System.Xml.ReaderWriter" Version="4.3.1" />
-    <PackageReference Include="VueCliMiddleware" Version="2.2.1" />
+    <PackageReference Include="VueCliMiddleware" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,6 +84,10 @@
     <Content Update="nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

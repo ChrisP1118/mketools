@@ -1,4 +1,4 @@
-﻿using GeoAPI.Geometries;
+﻿using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +11,7 @@ namespace MkeAlerts.Web.Models.Data.Subscriptions
     {
         public DispatchCallType DispatchCallType { get; set; }
 
-        public IPoint Point { get; set; }
+        public Point Point { get; set; }
         public int Distance { get; set; }
 
         [MaxLength(1)]

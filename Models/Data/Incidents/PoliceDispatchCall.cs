@@ -1,4 +1,4 @@
-﻿using GeoAPI.Geometries;
+﻿using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -34,7 +34,7 @@ namespace MkeAlerts.Web.Models.Data.Incidents
         public string Status { get; set; }
 
         //[Column(TypeName = "geometry")]
-        public IGeometry Geometry { get; set; }
+        public Geometry Geometry { get; set; }
 
         [Column(TypeName = "decimal(13, 10)")]
         public double MinLat { get; set; }

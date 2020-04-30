@@ -1,4 +1,4 @@
-﻿using GeoAPI.Geometries;
+﻿using NetTopologySuite.Geometries;
 using NetTopologySuite.IO.Converters;
 using Newtonsoft.Json;
 using System;
@@ -13,7 +13,7 @@ namespace MkeAlerts.Web.Models.DTO.Incidents
         public string CFS { get; set; }
 
         [JsonConverter(typeof(GeometryConverter))]
-        public IGeometry Geometry { get; set; }
+        public Geometry Geometry { get; set; }
 
         public DateTime ReportedDateTime { get; set; }
         public string Address { get; set; }

@@ -1,7 +1,6 @@
 ﻿using System;
-using GeoAPI.Geometries;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NetTopologySuite.Geometries;
 
 namespace MkeAlerts.Web.Migrations
 {
@@ -55,11 +54,11 @@ namespace MkeAlerts.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Outline = table.Column<IGeometry>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false)
+                    Outline = table.Column<Geometry>(nullable: true),
+                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,11 +70,11 @@ namespace MkeAlerts.Web.Migrations
                 columns: table => new
                 {
                     IncidentNum = table.Column<string>(maxLength: 20, nullable: false),
-                    Point = table.Column<IPoint>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    Point = table.Column<Point>(nullable: true),
+                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
                     ReportedDateTime = table.Column<DateTime>(nullable: false),
                     ReportedYear = table.Column<decimal>(nullable: false),
                     ReportedMonth = table.Column<decimal>(nullable: false),
@@ -116,11 +115,11 @@ namespace MkeAlerts.Web.Migrations
                     City = table.Column<string>(maxLength: 50, nullable: true),
                     NatureOfCall = table.Column<string>(maxLength: 40, nullable: false),
                     Disposition = table.Column<string>(maxLength: 60, nullable: true),
-                    Geometry = table.Column<IGeometry>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    Geometry = table.Column<Geometry>(nullable: true),
+                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
                     Accuracy = table.Column<int>(nullable: false),
                     Source = table.Column<int>(nullable: false)
                 },
@@ -153,11 +152,11 @@ namespace MkeAlerts.Web.Migrations
                     District = table.Column<int>(nullable: false),
                     NatureOfCall = table.Column<string>(maxLength: 20, nullable: false),
                     Status = table.Column<string>(maxLength: 60, nullable: true),
-                    Geometry = table.Column<IGeometry>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    Geometry = table.Column<Geometry>(nullable: true),
+                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
                     Accuracy = table.Column<int>(nullable: false),
                     Source = table.Column<int>(nullable: false)
                 },
@@ -202,7 +201,7 @@ namespace MkeAlerts.Web.Migrations
                     C_A_EXM_TYPE = table.Column<string>(maxLength: 3, nullable: true),
                     C_A_IMPRV = table.Column<int>(nullable: false),
                     C_A_LAND = table.Column<int>(nullable: false),
-                    C_A_SYMBOL = table.Column<string>(maxLength: 1, nullable: true),
+                    C_A_SYMBOL = table.Column<string>(maxLength: 4, nullable: true),
                     C_A_TOTAL = table.Column<int>(nullable: false),
                     CHG_NR = table.Column<string>(maxLength: 6, nullable: true),
                     CHK_DIGIT = table.Column<string>(maxLength: 1, nullable: true),
@@ -235,7 +234,7 @@ namespace MkeAlerts.Web.Migrations
                     LAST_NAME_CHG = table.Column<DateTime>(nullable: false),
                     LAST_VALUE_CHG = table.Column<DateTime>(nullable: false),
                     LOT_AREA = table.Column<int>(nullable: false),
-                    NEIGHBORHOOD = table.Column<string>(maxLength: 4, nullable: true),
+                    NEIGHBORHOOD = table.Column<string>(maxLength: 8, nullable: true),
                     NR_ROOMS = table.Column<string>(maxLength: 4, nullable: true),
                     NR_STORIES = table.Column<float>(nullable: false),
                     NR_UNITS = table.Column<int>(nullable: false),
@@ -254,7 +253,7 @@ namespace MkeAlerts.Web.Migrations
                     P_A_EXM_TYPE = table.Column<string>(maxLength: 3, nullable: true),
                     P_A_IMPRV = table.Column<int>(nullable: false),
                     P_A_LAND = table.Column<int>(nullable: false),
-                    P_A_SYMBOL = table.Column<string>(maxLength: 1, nullable: true),
+                    P_A_SYMBOL = table.Column<string>(maxLength: 4, nullable: true),
                     P_A_TOTAL = table.Column<int>(nullable: false),
                     PLAT_PAGE = table.Column<int>(nullable: false),
                     POWDER_ROOMS = table.Column<int>(nullable: false),
@@ -287,11 +286,11 @@ namespace MkeAlerts.Web.Migrations
                 columns: table => new
                 {
                     NEWDIME_ID = table.Column<string>(maxLength: 10, nullable: false),
-                    Outline = table.Column<IGeometry>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(5, 2)", nullable: false),
+                    Outline = table.Column<Geometry>(nullable: true),
+                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
                     FNODE = table.Column<int>(nullable: false),
                     TNODE = table.Column<int>(nullable: false),
                     LPOLY = table.Column<int>(nullable: false),
@@ -458,11 +457,21 @@ namespace MkeAlerts.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StringReference",
+                columns: table => new
+                {
+                    Value = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -483,7 +492,7 @@ namespace MkeAlerts.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -570,7 +579,7 @@ namespace MkeAlerts.Web.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     ApplicationUserId = table.Column<Guid>(nullable: false),
                     DispatchCallType = table.Column<int>(nullable: false),
-                    Point = table.Column<IPoint>(nullable: true),
+                    Point = table.Column<Point>(nullable: true),
                     Distance = table.Column<int>(nullable: false),
                     SDIR = table.Column<string>(maxLength: 1, nullable: true),
                     STREET = table.Column<string>(maxLength: 18, nullable: true),
@@ -602,6 +611,33 @@ namespace MkeAlerts.Web.Migrations
                     table.PrimaryKey("PK_ExternalCredentials", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ExternalCredentials_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PickupDateSubscriptions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ApplicationUserId = table.Column<Guid>(nullable: false),
+                    HoursBefore = table.Column<int>(nullable: false),
+                    NextGarbagePickupDate = table.Column<DateTime>(nullable: true),
+                    NextRecyclingPickupDate = table.Column<DateTime>(nullable: true),
+                    NextGarbagePickupNotification = table.Column<DateTime>(nullable: true),
+                    NextRecyclingPickupNotification = table.Column<DateTime>(nullable: true),
+                    LADDR = table.Column<string>(maxLength: 10, nullable: true),
+                    SDIR = table.Column<string>(maxLength: 1, nullable: true),
+                    SNAME = table.Column<string>(maxLength: 18, nullable: true),
+                    STYPE = table.Column<string>(maxLength: 2, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PickupDateSubscriptions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PickupDateSubscriptions_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -707,7 +743,7 @@ namespace MkeAlerts.Web.Migrations
                     NR_STORIES = table.Column<string>(nullable: true),
                     YearBuilt = table.Column<int>(nullable: false),
                     NumberOfFi = table.Column<int>(nullable: false),
-                    PercentAir = table.Column<int>(nullable: false),
+                    PercentAir = table.Column<float>(nullable: false),
                     NumberOfFu = table.Column<int>(nullable: false),
                     NumberOfHa = table.Column<int>(nullable: false),
                     NumberOfRo = table.Column<int>(nullable: false),
@@ -717,7 +753,7 @@ namespace MkeAlerts.Web.Migrations
                     BLDG_AREA = table.Column<float>(nullable: false),
                     ParkingTyp = table.Column<string>(nullable: true),
                     Calculated = table.Column<float>(nullable: false),
-                    Calculat_1 = table.Column<int>(nullable: false),
+                    Calculat_1 = table.Column<float>(nullable: false),
                     ParcelType = table.Column<int>(nullable: false),
                     ParcelActi = table.Column<DateTime>(nullable: false),
                     CommonParcelId = table.Column<Guid>(nullable: false)
@@ -742,12 +778,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "19aa1538-bc60-44ca-bc39-1922d4778d0f", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "7dfc2af2-df08-48e1-af40-d6187afab59f", "SiteAdmin", "SiteAdmin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "33ddb975-493a-4b58-ae7a-c52c31ce1f2a", "cwilson@mkealerts.com", true, null, null, false, null, "cwilson@mkealerts.com", "cwilson@mkealerts.com", "AQAAAAEAACcQAAAAEADtoBi7KCmV2tLC6kGm7vmXzH8KP8Lb01WGcGPhABEJFa2gRFlR/qa6EMyY8sJ5og==", null, false, "", false, "cwilson@mkealerts.com" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "6488f362-61e4-4218-97d4-beb3d1cbe643", "cwilson@mkealerts.com", true, null, null, false, null, "cwilson@mkealerts.com", "cwilson@mkealerts.com", "AQAAAAEAACcQAAAAEMP1yMgQRYqGP53J1VduKBIx+HJT1X8VVXPrNWHfdjy+yxyI6o92TyxYhJoVQfLczw==", null, false, "", false, "cwilson@mkealerts.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -844,6 +880,11 @@ namespace MkeAlerts.Web.Migrations
                 column: "CommonParcelId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PickupDateSubscriptions_ApplicationUserId",
+                table: "PickupDateSubscriptions",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PoliceDispatchCalls_ReportedDateTime",
                 table: "PoliceDispatchCalls",
                 column: "ReportedDateTime");
@@ -888,6 +929,9 @@ namespace MkeAlerts.Web.Migrations
                 name: "Parcels");
 
             migrationBuilder.DropTable(
+                name: "PickupDateSubscriptions");
+
+            migrationBuilder.DropTable(
                 name: "PoliceDispatchCalls");
 
             migrationBuilder.DropTable(
@@ -897,16 +941,19 @@ namespace MkeAlerts.Web.Migrations
                 name: "Streets");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "StringReference");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "CommonParcels");
 
             migrationBuilder.DropTable(
                 name: "Properties");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
         }
     }
 }

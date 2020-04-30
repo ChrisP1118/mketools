@@ -7,7 +7,6 @@ using MkeAlerts.Web.Models.Data.Places;
 using NetTopologySuite.Geometries;
 using System.Linq;
 using System.Threading.Tasks;
-using Coordinate = GeoAPI.Geometries.Coordinate;
 
 namespace MkeAlerts.Web.Services.Data
 {

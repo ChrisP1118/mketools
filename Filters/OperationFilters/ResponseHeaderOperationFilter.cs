@@ -1,4 +1,5 @@
-﻿using MkeAlerts.Web.Filters.Support;
+﻿using Microsoft.OpenApi.Models;
+using MkeAlerts.Web.Filters.Support;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace MkeAlerts.Web.Filters
 {
     public class ResponseHeaderOperationFilter : IOperationFilter
     {
-        public void Apply(Operation operation, OperationFilterContext context)
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             var actionAttributes = context.MethodInfo.GetCustomAttributes<SwaggerResponseHeaderAttribute>();
 
@@ -22,10 +23,14 @@ namespace MkeAlerts.Web.Filters
                 {
                     if (response.Headers == null)
                     {
-                        response.Headers = new Dictionary<string, Header>();
+                        response.Headers = new Dictionary<string, OpenApiHeader>();
                     }
 
-                    response.Headers.Add(attr.Name, new Header { Description = attr.Description, Type = attr.Type });
+                    //response.Headers.Add(attr.Name, new OpenApiHeader { Description = attr.Description, Type = attr.Type });
+                    response.Headers.Add(attr.Name, new OpenApiHeader
+                    {
+                        Description = attr.Description
+                    });
                 }
             }
         }

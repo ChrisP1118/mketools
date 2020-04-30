@@ -1,4 +1,4 @@
-﻿using GeoAPI.Geometries;
+﻿using NetTopologySuite.Geometries;
 using NetTopologySuite.IO.Converters;
 using Newtonsoft.Json;
 using System;
@@ -13,7 +13,7 @@ namespace MkeAlerts.Web.Models.DTO.Places
         public Guid Id { get; set; }
 
         [JsonConverter(typeof(GeometryConverter))]
-        public IGeometry Outline { get; set; }
+        public Geometry Outline { get; set; }
 
         public List<ParcelDTO> Parcels { get; set; }
     }

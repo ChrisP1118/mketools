@@ -1,5 +1,4 @@
-﻿using GeoAPI.Geometries;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -34,7 +33,7 @@ namespace MkeAlerts.Web.Models.Data.Places
         [MaxLength(3)] public string C_A_EXM_TYPE { get; set; }
         public int C_A_IMPRV { get; set; }
         public int C_A_LAND { get; set; }
-        [MaxLength(1)] public string C_A_SYMBOL { get; set; }
+        [MaxLength(4)] public string C_A_SYMBOL { get; set; }
         public int C_A_TOTAL { get; set; }
         [MaxLength(6)] public string CHG_NR { get; set; }
         [MaxLength(1)] public string CHK_DIGIT { get; set; }
@@ -67,7 +66,7 @@ namespace MkeAlerts.Web.Models.Data.Places
         public DateTime LAST_NAME_CHG { get; set; }
         public DateTime LAST_VALUE_CHG { get; set; }
         public int LOT_AREA { get; set; }
-        [MaxLength(4)] public string NEIGHBORHOOD { get; set; }
+        [MaxLength(8)] public string NEIGHBORHOOD { get; set; }
         [MaxLength(4)] public string NR_ROOMS { get; set; }
         public float NR_STORIES { get; set; }
         public int NR_UNITS { get; set; }
@@ -86,7 +85,7 @@ namespace MkeAlerts.Web.Models.Data.Places
         [MaxLength(3)] public string P_A_EXM_TYPE { get; set; }
         public int P_A_IMPRV { get; set; }
         public int P_A_LAND { get; set; }
-        [MaxLength(1)] public string P_A_SYMBOL { get; set; }
+        [MaxLength(4)] public string P_A_SYMBOL { get; set; }
         public int P_A_TOTAL { get; set; }
         public int PLAT_PAGE { get; set; }
         public int POWDER_ROOMS { get; set; }

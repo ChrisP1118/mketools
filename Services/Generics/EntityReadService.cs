@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using GeoAPI.Geometries;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.DynamicLinq;

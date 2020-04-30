@@ -53,7 +53,7 @@ namespace MkeAlerts.Web.Utilities
                     }
                     
                     //await streamToReadFrom.CopyToAsync(streamToWriteTo);
-                    await streamToReadFrom.CopyToWithProgressAsync(streamToWriteTo, 1048576, i =>
+                    await streamToReadFrom.CopyToWithProgressAsync(streamToWriteTo, (1048576 * 4), i =>
                     {
                         double mb = (double)i / (double)1048576;
                         logger.LogInformation("Downloaded " + mb.ToString("0.00") + " MB");

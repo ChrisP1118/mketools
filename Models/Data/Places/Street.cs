@@ -1,4 +1,4 @@
-﻿using GeoAPI.Geometries;
+﻿using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +13,7 @@ namespace MkeAlerts.Web.Models.Data.Places
         public string GetId() => this.NEWDIME_ID;
 
         //[Column(TypeName = "geometry")]
-        public IGeometry Outline { get; set; }
+        public Geometry Outline { get; set; }
 
         [Column(TypeName = "decimal(13, 10)")]
         public double MinLat { get; set; }

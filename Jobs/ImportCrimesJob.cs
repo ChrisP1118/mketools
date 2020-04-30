@@ -1,5 +1,4 @@
 ﻿using DotSpatial.Projections;
-using GeoAPI.Geometries;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -10,6 +9,7 @@ using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Services.Functional;
 using MkeAlerts.Web.Utilities;
 using NetTopologySuite;
+using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -71,10 +71,10 @@ namespace MkeAlerts.Web.Jobs
 
         protected override async Task BeforeSaveElement(Crime item)
         {
-            IGeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+            GeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
 
             Tuple<double, double> projectedCoordinates = GeographicUtilities.ReprojectCoordinates(_projectionInfo, item.RoughX, item.RoughY);
-            IPoint projectedPoint = geometryFactory.CreatePoint(new Coordinate(projectedCoordinates.Item1, projectedCoordinates.Item2));
+            Point projectedPoint = geometryFactory.CreatePoint(new Coordinate(projectedCoordinates.Item1, projectedCoordinates.Item2));
 
             item.Point = projectedPoint;
 

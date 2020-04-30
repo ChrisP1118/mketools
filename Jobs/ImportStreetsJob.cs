@@ -1,7 +1,4 @@
 ﻿using DotSpatial.Projections;
-using GeoAPI.CoordinateSystems;
-using GeoAPI.CoordinateSystems.Transformations;
-using GeoAPI.Geometries;
 using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -255,7 +252,7 @@ namespace MkeAlerts.Web.Jobs
                             street.HIGH_X = double.Parse(coll.Current.Attributes["HIGH_X"].ToString());
                             street.HIGH_Y = double.Parse(coll.Current.Attributes["HIGH_Y"].ToString());
 
-                            IGeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+                            GeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
 
                             //IPoint projectedCentroid = GeographicUtilities.ReprojectCoordinates(projectionInfo, coll.Current.Geometry.Centroid);
                             //IPoint transformedCentroid = geometryFactory.CreatePoint(new Coordinate(projectedCentroid.X, projectedCentroid.Y));

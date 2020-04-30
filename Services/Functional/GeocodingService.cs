@@ -1,5 +1,4 @@
-﻿using GeoAPI.Geometries;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
@@ -183,7 +182,7 @@ namespace MkeAlerts.Web.Services.Functional
             {
                 foreach (Street street1 in streets1)
                 {
-                    IGeometry intersection = street0.Outline.Intersection(street1.Outline);
+                    Geometry intersection = street0.Outline.Intersection(street1.Outline);
                     if (intersection != null && !intersection.IsEmpty)
                     {
                         request.Results.Geometry = intersection;

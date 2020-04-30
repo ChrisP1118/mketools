@@ -77,3 +77,8 @@ When running .NET stuff, be in the root folder.
 * https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/index?tabs=aspnetcore2x&view=aspnetcore-2.2
 * The NET Core 2.2 Hosting Bundle for Windows: https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-2.2.5-windows-hosting-bundle-installer
 * You may also want to turn on stdout logging in the published web.config. If you do this, be sure to create a Logs folder.
+
+
+# .NET Core 3.1 Upgrade Notes
+* Add EF migrations with: dotnet ef migrations add MigrationName
+* Update database with: dotnet ef database update
