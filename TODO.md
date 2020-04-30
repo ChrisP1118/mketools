@@ -6,10 +6,8 @@
 * Improvement: CommonParcels map instead of Properties?
 
 # Launch - Back-End
-* Fix: Take a look at the StringReference table that EF is creating
 * Fix: Split crime (WIBR) data into two jobs (historical and current)
 * Improvement: Change bulk import batch size (from 100 to ??)
-* Improvement: Upgrade to .NET Core 3.1
 * Improvement: Cache StreetReferences data? (Or add some indexes to speed them up?)
 * Improvement: Better error handling/logging (error alert emails)
 * Verify: Facebook, Google accounts
@@ -21,6 +19,7 @@
 * Doc: Document what's "major" and "minor"
 
 # Minor Issues
+* Fix: Automatically call script that creates dispatch types (as an EF migration?)
 * Fix: Properties View page still only shows a single property per common parcel (ideally, we'd be able to use a function when displaying an info window that could make an API call to load all properties for the common parcel)
 * Improvement: Better map icons/markers
 * Fix: "overflow-x: scroll" on filtered table container
@@ -46,6 +45,8 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Fix: Take a look at the StringReference table that EF is creating~~
+* ~~Improvement: Upgrade to .NET Core 3.1~~
 * ~~Requirement: Unsubscribe link for pickup dates notifications~~
 * ~~Fix: Better use of bounds index on geographic filtering~~
 * ~~Improvement: Add AsNoTracking to EF Core queries?~~

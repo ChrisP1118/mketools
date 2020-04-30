@@ -63,8 +63,6 @@ export default {
       axios
         .get('/api/fireDispatchCall/' + this.id)
         .then(response => {
-          console.log(response);
-
           this.fireDispatchCall = response.data;
           this.position = this.$store.getters.getGeometryPosition(this.fireDispatchCall.geometry);
 

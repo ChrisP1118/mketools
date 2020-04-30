@@ -70,8 +70,6 @@ export default {
       axios
         .get('/api/policeDispatchCall/' + this.id)
         .then(response => {
-          console.log(response);
-
           this.policeDispatchCall = response.data;
           this.position = this.$store.getters.getGeometryPosition(this.policeDispatchCall.geometry);
 
