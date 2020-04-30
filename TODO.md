@@ -1,33 +1,29 @@
-# Launch - Front-End
+# Launch
+* Doc: Document what's "major" and "minor"
+* Prep: Convert MkeTrashDay accounts
+* Improvement: Better health checks
+* Improvement: Hangfire Dashboard
+
+# Minor Issues - Front-End
 * Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)
 * Fix: Crime/List page - filters lost after clicking through to detail page
+* Fix: Properties View page still only shows a single property per common parcel (ideally, we'd be able to use a function when displaying an info window that could make an API call to load all properties for the common parcel)
+* Fix: "overflow-x: scroll" on filtered table container
+* Fix: Caching headers - why Cache-Control: no-cache?
 * Improvement: Crime/police dispatch call detail pages link cross-link
 * Improvement: Properties/List - add additional table fields
 * Improvement: CommonParcels map instead of Properties?
+* Improvement: Better map icons/markers
+* Improvement: When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
 
-# Launch - Back-End
-* Fix: Split crime (WIBR) data into two jobs (historical and current)
+# Minor Issues - Back-End
+* Verify: Facebook, Google accounts
+* Verify: Log retention policy
+* Fix: Automatically call script that creates dispatch types (as an EF migration?)
+* Improvement: Confirm email address before sending notifications?
 * Improvement: Change bulk import batch size (from 100 to ??)
 * Improvement: Cache StreetReferences data? (Or add some indexes to speed them up?)
 * Improvement: Better error handling/logging (error alert emails)
-* Verify: Facebook, Google accounts
-* Verify: Log retention policy
-* Convert MkeTrashDay accounts
-
-# Launch
-* Improvement: Confirm email address before sending notifications?
-* Doc: Document what's "major" and "minor"
-
-# Minor Issues
-* Fix: Automatically call script that creates dispatch types (as an EF migration?)
-* Fix: Properties View page still only shows a single property per common parcel (ideally, we'd be able to use a function when displaying an info window that could make an API call to load all properties for the common parcel)
-* Improvement: Better map icons/markers
-* Fix: "overflow-x: scroll" on filtered table container
-* Fix: Caching headers - why Cache-Control: no-cache?
-* Improvement: When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
-* Improvement: Update page meta tags (title, description, etc.) on route changes: https://alligator.io/vuejs/vue-router-modify-head/
-* Improvement: Crime data locations are block-based, not address-based
-* Imporvement: Crime data import can be sped up -- regularly, only import things in last month; on a weekly basis do a full import
 * Improvement: Reset password/my profile page
 
 # Backlog
@@ -45,6 +41,7 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Fix: Split crime (WIBR) data into two jobs (historical and current)~~
 * ~~Fix: Take a look at the StringReference table that EF is creating~~
 * ~~Improvement: Upgrade to .NET Core 3.1~~
 * ~~Requirement: Unsubscribe link for pickup dates notifications~~

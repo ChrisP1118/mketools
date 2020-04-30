@@ -9,6 +9,7 @@ using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Models.Data.Subscriptions;
 using MkeAlerts.Web.Models.Internal;
 using MkeAlerts.Web.Services;
+using MkeAlerts.Web.Services.Data.Interfaces;
 using MkeAlerts.Web.Services.Functional;
 using MkeAlerts.Web.Utilities;
 using System;
@@ -22,25 +23,23 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Jobs
 {
-    public class UpdateNextPickupDatesNotifications : Job
+    public class UpdateNextPickupDatesNotifications : LoggedJob
     {
-        private readonly ILogger<SendPickupDatesNotifications> _logger;
         private readonly IPickupDatesService _pickupDatesService;
         private readonly IEntityWriteService<PickupDatesSubscription, Guid> _pickupDatesSubscriptionService;
 
-        public UpdateNextPickupDatesNotifications(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, ILogger<SendPickupDatesNotifications> logger, IPickupDatesService pickupDatesService, IEntityWriteService<PickupDatesSubscription, Guid> pickupDatesSubscriptionService)
-            : base(configuration, signInManager, userManager, mailerService)
+        public UpdateNextPickupDatesNotifications(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, IJobRunService jobRunService, ILogger<UpdateNextPickupDatesNotifications> logger, IPickupDatesService pickupDatesService, IEntityWriteService<PickupDatesSubscription, Guid> pickupDatesSubscriptionService)
+            : base(configuration, signInManager, userManager, mailerService, jobRunService, logger)
         {
             _pickupDatesService = pickupDatesService;
             _pickupDatesSubscriptionService = pickupDatesSubscriptionService;
-            _logger = logger;
         }
 
-        public async Task Run()
+        protected override async Task RunInternal()
         {
             DateTime now = DateTime.Now;
 
-            _logger.LogInformation("Starting job: " + now.ToShortDateString() + " " + now.ToShortTimeString());
+            _logger.LogInformation("Job run time: " + now.ToShortDateString() + " " + now.ToShortTimeString());
 
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
@@ -75,10 +74,14 @@ namespace MkeAlerts.Web.Jobs
                     }
 
                     await _pickupDatesSubscriptionService.Update(await GetClaimsPrincipal(), pickupDatesSubscription);
+
+                    ++_successCount;
                 }
                 catch (Exception ex)
                 {
                     _logger.LogError("Error updating pickups", ex);
+
+                    ++_failureCount;
                 }
             }
         }

@@ -45,6 +45,7 @@ using MkeAlerts.Web.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.SpaServices;
 using Microsoft.OpenApi.Models;
+using MkeAlerts.Web.Models.Data.AppHealth;
 
 namespace MkeAlerts.Web
 {
@@ -302,6 +303,9 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddTransient<IEntityWriteService<DispatchCallSubscription, Guid>, DispatchCallSubscriptionService>();
             services.AddTransient<IEntityReadService<PickupDatesSubscription, Guid>, PickupDatesSubscriptionService>();
             services.AddTransient<IEntityWriteService<PickupDatesSubscription, Guid>, PickupDatesSubscriptionService>();
+            services.AddTransient<IEntityReadService<JobRun, Guid>, JobRunService>();
+            services.AddTransient<IEntityWriteService<JobRun, Guid>, JobRunService>();
+            services.AddTransient<IJobRunService, JobRunService>();
 
             services.AddTransient<IStreetReferenceService, StreetReferenceService>();
             services.AddTransient<IGeocodingService, GeocodingService>();
@@ -320,6 +324,7 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddSingleton<IValidator<Crime>, CrimeValidator>();
             services.AddSingleton<IValidator<DispatchCallSubscription>, DispatchCallSubscriptionValidator>();
             services.AddSingleton<IValidator<PickupDatesSubscription>, PickupDatesSubscriptionValidator>();
+            services.AddSingleton<IValidator<JobRun>, JobRunValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -433,6 +438,10 @@ Here are the original sources for the data exposed through this API. Additional 
 
                 // Every Tuesday at 6:00am UTC
                 RecurringJob.AddOrUpdate<ImportStreetsJob>("ImportStreetsJob", x => x.Run(), "0 6 * * TUE");
+
+                // First day of every month at 1:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
+                RecurringJob.AddOrUpdate<ImportCrimesJob>("ImportCrimesArchiveJob", x => x.Run(), "0 1 1 * *");
+
             }
         }
     }

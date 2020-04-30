@@ -10,6 +10,7 @@ using MkeAlerts.Web.Models.Data;
 using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Models.Data.Subscriptions;
+using MkeAlerts.Web.Models.Data.AppHealth;
 
 namespace MkeAlerts.Web.Data
 {
@@ -34,6 +35,8 @@ namespace MkeAlerts.Web.Data
         public DbSet<StringReference> StreetNames { get; set; }
         public DbSet<StringReference> StreetDirections { get; set; }
         public DbSet<StringReference> StreetTypes { get; set; }
+
+        public DbSet<JobRun> JobRuns { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -156,6 +159,12 @@ namespace MkeAlerts.Web.Data
             modelBuilder.Entity<StringReference>()
                .HasNoKey()
                .ToView(null);
+
+            modelBuilder.Entity<JobRun>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<JobRun>()
+                .HasIndex(x => x.StartTime);
 
             //modelBuilder.Entity<Role>()
             //    .HasKey(x => new { x.ApplicationUserId, x.StationId });

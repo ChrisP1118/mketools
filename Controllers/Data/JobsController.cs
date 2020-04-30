@@ -111,6 +111,7 @@ namespace MkeAlerts.Web.Controllers.Data
             var job3 = BackgroundJob.ContinueJobWith<ImportAddressesJob>(job2, x => x.Run());
             var job4 = BackgroundJob.ContinueJobWith<ImportStreetsJob>(job3, x => x.Run());
             var job5 = BackgroundJob.ContinueJobWith<ImportCrimesJob>(job4, x => x.Run());
+            var job6 = BackgroundJob.ContinueJobWith<ImportCrimesArchiveJob>(job5, x => x.Run());
 
             return Ok();
         }
@@ -223,6 +224,22 @@ namespace MkeAlerts.Web.Controllers.Data
         public async Task<ActionResult> ImportCrimes()
         {
             BackgroundJob.Enqueue<ImportCrimesJob>(x => x.Run());
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Imports crimes archive
+        /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
+        /// <returns></returns>
+        [HttpPost("importCrimesArchive")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ImportCrimesArchive()
+        {
+            BackgroundJob.Enqueue<ImportCrimesArchiveJob>(x => x.Run());
 
             return Ok();
         }

@@ -15,5 +15,4 @@ select count(*) from Streets
 select count(*) from Crimes
 select count(*) from PoliceDispatchCalls
 select count(*) from FireDispatchCalls
-select count(*) from StringReference
 

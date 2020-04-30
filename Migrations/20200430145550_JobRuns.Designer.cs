@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MkeAlerts.Web.Data;
 using NetTopologySuite.Geometries;
@@ -10,9 +11,10 @@ using NetTopologySuite.Geometries;
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200430145550_JobRuns")]
+    partial class JobRuns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,7 +161,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "71c40c78-0c61-43df-83e7-cb1b9e632474",
+                            ConcurrencyStamp = "1544a9f3-f3ca-4b8c-b1c2-c1721a75be67",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -243,13 +245,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0fd0740c-fce2-4b8c-b931-399f050cb151",
+                            ConcurrencyStamp = "87795195-30f9-42d4-8d71-26cd8e580baa",
                             Email = "cwilson@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "cwilson@mkealerts.com",
                             NormalizedUserName = "cwilson@mkealerts.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG6YLwdEWtIWX9wYQznyMXz5hIF7YBh8VQSKAyARIVkwSQPSv7NHbitOuaaeo2EwDg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFw2lO9JRD+ep3+v+A6lsB25ixEFmEtfk6szdCc7f8Oqhf4y+VoLd2O+Sani672BPQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -307,8 +309,6 @@ namespace MkeAlerts.Web.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("StartTime");
 
                     b.ToTable("JobRuns");
                 });
