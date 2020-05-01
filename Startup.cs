@@ -394,19 +394,23 @@ Here are the original sources for the data exposed through this API. Additional 
             {
                 endpoints.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
 
-                // NOTE: VueCliProxy is meant for developement and hot module reload
-                // NOTE: SSR has not been tested
-                // Production systems should only need the UseSpaStaticFiles() (above)
-                // You could wrap this proxy in either
-                // if (System.Diagnostics.Debugger.IsAttached)
-                // or a preprocessor such as #if DEBUG
-                endpoints.MapToVueCliProxy(
-                    "{*path}",
-                    new SpaOptions { SourcePath = "ClientApp" },
-                    npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
-                    regex: "Compiled successfully",
-                    forceKill: true
+
+                if (env.IsDevelopment())
+                {
+                    // NOTE: VueCliProxy is meant for developement and hot module reload
+                    // NOTE: SSR has not been tested
+                    // Production systems should only need the UseSpaStaticFiles() (above)
+                    // You could wrap this proxy in either
+                    // if (System.Diagnostics.Debugger.IsAttached)
+                    // or a preprocessor such as #if DEBUG
+                    endpoints.MapToVueCliProxy(
+                        "{*path}",
+                        new SpaOptions { SourcePath = "ClientApp" },
+                        npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                        regex: "Compiled successfully",
+                        forceKill: true
                     );
+                }
             });
 
             //app.UseSpa(spa =>
