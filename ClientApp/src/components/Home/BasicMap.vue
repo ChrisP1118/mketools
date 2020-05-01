@@ -184,11 +184,6 @@ export default {
   },
   mounted () {
     this.refreshMarkers();
-
-    // Refresh the map every 5 minutes
-    setTimeout(() => {
-      this.refreshMarkers();
-    }, 300000);
   }
 };
 </script>
