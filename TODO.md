@@ -2,7 +2,6 @@
 * Doc: Document what's "major" and "minor"
 * Prep: Convert MkeTrashDay accounts
 * Improvement: Better health checks
-* Improvement: Hangfire Dashboard
 
 # Minor Issues - Front-End
 * Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)
@@ -41,6 +40,8 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Improvement: Refresh map on home page periodically~~
+* ~~Improvement: Hangfire Dashboard~~
 * ~~Fix: Split crime (WIBR) data into two jobs (historical and current)~~
 * ~~Fix: Take a look at the StringReference table that EF is creating~~
 * ~~Improvement: Upgrade to .NET Core 3.1~~

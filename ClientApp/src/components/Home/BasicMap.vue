@@ -56,6 +56,11 @@ export default {
     ...mapGetters(['getPoliceDispatchCallTypeIcon', 'getFireDispatchCallTypeIcon', 'getGeometryPosition']),
   },
   methods: {
+    refreshMarkers: function () {
+      Promise.all([this.$store.dispatch("loadPoliceDispatchCallTypes"), this.$store.dispatch("loadFireDispatchCallTypes")]).then(() => {
+        this.loadMarkers();
+      });
+    },
     loadMarkers: function () {
       this.itemTypesLoaded = 0;
 
@@ -178,11 +183,12 @@ export default {
   created() {
   },
   mounted () {
+    this.refreshMarkers();
 
-    Promise.all([this.$store.dispatch("loadPoliceDispatchCallTypes"), this.$store.dispatch("loadFireDispatchCallTypes")]).then(() => {
-      this.loadMarkers();
-    });
-
+    // Refresh the map every 5 minutes
+    setTimeout(() => {
+      this.refreshMarkers();
+    }, 300000);
   }
 };
 </script>
