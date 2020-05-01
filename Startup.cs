@@ -46,6 +46,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.SpaServices;
 using Microsoft.OpenApi.Models;
 using MkeAlerts.Web.Models.Data.AppHealth;
+using Hangfire.Dashboard;
+using Hangfire.Dashboard.BasicAuthorization;
 
 namespace MkeAlerts.Web
 {
@@ -343,7 +345,26 @@ Here are the original sources for the data exposed through this API. Additional 
 
             dbContext.Database.Migrate();
 
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/hangfire", new DashboardOptions
+            {
+                Authorization = new[] { 
+                    new BasicAuthAuthorizationFilter(
+                        new BasicAuthAuthorizationFilterOptions
+                        {
+                            RequireSsl = false,
+                            SslRedirect = false,
+                            LoginCaseSensitive = true,
+                            Users = new []
+                            {
+                                new BasicAuthAuthorizationUser
+                                {
+                                    Login = Configuration["HangfireDashboardUsername"],
+                                    PasswordClear =  Configuration["HangfireDashboardPassword"]
+                                }
+                            }
+
+                        }) }
+            });
 
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
