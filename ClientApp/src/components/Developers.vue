@@ -18,11 +18,14 @@
     <h2>Data Sources</h2>
     <p>This site uses data entirely from public sources. These sources include:</p>
     <ul>
+      <li><a href="http://gis-mclio.opendata.arcgis.com/datasets/parcels-with-property-information" target="_blank">Milwaukee County MCLIO: Parcels with Property Information</a></li>
+      <li><a href="http://gis-mclio.opendata.arcgis.com/datasets/address-points" target="_blank">Milwaukee County MCLIO: Address Points</a></li>
+      <li><a href="http://gis-mclio.opendata.arcgis.com/datasets/street-centerlines" target="_blank">Milwaukee County MCLIO: Street Centerlines</a></li>
       <li><a href="https://data.milwaukee.gov/dataset/parcel-outlines" target="_blank">Milwaukee Open Data: Parcel Polygons</a></li>
-      <li><a href="https://data.milwaukee.gov/dataset/wibr" target="_blank">Milwaukee Open Data: WIBR Crime Data</a></li>
-      <li><a href="https://data.milwaukee.gov/dataset/mprop" target="_blank">Milwaukee Open Data: Master Property File</a></li>
       <li><a href="https://data.milwaukee.gov/dataset/mai" target="_blank">Milwaukee Open Data: Master Address Index</a></li>
       <li><a href="https://data.milwaukee.gov/dataset/streets" target="_blank">Milwaukee Open Data: Streets</a></li>
+      <li><a href="https://data.milwaukee.gov/dataset/wibr" target="_blank">Milwaukee Open Data: WIBR Crime Data</a></li>
+      <li><a href="https://data.milwaukee.gov/dataset/mprop" target="_blank">Milwaukee Open Data: Master Property File</a></li>
       <li><a href="https://itmdapps.milwaukee.gov/MPDCallData/index.jsp?district=All" target="_blank">Milwaukee Police Department Dispatch Calls</a></li>
       <li><a href="https://itmdapps.milwaukee.gov/MilRest/mfd/calls" target="_blank">Milwaukee Fire Department Dispatch Calls</a></li>
     </ul>

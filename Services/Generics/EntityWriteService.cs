@@ -1,15 +1,17 @@
 ﻿using EFCore.BulkExtensions;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Exceptions;
 using MkeAlerts.Web.Models.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
+using MkeAlerts.Web.Models.Data.Places;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
@@ -20,12 +22,10 @@ namespace MkeAlerts.Web.Services
     public abstract class EntityWriteService<TDataModel, TIdType> : EntityReadService<TDataModel, TIdType>, IEntityWriteService<TDataModel, TIdType>
         where TDataModel : class, IHasId<TIdType>
     {
-        //protected readonly ILogger<EntityWriteService<TDataModel, TIdType>> _logger;
         protected readonly IValidator<TDataModel> _validator;
 
         public EntityWriteService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<TDataModel> validator, ILogger<EntityWriteService<TDataModel, TIdType>> logger) : base(dbContext, userManager, logger)
         {
-            //_logger = logger;
             _validator = validator;
         }
 
@@ -51,6 +51,7 @@ namespace MkeAlerts.Web.Services
         public async Task<Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>>> BulkCreate(ClaimsPrincipal user, IList<TDataModel> dataModels, bool useBulkInsert = true)
         {
             var applicationUser = await GetApplicationUser(user);
+            List<TDataModel> validatedDataModels = new List<TDataModel>();
 
             // Throw any errors first before adding these to our context
             foreach (TDataModel dataModel in dataModels)
@@ -58,7 +59,11 @@ namespace MkeAlerts.Web.Services
                 if (!await CanCreate(applicationUser, dataModel))
                     throw new ForbiddenException();
 
-                _validator.ValidateAndThrow(dataModel);
+                var validationResults = _validator.Validate(dataModel);
+                if (validationResults.IsValid)
+                    validatedDataModels.Add(dataModel);
+                else
+                    _logger.LogWarning("Validation failed for " + dataModel.GetId() + ": " + string.Join("; ", validationResults.Errors.Select(x => x.ErrorMessage)));
             }
 
             IList<TDataModel> success = new List<TDataModel>();
@@ -68,15 +73,15 @@ namespace MkeAlerts.Web.Services
             {
                 try
                 {
-                    await _dbContext.BulkInsertOrUpdateAsync<TDataModel>(dataModels, new BulkConfig
+                    await _dbContext.BulkInsertOrUpdateAsync<TDataModel>(validatedDataModels, new BulkConfig
                     {
-                        SqlBulkCopyOptions = SqlBulkCopyOptions.Default
+                        SqlBulkCopyOptions = Microsoft.Data.SqlClient.SqlBulkCopyOptions.Default
                     });
-                    success = dataModels;
+                    success = validatedDataModels;
                 }
                 catch (Exception ex)
                 {
-                    foreach (TDataModel dataModel in dataModels)
+                    foreach (TDataModel dataModel in validatedDataModels)
                     {
                         try
                         {
@@ -95,7 +100,7 @@ namespace MkeAlerts.Web.Services
             {
                 _dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
 
-                foreach (TDataModel dataModel in dataModels)
+                foreach (TDataModel dataModel in validatedDataModels)
                 {
                     try
                     {
@@ -113,7 +118,7 @@ namespace MkeAlerts.Web.Services
                 }
             }
 
-            foreach (TDataModel dataModel in dataModels)
+            foreach (TDataModel dataModel in validatedDataModels)
                 await OnCreated(dataModel);
 
             return new Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>>(success, failure);

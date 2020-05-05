@@ -28,23 +28,6 @@ namespace MkeAlerts.Web.Utilities
             return new Tuple<double, double>(xy[0], xy[1]);
         }
 
-        public static Point ReprojectCoordinates(ProjectionInfo source, Point point)
-        {
-            Tuple<double, double> coordinates = ReprojectCoordinates(source, point.X, point.Y);
-            return new Point(coordinates.Item1, coordinates.Item2);
-        }
-
-        public static Coordinate[] ReprojectCoordinates(ProjectionInfo source, Coordinate[] coordinates)
-        {
-            Coordinate[] retVal = new Coordinate[coordinates.Length];
-            for (int i = 0; i < coordinates.Length; ++i)
-            {
-                Tuple<double, double> coordinateSet = ReprojectCoordinates(source, coordinates[i].X, coordinates[i].Y);
-                retVal[i] = new Coordinate(coordinateSet.Item1, coordinateSet.Item2);
-            }
-            return retVal;
-        }
-
         public static void SetBounds(IHasBounds hasBounds, Geometry geometry)
         {
             if (geometry?.Coordinates == null)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MkeAlerts.Web.Data;
 using NetTopologySuite.Geometries;
@@ -10,9 +11,10 @@ using NetTopologySuite.Geometries;
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200504195520_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,7 +161,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "cbb524fb-29a5-42b6-bb22-2588b768b9b0",
+                            ConcurrencyStamp = "e909918a-cd7e-430a-a755-ece85c836e1b",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -243,13 +245,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c4be5479-f0d3-4c94-bdf1-d9d7f2436a40",
+                            ConcurrencyStamp = "d5c41c9c-bb3f-4d48-852e-561181cb1963",
                             Email = "cwilson@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "cwilson@mkealerts.com",
                             NormalizedUserName = "cwilson@mkealerts.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGymhYLE87/Yr0yUjybXShOP9W71tusdM6c+4Ji4qX5Bu+HJOpQhE2z3fI5AiEv2jw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKSL1hEhkNfMHWL96Vl2GgIGahgLgmegiR/orxlRVQls/1Sz+1X8zDnRJy4D8aHSJg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -827,6 +829,18 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<string>("MUNINAME")
                         .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
+
+                    b.Property<decimal>("MaxLat")
+                        .HasColumnType("decimal(13, 10)");
+
+                    b.Property<decimal>("MaxLng")
+                        .HasColumnType("decimal(13, 10)");
+
+                    b.Property<decimal>("MinLat")
+                        .HasColumnType("decimal(13, 10)");
+
+                    b.Property<decimal>("MinLng")
+                        .HasColumnType("decimal(13, 10)");
 
                     b.Property<double>("NET_TAX")
                         .HasColumnType("float");

@@ -280,17 +280,15 @@ Here are the original sources for the data exposed through this API. Additional 
             });
 
             services.AddTransient<IEntityReadService<ApplicationUser, Guid>, ApplicationUserService>();
-            services.AddTransient<IEntityReadService<Property, string>, PropertyService>();
-            services.AddTransient<IEntityWriteService<Property, string>, PropertyService>();
             services.AddTransient<IEntityReadService<Parcel, string>, ParcelService>();
             services.AddTransient<IEntityWriteService<Parcel, string>, ParcelService>();
-            services.AddTransient<IEntityReadService<CommonParcel, Guid>, CommonParcelService>();
-            services.AddTransient<IEntityWriteService<CommonParcel, Guid>, CommonParcelService>();
+            services.AddTransient<IEntityReadService<CommonParcel, int>, CommonParcelService>();
+            services.AddTransient<IEntityWriteService<CommonParcel, int>, CommonParcelService>();
             services.AddTransient<ICommonParcelService, CommonParcelService>();
-            services.AddTransient<IEntityReadService<Address, string>, AddressService>();
-            services.AddTransient<IEntityWriteService<Address, string>, AddressService>();
-            services.AddTransient<IEntityReadService<Street, string>, StreetService>();
-            services.AddTransient<IEntityWriteService<Street, string>, StreetService>();
+            services.AddTransient<IEntityReadService<Address, int>, AddressService>();
+            services.AddTransient<IEntityWriteService<Address, int>, AddressService>();
+            services.AddTransient<IEntityReadService<Street, int>, StreetService>();
+            services.AddTransient<IEntityWriteService<Street, int>, StreetService>();
             services.AddTransient<IEntityReadService<PoliceDispatchCall, string>, PoliceDispatchCallService>();
             services.AddTransient<IEntityWriteService<PoliceDispatchCall, string>, PoliceDispatchCallService>();
             services.AddTransient<IEntityReadService<PoliceDispatchCallType, string>, PoliceDispatchCallTypeService>();
@@ -314,7 +312,6 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddTransient<IMailerService, MailjetMailerService>();
             services.AddTransient<IPickupDatesService, PickupDatesService>();
 
-            services.AddSingleton<IValidator<Property>, PropertyValidator>();
             services.AddSingleton<IValidator<Address>, AddressValidator>();
             services.AddSingleton<IValidator<Parcel>, ParcelValidator>();
             services.AddSingleton<IValidator<CommonParcel>, CommonParcelValidator>();
@@ -431,43 +428,39 @@ Here are the original sources for the data exposed through this API. Additional 
 
             //dbContext.Database.EnsureCreated();
 
-            // Run every 15 minutes
-            RecurringJob.AddOrUpdate<HealthCheckJob>(x => x.Run(), "*/15 * * * *");
+            //// Run every 15 minutes
+            //RecurringJob.AddOrUpdate<HealthCheckJob>(x => x.Run(), "*/15 * * * *");
 
-            // Run every 5 minutes
-            RecurringJob.AddOrUpdate<ImportPoliceDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
+            //// Run every 5 minutes
+            //RecurringJob.AddOrUpdate<ImportPoliceDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 
-            // Run every 5 minutes
-            RecurringJob.AddOrUpdate<ImportFireDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
+            //// Run every 5 minutes
+            //RecurringJob.AddOrUpdate<ImportFireDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 
-            // Run at 10am and 10pm
-            RecurringJob.AddOrUpdate<UpdateNextPickupDatesNotifications>(x => x.Run(), "0 10,22 * * *");
+            //// Run at 10am and 10pm
+            //RecurringJob.AddOrUpdate<UpdateNextPickupDatesNotifications>(x => x.Run(), "0 10,22 * * *");
 
-            // Run every hour
-            RecurringJob.AddOrUpdate<SendPickupDatesNotifications>(x => x.Run(), "0 * * * *");
+            //// Run every hour
+            //RecurringJob.AddOrUpdate<SendPickupDatesNotifications>(x => x.Run(), "0 * * * *");
 
-            if (!env.IsDevelopment())
-            {
-                // Every day at 6:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
-                RecurringJob.AddOrUpdate<ImportCrimesJob>("ImportCrimesJob", x => x.Run(), "0 6 * * *");
+            //if (!env.IsDevelopment())
+            //{
+            //    // Every day at 6:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
+            //    RecurringJob.AddOrUpdate<ImportCrimesJob>("ImportCrimesJob", x => x.Run(), "0 6 * * *");
 
-                // Every Saturday at 6:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/mai)
-                RecurringJob.AddOrUpdate<ImportAddressesJob>("ImportAddressesJob", x => x.Run(), "0 6 * * SAT");
+            //    // Every Saturday at 6:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/mai)
+            //    RecurringJob.AddOrUpdate<ImportAddressesJob>("ImportAddressesJob", x => x.Run(), "0 6 * * SAT");
 
-                // Every Sunday at 6:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/mprop)
-                RecurringJob.AddOrUpdate<ImportPropertiesJob>("ImportPropertiesJob", x => x.Run(), "0 6 * * SUN");
+            //    // Every Monday at 6:00am UTC
+            //    RecurringJob.AddOrUpdate<ImportParcelsJob>("ImportParcelsJob", x => x.Run(), "0 6 * * MON");
 
-                // Every Monday at 6:00am UTC
-                RecurringJob.AddOrUpdate<ImportParcelsJob>("ImportParcelsJob", x => x.Run(), "0 6 * * MON");
-                //BackgroundJob.Enqueue<ImportParcelsJob>(x => x.Run());
+            //    // Every Tuesday at 6:00am UTC
+            //    RecurringJob.AddOrUpdate<ImportStreetsJob>("ImportStreetsJob", x => x.Run(), "0 6 * * TUE");
 
-                // Every Tuesday at 6:00am UTC
-                RecurringJob.AddOrUpdate<ImportStreetsJob>("ImportStreetsJob", x => x.Run(), "0 6 * * TUE");
+            //    // First day of every month at 1:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
+            //    RecurringJob.AddOrUpdate<ImportCrimesJob>("ImportCrimesArchiveJob", x => x.Run(), "0 1 1 * *");
 
-                // First day of every month at 1:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
-                RecurringJob.AddOrUpdate<ImportCrimesJob>("ImportCrimesArchiveJob", x => x.Run(), "0 1 1 * *");
-
-            }
+            //}
         }
     }
 

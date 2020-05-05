@@ -27,7 +27,6 @@ namespace MkeAlerts.Web.Models.Data
 
             CreateMap<ApplicationUser, ApplicationUserDTO>();
 
-            CreateMap<Property, PropertyDTO>().ReverseMap();
             CreateMap<Parcel, ParcelDTO>().ReverseMap();
             CreateMap<CommonParcel, CommonParcelDTO>().ReverseMap();
             CreateMap<Address, AddressDTO>().ReverseMap();

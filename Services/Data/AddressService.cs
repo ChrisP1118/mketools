@@ -9,16 +9,15 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Services.Data
 {
-    public class AddressService : EntityWriteService<Address, string>
+    public class AddressService : EntityWriteService<Address, int>
     {
-        public AddressService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Address> validator, ILogger<EntityWriteService<Address, string>> logger) : base(dbContext, userManager, validator, logger)
+        public AddressService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Address> validator, ILogger<EntityWriteService<Address, int>> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 
-        protected override async Task<IQueryable<Address>> ApplyIdFilter(IQueryable<Address> queryable, string id)
+        protected override async Task<IQueryable<Address>> ApplyIdFilter(IQueryable<Address> queryable, int id)
         {
-            //return queryable.Where(x => x.FormattedAddress == id);
-            return queryable.Where(x => x.RCD_NBR == id);
+            return queryable.Where(x => x.ADDRESS_ID == id);
         }
 
         protected override async Task<IQueryable<Address>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<Address> queryable)

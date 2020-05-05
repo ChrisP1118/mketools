@@ -29,7 +29,6 @@ namespace MkeAlerts.Web.Controllers.Data
         protected readonly SignInManager<ApplicationUser> _signInManager;
         protected readonly UserManager<ApplicationUser> _userManager;
 
-        protected readonly ILogger<ImportPropertiesJob> _importPropertiesJobLogger;
         protected readonly ILogger<ImportParcelsJob> _importParcelsJobLogger;
         protected readonly ILogger<ImportAddressesJob> _importAddressesJobLogger;
         protected readonly ILogger<ImportStreetsJob> _importStreetsJobLogger;
@@ -37,10 +36,9 @@ namespace MkeAlerts.Web.Controllers.Data
         protected readonly ILogger<ImportFireDispatchCallsJob> _importFireDispatchCallsJobLogger;
         protected readonly ILogger<ImportCrimesJob> _importCrimesJobLogger;
 
-        protected readonly IEntityWriteService<Property, string> _propertyWriteService;
         protected readonly IEntityWriteService<Parcel, string> _parcelWriteService;
-        protected readonly IEntityWriteService<Address, string> _addressWriteService;
-        protected readonly IEntityWriteService<Street, string> _streetWriteService;
+        protected readonly IEntityWriteService<Address, int> _addressWriteService;
+        protected readonly IEntityWriteService<Street, int> _streetWriteService;
         protected readonly IEntityWriteService<PoliceDispatchCall, string> _dispatchCallWriteService;
         protected readonly IEntityWriteService<FireDispatchCall, string> _fireDispatchCallWriteService;
         protected readonly IEntityWriteService<Crime, string> _crimeWriteService;
@@ -53,7 +51,6 @@ namespace MkeAlerts.Web.Controllers.Data
             UserManager<ApplicationUser> userManager,
             IMapper mapper,
 
-            ILogger<ImportPropertiesJob> importPropertiesJobLogger,
             ILogger<ImportParcelsJob> importParcelsJobLogger,
             ILogger<ImportAddressesJob> importAddressesJobLogger,
             ILogger<ImportStreetsJob> importStreetsJobLogger,
@@ -61,10 +58,9 @@ namespace MkeAlerts.Web.Controllers.Data
             ILogger<ImportFireDispatchCallsJob> importFireDispatchCallsJobLogger,
             ILogger<ImportCrimesJob> importCrimesJobLogger,
 
-            IEntityWriteService<Property, string> propertyWriteService,
             IEntityWriteService<Parcel, string> parcelWriteService,
-            IEntityWriteService<Address, string> addressWriteService,
-            IEntityWriteService<Street, string> streetWriteService,
+            IEntityWriteService<Address, int> addressWriteService,
+            IEntityWriteService<Street, int> streetWriteService,
             IEntityWriteService<PoliceDispatchCall, string> dispatchCallWriteService,
             IEntityWriteService<FireDispatchCall, string> fireDispatchCallWriteService,
             IEntityWriteService<Crime, string> crimeWriteService,
@@ -76,7 +72,6 @@ namespace MkeAlerts.Web.Controllers.Data
             _userManager = userManager;
             _mapper = mapper;
 
-            _importPropertiesJobLogger = importPropertiesJobLogger;
             _importParcelsJobLogger = importParcelsJobLogger;
             _importAddressesJobLogger = importAddressesJobLogger;
             _importStreetsJobLogger = importStreetsJobLogger;
@@ -84,7 +79,6 @@ namespace MkeAlerts.Web.Controllers.Data
             _importFireDispatchCallsJobLogger = importFireDispatchCallsJobLogger;
             _importCrimesJobLogger = importCrimesJobLogger;
 
-            _propertyWriteService = propertyWriteService;
             _parcelWriteService = parcelWriteService;
             _addressWriteService = addressWriteService;
             _streetWriteService = streetWriteService;
@@ -106,28 +100,11 @@ namespace MkeAlerts.Web.Controllers.Data
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportBaselines()
         {
-            var job1 = BackgroundJob.Enqueue<ImportPropertiesJob>(x => x.Run());
-            var job2 = BackgroundJob.ContinueJobWith<ImportParcelsJob>(job1, x => x.Run());
-            var job3 = BackgroundJob.ContinueJobWith<ImportAddressesJob>(job2, x => x.Run());
-            var job4 = BackgroundJob.ContinueJobWith<ImportStreetsJob>(job3, x => x.Run());
-            var job5 = BackgroundJob.ContinueJobWith<ImportCrimesJob>(job4, x => x.Run());
-            var job6 = BackgroundJob.ContinueJobWith<ImportCrimesArchiveJob>(job5, x => x.Run());
-
-            return Ok();
-        }
-
-        /// <summary>
-        /// Imports properties
-        /// </summary>
-        /// <remarks>
-        /// The user making the request must be a site administrator.
-        /// </remarks>
-        /// <returns></returns>
-        [HttpPost("importProperties")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> ImportProperties()
-        {
-            BackgroundJob.Enqueue<ImportPropertiesJob>(x => x.Run());
+            var job1 = BackgroundJob.Enqueue<ImportParcelsJob>(x => x.Run());
+            var job2 = BackgroundJob.ContinueJobWith<ImportAddressesJob>(job1, x => x.Run());
+            var job3 = BackgroundJob.ContinueJobWith<ImportStreetsJob>(job2, x => x.Run());
+            var job4 = BackgroundJob.ContinueJobWith<ImportCrimesJob>(job3, x => x.Run());
+            var job5 = BackgroundJob.ContinueJobWith<ImportCrimesArchiveJob>(job4, x => x.Run());
 
             return Ok();
         }

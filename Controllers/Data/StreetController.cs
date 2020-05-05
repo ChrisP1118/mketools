@@ -6,9 +6,9 @@ using MkeAlerts.Web.Services;
 
 namespace MkeAlerts.Web.Controllers.Data
 {
-    public class StreetController : EntityReadController<Street, StreetDTO, IEntityReadService<Street, string>, string>
+    public class StreetController : EntityReadController<Street, StreetDTO, IEntityReadService<Street, int>, int>
     {
-        public StreetController(IConfiguration configuration, IMapper mapper, IEntityReadService<Street, string> service) : base(configuration, mapper, service)
+        public StreetController(IConfiguration configuration, IMapper mapper, IEntityReadService<Street, int> service) : base(configuration, mapper, service)
         {
         }
     }

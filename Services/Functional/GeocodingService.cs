@@ -238,7 +238,7 @@ namespace MkeAlerts.Web.Services.Functional
 
             if (address != null)
             {
-                request.Results.Geometry = address.Property.Parcel.CommonParcel.Outline;
+                request.Results.Geometry = address.Parcel.CommonParcel.Outline;
                 request.Results.Accuracy = GeometryAccuracy.High;
                 request.Results.Source = GeometrySource.AddressAndLocation;
 
@@ -249,7 +249,7 @@ namespace MkeAlerts.Web.Services.Functional
 
             if (address != null)
             {
-                request.Results.Geometry = address.Property.Parcel.CommonParcel.Outline;
+                request.Results.Geometry = address.Parcel.CommonParcel.Outline;
                 request.Results.Accuracy = GeometryAccuracy.Medium;
                 request.Results.Source = GeometrySource.AddressBlock;
 
@@ -271,16 +271,14 @@ namespace MkeAlerts.Web.Services.Functional
         private async Task<Address> GetAddress(AddressGeocodeRequest request)
         {
             return await _dbContext.Addresses
-                .Include(a => a.Property)
-                .ThenInclude(p => p.Parcel)
+                .Include(p => p.Parcel)
                 .ThenInclude(p => p.CommonParcel)
-                .Where(a => a.HSE_NBR == request.HouseNumber)
+                .Where(a => a.HouseNumber == request.HouseNumber)
                 .Where(a => a.DIR == request.Direction)
                 .Where(a => a.STREET == request.Street)
                 .Where(a => a.STTYPE == request.StreetType || request.StreetType == "")
-                .Where(a => a.Property != null)
-                .Where(a => a.Property.Parcel != null)
-                .Where(a => a.Property.Parcel.CommonParcel != null)
+                .Where(a => a.Parcel != null)
+                .Where(a => a.Parcel.CommonParcel != null)
                 .FirstOrDefaultAsync();
         }
 
@@ -294,21 +292,19 @@ namespace MkeAlerts.Web.Services.Functional
                 houseNumberHigh += 100;
 
             var addresses = await _dbContext.Addresses
-                .Include(a => a.Property)
-                .Include(a => a.Property.Parcel)
-                .Where(a => a.HSE_NBR >= houseNumberLow)
-                .Where(a => a.HSE_NBR < houseNumberHigh)
+                .Include(a => a.Parcel)
+                .Where(a => a.HouseNumber >= houseNumberLow)
+                .Where(a => a.HouseNumber < houseNumberHigh)
                 .Where(a => a.DIR == request.Direction)
                 .Where(a => a.STREET == request.Street)
                 .Where(a => a.STTYPE == request.StreetType || request.StreetType == "")
-                .Where(a => a.Property != null)
-                .Where(a => a.Property.Parcel != null)
+                .Where(a => a.Parcel != null)
                 .ToListAsync();
 
             if (addresses.Count() == 0)
                 return null;
 
-            return addresses.OrderBy(x => Math.Abs(x.HSE_NBR - request.HouseNumber)).First();
+            return addresses.OrderBy(x => Math.Abs(x.HouseNumber - request.HouseNumber)).First();
         }
 
         public async Task<ReverseGeocodeResults> ReverseGeocode(double latitude, double longitude)
@@ -332,7 +328,6 @@ namespace MkeAlerts.Web.Services.Functional
 
             CommonParcel commonParcel = await _dbContext.CommonParcels
                 .Include(p => p.Parcels)
-                .ThenInclude(p => p.Property)
                 .Where(p => p.Parcels != null)
                 .Where(x =>
                     (x.MinLat <= northBound && x.MaxLat >= northBound) ||

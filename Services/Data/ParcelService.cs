@@ -18,7 +18,7 @@ namespace MkeAlerts.Web.Services.Data
 
         protected override async Task<IQueryable<Parcel>> ApplyIdFilter(IQueryable<Parcel> queryable, string id)
         {
-            return queryable.Where(x => x.Taxkey == id);
+            return queryable.Where(x => x.TAXKEY == id);
         }
 
         protected override async Task<IQueryable<Parcel>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<Parcel> queryable)
