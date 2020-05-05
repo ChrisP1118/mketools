@@ -100,11 +100,28 @@ namespace MkeAlerts.Web.Controllers.Data
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> ImportBaselines()
         {
-            var job1 = BackgroundJob.Enqueue<ImportParcelsJob>(x => x.Run());
-            var job2 = BackgroundJob.ContinueJobWith<ImportAddressesJob>(job1, x => x.Run());
-            var job3 = BackgroundJob.ContinueJobWith<ImportStreetsJob>(job2, x => x.Run());
-            var job4 = BackgroundJob.ContinueJobWith<ImportCrimesJob>(job3, x => x.Run());
-            var job5 = BackgroundJob.ContinueJobWith<ImportCrimesArchiveJob>(job4, x => x.Run());
+            var job1 = BackgroundJob.Enqueue<ImportCommonParcelsJob>(x => x.Run());
+            var job2 = BackgroundJob.ContinueJobWith<ImportParcelsJob>(job1, x => x.Run());
+            var job3 = BackgroundJob.ContinueJobWith<ImportAddressesJob>(job2, x => x.Run());
+            var job4 = BackgroundJob.ContinueJobWith<ImportStreetsJob>(job3, x => x.Run());
+            //var job5 = BackgroundJob.ContinueJobWith<ImportCrimesJob>(job4, x => x.Run());
+            //var job6 = BackgroundJob.ContinueJobWith<ImportCrimesArchiveJob>(job5, x => x.Run());
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Imports common parcels
+        /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
+        /// <returns></returns>
+        [HttpPost("importCommonParcels")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ImportCommonParcels()
+        {
+            BackgroundJob.Enqueue<ImportCommonParcelsJob>(x => x.Run());
 
             return Ok();
         }

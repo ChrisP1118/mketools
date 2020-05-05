@@ -33,7 +33,7 @@ using Parcel = MkeAlerts.Web.Models.Data.Places.Parcel;
 namespace MkeAlerts.Web.Jobs
 {
     public abstract class ImportShapefileJob<TDataModel, TIdType> : LoggedJob
-        where TDataModel : class, IHasId<TIdType>, IHasBounds, new()
+        where TDataModel : class, IHasId<TIdType>, new()
     {
         private readonly IEntityWriteService<TDataModel, TIdType> _writeService;
         private const int _batchSize = 100;

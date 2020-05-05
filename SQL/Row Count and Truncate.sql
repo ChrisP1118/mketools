@@ -1,15 +1,18 @@
 /*
+--delete from Addresses
 --delete from Parcels
 --delete from CommonParcels
 
-delete from Addresses
-delete from Streets
+--delete from Streets
 
-truncate table Crimes
+--truncate table Crimes
 */
 
-select count(*) from Parcels
+-- 257950
 select count(*) from CommonParcels
+-- 278925
+select count(*) from Parcels
+-- 452432
 select count(*) from Addresses
 select count(*) from Streets
 select count(*) from Crimes

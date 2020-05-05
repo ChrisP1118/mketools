@@ -66,8 +66,11 @@ namespace MkeAlerts.Web.Services
                     _logger.LogWarning("Validation failed for " + dataModel.GetId() + ": " + string.Join("; ", validationResults.Errors.Select(x => x.ErrorMessage)));
             }
 
-            IList<TDataModel> success = new List<TDataModel>();
-            IList<TDataModel> failure = new List<TDataModel>();
+            // Remove duplicates (based on GetId)
+            validatedDataModels = validatedDataModels.GroupBy(x => x.GetId()).Select(x => x.First()).ToList();
+
+            List<TDataModel> success = new List<TDataModel>();
+            List<TDataModel> failure = new List<TDataModel>();
 
             if (useBulkInsert)
             {
@@ -100,22 +103,51 @@ namespace MkeAlerts.Web.Services
             {
                 _dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
 
-                foreach (TDataModel dataModel in validatedDataModels)
+                try
                 {
-                    try
+                    await _dbContext
+                        .Set<TDataModel>()
+                        .UpsertRange(validatedDataModels)
+                        .RunAsync();
+
+                    success.AddRange(validatedDataModels);
+                }
+                catch (Exception ex)
+                {
+                    foreach (TDataModel dataModel in validatedDataModels)
                     {
-                        await _dbContext
-                            .Set<TDataModel>()
-                            .Upsert(dataModel)
-                            .RunAsync();
-                        success.Add(dataModel);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Error upserting item");
-                        failure.Add(dataModel);
+                        try
+                        {
+                            await _dbContext
+                                .Set<TDataModel>()
+                                .Upsert(dataModel)
+                                .RunAsync();
+                            success.Add(dataModel);
+                        }
+                        catch (Exception ex2)
+                        {
+                            _logger.LogError(ex2, "Error upserting item: " + dataModel.GetId());
+                            failure.Add(dataModel);
+                        }
                     }
                 }
+
+                //foreach (TDataModel dataModel in validatedDataModels)
+                //{
+                //    try
+                //    {
+                //        await _dbContext
+                //            .Set<TDataModel>()
+                //            .Upsert(dataModel)
+                //            .RunAsync();
+                //        success.Add(dataModel);
+                //    }
+                //    catch (Exception ex)
+                //    {
+                //        _logger.LogError(ex, "Error upserting item");
+                //        failure.Add(dataModel);
+                //    }
+                //}
             }
 
             foreach (TDataModel dataModel in validatedDataModels)

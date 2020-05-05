@@ -46,36 +46,54 @@ namespace MkeAlerts.Web.Utilities
                     }
                 }
                 else if (typeof(Geometry).IsAssignableFrom(propertyInfo.PropertyType))
-                //else if (propertyInfo.PropertyType.IsAssignableFrom(typeof(Geometry)))
                 {
-                    GeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
                     Geometry transformedGeometry = null;
 
-                    if (source.Geometry.GeometryType == "Polygon")
+                    if (source.Geometry.SRID == 0)
                     {
-                        transformedGeometry = geometryFactory.CreatePolygon(source.Geometry.Coordinates);
+                        transformedGeometry = source.Geometry;
+                        transformedGeometry.SRID = 4326;
                     }
-                    else if (source.Geometry.GeometryType == "MultiPolygon")
+                    else
                     {
-                        List<Polygon> polygons = new List<Polygon>();
-                        foreach (Polygon polygon in ((MultiPolygon)source.Geometry).Geometries)
+                        GeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+
+                        if (source.Geometry.GeometryType == "Polygon")
                         {
-                            polygons.Add((Polygon)geometryFactory.CreatePolygon(polygon.Coordinates));
+                            transformedGeometry = geometryFactory.CreatePolygon(source.Geometry.Coordinates);
                         }
-                        transformedGeometry = geometryFactory.CreateMultiPolygon(polygons.ToArray());
-                    }
-                    else if (source.Geometry.GeometryType == "LineString")
-                    {
-                        transformedGeometry = geometryFactory.CreateLineString(source.Geometry.Coordinates);
-                    }
-                    else if (source.Geometry.GeometryType == "Point")
-                    {
-                        transformedGeometry = geometryFactory.CreatePoint(source.Geometry.Coordinate);
+                        else if (source.Geometry.GeometryType == "MultiPolygon")
+                        {
+                            List<Polygon> polygons = new List<Polygon>();
+                            foreach (Polygon polygon in ((MultiPolygon)source.Geometry).Geometries)
+                            {
+                                polygons.Add((Polygon)geometryFactory.CreatePolygon(polygon.Coordinates));
+                            }
+                            transformedGeometry = geometryFactory.CreateMultiPolygon(polygons.ToArray());
+                        }
+                        else if (source.Geometry.GeometryType == "LineString")
+                        {
+                            transformedGeometry = geometryFactory.CreateLineString(source.Geometry.Coordinates);
+                        }
+                        else if (source.Geometry.GeometryType == "Point")
+                        {
+                            transformedGeometry = geometryFactory.CreatePoint(source.Geometry.Coordinate);
+                        }
                     }
 
                     // https://gis.stackexchange.com/questions/289545/using-sqlgeometry-makevalid-to-get-a-counter-clockwise-polygon-in-sql-server
                     if (transformedGeometry != null && transformedGeometry is Polygon && !((Polygon)transformedGeometry).Shell.IsCCW)
                         transformedGeometry = (Polygon)transformedGeometry.Reverse();
+                    if (transformedGeometry != null && transformedGeometry is MultiPolygon)
+                    {
+                        MultiPolygon multiPolygon = (MultiPolygon)transformedGeometry;
+                        Geometry[] geometries = multiPolygon.Geometries.Select(x =>
+                            x is Polygon && !((Polygon)x).Shell.IsCCW ? ((Polygon)x).Reverse() : x
+                        ).ToArray();
+
+                        for (int j = 0; j < multiPolygon.Geometries.Length; ++j)
+                            multiPolygon.Geometries[j] = geometries[j];
+                    }
 
                     if (transformedGeometry == null)
                     {
