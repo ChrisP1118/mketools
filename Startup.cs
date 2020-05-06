@@ -403,7 +403,7 @@ Here are the original sources for the data exposed through this API. Additional 
                     endpoints.MapToVueCliProxy(
                         "{*path}",
                         new SpaOptions { SourcePath = "ClientApp" },
-                        npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
+                        //npmScript: (System.Diagnostics.Debugger.IsAttached) ? "serve" : null,
                         regex: "Compiled successfully",
                         forceKill: true
                     );
