@@ -80,11 +80,11 @@ export default {
       this.$store.dispatch('getAddressFromCoordinates', {
         lat: this.lat, 
         lng: this.lng
-      }).then(property => {
-        this.number = property.house_nr_lo;
-        this.streetDirection = property.sdir;
-        this.streetName = property.street;
-        this.streetType = property.sttype;
+      }).then(parcel => {
+        this.number = parcel.houseNumber;
+        this.streetDirection = parcel.streetdir;
+        this.streetName = parcel.streetname;
+        this.streetType = parcel.streettype;
 
         this.emitAddressData();
         this.emitLocationData();

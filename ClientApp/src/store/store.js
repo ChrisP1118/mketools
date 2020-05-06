@@ -110,7 +110,7 @@ export const store = new Vuex.Store({
       let cachedItem = state.geocode.cache.find(x => x.position.lat == params.position.lat && x.position.lng == params.position.lng);
 
       cachedItem.state = STATE_LOADED;
-      cachedItem.property = params.property;
+      cachedItem.address = params.address;
       cachedItem.resolves = [];
       cachedItem.rejects = [];
     }
@@ -217,12 +217,12 @@ export const store = new Vuex.Store({
           .get('/api/geocoding/fromCoordinates?latitude=' + position.lat + '&longitude=' + position.lng)
           .then(response => {
               cachedItem.resolves.forEach(r => {
-                r(response.data.commonParcel.parcels[0].property);
+                r(response.data.commonParcel.parcels[0]);
               });
 
               context.commit('UPDATE_GEOCODE_CACHE_ITEM', {
                 position: position,
-                property: response.data.commonParcel.parcels[0].property
+                parcel: response.data.commonParcel.parcels[0]
               });
             })
           .catch(error => {
@@ -232,7 +232,7 @@ export const store = new Vuex.Store({
 
             context.commit('UPDATE_GEOCODE_CACHE_ITEM', {
               position: position,
-              property: null
+              parcel: null
             });
           });
         });

@@ -8392,3 +8392,55 @@
 2020-05-05 22:51:39.5793 Info Adding target FileTarget(Name=Web)
 2020-05-05 22:51:39.5793 Info Adding target FileTarget(Name=Misc)
 2020-05-05 22:51:39.6977 Info Found 105 configuration items
+2020-05-05 22:59:49.3197 Info Message Template Auto Format enabled
+2020-05-05 22:59:49.3467 Info Loading assembly: NLog.Web.AspNetCore
+2020-05-05 22:59:49.4497 Info Adding target FileTarget(Name=EF)
+2020-05-05 22:59:49.4497 Info Adding target FileTarget(Name=Hangfire)
+2020-05-05 22:59:49.4497 Info Adding target FileTarget(Name=MkeAlerts)
+2020-05-05 22:59:49.4497 Info Adding target FileTarget(Name=Web)
+2020-05-05 22:59:49.4497 Info Adding target FileTarget(Name=Misc)
+2020-05-05 22:59:49.4919 Info Found 105 configuration items
+2020-05-05 22:59:49.5069 Info Configuration initialized.
+2020-05-05 22:59:49.5069 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.6.8.10751. Product version: 4.6.8.
+2020-05-05 23:00:03.4728 Info AppDomain Shutting down. Logger closing...
+2020-05-05 23:00:03.4943 Info Logger has been shut down.
+2020-05-05 23:01:08.0732 Info Message Template Auto Format enabled
+2020-05-05 23:01:08.1237 Info Loading assembly: NLog.Web.AspNetCore
+2020-05-05 23:01:08.3452 Info Adding target FileTarget(Name=EF)
+2020-05-05 23:01:08.3584 Info Adding target FileTarget(Name=Hangfire)
+2020-05-05 23:01:08.3732 Info Adding target FileTarget(Name=MkeAlerts)
+2020-05-05 23:01:08.4026 Info Adding target FileTarget(Name=Web)
+2020-05-05 23:01:08.4026 Info Adding target FileTarget(Name=Misc)
+2020-05-05 23:01:08.5588 Info Found 105 configuration items
+2020-05-06 00:00:00.1916 Info FileTarget(Name=MkeAlerts): Archiving M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp3.1\logs\MkeAlerts-2020-05-05.log to M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp3.1\logs\MkeAlerts-2020-05-05.0.log
+2020-05-06 00:00:05.6611 Info FileTarget(Name=Misc): Archiving M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp3.1\logs\Misc-2020-05-05.log to M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp3.1\logs\Misc-2020-05-05.0.log
+2020-05-06 00:00:06.0147 Info FileTarget(Name=EF): Archiving M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp3.1\logs\EF-2020-05-05.log to M:\My Documents\GitHub\mkealerts\bin\Debug\netcoreapp3.1\logs\EF-2020-05-05.0.log
+2020-05-06 09:37:08.9097 Info Message Template Auto Format enabled
+2020-05-06 09:37:08.9257 Info Loading assembly: NLog.Web.AspNetCore
+2020-05-06 09:37:08.9893 Info Adding target FileTarget(Name=EF)
+2020-05-06 09:37:08.9893 Info Adding target FileTarget(Name=Hangfire)
+2020-05-06 09:37:09.0026 Info Adding target FileTarget(Name=MkeAlerts)
+2020-05-06 09:37:09.0026 Info Adding target FileTarget(Name=Web)
+2020-05-06 09:37:09.0170 Info Adding target FileTarget(Name=Misc)
+2020-05-06 09:37:09.0548 Info Found 105 configuration items
+2020-05-06 11:30:02.2220 Info Shutdown() called. Logger closing...
+2020-05-06 11:30:02.2320 Info Closing old configuration.
+2020-05-06 11:30:02.2599 Info Logger has been closed down.
+2020-05-06 11:30:02.2732 Info AppDomain Shutting down. Logger closing...
+2020-05-06 11:30:02.2858 Info Logger has been shut down.
+2020-05-06 11:30:34.8287 Info Message Template Auto Format enabled
+2020-05-06 11:30:34.9542 Info Loading assembly: NLog.Web.AspNetCore
+2020-05-06 11:30:38.3711 Info Adding target FileTarget(Name=EF)
+2020-05-06 11:30:38.3889 Info Adding target FileTarget(Name=Hangfire)
+2020-05-06 11:30:38.4081 Info Adding target FileTarget(Name=MkeAlerts)
+2020-05-06 11:30:38.4664 Info Adding target FileTarget(Name=Web)
+2020-05-06 11:30:38.5036 Info Adding target FileTarget(Name=Misc)
+2020-05-06 11:30:38.7372 Info Found 105 configuration items
+2020-05-06 11:34:56.5538 Info Message Template Auto Format enabled
+2020-05-06 11:34:56.5993 Info Loading assembly: NLog.Web.AspNetCore
+2020-05-06 11:34:56.8558 Info Adding target FileTarget(Name=EF)
+2020-05-06 11:34:56.8558 Info Adding target FileTarget(Name=Hangfire)
+2020-05-06 11:34:56.8783 Info Adding target FileTarget(Name=MkeAlerts)
+2020-05-06 11:34:56.9055 Info Adding target FileTarget(Name=Web)
+2020-05-06 11:34:56.9055 Info Adding target FileTarget(Name=Misc)
+2020-05-06 11:34:56.9982 Info Found 105 configuration items

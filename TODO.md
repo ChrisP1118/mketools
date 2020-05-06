@@ -6,6 +6,7 @@
 * GeocodeItemsJob
   * Save geocoded items
   * Better batching (don't want the entire job on a single EF content)
+* Geocoding: Should we limit results to Milwaukee? Or add a way of specifying a municipality?
 * MCLIO Datasets
   * Download automatically?
   * Schedule
