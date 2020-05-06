@@ -127,7 +127,7 @@ export const store = new Vuex.Store({
         commit('SET_STREET_REFERENCES_LOAD_STATE', STATE_LOADING);
 
         axios
-          .get('/api/streetReference')
+          .get('/api/streetReference?municipality=Milwaukee')
           .then(response => {
             commit(
               'LOAD_STREET_REFERENCES',

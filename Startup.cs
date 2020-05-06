@@ -431,11 +431,11 @@ Here are the original sources for the data exposed through this API. Additional 
             //// Run every 15 minutes
             //RecurringJob.AddOrUpdate<HealthCheckJob>(x => x.Run(), "*/15 * * * *");
 
-            //// Run every 5 minutes
-            //RecurringJob.AddOrUpdate<ImportPoliceDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
+            // Run every 5 minutes
+            RecurringJob.AddOrUpdate<ImportPoliceDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 
-            //// Run every 5 minutes
-            //RecurringJob.AddOrUpdate<ImportFireDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
+            // Run every 5 minutes
+            RecurringJob.AddOrUpdate<ImportFireDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 
             //// Run at 10am and 10pm
             //RecurringJob.AddOrUpdate<UpdateNextPickupDatesNotifications>(x => x.Run(), "0 10,22 * * *");

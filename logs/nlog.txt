@@ -8360,3 +8360,35 @@
 2020-05-05 15:38:04.0667 Info Adding target FileTarget(Name=Web)
 2020-05-05 15:38:04.0841 Info Adding target FileTarget(Name=Misc)
 2020-05-05 15:38:04.2392 Info Found 105 configuration items
+2020-05-05 22:16:47.0033 Info Message Template Auto Format enabled
+2020-05-05 22:16:47.0471 Info Loading assembly: NLog.Web.AspNetCore
+2020-05-05 22:16:47.1995 Info Adding target FileTarget(Name=EF)
+2020-05-05 22:16:47.1995 Info Adding target FileTarget(Name=Hangfire)
+2020-05-05 22:16:47.2184 Info Adding target FileTarget(Name=MkeAlerts)
+2020-05-05 22:16:47.2390 Info Adding target FileTarget(Name=Web)
+2020-05-05 22:16:47.2467 Info Adding target FileTarget(Name=Misc)
+2020-05-05 22:16:47.3079 Info Found 105 configuration items
+2020-05-05 22:32:55.5281 Info Message Template Auto Format enabled
+2020-05-05 22:32:55.5764 Info Loading assembly: NLog.Web.AspNetCore
+2020-05-05 22:32:55.7205 Info Adding target FileTarget(Name=EF)
+2020-05-05 22:32:55.7205 Info Adding target FileTarget(Name=Hangfire)
+2020-05-05 22:32:55.7395 Info Adding target FileTarget(Name=MkeAlerts)
+2020-05-05 22:32:55.7653 Info Adding target FileTarget(Name=Web)
+2020-05-05 22:32:55.7653 Info Adding target FileTarget(Name=Misc)
+2020-05-05 22:32:55.8589 Info Found 105 configuration items
+2020-05-05 22:39:51.2077 Info Message Template Auto Format enabled
+2020-05-05 22:39:51.2629 Info Loading assembly: NLog.Web.AspNetCore
+2020-05-05 22:39:51.4397 Info Adding target FileTarget(Name=EF)
+2020-05-05 22:39:51.4501 Info Adding target FileTarget(Name=Hangfire)
+2020-05-05 22:39:51.4501 Info Adding target FileTarget(Name=MkeAlerts)
+2020-05-05 22:39:51.4837 Info Adding target FileTarget(Name=Web)
+2020-05-05 22:39:51.4837 Info Adding target FileTarget(Name=Misc)
+2020-05-05 22:39:51.5830 Info Found 105 configuration items
+2020-05-05 22:51:39.3121 Info Message Template Auto Format enabled
+2020-05-05 22:51:39.3519 Info Loading assembly: NLog.Web.AspNetCore
+2020-05-05 22:51:39.5322 Info Adding target FileTarget(Name=EF)
+2020-05-05 22:51:39.5432 Info Adding target FileTarget(Name=Hangfire)
+2020-05-05 22:51:39.5432 Info Adding target FileTarget(Name=MkeAlerts)
+2020-05-05 22:51:39.5793 Info Adding target FileTarget(Name=Web)
+2020-05-05 22:51:39.5793 Info Adding target FileTarget(Name=Misc)
+2020-05-05 22:51:39.6977 Info Found 105 configuration items

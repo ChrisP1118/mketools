@@ -1,4 +1,15 @@
 # Launch
+* ImportCrimesJob
+  * Can we get rid of the projection and DotSpatial?
+  * Should we re-geocode these?
+  * Remove projection (.prj) file from project
+* GeocodeItemsJob
+  * Save geocoded items
+  * Better batching (don't want the entire job on a single EF content)
+* MCLIO Datasets
+  * Download automatically?
+  * Schedule
+* Import MPROP data (and override MCLIO parcels as needed)
 * Doc: Document what's "major" and "minor"
 * Prep: Convert MkeTrashDay accounts
 * Improvement: Better health checks
