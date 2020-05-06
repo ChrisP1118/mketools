@@ -345,3 +345,7 @@ DataSources/*/
 ClientApp/dist/*
 appsettings.Development.json
 appsettings.Production.json
+SQL/Data/FireDispatchCalls.sql
+SQL/Data/PoliceDispatchCalls.sql
+logs/nlog.txt
+logs/nlog.txt

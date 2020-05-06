@@ -175,15 +175,15 @@ namespace MkeAlerts.Web.Controllers.Data
         }
 
         /// <summary>
-        /// Imports dispatch calls
+        /// Imports police dispatch calls
         /// </summary>
         /// <remarks>
         /// The user making the request must be a site administrator.
         /// </remarks>
         /// <returns></returns>
-        [HttpPost("importDispatchCalls")]
+        [HttpPost("importPoliceDispatchCalls")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> ImportDispatchCalls()
+        public async Task<ActionResult> ImportPoliceDispatchCalls()
         {
             BackgroundJob.Enqueue<ImportPoliceDispatchCallsJob>(x => x.Run());
 
@@ -202,6 +202,22 @@ namespace MkeAlerts.Web.Controllers.Data
         public async Task<ActionResult> ImportFireDispatchCalls()
         {
             BackgroundJob.Enqueue<ImportFireDispatchCallsJob>(x => x.Run());
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Geocodes police dispatch calls
+        /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
+        /// <returns></returns>
+        [HttpPost("geocodePoliceDispatchCalls")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> GeocodePoliceDispatchCalls()
+        {
+            BackgroundJob.Enqueue<GeocodePoliceDispatchCallsJob>(x => x.Run());
 
             return Ok();
         }

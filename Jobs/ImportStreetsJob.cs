@@ -39,6 +39,11 @@ namespace MkeAlerts.Web.Jobs
             if (target.CLINEID == 0)
                 return false;
 
+            target.LeftNumberLow = ParsingUtilities.ParseInt(target.LEFTFR, 0, true);
+            target.LeftNumberHigh = ParsingUtilities.ParseInt(target.LEFTTO, 0, true);
+            target.RightNumberLow = ParsingUtilities.ParseInt(target.RIGHTFR, 0, true);
+            target.RightNumberHigh = ParsingUtilities.ParseInt(target.RIGHTTO, 0, true);
+
             return true;
         }
     }

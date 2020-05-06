@@ -22,6 +22,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Jobs
@@ -38,6 +39,10 @@ namespace MkeAlerts.Web.Jobs
         {
             if (target.ADDRESS_ID == 0)
                 return false;
+
+            int x = 0;
+            int.TryParse(source.Attributes["HOUSENO"].ToString(), out x);
+            target.HouseNumber = x;
 
             return true;
         }

@@ -14,6 +14,9 @@ namespace MkeAlerts.Web.Models.DTO.Places
 
         public List<AddressDTO> Addresses { get; set; }
 
+        public int HouseNumber { get; set; }
+        public int HouseNumberHigh { get; set; }
+
         public int OBJECTID { get; set; }
         public int MAP_ID { get; set; }
         [MaxLength(10)] public string TAXKEY { get; set; }

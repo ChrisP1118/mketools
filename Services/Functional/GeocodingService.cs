@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Location = MkeAlerts.Web.Models.Data.Places.Parcel;
+//using Location = MkeAlerts.Web.Models.Data.Places.Parcel;
 
 namespace MkeAlerts.Web.Services.Functional
 {
@@ -23,24 +23,33 @@ namespace MkeAlerts.Web.Services.Functional
         protected readonly ILogger<GeocodingService> _logger;
 
         protected Dictionary<string, string> _suffixes = new Dictionary<string, string>() {
-            { "TR", "TR" },
-            { "AV", "AV" },
-            { "RD", "RD" },
-            { "CR", "CR" },
-            { "WA", "WA" },
+            { "AV", "AVE" },
+            { "AVE", "AVE" },
+            { "BL", "BLVD" },
+            { "BLVD", "BLVD" },
+            { "CR", "CIR" },
+            { "CIR", "CIR" },
             { "CT", "CT" },
-            { "LA", "LA" },
-            { "PK", "PK" },
-            { "ST", "ST" },
             { "DR", "DR" },
+            { "FWY", "FWY" },
+            { "LA", "LN" },
+            { "LN", "LN" },
+            { "LOOP", "LOOP" },
+            { "PASS", "PASS" },
+            { "PK", "PKWY" },
+            { "PKWY", "PKWY" },
             { "PL", "PL" },
-            { "BL", "BL" },
-            { "AVE", "AV" },
-            { "BLVD", "BL" },
-            { "CIR", "CR" },
-            { "PKWY", "PK" },
-            { "TER", "TR" },
-            { "WAY", "WA" }
+            { "RD", "RD" },
+            { "RDGE", "RDGE" },
+            { "ROW", "ROW" },
+            { "RUN", "RUN" },
+            { "SQ", "SQ" },
+            { "ST", "ST" },
+            { "TER", "TER" },
+            { "TR", "TER" },
+            { "TRL", "TRL" },
+            { "WA", "WAY" },
+            { "WAY", "WAY" }
         };
 
         public GeocodingService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, ILogger<GeocodingService> logger)
@@ -111,8 +120,10 @@ namespace MkeAlerts.Web.Services.Functional
             try
             {
                 string modValue = value.Trim();
-                if (modValue.EndsWith(",MKE"))
-                    modValue = modValue.Substring(0, modValue.Length - 4);
+                if (modValue.LastIndexOf(",") > 0)
+                    modValue = modValue.Substring(0, modValue.LastIndexOf(","));
+                //if (modValue.EndsWith(",MKE"))
+                //    modValue = modValue.Substring(0, modValue.Length - 4);
 
                 modValue = modValue.ToUpper();
 
@@ -224,7 +235,10 @@ namespace MkeAlerts.Web.Services.Functional
             string houseNumberString = parts[0];
 
             // Sometimes a block is indicated, like "2300-BLK N 54TH ST,MKE"
-            houseNumberString = houseNumberString.Replace("-BLK", "");
+            if (houseNumberString.IndexOf("-") > 0)
+                houseNumberString = houseNumberString.Substring(0, houseNumberString.IndexOf("-"));
+            //houseNumberString = houseNumberString.Replace("-BLK", "");
+            //houseNumberString = houseNumberString.Replace("-BLOCK", "");
             request.HouseNumber = int.Parse(houseNumberString);
             request.Direction = parts[1];
             request.Street = string.Join(' ', parts, 2, parts.Length - (request.StreetType == "" ? 2 : 3));
@@ -234,24 +248,57 @@ namespace MkeAlerts.Web.Services.Functional
             if (request.StreetType.EndsWith("."))
                 request.Street = request.StreetType.Substring(0, request.Direction.Length - 1);
 
+            // Query for an exact address
             Address address = await GetAddress(request);
-
             if (address != null)
             {
-                request.Results.Geometry = address.Parcel.CommonParcel.Outline;
+                request.Results.Geometry = address.Point;
                 request.Results.Accuracy = GeometryAccuracy.High;
-                request.Results.Source = GeometrySource.AddressAndLocation;
+                request.Results.Source = GeometrySource.ExactAddress;
 
                 return request.Results;
             }
 
-            address = await GetNearbyAddress(request);
+            // Query for an exact parcel
+            Parcel parcel = await GetParcel(request);
+            if (parcel != null)
+            {
+                request.Results.Geometry = parcel.CommonParcel.Outline.Centroid;
+                request.Results.Accuracy = GeometryAccuracy.High;
+                request.Results.Source = GeometrySource.ExactParcel;
 
+                return request.Results;
+            }
+
+            // Query for nearby addresses
+            address = await GetNearbyAddress(request);
             if (address != null)
             {
-                request.Results.Geometry = address.Parcel.CommonParcel.Outline;
+                request.Results.Geometry = address.Point;
                 request.Results.Accuracy = GeometryAccuracy.Medium;
-                request.Results.Source = GeometrySource.AddressBlock;
+                request.Results.Source = GeometrySource.NearbyAddress;
+
+                return request.Results;
+            }
+
+            // Query for nearby parcels
+            parcel = await GetNearbyParcel(request);
+            if (parcel != null)
+            {
+                request.Results.Geometry = parcel.CommonParcel.Outline.Centroid;
+                request.Results.Accuracy = GeometryAccuracy.Medium;
+                request.Results.Source = GeometrySource.NearbyParcel;
+
+                return request.Results;
+            }
+
+            // Query for nearby streets
+            Street street = await GetNearbyStreet(request);
+            if (street != null)
+            {
+                request.Results.Geometry = street.Outline.Centroid;
+                request.Results.Accuracy = GeometryAccuracy.Medium;
+                request.Results.Source = GeometrySource.NearbyStreet;
 
                 return request.Results;
             }
@@ -261,24 +308,26 @@ namespace MkeAlerts.Web.Services.Functional
             return GetNoGeometryResult();
         }
 
-        //private async Task<Location> GetLocation(Address address)
-        //{
-        //    return await _dbContext.Locations
-        //        .Where(l => l.TAXKEY == address.TAXKEY)
-        //        .FirstOrDefaultAsync();
-        //}
-
         private async Task<Address> GetAddress(AddressGeocodeRequest request)
         {
             return await _dbContext.Addresses
-                .Include(p => p.Parcel)
-                .ThenInclude(p => p.CommonParcel)
                 .Where(a => a.HouseNumber == request.HouseNumber)
                 .Where(a => a.DIR == request.Direction)
                 .Where(a => a.STREET == request.Street)
                 .Where(a => a.STTYPE == request.StreetType || request.StreetType == "")
-                .Where(a => a.Parcel != null)
-                .Where(a => a.Parcel.CommonParcel != null)
+                .Where(a => a.Point != null)
+                .FirstOrDefaultAsync();
+        }
+
+        private async Task<Parcel> GetParcel(AddressGeocodeRequest request)
+        {
+            return await _dbContext.Parcels
+                .Include(x => x.CommonParcel)
+                .Where(x => x.HOUSENR == request.HouseNumber.ToString())
+                .Where(x => x.STREETDIR == request.Direction)
+                .Where(x => x.STREETNAME == request.Street)
+                .Where(x => x.STREETTYPE == request.StreetType)
+                .Where(x => x.CommonParcel != null)
                 .FirstOrDefaultAsync();
         }
 
@@ -287,24 +336,74 @@ namespace MkeAlerts.Web.Services.Functional
             int houseNumberLow = (int)Math.Floor((double)request.HouseNumber / 100d) * 100;
             int houseNumberHigh = (int)Math.Ceiling((double)request.HouseNumber / 100d) * 100;
 
-            // If houseNumber is a multiple of 100, the low and high are the same number
-            if (houseNumberHigh == request.HouseNumber)
-                houseNumberHigh += 100;
+            houseNumberHigh = houseNumberHigh + 100;
+            houseNumberLow = houseNumberLow - 100;
+
+            if (houseNumberLow < 1)
+                houseNumberLow = 1;
 
             var addresses = await _dbContext.Addresses
-                .Include(a => a.Parcel)
                 .Where(a => a.HouseNumber >= houseNumberLow)
                 .Where(a => a.HouseNumber < houseNumberHigh)
                 .Where(a => a.DIR == request.Direction)
                 .Where(a => a.STREET == request.Street)
                 .Where(a => a.STTYPE == request.StreetType || request.StreetType == "")
-                .Where(a => a.Parcel != null)
+                .Where(a => a.Point != null)
                 .ToListAsync();
 
             if (addresses.Count() == 0)
                 return null;
 
             return addresses.OrderBy(x => Math.Abs(x.HouseNumber - request.HouseNumber)).First();
+        }
+
+        private async Task<Parcel> GetNearbyParcel(AddressGeocodeRequest request)
+        {
+            int houseNumberLow = (int)Math.Floor((double)request.HouseNumber / 100d) * 100;
+            int houseNumberHigh = (int)Math.Ceiling((double)request.HouseNumber / 100d) * 100;
+
+            // If houseNumber is a multiple of 100, the low and high are the same number
+            if (houseNumberHigh == request.HouseNumber)
+                houseNumberHigh += 100;
+
+            var parcels = await _dbContext.Parcels
+                .Include(a => a.CommonParcel)
+                .Where(a => a.HouseNumber >= houseNumberLow)
+                .Where(a => a.HouseNumber < houseNumberHigh)
+                .Where(a => a.STREETDIR == request.Direction)
+                .Where(a => a.STREETNAME == request.Street)
+                .Where(a => a.STREETTYPE == request.StreetType || request.StreetType == "")
+                .Where(a => a.CommonParcel != null)
+                .ToListAsync();
+
+            if (parcels.Count() == 0)
+                return null;
+
+            return parcels.OrderBy(x => Math.Abs(x.HouseNumber - request.HouseNumber)).First();
+        }
+
+        private async Task<Street> GetNearbyStreet(AddressGeocodeRequest request)
+        {
+            if (request.HouseNumber % 2 == 0)
+            {
+                // Even number = left
+                return await _dbContext.Streets
+                    .Where(a => a.DIR == request.Direction)
+                    .Where(a => a.STREET == request.Street)
+                    .Where(a => a.STTYPE == request.StreetType)
+                    .Where(a => a.LeftNumberLow <= request.HouseNumber && a.LeftNumberHigh >= request.HouseNumber)
+                    .FirstOrDefaultAsync();
+            }
+            else
+            {
+                // Odd number = right
+                return await _dbContext.Streets
+                    .Where(a => a.DIR == request.Direction)
+                    .Where(a => a.STREET == request.Street)
+                    .Where(a => a.STTYPE == request.StreetType)
+                    .Where(a => a.RightNumberLow <= request.HouseNumber && a.RightNumberHigh >= request.HouseNumber)
+                    .FirstOrDefaultAsync();
+            }
         }
 
         public async Task<ReverseGeocodeResults> ReverseGeocode(double latitude, double longitude)

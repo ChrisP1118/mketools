@@ -16,9 +16,14 @@ namespace MkeAlerts.Web.Models
     public enum GeometrySource : int
     {
         NoGeometry = 0,
-        AddressAndLocation = 1,
-        PropertyAndLocation = 2,
-        AddressBlock = 3,
-        StreetIntersection = 4
+        ExactAddress = 1,
+        ExactParcel = 2,
+        NearbyAddress = 32,
+        NearbyParcel = 33,
+        NearbyStreet = 34,
+        //AddressAndLocation = 1,
+        //PropertyAndLocation = 2,
+        //AddressBlock = 3,
+        StreetIntersection = 128
     }
 }

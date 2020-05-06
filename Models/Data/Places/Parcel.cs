@@ -16,6 +16,9 @@ namespace MkeAlerts.Web.Models.Data.Places
 
         public List<Address> Addresses { get; set; }
 
+        public int HouseNumber { get; set; }
+        public int HouseNumberHigh { get; set; }
+
         public int OBJECTID { get; set; }
         public int MAP_ID { get; set; }
         [MaxLength(10)] public string TAXKEY { get; set; }

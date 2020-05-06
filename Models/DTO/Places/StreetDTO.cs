@@ -23,6 +23,11 @@ namespace MkeAlerts.Web.Models.DTO.Places
 
         public int CLINEID { get; set; }
 
+        public int LeftNumberHigh { get; set; }
+        public int LeftNumberLow { get; set; }
+        public int RightNumberHigh { get; set; }
+        public int RightNumberLow { get; set; }
+
         [MaxLength(2)] public string DIR { get; set; }
         [MaxLength(24)] public string STREET { get; set; }
         [MaxLength(4)] public string STTYPE { get; set; }

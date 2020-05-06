@@ -25,6 +25,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Parcel = MkeAlerts.Web.Models.Data.Places.Parcel;
 
@@ -42,6 +43,9 @@ namespace MkeAlerts.Web.Jobs
         {
             if (string.IsNullOrEmpty(target.TAXKEY))
                 return false;
+
+            target.HouseNumber = ParsingUtilities.ParseInt(target.HOUSENR, 0, true);
+            target.HouseNumberHigh = ParsingUtilities.ParseInt(target.HOUSENRHI, 0, true);
 
             return true;
         }
