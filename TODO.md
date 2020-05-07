@@ -11,6 +11,7 @@
   * Download automatically?
   * Schedule
 * Import MPROP data (and override MCLIO parcels as needed)
+* Log API response times?
 * Doc: Document what's "major" and "minor"
 * Prep: Convert MkeTrashDay accounts
 * Improvement: Better health checks
@@ -38,6 +39,7 @@
 * Improvement: Reset password/my profile page
 
 # Backlog
+* Epic: Property assessment viewer, with notifications on property owner changes
 * Improvement: Open keyword search on table (for example: property search across owner fields)
   * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
 * Improvement: Load table filters from URL (and link from info windows?)

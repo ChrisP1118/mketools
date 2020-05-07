@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Models.Data.Places;
+using MkeAlerts.Web.Models.Internal;
 using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Services.Data.Interfaces;
 using MkeAlerts.Web.Services.Functional;
@@ -24,14 +25,14 @@ namespace MkeAlerts.Web.Jobs
     public class ImportCrimesJob : ImportXmlJob<Crime>
     {
         protected ProjectionInfo _projectionInfo;
+        protected readonly IGeocodingService _geocodingService;
 
-        public ImportCrimesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, IJobRunService jobRunService, ILogger<ImportCrimesJob> logger, IEntityWriteService<Crime, string> writeService) :
+        public ImportCrimesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, IJobRunService jobRunService, ILogger<ImportCrimesJob> logger, IEntityWriteService<Crime, string> writeService, IGeocodingService geocodingService) :
             base(configuration, signInManager, userManager, mailerService, jobRunService, logger, writeService)
         {
-            //string path = @"M:\My Documents\GitHub\mkealerts\DataSources\parcelbase_mprop_full\parcelbase_mprop_full.shp";
-            //_projectionInfo = ProjectionInfo.Open(path.Replace(".shp", ".prj"));
             string path = Path.Combine(AppContext.BaseDirectory, @"GeoData\parcelbase_mprop_full.prj");
             _projectionInfo = ProjectionInfo.Open(path);
+            _geocodingService = geocodingService;
         }
 
         protected override string PackageName => "wibr";
@@ -72,12 +73,29 @@ namespace MkeAlerts.Web.Jobs
 
         protected override async Task BeforeSaveElement(Crime item)
         {
-            GeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+            // Attempt to geocode the location
+            GeocodeResults geocodeResults = await _geocodingService.Geocode(item.Location);
 
-            Tuple<double, double> projectedCoordinates = GeographicUtilities.ReprojectCoordinates(_projectionInfo, item.RoughX, item.RoughY);
-            Point projectedPoint = geometryFactory.CreatePoint(new Coordinate(projectedCoordinates.Item1, projectedCoordinates.Item2));
+            if (geocodeResults.Accuracy == Models.GeometryAccuracy.High || geocodeResults.Accuracy == Models.GeometryAccuracy.Medium)
+            {
+                if (geocodeResults.Geometry is Point point)
+                    item.Point = point;
+                else if (geocodeResults.Geometry is Polygon polygon)
+                    item.Point = polygon.Centroid;
+                else if (geocodeResults.Geometry is MultiPolygon multiPolygon)
+                    item.Point = multiPolygon.Centroid;
+            }
 
-            item.Point = projectedPoint;
+            // If geocoding fails, fall back on the imported coordinates (which are only accurate to the block level, not address)
+            if (item.Point == null)
+            {
+                GeometryFactory geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+
+                Tuple<double, double> projectedCoordinates = GeographicUtilities.ReprojectCoordinates(_projectionInfo, item.RoughX, item.RoughY);
+                Point projectedPoint = geometryFactory.CreatePoint(new Coordinate(projectedCoordinates.Item1, projectedCoordinates.Item2));
+
+                item.Point = projectedPoint;
+            }
 
             GeographicUtilities.SetBounds(item, item.Point);
         }

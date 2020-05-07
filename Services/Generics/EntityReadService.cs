@@ -60,6 +60,7 @@ namespace MkeAlerts.Web.Services
             if (filterFunc != null)
                 queryable = filterFunc(queryable);
 
+            // TODO: Having this appear before the other filters doesn't seem to have a big query impact. What I haven't tried, though, is splitting up the low precision (bounds) and high precision (Intersects) filters -- so the low precision one if before other filters, while the high precision is last.
             if (northBound.HasValue && southBound.HasValue && eastBound.HasValue && westBound.HasValue)
                 queryable = await ApplyBounds(queryable, northBound.Value, southBound.Value, eastBound.Value, westBound.Value, useHighPrecision);
 
