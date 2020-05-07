@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web;
-using NLog.Web;
 using Serilog;
 using Serilog.Filters;
 using Serilog.Formatting.Compact;
@@ -67,11 +66,8 @@ namespace MkeAlerts.Web
                         retainedFileCountLimit: 14
                     )
                 )
-                //.WriteTo.File(new RenderedCompactJsonFormatter(), "/logs/log.json")
                 .CreateLogger();
 
-            // NLog: setup the logger first to catch all errors
-            //var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {
                 Log.Information("Starting up");
@@ -81,27 +77,17 @@ namespace MkeAlerts.Web
             catch (Exception ex)
             {
                 Log.Fatal(ex, "Application failed to start");
-                //NLog: catch setup errors
-                //logger.Error(ex, "Stopped program because of exception");
                 throw;
             }
             finally
             {
                 Log.CloseAndFlush();
-                // Ensure to flush and stop internal timers/threads before application-exit (Avoid segmentation fault on Linux)
-                //NLog.LogManager.Shutdown();
             }
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                //.ConfigureLogging(logging =>
-                //{
-                //    logging.ClearProviders();
-                //    logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
-                //})
                 .UseSerilog();
-                //.UseNLog();
     }
 }
