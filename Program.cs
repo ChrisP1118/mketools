@@ -21,10 +21,10 @@ namespace MkeAlerts.Web
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 //.WriteTo.Console()
-                .WriteTo.File("logs/log.txt",
-                    rollingInterval: RollingInterval.Day,
-                    retainedFileCountLimit: 14,
-                    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {SourceContext:l} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
+                //.WriteTo.File("logs/log.txt",
+                //    rollingInterval: RollingInterval.Day,
+                //    retainedFileCountLimit: 14,
+                //    outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} {SourceContext:l} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
                 .WriteTo.Logger(l => l
                     .MinimumLevel.Information()
                     .Filter.ByIncludingOnly(Matching.FromSource("Microsoft.AspNetCore.Hosting"))
@@ -49,6 +49,7 @@ namespace MkeAlerts.Web
                 .WriteTo.Logger(l => l
                     .MinimumLevel.Information()
                     .Filter.ByIncludingOnly(Matching.FromSource("MkeAlerts"))
+                    .WriteTo.Seq("http://localhost:5341")
                     .WriteTo.File(
                         new RenderedCompactJsonFormatter(),
                         "logs/MkeAlerts.json",
@@ -59,6 +60,7 @@ namespace MkeAlerts.Web
                 .WriteTo.Logger(l => l
                     .MinimumLevel.Information()
                     .Filter.ByIncludingOnly(Matching.FromSource("Microsoft.AspNetCore.Hosting"))
+                    .WriteTo.Seq("http://localhost:5341")
                     .WriteTo.File(
                         new RenderedCompactJsonFormatter(),
                         "logs/Web.json",
@@ -66,6 +68,40 @@ namespace MkeAlerts.Web
                         retainedFileCountLimit: 14
                     )
                 )
+                .WriteTo.Logger(l => l
+                    .MinimumLevel.Warning()
+                    .WriteTo.Seq("http://localhost:5341")
+                    .WriteTo.File(
+                        new RenderedCompactJsonFormatter(),
+                        "logs/Warnings.json",
+                        rollingInterval: RollingInterval.Day,
+                        retainedFileCountLimit: 14
+                    )
+                )
+                //.WriteTo.Logger(l => l
+                //    .MinimumLevel.Warning()
+                //    .Filter.ByIncludingOnly(Matching.FromSource("Microsoft.EntityFrameworkCore"))
+                //    .WriteTo.Seq("http://localhost:5341")
+                //    .WriteTo.File(
+                //        new RenderedCompactJsonFormatter(),
+                //        "logs/EF.json",
+                //        rollingInterval: RollingInterval.Day,
+                //        retainedFileCountLimit: 14
+                //    )
+                //)
+                //.WriteTo.Logger(l => l
+                //    .MinimumLevel.Warning()
+                //    .Filter.ByIncludingOnly(Matching.FromSource("Hangfire"))
+                //    .WriteTo.Seq("http://localhost:5341")
+                //    .WriteTo.File(
+                //        new RenderedCompactJsonFormatter(),
+                //        "logs/Hangfire.json",
+                //        rollingInterval: RollingInterval.Day,
+                //        retainedFileCountLimit: 14
+                //    )
+                //)
+                //<logger name=".*" minlevel="Warn" writeTo="EF" final="true" />
+                //<logger name="Hangfire.*" minlevel="Info" writeTo="Hangfire" final="true" />
                 .CreateLogger();
 
             try

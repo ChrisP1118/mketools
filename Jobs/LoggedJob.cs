@@ -42,7 +42,7 @@ namespace MkeAlerts.Web.Jobs
 
             using (var logContext = LogContext.PushProperty("JobRunId", jobRun.Id))
             {
-                _logger.LogInformation("Starting job: {JobRunId}");
+                _logger.LogInformation("Starting job");
 
                 try
                 {
@@ -50,14 +50,14 @@ namespace MkeAlerts.Web.Jobs
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Critical error in job: {JobRunId}");
+                    _logger.LogError(ex, "Critical error in job");
 
                     jobRun.ErrorMessages = GetAllErrorMessages(ex);
                     jobRun.ErrorStackTrace = GetInnerStackTrack(ex);
                 }
 
                 //_logger.LogInformation($"Job finished {jobRun.Id.ToString()}: {_successCount} succeeded, {_failureCount} failed");
-                _logger.LogInformation("Job {JobRunId} finished: {SuccessCount} succeeded, {FailureCount} failed", _successCount, _failureCount);
+                _logger.LogInformation("Job finished: {SuccessCount} succeeded, {FailureCount} failed", _successCount, _failureCount);
 
                 jobRun.SuccessCount = _successCount;
                 jobRun.FailureCount = _failureCount;

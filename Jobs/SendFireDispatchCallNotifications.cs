@@ -81,11 +81,11 @@ namespace MkeAlerts.Web.Jobs
                         {
                             if (emailAddresses.Contains(dispatchCallSubscription.ApplicationUser.Email))
                             {
-                                _logger.LogInformation("{SubscriptionAction} notification to {SubscriptionEmail} for {SubscriptionType}: {SubscriptionId}", "Skipping (Duplicate)");
+                                _logger.LogInformation("{SubscriptionAction} notification", "Skipping (Duplicate)");
                                 continue;
                             }
 
-                            _logger.LogInformation("{SubscriptionAction} notification to {SubscriptionEmail} for {SubscriptionType}: {SubscriptionId}", "Sending");
+                            _logger.LogInformation("{SubscriptionAction} notification", "Sending");
 
                             string hash = EncryptionUtilities.GetHash(dispatchCallSubscription.Id.ToString() + ":" + dispatchCallSubscription.ApplicationUserId.ToString(), _configuration["HashKey"]);
                             string unsubscribeUrl = string.Format(_configuration["DispatchCallUnsubscribeUrl"], dispatchCallSubscription.Id, dispatchCallSubscription.ApplicationUserId, HttpUtility.UrlEncode(hash));
@@ -111,7 +111,7 @@ namespace MkeAlerts.Web.Jobs
                         }
                         catch (Exception ex)
                         {
-                            _logger.LogError("Error sending notification to {SubscriptionEmail} for {SubscriptionType}: {SubscriptionId}", ex);
+                            _logger.LogError(ex, "Error sending notification");
                         }
                     }
                 }

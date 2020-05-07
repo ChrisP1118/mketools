@@ -77,11 +77,11 @@ namespace MkeAlerts.Web.Jobs
 
                     if (!nextPickup.HasValue)
                     {
-                        _logger.LogWarning("{SubscriptionAction} notification to {SubscriptionEmail} for {SubscriptionType} {PickupDateType}: {SubscriptionId}", "Skipping (No pickup date)");
+                        _logger.LogWarning("{SubscriptionAction} notification", "Skipping (No pickup date)");
                         return;
                     }
 
-                    _logger.LogInformation("{SubscriptionAction} notification to {SubscriptionEmail} for {SubscriptionType} {PickupDateType}: {SubscriptionId}", "Sending");
+                    _logger.LogInformation("{SubscriptionAction} notification", "Sending");
 
                     string hash = EncryptionUtilities.GetHash(subscription.Id.ToString() + ":" + subscription.ApplicationUserId.ToString(), _configuration["HashKey"]);
                     string unsubscribeUrl = string.Format(_configuration["PickupDatesUnsubscribeUrl"], subscription.Id, subscription.ApplicationUserId, HttpUtility.UrlEncode(hash));
@@ -108,7 +108,7 @@ namespace MkeAlerts.Web.Jobs
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError("Error sending notification to {SubscriptionEmail} for {SubscriptionType} {PickupDateType}: {SubscriptionId}", ex);
+                    _logger.LogError(ex, "Error sending notification");
                 }
             }
         }

@@ -82,7 +82,7 @@ namespace MkeAlerts.Web.Jobs
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError("Error updating pickups", ex);
+                        _logger.LogError(ex, "Error updating pickups");
 
                         ++_failureCount;
                     }
