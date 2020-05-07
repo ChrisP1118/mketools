@@ -72,13 +72,14 @@ namespace MkeAlerts.Web.Jobs
                     {
                         if (!ShapefileUtilities.CopyFields(coll.Current, dataModel, i, _logger))
                         {
+                            _logger.LogDebug("Skipping record {Index}: {ID} - CopyFields returned false", i, dataModel.GetId());
                             ++_failureCount;
                             continue;
                         }
 
                         if (!VerifyItem(coll.Current, dataModel))
                         {
-                            _logger.LogTrace("Skipping record " + i.ToString() + " - VerifyItem returned false");
+                            _logger.LogDebug("Skipping record {Index}: {ID} - VerifyItem returned false", i, dataModel.GetId());
                             ++_failureCount;
                             continue;
                         }
@@ -90,7 +91,7 @@ namespace MkeAlerts.Web.Jobs
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(ex, "Error importing item: " + dataModel.GetId());
+                        _logger.LogError(ex, "Error importing item {Index}: {Id}", i, dataModel.GetId());
                     }
                 }
 
@@ -109,13 +110,13 @@ namespace MkeAlerts.Web.Jobs
                 _failureCount += results.Item2.Count();
                 dataModels.Clear();
 
-                _logger.LogDebug("Bulk inserted items at mod " + i.ToString());
+                _logger.LogDebug("Bulk inserted items at mod {Index}", i);
             }
             catch (Exception ex)
             {
                 _failureCount += dataModels.Count;
 
-                _logger.LogError(ex, "Error bulk inserting items at mod " + i.ToString());
+                _logger.LogError(ex, "Error bulk inserting items at mod {Index}", i);
             }
 
         }

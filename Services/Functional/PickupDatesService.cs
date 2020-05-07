@@ -74,7 +74,7 @@ namespace MkeAlerts.Web.Services.Functional
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error getting pickup dates for {laddr} {sdir} {sname} {stype}", ex);
+                _logger.LogError(ex, "Error getting pickup dates: {HouseNumber} {StreetDirection} {StreetName} {StreetType}", laddr, sdir, sname, stype);
             }
 
             return pickupDatesResults;

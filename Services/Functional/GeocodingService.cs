@@ -134,7 +134,7 @@ namespace MkeAlerts.Web.Services.Functional
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error geocoding value: " + value);
+                _logger.LogError(ex, "Error geocoding value: {GeocodeValue}", value);
                 return GetNoGeometryResult();
             }
         }
@@ -144,7 +144,7 @@ namespace MkeAlerts.Web.Services.Functional
             string[] streets = request.Value.Split("/");
             if (streets.Length != 2)
             {
-                _logger.LogWarning("More than two streets found: " + request.RawValue);
+                _logger.LogWarning("More than two streets found: {GeocodeValue}", request.RawValue);
                 return GetNoGeometryResult();
             }
 
@@ -157,7 +157,7 @@ namespace MkeAlerts.Web.Services.Functional
                 string[] parts = streets[i].Split(" ");
                 if (parts.Length < 3)
                 {
-                    _logger.LogWarning("Unexpected street format: " + request.RawValue);
+                    _logger.LogWarning("Unexpected street format: {GeocodeValue}", request.RawValue);
                     return GetNoGeometryResult();
                 }
 
@@ -179,13 +179,13 @@ namespace MkeAlerts.Web.Services.Functional
 
             if (streets0.Count() == 0)
             {
-                _logger.LogWarning("No streets found for " + request.Streets[0].Street + ": " + request.RawValue);
+                _logger.LogWarning("No streets found for {Street}: {GeocodeValue}", request.Streets[0].Street, request.RawValue);
                 return GetNoGeometryResult();
             }
 
             if (streets1.Count() == 0)
             {
-                _logger.LogWarning("No streets found for " + request.Streets[1].Street + ": " + request.RawValue);
+                _logger.LogWarning("No streets found for {Street}: {GeocodeValue}", request.Streets[1].Street, request.RawValue);
                 return GetNoGeometryResult();
             }
 
@@ -205,7 +205,7 @@ namespace MkeAlerts.Web.Services.Functional
                 }
             }
 
-            _logger.LogWarning("No intersection found for : " + request.RawValue);
+            _logger.LogWarning("No intersection found for: {GeocodeValue}", request.RawValue);
             return GetNoGeometryResult();
         }
 
@@ -224,7 +224,7 @@ namespace MkeAlerts.Web.Services.Functional
 
             if (parts.Length < 3)
             {
-                _logger.LogWarning("Too few parts for value: " + request.RawValue);
+                _logger.LogWarning("Too few parts for value: {GeocodeValue}", request.RawValue);
                 return GetNoGeometryResult();
             }
 
@@ -303,7 +303,7 @@ namespace MkeAlerts.Web.Services.Functional
                 return request.Results;
             }
 
-            _logger.LogWarning("Unable to find address/property/location: " + request.Value);
+            _logger.LogWarning("Unable to find address/property/location: {GeocodeValue}", request.Value);
 
             return GetNoGeometryResult();
         }

@@ -12,6 +12,7 @@ using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Services.Data.Interfaces;
 using MkeAlerts.Web.Services.Functional;
 using MkeAlerts.Web.Utilities;
+using Serilog.Context;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -39,7 +40,7 @@ namespace MkeAlerts.Web.Jobs
         {
             DateTime now = DateTime.Now;
 
-            _logger.LogInformation("Job run time: " + now.ToShortDateString() + " " + now.ToShortTimeString());
+            _logger.LogInformation("Now: {Now}", now);
 
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
@@ -47,41 +48,44 @@ namespace MkeAlerts.Web.Jobs
 
             foreach (PickupDatesSubscription pickupDatesSubscription in pickupDatesSubscriptions)
             {
-                try
+                using (var logContext = LogContext.PushProperty("SubscriptionId", pickupDatesSubscription.Id))
                 {
-                    _logger.LogInformation($"Updating next pickups for {pickupDatesSubscription.Id}");
-
-                    PickupDatesResults pickupDatesResults = await _pickupDatesService.GetPickupDates(pickupDatesSubscription.LADDR, pickupDatesSubscription.SDIR, pickupDatesSubscription.SNAME, pickupDatesSubscription.STYPE);
-
-                    pickupDatesSubscription.NextGarbagePickupDate = pickupDatesResults.NextGarbagePickupDate;
-                    pickupDatesSubscription.NextRecyclingPickupDate = pickupDatesResults.NextRecyclingPickupDate;
-
-                    pickupDatesSubscription.NextGarbagePickupNotification = null;
-                    pickupDatesSubscription.NextRecyclingPickupNotification = null;
-
-                    if (pickupDatesResults.NextGarbagePickupDate.HasValue)
+                    try
                     {
-                        DateTime notificationDate = pickupDatesResults.NextGarbagePickupDate.Value.AddHours(pickupDatesSubscription.HoursBefore);
-                        if (notificationDate >= now)
-                            pickupDatesSubscription.NextGarbagePickupNotification = notificationDate;
-                    }
+                        _logger.LogInformation($"Updating next pickups");
 
-                    if (pickupDatesResults.NextRecyclingPickupDate.HasValue)
+                        PickupDatesResults pickupDatesResults = await _pickupDatesService.GetPickupDates(pickupDatesSubscription.LADDR, pickupDatesSubscription.SDIR, pickupDatesSubscription.SNAME, pickupDatesSubscription.STYPE);
+
+                        pickupDatesSubscription.NextGarbagePickupDate = pickupDatesResults.NextGarbagePickupDate;
+                        pickupDatesSubscription.NextRecyclingPickupDate = pickupDatesResults.NextRecyclingPickupDate;
+
+                        pickupDatesSubscription.NextGarbagePickupNotification = null;
+                        pickupDatesSubscription.NextRecyclingPickupNotification = null;
+
+                        if (pickupDatesResults.NextGarbagePickupDate.HasValue)
+                        {
+                            DateTime notificationDate = pickupDatesResults.NextGarbagePickupDate.Value.AddHours(pickupDatesSubscription.HoursBefore);
+                            if (notificationDate >= now)
+                                pickupDatesSubscription.NextGarbagePickupNotification = notificationDate;
+                        }
+
+                        if (pickupDatesResults.NextRecyclingPickupDate.HasValue)
+                        {
+                            DateTime notificationDate = pickupDatesResults.NextRecyclingPickupDate.Value.AddHours(pickupDatesSubscription.HoursBefore);
+                            if (notificationDate >= now)
+                                pickupDatesSubscription.NextRecyclingPickupNotification = notificationDate;
+                        }
+
+                        await _pickupDatesSubscriptionService.Update(await GetClaimsPrincipal(), pickupDatesSubscription);
+
+                        ++_successCount;
+                    }
+                    catch (Exception ex)
                     {
-                        DateTime notificationDate = pickupDatesResults.NextRecyclingPickupDate.Value.AddHours(pickupDatesSubscription.HoursBefore);
-                        if (notificationDate >= now)
-                            pickupDatesSubscription.NextRecyclingPickupNotification = notificationDate;
+                        _logger.LogError("Error updating pickups", ex);
+
+                        ++_failureCount;
                     }
-
-                    await _pickupDatesSubscriptionService.Update(await GetClaimsPrincipal(), pickupDatesSubscription);
-
-                    ++_successCount;
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError("Error updating pickups", ex);
-
-                    ++_failureCount;
                 }
             }
         }

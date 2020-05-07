@@ -51,7 +51,7 @@ namespace MkeAlerts.Web.Jobs
                 GeocodeResults geocodeResults = await _geocodingService.Geocode(value);
                 SetGeocodeResults(dataModel, geocodeResults);
 
-                _logger.LogInformation(geocodeResults.Accuracy.ToString() + ": " + geocodeResults.Source.ToString() + ": " + value);
+                _logger.LogInformation("{Accuracy}: {Source}: {Value}", geocodeResults.Accuracy, geocodeResults.Source, value);
 
                 if (geocodeResults.Accuracy == Models.GeometryAccuracy.NoGeometry)
                     ++_failureCount;

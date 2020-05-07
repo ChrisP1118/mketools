@@ -63,7 +63,7 @@ namespace MkeAlerts.Web.Services
                 if (validationResults.IsValid)
                     validatedDataModels.Add(dataModel);
                 else
-                    _logger.LogWarning("Validation failed for " + dataModel.GetId() + ": " + string.Join("; ", validationResults.Errors.Select(x => x.ErrorMessage)));
+                    _logger.LogWarning("Validation failed for {Id}: {Errors}", dataModel.GetId(), string.Join("; ", validationResults.Errors.Select(x => x.ErrorMessage)));
             }
 
             // Remove duplicates (based on GetId)
@@ -93,7 +93,7 @@ namespace MkeAlerts.Web.Services
                         }
                         catch (Exception ex2)
                         {
-                            _logger.LogError(ex, "Error bulk inserting item");
+                            _logger.LogError(ex, "Error bulk inserting item {Id}", dataModel.GetId());
                             failure.Add(dataModel);
                         }
                     }
@@ -126,7 +126,7 @@ namespace MkeAlerts.Web.Services
                         }
                         catch (Exception ex2)
                         {
-                            _logger.LogError(ex2, "Error upserting item: " + dataModel.GetId());
+                            _logger.LogError(ex2, "Error upserting item {Id}", dataModel.GetId());
                             failure.Add(dataModel);
                         }
                     }

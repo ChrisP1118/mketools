@@ -59,6 +59,7 @@ Interested in contributing? Let me know - cwilson at mkealerts.com.
 * Leaflet and vue2-leaflet
 * Webpack
 * Bootstrap and BootstrapVue 2.x
+* Serilog
 
 
 ## Notes

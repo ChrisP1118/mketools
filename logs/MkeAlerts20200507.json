@@ -1,0 +1,804 @@
+{"@t":"2020-05-07T14:50:06.7996729Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T14:50:06.7996729Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T14:50:07.6174799Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280643"}
+{"@t":"2020-05-07T14:50:07.6267043Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280652"}
+{"@t":"2020-05-07T14:50:07.7286647Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280650"}
+{"@t":"2020-05-07T14:50:07.7974014Z","@m":"Job finished: 9 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":9,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T14:50:07.8423901Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280635"}
+{"@t":"2020-05-07T14:50:07.9416888Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280636"}
+{"@t":"2020-05-07T14:50:08.0677121Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280647"}
+{"@t":"2020-05-07T14:50:08.2120818Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280644"}
+{"@t":"2020-05-07T14:50:08.3271032Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280629"}
+{"@t":"2020-05-07T14:50:08.3715765Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280641"}
+{"@t":"2020-05-07T14:50:08.9273975Z","@m":"Job finished: 59 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":59,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T14:55:06.3582054Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T14:55:06.3584488Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T14:55:07.0009529Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280668"}
+{"@t":"2020-05-07T14:55:07.2787750Z","@m":"Job finished: 10 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":10,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T14:55:10.7985783Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280666"}
+{"@t":"2020-05-07T14:55:10.8535083Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280663"}
+{"@t":"2020-05-07T14:55:11.0846734Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280662"}
+{"@t":"2020-05-07T14:55:11.1468313Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280659"}
+{"@t":"2020-05-07T14:55:11.2146422Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280657"}
+{"@t":"2020-05-07T14:55:11.2799856Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280656"}
+{"@t":"2020-05-07T14:55:11.5028475Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280613"}
+{"@t":"2020-05-07T14:55:12.1045460Z","@m":"Job finished: 64 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":64,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:00:06.4558158Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:00:06.4566400Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:00:07.2996695Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280677"}
+{"@t":"2020-05-07T15:00:07.3610478Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280667"}
+{"@t":"2020-05-07T15:00:07.3708027Z","@m":"Job finished: 10 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":10,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:00:07.4219507Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280638"}
+{"@t":"2020-05-07T15:00:07.9708229Z","@m":"Job finished: 64 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":64,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:05:06.5383958Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:05:06.5385986Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:05:07.2289079Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280686"}
+{"@t":"2020-05-07T15:05:07.3516485Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280678"}
+{"@t":"2020-05-07T15:05:07.3594058Z","@m":"Job finished: 10 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":10,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:05:07.5917037Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280685"}
+{"@t":"2020-05-07T15:05:07.6671262Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280684"}
+{"@t":"2020-05-07T15:05:07.7337068Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280683"}
+{"@t":"2020-05-07T15:05:07.7926316Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280680"}
+{"@t":"2020-05-07T15:05:08.4527105Z","@m":"Job finished: 69 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":69,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:10:06.6133537Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:10:06.6135462Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:10:07.2926480Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280697"}
+{"@t":"2020-05-07T15:10:07.3337283Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280693"}
+{"@t":"2020-05-07T15:10:07.3741980Z","@m":"Job finished: 11 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":11,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:10:07.3798488Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280691"}
+{"@t":"2020-05-07T15:10:07.4345351Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280690"}
+{"@t":"2020-05-07T15:10:07.8596139Z","@m":"Job finished: 70 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":70,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:15:06.6776922Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:15:06.6776922Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:15:07.2726231Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280698"}
+{"@t":"2020-05-07T15:15:07.3283047Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280708"}
+{"@t":"2020-05-07T15:15:07.4016754Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280705"}
+{"@t":"2020-05-07T15:15:07.4603763Z","@m":"Job finished: 11 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":11,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:15:07.4694692Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280687"}
+{"@t":"2020-05-07T15:15:07.5895135Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280699"}
+{"@t":"2020-05-07T15:15:07.6549307Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280700"}
+{"@t":"2020-05-07T15:15:07.7051578Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280702"}
+{"@t":"2020-05-07T15:15:07.7747775Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280701"}
+{"@t":"2020-05-07T15:15:08.2725021Z","@m":"Job finished: 74 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":74,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:20:06.7915770Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:20:06.8090145Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:20:07.3414936Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280719"}
+{"@t":"2020-05-07T15:20:07.3930232Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280716"}
+{"@t":"2020-05-07T15:20:07.4676295Z","@m":"Job finished: 12 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":12,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:20:07.4688845Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280720"}
+{"@t":"2020-05-07T15:20:07.6986648Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280717"}
+{"@t":"2020-05-07T15:20:07.7475449Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280672"}
+{"@t":"2020-05-07T15:20:07.8062811Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280673"}
+{"@t":"2020-05-07T15:20:07.8489871Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280696"}
+{"@t":"2020-05-07T15:20:08.0273567Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280711"}
+{"@t":"2020-05-07T15:20:08.1175796Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280682"}
+{"@t":"2020-05-07T15:20:09.8994703Z","@m":"Job finished: 76 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":76,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:25:06.8668697Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:25:06.8668698Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:25:07.6744341Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280727"}
+{"@t":"2020-05-07T15:25:07.8857519Z","@m":"Job finished: 12 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":12,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:25:08.7617237Z","@m":"Job finished: 74 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":74,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:30:06.9493837Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:30:06.9493980Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:30:07.5230238Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280737"}
+{"@t":"2020-05-07T15:30:07.8033005Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280733"}
+{"@t":"2020-05-07T15:30:08.0693381Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280730"}
+{"@t":"2020-05-07T15:30:08.1413504Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280692"}
+{"@t":"2020-05-07T15:30:08.2634689Z","@m":"Job finished: 13 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":13,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:30:08.9275697Z","@m":"Job finished: 75 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":75,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:35:07.1651935Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:35:07.1652817Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T15:35:07.7605634Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280734"}
+{"@t":"2020-05-07T15:35:07.8105520Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280746"}
+{"@t":"2020-05-07T15:35:07.8601304Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280743"}
+{"@t":"2020-05-07T15:35:07.8989832Z","@m":"Job finished: 13 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":13,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob"}
+{"@t":"2020-05-07T15:35:07.9141277Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280745"}
+{"@t":"2020-05-07T15:35:07.9522154Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280744"}
+{"@t":"2020-05-07T15:35:07.9847180Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280742"}
+{"@t":"2020-05-07T15:35:08.0544296Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280741"}
+{"@t":"2020-05-07T15:35:09.2917150Z","@m":"Job finished: 74 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":74,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob"}
+{"@t":"2020-05-07T16:59:55.4528651Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"8f5743c7-fcf6-4f09-8456-bace4c83b43d"}
+{"@t":"2020-05-07T16:59:55.4528651Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"c57664d6-fcd2-4d12-a5e3-9c9136ebfad7"}
+{"@t":"2020-05-07T16:59:59.1663710Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280907"}
+{"@t":"2020-05-07T17:00:02.3387569Z","@m":"Job finished: 23 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":23,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"c57664d6-fcd2-4d12-a5e3-9c9136ebfad7"}
+{"@t":"2020-05-07T17:00:03.1327572Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280902"}
+{"@t":"2020-05-07T17:00:03.2402974Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280901"}
+{"@t":"2020-05-07T17:00:03.3360003Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280881"}
+{"@t":"2020-05-07T17:00:03.3990534Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280886"}
+{"@t":"2020-05-07T17:00:03.6746200Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280898"}
+{"@t":"2020-05-07T17:00:03.9492128Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280897"}
+{"@t":"2020-05-07T17:00:04.0282591Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280895"}
+{"@t":"2020-05-07T17:00:04.1217955Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280894"}
+{"@t":"2020-05-07T17:00:04.2085695Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280864"}
+{"@t":"2020-05-07T17:00:04.2815848Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280890"}
+{"@t":"2020-05-07T17:00:04.3684516Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280888"}
+{"@t":"2020-05-07T17:00:04.4256411Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280884"}
+{"@t":"2020-05-07T17:00:04.5546891Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280883"}
+{"@t":"2020-05-07T17:00:04.6857854Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280872"}
+{"@t":"2020-05-07T17:00:04.9497455Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280880"}
+{"@t":"2020-05-07T17:00:05.0849666Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280855"}
+{"@t":"2020-05-07T17:00:05.1501255Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280879"}
+{"@t":"2020-05-07T17:00:05.3943456Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280871"}
+{"@t":"2020-05-07T17:00:05.4582514Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280867"}
+{"@t":"2020-05-07T17:00:05.5398519Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280866"}
+{"@t":"2020-05-07T17:00:05.6602644Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280865"}
+{"@t":"2020-05-07T17:00:05.7447425Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280856"}
+{"@t":"2020-05-07T17:00:05.7961908Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280789"}
+{"@t":"2020-05-07T17:00:05.8688682Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280863"}
+{"@t":"2020-05-07T17:00:05.9552322Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280780"}
+{"@t":"2020-05-07T17:00:06.0286722Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280862"}
+{"@t":"2020-05-07T17:00:06.0914859Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280858"}
+{"@t":"2020-05-07T17:00:06.1760090Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280840"}
+{"@t":"2020-05-07T17:00:06.2399235Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280860"}
+{"@t":"2020-05-07T17:00:06.2887951Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280857"}
+{"@t":"2020-05-07T17:00:06.3701119Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280849"}
+{"@t":"2020-05-07T17:00:06.4558609Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280851"}
+{"@t":"2020-05-07T17:00:06.5350662Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280852"}
+{"@t":"2020-05-07T17:00:06.6139128Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280839"}
+{"@t":"2020-05-07T17:00:06.7230530Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280854"}
+{"@t":"2020-05-07T17:00:06.8238748Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280790"}
+{"@t":"2020-05-07T17:00:06.9155712Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280853"}
+{"@t":"2020-05-07T17:00:06.9741324Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280848"}
+{"@t":"2020-05-07T17:00:07.2275979Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280837"}
+{"@t":"2020-05-07T17:00:07.3060933Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280846"}
+{"@t":"2020-05-07T17:00:07.3823387Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280845"}
+{"@t":"2020-05-07T17:00:07.4893243Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280844"}
+{"@t":"2020-05-07T17:00:07.7802594Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280843"}
+{"@t":"2020-05-07T17:00:07.8735336Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280842"}
+{"@t":"2020-05-07T17:00:08.1137549Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280807"}
+{"@t":"2020-05-07T17:00:08.1989509Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280841"}
+{"@t":"2020-05-07T17:00:08.2866552Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280836"}
+{"@t":"2020-05-07T17:00:08.3731157Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280830"}
+{"@t":"2020-05-07T17:00:08.7183461Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280833"}
+{"@t":"2020-05-07T17:00:08.8016008Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280832"}
+{"@t":"2020-05-07T17:00:08.8632970Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280831"}
+{"@t":"2020-05-07T17:00:08.9547164Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280798"}
+{"@t":"2020-05-07T17:00:09.0304717Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280829"}
+{"@t":"2020-05-07T17:00:09.1251899Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280826"}
+{"@t":"2020-05-07T17:00:09.2900274Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280828"}
+{"@t":"2020-05-07T17:00:09.3701633Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"f25af621-46db-418e-abf0-c231f73c2eb6"}
+{"@t":"2020-05-07T17:00:09.3733471Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"834992fd-79d2-465b-b77a-f2bfca255116"}
+{"@t":"2020-05-07T17:00:09.4028891Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280827"}
+{"@t":"2020-05-07T17:00:09.7116884Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280825"}
+{"@t":"2020-05-07T17:00:09.7540890Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280824"}
+{"@t":"2020-05-07T17:00:09.8609852Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280799"}
+{"@t":"2020-05-07T17:00:09.9418937Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280814"}
+{"@t":"2020-05-07T17:00:09.9964493Z","@m":"Job finished: 23 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":23,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"f25af621-46db-418e-abf0-c231f73c2eb6"}
+{"@t":"2020-05-07T17:00:10.0414710Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280816"}
+{"@t":"2020-05-07T17:00:10.1867660Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280821"}
+{"@t":"2020-05-07T17:00:10.2634080Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280818"}
+{"@t":"2020-05-07T17:00:10.3673950Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280817"}
+{"@t":"2020-05-07T17:00:10.4028523Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280917"}
+{"@t":"2020-05-07T17:00:10.4437518Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280815"}
+{"@t":"2020-05-07T17:00:10.4998392Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280921"}
+{"@t":"2020-05-07T17:00:10.8024583Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280812"}
+{"@t":"2020-05-07T17:00:10.8788190Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280810"}
+{"@t":"2020-05-07T17:00:10.9183127Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280906"}
+{"@t":"2020-05-07T17:00:10.9725944Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280809"}
+{"@t":"2020-05-07T17:00:11.0145309Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280905"}
+{"@t":"2020-05-07T17:00:11.0761960Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280918"}
+{"@t":"2020-05-07T17:00:11.0992135Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280808"}
+{"@t":"2020-05-07T17:00:11.1868186Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280873"}
+{"@t":"2020-05-07T17:00:11.2321110Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280805"}
+{"@t":"2020-05-07T17:00:11.3303051Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280916"}
+{"@t":"2020-05-07T17:00:11.3821496Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280797"}
+{"@t":"2020-05-07T17:00:11.4057179Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280915"}
+{"@t":"2020-05-07T17:00:11.4487729Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280801"}
+{"@t":"2020-05-07T17:00:11.7446740Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280912"}
+{"@t":"2020-05-07T17:00:11.7927795Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280802"}
+{"@t":"2020-05-07T17:00:11.8736838Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280910"}
+{"@t":"2020-05-07T17:00:11.8976478Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280796"}
+{"@t":"2020-05-07T17:00:12.0317723Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280795"}
+{"@t":"2020-05-07T17:00:12.1425818Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280793"}
+{"@t":"2020-05-07T17:00:12.1663461Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280909"}
+{"@t":"2020-05-07T17:00:12.2612196Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280908"}
+{"@t":"2020-05-07T17:00:12.2696869Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280792"}
+{"@t":"2020-05-07T17:00:12.4041985Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280788"}
+{"@t":"2020-05-07T17:00:12.8206200Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280787"}
+{"@t":"2020-05-07T17:00:12.9763088Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280785"}
+{"@t":"2020-05-07T17:00:13.0613093Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280783"}
+{"@t":"2020-05-07T17:00:13.2144050Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280782"}
+{"@t":"2020-05-07T17:00:13.7839173Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280781"}
+{"@t":"2020-05-07T17:00:13.8998492Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280640"}
+{"@t":"2020-05-07T17:00:14.0046771Z","@m":"Job finished: 86 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":86,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"8f5743c7-fcf6-4f09-8456-bace4c83b43d"}
+{"@t":"2020-05-07T17:00:14.0080429Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280777"}
+{"@t":"2020-05-07T17:00:16.9544634Z","@m":"Job finished: 94 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":94,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"834992fd-79d2-465b-b77a-f2bfca255116"}
+{"@t":"2020-05-07T17:05:09.5207631Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"56ab588b-5484-4599-84fe-b9f5f789a155"}
+{"@t":"2020-05-07T17:05:09.5215516Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"c1c8b932-4378-4ce5-afb6-55a47660cf48"}
+{"@t":"2020-05-07T17:05:10.0833412Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280937"}
+{"@t":"2020-05-07T17:05:10.2630262Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280934"}
+{"@t":"2020-05-07T17:05:10.2765682Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280929"}
+{"@t":"2020-05-07T17:05:10.3848607Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280933"}
+{"@t":"2020-05-07T17:05:10.4294135Z","@m":"Job finished: 23 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":23,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"56ab588b-5484-4599-84fe-b9f5f789a155"}
+{"@t":"2020-05-07T17:05:10.4436659Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280922"}
+{"@t":"2020-05-07T17:05:10.4969195Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280927"}
+{"@t":"2020-05-07T17:05:10.5466611Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280925"}
+{"@t":"2020-05-07T17:05:10.5983111Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280924"}
+{"@t":"2020-05-07T17:05:10.6730826Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280923"}
+{"@t":"2020-05-07T17:05:10.7143857Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280919"}
+{"@t":"2020-05-07T17:05:11.4158904Z","@m":"Job finished: 100 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":100,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"c1c8b932-4378-4ce5-afb6-55a47660cf48"}
+{"@t":"2020-05-07T17:10:09.5939912Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8d754a4b-8909-4ff2-b0e1-3f19a0dad886"}
+{"@t":"2020-05-07T17:10:09.5940301Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"1a84671b-9fe4-4623-9c1a-af144e609746"}
+{"@t":"2020-05-07T17:10:10.2119065Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280945"}
+{"@t":"2020-05-07T17:10:10.2766072Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280928"}
+{"@t":"2020-05-07T17:10:10.3306977Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280914"}
+{"@t":"2020-05-07T17:10:10.5138533Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280943"}
+{"@t":"2020-05-07T17:10:10.5313005Z","@m":"Job finished: 23 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":23,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8d754a4b-8909-4ff2-b0e1-3f19a0dad886"}
+{"@t":"2020-05-07T17:10:10.5998687Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280930"}
+{"@t":"2020-05-07T17:10:10.6565192Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280935"}
+{"@t":"2020-05-07T17:10:11.4448836Z","@m":"Job finished: 101 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":101,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"1a84671b-9fe4-4623-9c1a-af144e609746"}
+{"@t":"2020-05-07T17:15:09.6553265Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"5a43287c-c8ec-482f-98bb-8bbd7c21ad3b"}
+{"@t":"2020-05-07T17:15:09.6554999Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"29a0f753-7155-4e9b-9263-1381d97f5ba4"}
+{"@t":"2020-05-07T17:15:10.3622083Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280953"}
+{"@t":"2020-05-07T17:15:10.5365198Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280951"}
+{"@t":"2020-05-07T17:15:10.5376504Z","@m":"Job finished: 20 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":20,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"5a43287c-c8ec-482f-98bb-8bbd7c21ad3b"}
+{"@t":"2020-05-07T17:15:10.6137017Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280948"}
+{"@t":"2020-05-07T17:15:11.0368149Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280947"}
+{"@t":"2020-05-07T17:15:12.1569852Z","@m":"Job finished: 100 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":100,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"29a0f753-7155-4e9b-9263-1381d97f5ba4"}
+{"@t":"2020-05-07T17:20:09.7308786Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"401dc57e-14fe-46bf-aa2b-ed401cee4cfa"}
+{"@t":"2020-05-07T17:20:09.7310159Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"af8674f6-482f-42d8-ae02-e76055993d15"}
+{"@t":"2020-05-07T17:20:10.2886187Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280963"}
+{"@t":"2020-05-07T17:20:10.3397308Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280969"}
+{"@t":"2020-05-07T17:20:10.4102699Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280967"}
+{"@t":"2020-05-07T17:20:10.4180738Z","@m":"Job finished: 19 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":19,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"401dc57e-14fe-46bf-aa2b-ed401cee4cfa"}
+{"@t":"2020-05-07T17:20:10.6501127Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280965"}
+{"@t":"2020-05-07T17:20:10.7314979Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280958"}
+{"@t":"2020-05-07T17:20:10.7946526Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280960"}
+{"@t":"2020-05-07T17:20:10.8729513Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280956"}
+{"@t":"2020-05-07T17:20:10.9563312Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280959"}
+{"@t":"2020-05-07T17:20:11.0451415Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280952"}
+{"@t":"2020-05-07T17:20:11.1119499Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280954"}
+{"@t":"2020-05-07T17:20:12.9663449Z","@m":"Job finished: 103 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":103,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"af8674f6-482f-42d8-ae02-e76055993d15"}
+{"@t":"2020-05-07T17:25:09.9162673Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"ae7b0602-c296-4905-b92b-e67c9054d02d"}
+{"@t":"2020-05-07T17:25:09.9164840Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"7efc7c86-8b8d-4ed3-af41-b746eeacd8c9"}
+{"@t":"2020-05-07T17:25:10.5207679Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280973"}
+{"@t":"2020-05-07T17:25:10.5604927Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280971"}
+{"@t":"2020-05-07T17:25:10.6553282Z","@m":"Job finished: 20 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":20,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"7efc7c86-8b8d-4ed3-af41-b746eeacd8c9"}
+{"@t":"2020-05-07T17:25:10.6681602Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280970"}
+{"@t":"2020-05-07T17:25:11.4973101Z","@m":"Job finished: 96 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":96,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"ae7b0602-c296-4905-b92b-e67c9054d02d"}
+{"@t":"2020-05-07T17:30:09.9887970Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"ad50ed2c-8370-439d-bc80-868f68a6b734"}
+{"@t":"2020-05-07T17:30:09.9895012Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"31b387d9-3ce7-45d2-b825-d589353f28a6"}
+{"@t":"2020-05-07T17:30:10.8229942Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280980"}
+{"@t":"2020-05-07T17:30:10.9468542Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280982"}
+{"@t":"2020-05-07T17:30:11.0742170Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280981"}
+{"@t":"2020-05-07T17:30:11.1471330Z","@m":"Job finished: 20 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":20,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"31b387d9-3ce7-45d2-b825-d589353f28a6"}
+{"@t":"2020-05-07T17:30:11.1487097Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280850"}
+{"@t":"2020-05-07T17:30:11.2703912Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280899"}
+{"@t":"2020-05-07T17:30:13.0996209Z","@m":"Job finished: 94 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":94,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"ad50ed2c-8370-439d-bc80-868f68a6b734"}
+{"@t":"2020-05-07T17:35:10.0513435Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"94645285-bacd-433f-8162-d8aa399241a8"}
+{"@t":"2020-05-07T17:35:10.0515562Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"feba8547-5e19-457c-afbd-6a2f0228cba2"}
+{"@t":"2020-05-07T17:35:10.6207828Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280993"}
+{"@t":"2020-05-07T17:35:10.6907089Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280885"}
+{"@t":"2020-05-07T17:35:10.7280350Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280989"}
+{"@t":"2020-05-07T17:35:10.8000887Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280931"}
+{"@t":"2020-05-07T17:35:10.8655334Z","@m":"Job finished: 19 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":19,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"94645285-bacd-433f-8162-d8aa399241a8"}
+{"@t":"2020-05-07T17:35:10.8708378Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280986"}
+{"@t":"2020-05-07T17:35:10.9405608Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280972"}
+{"@t":"2020-05-07T17:35:10.9826688Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280988"}
+{"@t":"2020-05-07T17:35:11.5189832Z","@m":"Job finished: 91 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":91,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"feba8547-5e19-457c-afbd-6a2f0228cba2"}
+{"@t":"2020-05-07T17:40:10.0994223Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"378bbb06-7f8f-45e7-9d3f-e92484769d51"}
+{"@t":"2020-05-07T17:40:10.0996465Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"aa26d3d9-87ab-4997-915b-b923981a939e"}
+{"@t":"2020-05-07T17:40:10.9933369Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281000"}
+{"@t":"2020-05-07T17:40:11.4477684Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281001"}
+{"@t":"2020-05-07T17:40:11.7075047Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280999"}
+{"@t":"2020-05-07T17:40:11.7985929Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280997"}
+{"@t":"2020-05-07T17:40:11.8397506Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280996"}
+{"@t":"2020-05-07T17:40:11.9327233Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280990"}
+{"@t":"2020-05-07T17:40:11.9407236Z","@m":"Job finished: 21 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":21,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"378bbb06-7f8f-45e7-9d3f-e92484769d51"}
+{"@t":"2020-05-07T17:40:11.9913636Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280994"}
+{"@t":"2020-05-07T17:40:12.2778380Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280941"}
+{"@t":"2020-05-07T17:40:12.3532815Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280995"}
+{"@t":"2020-05-07T17:40:13.9772325Z","@m":"Job finished: 86 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":86,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"aa26d3d9-87ab-4997-915b-b923981a939e"}
+{"@t":"2020-05-07T17:45:10.1724540Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"12f46876-977a-466d-ae0d-cc0fcc7aa3cc"}
+{"@t":"2020-05-07T17:45:10.1735290Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"17034096-79a4-4179-bacb-c575ab2bd877"}
+{"@t":"2020-05-07T17:45:10.9159607Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281013"}
+{"@t":"2020-05-07T17:45:11.0090732Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280900"}
+{"@t":"2020-05-07T17:45:11.0913760Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281012"}
+{"@t":"2020-05-07T17:45:11.2014495Z","@m":"Job finished: 21 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":21,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"17034096-79a4-4179-bacb-c575ab2bd877"}
+{"@t":"2020-05-07T17:45:11.2500132Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281010"}
+{"@t":"2020-05-07T17:45:11.3584248Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281004"}
+{"@t":"2020-05-07T17:45:12.1460389Z","@m":"Job finished: 89 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":89,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"12f46876-977a-466d-ae0d-cc0fcc7aa3cc"}
+{"@t":"2020-05-07T17:50:10.2434119Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"7cb083c5-ee0e-4825-85f1-0094d2b9e989"}
+{"@t":"2020-05-07T17:50:10.2435422Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"21ee1fce-930f-468b-84e6-080732eba18c"}
+{"@t":"2020-05-07T17:50:11.2338438Z","@m":"Job finished: 21 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":21,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"21ee1fce-930f-468b-84e6-080732eba18c"}
+{"@t":"2020-05-07T17:50:11.5737598Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281021"}
+{"@t":"2020-05-07T17:50:11.6616981Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281020"}
+{"@t":"2020-05-07T17:50:11.8251158Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281018"}
+{"@t":"2020-05-07T17:50:11.9229129Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281014"}
+{"@t":"2020-05-07T17:50:12.6715737Z","@m":"Job finished: 87 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":87,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"7cb083c5-ee0e-4825-85f1-0094d2b9e989"}
+{"@t":"2020-05-07T17:55:10.3238922Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"fc6352ee-71c5-4fd4-a7d0-e274ddcf96f5"}
+{"@t":"2020-05-07T17:55:10.3243739Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"b08ac844-2810-4abe-aa43-7c0571606e8d"}
+{"@t":"2020-05-07T17:55:11.1896691Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281042"}
+{"@t":"2020-05-07T17:55:11.4162726Z","@m":"Job finished: 21 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":21,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"fc6352ee-71c5-4fd4-a7d0-e274ddcf96f5"}
+{"@t":"2020-05-07T17:55:11.5523354Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281041"}
+{"@t":"2020-05-07T17:55:11.6070627Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280949"}
+{"@t":"2020-05-07T17:55:11.9436483Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281037"}
+{"@t":"2020-05-07T17:55:12.0293986Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281036"}
+{"@t":"2020-05-07T17:55:12.1342618Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281034"}
+{"@t":"2020-05-07T17:55:12.4449184Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281033"}
+{"@t":"2020-05-07T17:55:12.8532203Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281032"}
+{"@t":"2020-05-07T17:55:13.0140218Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281031"}
+{"@t":"2020-05-07T17:55:13.1229893Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281028"}
+{"@t":"2020-05-07T17:55:13.2427056Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281022"}
+{"@t":"2020-05-07T17:55:13.3640923Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281029"}
+{"@t":"2020-05-07T17:55:13.4462895Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281025"}
+{"@t":"2020-05-07T17:55:13.5193775Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281026"}
+{"@t":"2020-05-07T17:55:13.6639620Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281024"}
+{"@t":"2020-05-07T17:55:16.2756854Z","@m":"Job finished: 90 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":90,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"b08ac844-2810-4abe-aa43-7c0571606e8d"}
+{"@t":"2020-05-07T18:00:10.3679755Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"afde3897-8378-404b-842b-a2b955b855b2"}
+{"@t":"2020-05-07T18:00:10.3682104Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"d1116b74-2451-4037-8639-238c95bf4cc3"}
+{"@t":"2020-05-07T18:00:11.0796059Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281051"}
+{"@t":"2020-05-07T18:00:11.1645825Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281050"}
+{"@t":"2020-05-07T18:00:11.2331731Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281048"}
+{"@t":"2020-05-07T18:00:11.2710859Z","@m":"Job finished: 18 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":18,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"afde3897-8378-404b-842b-a2b955b855b2"}
+{"@t":"2020-05-07T18:00:11.2927448Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281044"}
+{"@t":"2020-05-07T18:00:11.3947419Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281038"}
+{"@t":"2020-05-07T18:00:12.0482093Z","@m":"Job finished: 83 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":83,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"d1116b74-2451-4037-8639-238c95bf4cc3"}
+{"@t":"2020-05-07T18:05:10.4643652Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"e5c25717-3473-49ff-a50f-5f48acbb4811"}
+{"@t":"2020-05-07T18:05:10.4911011Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"7015e57b-ea82-40f3-818e-13bd537f0fb9"}
+{"@t":"2020-05-07T18:05:11.4513510Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281064"}
+{"@t":"2020-05-07T18:05:11.9272286Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281060"}
+{"@t":"2020-05-07T18:05:12.2019191Z","@m":"Job finished: 17 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":17,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"e5c25717-3473-49ff-a50f-5f48acbb4811"}
+{"@t":"2020-05-07T18:05:12.3111583Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281057"}
+{"@t":"2020-05-07T18:05:12.4718337Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281049"}
+{"@t":"2020-05-07T18:05:15.2452020Z","@m":"Job finished: 77 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":77,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"7015e57b-ea82-40f3-818e-13bd537f0fb9"}
+{"@t":"2020-05-07T18:10:10.5904586Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"3dc63f73-53ed-4faa-b3d9-f20b6bdd4a6d"}
+{"@t":"2020-05-07T18:10:10.5905992Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"04bda633-7aee-4b8a-a15e-8fe6bcb1756f"}
+{"@t":"2020-05-07T18:10:11.2790128Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281081"}
+{"@t":"2020-05-07T18:10:11.4055578Z","@m":"Job finished: 16 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":16,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"04bda633-7aee-4b8a-a15e-8fe6bcb1756f"}
+{"@t":"2020-05-07T18:10:11.6068781Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281080"}
+{"@t":"2020-05-07T18:10:11.9200965Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281078"}
+{"@t":"2020-05-07T18:10:11.9701099Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281069"}
+{"@t":"2020-05-07T18:10:12.0684112Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281066"}
+{"@t":"2020-05-07T18:10:12.1605660Z","@m":"Too few parts for value: GALLS, OAK CREEK","@i":"6239d35f","@l":"Warning","SourceContext":"MkeAlerts.Web.Services.Functional.GeocodingService","JobRunId":"3dc63f73-53ed-4faa-b3d9-f20b6bdd4a6d"}
+{"@t":"2020-05-07T18:10:12.1620570Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281073"}
+{"@t":"2020-05-07T18:10:12.1868041Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281070"}
+{"@t":"2020-05-07T18:10:12.4991743Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281068"}
+{"@t":"2020-05-07T18:10:12.5927572Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280938"}
+{"@t":"2020-05-07T18:10:13.5592576Z","@m":"Job finished: 80 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":80,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"3dc63f73-53ed-4faa-b3d9-f20b6bdd4a6d"}
+{"@t":"2020-05-07T18:15:10.6381025Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"3de0bc8e-81e5-4422-99d3-6f18d5f0dd5e"}
+{"@t":"2020-05-07T18:15:10.6381759Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"5754187d-d17a-48bf-9987-daad9d4dc691"}
+{"@t":"2020-05-07T18:15:11.4917927Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281096"}
+{"@t":"2020-05-07T18:15:11.6504533Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281095"}
+{"@t":"2020-05-07T18:15:11.6870675Z","@m":"Job finished: 17 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":17,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"3de0bc8e-81e5-4422-99d3-6f18d5f0dd5e"}
+{"@t":"2020-05-07T18:15:11.7073674Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281063"}
+{"@t":"2020-05-07T18:15:11.7739958Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281084"}
+{"@t":"2020-05-07T18:15:12.1016644Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281090"}
+{"@t":"2020-05-07T18:15:12.1935194Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281077"}
+{"@t":"2020-05-07T18:15:12.2538752Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281089"}
+{"@t":"2020-05-07T18:15:12.3446630Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280976"}
+{"@t":"2020-05-07T18:15:13.1507644Z","@m":"Job finished: 84 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":84,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"5754187d-d17a-48bf-9987-daad9d4dc691"}
+{"@t":"2020-05-07T18:20:10.7116613Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8875d309-aa3b-4724-81b7-8aa35773e464"}
+{"@t":"2020-05-07T18:20:10.7128647Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"15dfa564-f0bf-43b8-99bb-7489cb3e9a2a"}
+{"@t":"2020-05-07T18:20:11.4719814Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281074"}
+{"@t":"2020-05-07T18:20:11.5578887Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281086"}
+{"@t":"2020-05-07T18:20:11.6059197Z","@m":"Job finished: 18 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":18,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8875d309-aa3b-4724-81b7-8aa35773e464"}
+{"@t":"2020-05-07T18:20:11.6084509Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281103"}
+{"@t":"2020-05-07T18:20:11.6772595Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281102"}
+{"@t":"2020-05-07T18:20:11.7373573Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281101"}
+{"@t":"2020-05-07T18:20:11.8306002Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281100"}
+{"@t":"2020-05-07T18:20:11.9257555Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281098"}
+{"@t":"2020-05-07T18:20:11.9970171Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281092"}
+{"@t":"2020-05-07T18:20:12.0638715Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281076"}
+{"@t":"2020-05-07T18:20:13.0747364Z","@m":"Job finished: 82 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":82,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"15dfa564-f0bf-43b8-99bb-7489cb3e9a2a"}
+{"@t":"2020-05-07T18:25:10.7540627Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"797c98c5-52ed-41bd-84dc-3c0de458244f"}
+{"@t":"2020-05-07T18:25:10.7543280Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"9f01e9b7-f149-4983-b99c-2c1c2c0116db"}
+{"@t":"2020-05-07T18:25:11.6951195Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281119"}
+{"@t":"2020-05-07T18:25:11.7750119Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281115"}
+{"@t":"2020-05-07T18:25:11.8079852Z","@m":"Job finished: 18 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":18,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"797c98c5-52ed-41bd-84dc-3c0de458244f"}
+{"@t":"2020-05-07T18:25:11.8760274Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281114"}
+{"@t":"2020-05-07T18:25:11.9580002Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281113"}
+{"@t":"2020-05-07T18:25:12.0159102Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281111"}
+{"@t":"2020-05-07T18:25:12.6888775Z","@m":"Job finished: 85 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":85,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"9f01e9b7-f149-4983-b99c-2c1c2c0116db"}
+{"@t":"2020-05-07T18:30:10.8238963Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"aa4567cf-bdf5-4cf3-843a-f96bb2ea9873"}
+{"@t":"2020-05-07T18:30:10.8238971Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"b62fa610-90eb-45ee-945b-baef40d49ed3"}
+{"@t":"2020-05-07T18:30:11.6185126Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281133"}
+{"@t":"2020-05-07T18:30:11.6938210Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281129"}
+{"@t":"2020-05-07T18:30:11.7419332Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281130"}
+{"@t":"2020-05-07T18:30:11.8473932Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281128"}
+{"@t":"2020-05-07T18:30:11.9309447Z","@m":"Job finished: 19 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":19,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"b62fa610-90eb-45ee-945b-baef40d49ed3"}
+{"@t":"2020-05-07T18:30:11.9594747Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281123"}
+{"@t":"2020-05-07T18:30:12.0488462Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201280957"}
+{"@t":"2020-05-07T18:30:12.1295692Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281011"}
+{"@t":"2020-05-07T18:30:12.2179329Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281125"}
+{"@t":"2020-05-07T18:30:12.3076905Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281122"}
+{"@t":"2020-05-07T18:30:12.3756831Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281118"}
+{"@t":"2020-05-07T18:30:12.4729121Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281120"}
+{"@t":"2020-05-07T18:30:12.5813353Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281117"}
+{"@t":"2020-05-07T18:30:13.2948523Z","@m":"Job finished: 92 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":92,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"aa4567cf-bdf5-4cf3-843a-f96bb2ea9873"}
+{"@t":"2020-05-07T18:35:10.8830479Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"34a72be1-a357-4835-ba69-d58608d211a3"}
+{"@t":"2020-05-07T18:35:10.8830480Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"191d12bd-167d-4126-9982-5b8b07c701e1"}
+{"@t":"2020-05-07T18:35:11.6954067Z","@m":"Job finished: 19 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":19,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"191d12bd-167d-4126-9982-5b8b07c701e1"}
+{"@t":"2020-05-07T18:35:12.3785251Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281142"}
+{"@t":"2020-05-07T18:35:12.4524738Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281139"}
+{"@t":"2020-05-07T18:35:12.5072767Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281137"}
+{"@t":"2020-05-07T18:35:12.6265702Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281132"}
+{"@t":"2020-05-07T18:35:12.6968248Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281135"}
+{"@t":"2020-05-07T18:35:12.7911212Z","@m":"Job finished: 91 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":91,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"34a72be1-a357-4835-ba69-d58608d211a3"}
+{"@t":"2020-05-07T18:35:12.7949393Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281131"}
+{"@t":"2020-05-07T18:40:10.9569252Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"b1610be1-76a4-4f26-b534-b4f1ee2ba229"}
+{"@t":"2020-05-07T18:40:10.9623136Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"dcf0b78a-5bec-4316-b787-a9686af07dcc"}
+{"@t":"2020-05-07T18:40:12.5823151Z","@m":"Job finished: 21 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":21,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"b1610be1-76a4-4f26-b534-b4f1ee2ba229"}
+{"@t":"2020-05-07T18:40:14.0707093Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281040"}
+{"@t":"2020-05-07T18:40:14.2291746Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281158"}
+{"@t":"2020-05-07T18:40:14.3387783Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281156"}
+{"@t":"2020-05-07T18:40:14.3891850Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281152"}
+{"@t":"2020-05-07T18:40:14.4439885Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281150"}
+{"@t":"2020-05-07T18:40:14.4941599Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281149"}
+{"@t":"2020-05-07T18:40:14.5573935Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281147"}
+{"@t":"2020-05-07T18:40:14.6404413Z","@m":"Job finished: 89 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":89,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"dcf0b78a-5bec-4316-b787-a9686af07dcc"}
+{"@t":"2020-05-07T18:45:11.0381361Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"741844ca-5d74-4c8d-9058-a1a6f15d92cd"}
+{"@t":"2020-05-07T18:45:11.0391032Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"63af225c-2a38-42af-aa59-cbebbfff64d6"}
+{"@t":"2020-05-07T18:45:11.7917686Z","@m":"Job finished: 23 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":23,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"741844ca-5d74-4c8d-9058-a1a6f15d92cd"}
+{"@t":"2020-05-07T18:45:12.3229718Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281171"}
+{"@t":"2020-05-07T18:45:12.3950062Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281109"}
+{"@t":"2020-05-07T18:45:12.4517174Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281165"}
+{"@t":"2020-05-07T18:45:12.5740888Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281164"}
+{"@t":"2020-05-07T18:45:12.6357566Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281046"}
+{"@t":"2020-05-07T18:45:12.6830307Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281162"}
+{"@t":"2020-05-07T18:45:12.7395109Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281160"}
+{"@t":"2020-05-07T18:45:12.8550133Z","@m":"Job finished: 91 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":91,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"63af225c-2a38-42af-aa59-cbebbfff64d6"}
+{"@t":"2020-05-07T18:50:11.1159746Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"3a715c3d-9fbd-4866-a9ec-15e909b75432"}
+{"@t":"2020-05-07T18:50:11.1159983Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"12180b03-2771-4fcb-835c-b9522757ecfb"}
+{"@t":"2020-05-07T18:50:11.8554918Z","@m":"Job finished: 24 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":24,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"3a715c3d-9fbd-4866-a9ec-15e909b75432"}
+{"@t":"2020-05-07T18:50:12.3858141Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281191"}
+{"@t":"2020-05-07T18:50:12.4487013Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281187"}
+{"@t":"2020-05-07T18:50:12.5192007Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281183"}
+{"@t":"2020-05-07T18:50:12.5617635Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281179"}
+{"@t":"2020-05-07T18:50:12.6291488Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281181"}
+{"@t":"2020-05-07T18:50:12.6899708Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281180"}
+{"@t":"2020-05-07T18:50:12.9151334Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281178"}
+{"@t":"2020-05-07T18:50:12.9561841Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281174"}
+{"@t":"2020-05-07T18:50:12.9944684Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281172"}
+{"@t":"2020-05-07T18:50:13.1962434Z","@m":"Job finished: 96 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":96,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"12180b03-2771-4fcb-835c-b9522757ecfb"}
+{"@t":"2020-05-07T18:55:11.2002156Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"4d960857-e422-40b7-95a8-62fc6d8148f0"}
+{"@t":"2020-05-07T18:55:11.2015247Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"9bbf8ac6-5541-42a7-ad26-a00e517a8f0d"}
+{"@t":"2020-05-07T18:55:11.8951509Z","@m":"Job finished: 24 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":24,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"4d960857-e422-40b7-95a8-62fc6d8148f0"}
+{"@t":"2020-05-07T18:55:12.0864167Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281188"}
+{"@t":"2020-05-07T18:55:12.1296664Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281199"}
+{"@t":"2020-05-07T18:55:12.1821931Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281200"}
+{"@t":"2020-05-07T18:55:12.2494553Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281186"}
+{"@t":"2020-05-07T18:55:12.3907848Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281198"}
+{"@t":"2020-05-07T18:55:12.4728062Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281166"}
+{"@t":"2020-05-07T18:55:12.5349398Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281175"}
+{"@t":"2020-05-07T18:55:12.5926361Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281196"}
+{"@t":"2020-05-07T18:55:12.6582202Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281072"}
+{"@t":"2020-05-07T18:55:12.7322583Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281143"}
+{"@t":"2020-05-07T18:55:12.8543042Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281193"}
+{"@t":"2020-05-07T18:55:13.7254036Z","@m":"Job finished: 92 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":92,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"9bbf8ac6-5541-42a7-ad26-a00e517a8f0d"}
+{"@t":"2020-05-07T19:00:11.2763153Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"e6a4017a-c689-4554-b5b7-17e10da07997"}
+{"@t":"2020-05-07T19:00:11.2763165Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"7ffe9146-2f57-44af-8da9-3a1f8509e6d8"}
+{"@t":"2020-05-07T19:00:11.9113105Z","@m":"Job finished: 23 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":23,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"e6a4017a-c689-4554-b5b7-17e10da07997"}
+{"@t":"2020-05-07T19:00:12.1218745Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281213"}
+{"@t":"2020-05-07T19:00:12.1950902Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281211"}
+{"@t":"2020-05-07T19:00:12.2604060Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281209"}
+{"@t":"2020-05-07T19:00:12.3131792Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281207"}
+{"@t":"2020-05-07T19:00:12.3686198Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281206"}
+{"@t":"2020-05-07T19:00:12.4138103Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281203"}
+{"@t":"2020-05-07T19:00:12.8011150Z","@m":"Job finished: 93 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":93,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"7ffe9146-2f57-44af-8da9-3a1f8509e6d8"}
+{"@t":"2020-05-07T19:05:11.3623768Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"b61dce83-16ed-4f81-ba66-f5cf84d8a900"}
+{"@t":"2020-05-07T19:05:11.3623764Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"3276ecb7-4c24-4449-9981-26f4b98859a9"}
+{"@t":"2020-05-07T19:05:11.9699622Z","@m":"Job finished: 22 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":22,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"b61dce83-16ed-4f81-ba66-f5cf84d8a900"}
+{"@t":"2020-05-07T19:05:12.1933320Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281227"}
+{"@t":"2020-05-07T19:05:12.2553415Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281226"}
+{"@t":"2020-05-07T19:05:12.3007654Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281219"}
+{"@t":"2020-05-07T19:05:12.4321552Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281223"}
+{"@t":"2020-05-07T19:05:12.6268178Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281221"}
+{"@t":"2020-05-07T19:05:12.6794325Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281220"}
+{"@t":"2020-05-07T19:05:12.7223092Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281176"}
+{"@t":"2020-05-07T19:05:12.8153136Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281218"}
+{"@t":"2020-05-07T19:05:13.1602476Z","@m":"Job finished: 96 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":96,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"3276ecb7-4c24-4449-9981-26f4b98859a9"}
+{"@t":"2020-05-07T19:10:11.4384767Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"bc2b83ba-d38b-4e63-8d43-f9e59c574475"}
+{"@t":"2020-05-07T19:10:11.4387105Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"704c5c6b-3d01-47ba-b7f3-1d054bfb3714"}
+{"@t":"2020-05-07T19:10:12.0695038Z","@m":"Job finished: 19 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":19,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"704c5c6b-3d01-47ba-b7f3-1d054bfb3714"}
+{"@t":"2020-05-07T19:10:12.4334331Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281237"}
+{"@t":"2020-05-07T19:10:12.4923684Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281233"}
+{"@t":"2020-05-07T19:10:12.5646034Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281224"}
+{"@t":"2020-05-07T19:10:12.6300765Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281232"}
+{"@t":"2020-05-07T19:10:12.8597119Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281222"}
+{"@t":"2020-05-07T19:10:12.9205483Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281231"}
+{"@t":"2020-05-07T19:10:13.3710188Z","@m":"Job finished: 93 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":93,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"bc2b83ba-d38b-4e63-8d43-f9e59c574475"}
+{"@t":"2020-05-07T19:15:11.5101969Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"4c4a3560-58f7-4d25-91d7-6c253aeb8481"}
+{"@t":"2020-05-07T19:15:11.5210077Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"6cf3be2b-ae68-4f17-965c-b43615eaaa00"}
+{"@t":"2020-05-07T19:15:12.3636354Z","@m":"Job finished: 19 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":19,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"4c4a3560-58f7-4d25-91d7-6c253aeb8481"}
+{"@t":"2020-05-07T19:15:12.5802804Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281252"}
+{"@t":"2020-05-07T19:15:12.7296586Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281250"}
+{"@t":"2020-05-07T19:15:12.8459143Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281251"}
+{"@t":"2020-05-07T19:15:12.9404581Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281241"}
+{"@t":"2020-05-07T19:15:13.0375059Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281094"}
+{"@t":"2020-05-07T19:15:13.1620284Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281245"}
+{"@t":"2020-05-07T19:15:13.4724837Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281244"}
+{"@t":"2020-05-07T19:15:13.6086626Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281236"}
+{"@t":"2020-05-07T19:15:13.6872566Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281242"}
+{"@t":"2020-05-07T19:15:15.7058376Z","@m":"Job finished: 94 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":94,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"6cf3be2b-ae68-4f17-965c-b43615eaaa00"}
+{"@t":"2020-05-07T19:20:11.5879787Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"95e61607-fcef-4ab7-ba44-06d42cbd4dd5"}
+{"@t":"2020-05-07T19:20:11.5879787Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"08ab35b7-1cf9-43c4-924e-99c108d79ad5"}
+{"@t":"2020-05-07T19:20:12.3863010Z","@m":"Job finished: 20 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":20,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"08ab35b7-1cf9-43c4-924e-99c108d79ad5"}
+{"@t":"2020-05-07T19:20:12.4394467Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281271"}
+{"@t":"2020-05-07T19:20:12.4997495Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281268"}
+{"@t":"2020-05-07T19:20:12.6103347Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281267"}
+{"@t":"2020-05-07T19:20:12.6555068Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281260"}
+{"@t":"2020-05-07T19:20:12.7349007Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281258"}
+{"@t":"2020-05-07T19:20:12.7951432Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281263"}
+{"@t":"2020-05-07T19:20:12.8707176Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281261"}
+{"@t":"2020-05-07T19:20:12.9506559Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281255"}
+{"@t":"2020-05-07T19:20:13.1355824Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281248"}
+{"@t":"2020-05-07T19:20:14.7259211Z","@m":"Job finished: 94 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":94,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"95e61607-fcef-4ab7-ba44-06d42cbd4dd5"}
+{"@t":"2020-05-07T19:25:11.6635470Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"3238e3b0-0dc9-4122-970a-241c21a1549d"}
+{"@t":"2020-05-07T19:25:11.6635542Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"0b6186f7-3615-42c2-91b4-30b837fc390a"}
+{"@t":"2020-05-07T19:25:12.2860796Z","@m":"Job finished: 20 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":20,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"0b6186f7-3615-42c2-91b4-30b837fc390a"}
+{"@t":"2020-05-07T19:25:12.2881229Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281278"}
+{"@t":"2020-05-07T19:25:12.3543192Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281141"}
+{"@t":"2020-05-07T19:25:12.4124505Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281276"}
+{"@t":"2020-05-07T19:25:12.4988538Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281269"}
+{"@t":"2020-05-07T19:25:12.5605257Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281275"}
+{"@t":"2020-05-07T19:25:12.6402611Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281273"}
+{"@t":"2020-05-07T19:25:12.7084264Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281079"}
+{"@t":"2020-05-07T19:25:12.7823865Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281272"}
+{"@t":"2020-05-07T19:25:14.5080810Z","@m":"Job finished: 97 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":97,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"3238e3b0-0dc9-4122-970a-241c21a1549d"}
+{"@t":"2020-05-07T19:30:11.7464452Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"43164b1a-4e40-46ff-a592-72b6d14c1d78"}
+{"@t":"2020-05-07T19:30:11.7466455Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8310476e-33af-4a19-80c5-205a542c01b0"}
+{"@t":"2020-05-07T19:30:12.2857745Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281283"}
+{"@t":"2020-05-07T19:30:12.3694742Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281240"}
+{"@t":"2020-05-07T19:30:12.4069122Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281281"}
+{"@t":"2020-05-07T19:30:12.4390523Z","@m":"Job finished: 21 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":21,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8310476e-33af-4a19-80c5-205a542c01b0"}
+{"@t":"2020-05-07T19:30:12.4804524Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281279"}
+{"@t":"2020-05-07T19:30:12.5340732Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281259"}
+{"@t":"2020-05-07T19:30:12.5913575Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281274"}
+{"@t":"2020-05-07T19:30:13.7762905Z","@m":"Job finished: 91 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":91,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"43164b1a-4e40-46ff-a592-72b6d14c1d78"}
+{"@t":"2020-05-07T19:35:11.8187132Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"e1098025-43d1-48d7-8ca5-4725df34cbd4"}
+{"@t":"2020-05-07T19:35:11.8188664Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"1c4fa96f-4877-4b4d-a448-fdabd81ddd15"}
+{"@t":"2020-05-07T19:35:12.4541456Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281291"}
+{"@t":"2020-05-07T19:35:12.5124069Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281292"}
+{"@t":"2020-05-07T19:35:12.5656719Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281280"}
+{"@t":"2020-05-07T19:35:12.5795662Z","@m":"Job finished: 20 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":20,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"e1098025-43d1-48d7-8ca5-4725df34cbd4"}
+{"@t":"2020-05-07T19:35:12.6292418Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281289"}
+{"@t":"2020-05-07T19:35:12.6933762Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281290"}
+{"@t":"2020-05-07T19:35:12.7647892Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281282"}
+{"@t":"2020-05-07T19:35:12.8329240Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281288"}
+{"@t":"2020-05-07T19:35:13.3944508Z","@m":"Job finished: 92 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":92,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"1c4fa96f-4877-4b4d-a448-fdabd81ddd15"}
+{"@t":"2020-05-07T19:40:11.8741835Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"4480728b-5079-4c9e-bde7-959ebc713d6c"}
+{"@t":"2020-05-07T19:40:11.8742624Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8ca8c7dc-e473-417d-a9c8-c414d9b0b6d9"}
+{"@t":"2020-05-07T19:40:12.3943013Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281286"}
+{"@t":"2020-05-07T19:40:12.4500094Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281270"}
+{"@t":"2020-05-07T19:40:12.5130247Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281247"}
+{"@t":"2020-05-07T19:40:12.5911891Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281301"}
+{"@t":"2020-05-07T19:40:12.7314188Z","@m":"Job finished: 21 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":21,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8ca8c7dc-e473-417d-a9c8-c414d9b0b6d9"}
+{"@t":"2020-05-07T19:40:13.1056646Z","@m":"Job finished: 89 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":89,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"4480728b-5079-4c9e-bde7-959ebc713d6c"}
+{"@t":"2020-05-07T19:45:11.9233500Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"a6a67fbe-c553-4423-b983-c2a7165f0d04"}
+{"@t":"2020-05-07T19:45:11.9233500Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"b4fd1c23-7330-453b-b4bc-73852a8fafd0"}
+{"@t":"2020-05-07T19:45:12.5562340Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281310"}
+{"@t":"2020-05-07T19:45:12.6282138Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281194"}
+{"@t":"2020-05-07T19:45:12.6776939Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281308"}
+{"@t":"2020-05-07T19:45:12.7193683Z","@m":"Job finished: 21 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":21,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"a6a67fbe-c553-4423-b983-c2a7165f0d04"}
+{"@t":"2020-05-07T19:45:12.7445628Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281307"}
+{"@t":"2020-05-07T19:45:12.8266372Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281304"}
+{"@t":"2020-05-07T19:45:12.8745262Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281253"}
+{"@t":"2020-05-07T19:45:12.9208637Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281296"}
+{"@t":"2020-05-07T19:45:13.6667574Z","@m":"Job finished: 90 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":90,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"b4fd1c23-7330-453b-b4bc-73852a8fafd0"}
+{"@t":"2020-05-07T19:50:11.9913934Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"e01dc668-da94-4bc3-b020-bd95a2b80a33"}
+{"@t":"2020-05-07T19:50:11.9915222Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"940c193c-4de0-463c-b83a-7b2510d8594c"}
+{"@t":"2020-05-07T19:50:13.1280951Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281318"}
+{"@t":"2020-05-07T19:50:13.2911323Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281317"}
+{"@t":"2020-05-07T19:50:13.7903256Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281316"}
+{"@t":"2020-05-07T19:50:13.8683936Z","@m":"Job finished: 19 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":19,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"940c193c-4de0-463c-b83a-7b2510d8594c"}
+{"@t":"2020-05-07T19:50:13.9542472Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281315"}
+{"@t":"2020-05-07T19:50:14.1351221Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281314"}
+{"@t":"2020-05-07T19:50:14.3905722Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281305"}
+{"@t":"2020-05-07T19:50:14.4769855Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281312"}
+{"@t":"2020-05-07T19:50:16.3315233Z","@m":"Job finished: 88 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":88,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"e01dc668-da94-4bc3-b020-bd95a2b80a33"}
+{"@t":"2020-05-07T19:55:12.0405513Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"50ae579d-c29a-4fae-8817-d906835945c9"}
+{"@t":"2020-05-07T19:55:12.0405949Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"89c40574-2367-4dc8-a957-1d0ac3a33bbf"}
+{"@t":"2020-05-07T19:55:12.4739280Z","@m":"Unexpected street format: 116TH/ROGERS, WEST ALLIS","@i":"8082c4ef","@l":"Warning","SourceContext":"MkeAlerts.Web.Services.Functional.GeocodingService","JobRunId":"89c40574-2367-4dc8-a957-1d0ac3a33bbf"}
+{"@t":"2020-05-07T19:55:12.5093353Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281327"}
+{"@t":"2020-05-07T19:55:12.6912819Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281326"}
+{"@t":"2020-05-07T19:55:12.8092273Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281325"}
+{"@t":"2020-05-07T19:55:12.8532751Z","@m":"Job finished: 18 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":18,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"50ae579d-c29a-4fae-8817-d906835945c9"}
+{"@t":"2020-05-07T19:55:12.8696810Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281319"}
+{"@t":"2020-05-07T19:55:12.9292700Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281298"}
+{"@t":"2020-05-07T19:55:14.1911373Z","@m":"Job finished: 82 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":82,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"89c40574-2367-4dc8-a957-1d0ac3a33bbf"}
+{"@t":"2020-05-07T20:00:12.1103528Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"3eeecb73-7ba9-4b7e-89a0-7ae29a4376ec"}
+{"@t":"2020-05-07T20:00:12.1103644Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"826f09c4-ada2-40ab-bb37-3409f9aa906c"}
+{"@t":"2020-05-07T20:00:12.7956183Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281337"}
+{"@t":"2020-05-07T20:00:12.9670186Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281328"}
+{"@t":"2020-05-07T20:00:13.1803387Z","@m":"Job finished: 21 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":21,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"826f09c4-ada2-40ab-bb37-3409f9aa906c"}
+{"@t":"2020-05-07T20:00:15.6092187Z","@m":"Job finished: 78 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":78,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"3eeecb73-7ba9-4b7e-89a0-7ae29a4376ec"}
+{"@t":"2020-05-07T20:05:12.1748660Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"4f1aaa8d-b890-4e70-be9e-9912966ce656"}
+{"@t":"2020-05-07T20:05:12.1750258Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"c7f91278-ab70-4234-a1cf-90b37872305b"}
+{"@t":"2020-05-07T20:05:12.9618351Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281342"}
+{"@t":"2020-05-07T20:05:13.0053060Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281303"}
+{"@t":"2020-05-07T20:05:13.1742062Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281340"}
+{"@t":"2020-05-07T20:05:13.3081604Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281338"}
+{"@t":"2020-05-07T20:05:14.2062289Z","@m":"Job finished: 24 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":24,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"4f1aaa8d-b890-4e70-be9e-9912966ce656"}
+{"@t":"2020-05-07T20:05:14.9790677Z","@m":"Job finished: 74 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":74,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"c7f91278-ab70-4234-a1cf-90b37872305b"}
+{"@t":"2020-05-07T20:10:12.2408382Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"a03c7323-393f-471f-a84e-c438beaced27"}
+{"@t":"2020-05-07T20:10:12.2408382Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"21f29cc6-20c3-402d-b27a-a19c78a471bb"}
+{"@t":"2020-05-07T20:10:12.9914536Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281352"}
+{"@t":"2020-05-07T20:10:13.0820721Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281356"}
+{"@t":"2020-05-07T20:10:13.1495471Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281355"}
+{"@t":"2020-05-07T20:10:13.2011669Z","@m":"Job finished: 24 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":24,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"a03c7323-393f-471f-a84e-c438beaced27"}
+{"@t":"2020-05-07T20:10:13.2342607Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281354"}
+{"@t":"2020-05-07T20:10:13.3052796Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281351"}
+{"@t":"2020-05-07T20:10:13.3832273Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281349"}
+{"@t":"2020-05-07T20:10:13.7093804Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281348"}
+{"@t":"2020-05-07T20:10:13.8081703Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281347"}
+{"@t":"2020-05-07T20:10:14.1170511Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281345"}
+{"@t":"2020-05-07T20:10:14.1865663Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281339"}
+{"@t":"2020-05-07T20:10:14.9752667Z","@m":"Job finished: 78 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":78,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"21f29cc6-20c3-402d-b27a-a19c78a471bb"}
+{"@t":"2020-05-07T20:15:12.2886448Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8dd3e650-54d9-4e2f-aa8a-9bf7b5369407"}
+{"@t":"2020-05-07T20:15:12.2886450Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"ab05ff28-db17-4551-b209-0a82deadc65f"}
+{"@t":"2020-05-07T20:15:13.0338093Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281367"}
+{"@t":"2020-05-07T20:15:13.1155114Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281366"}
+{"@t":"2020-05-07T20:15:13.2141432Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281358"}
+{"@t":"2020-05-07T20:15:13.2925182Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281365"}
+{"@t":"2020-05-07T20:15:13.5057010Z","@m":"Job finished: 22 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":22,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8dd3e650-54d9-4e2f-aa8a-9bf7b5369407"}
+{"@t":"2020-05-07T20:15:13.6350330Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281361"}
+{"@t":"2020-05-07T20:15:14.1917828Z","@m":"Job finished: 74 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":74,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"ab05ff28-db17-4551-b209-0a82deadc65f"}
+{"@t":"2020-05-07T20:20:12.3673831Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"386d5b11-7e1c-45af-a740-ef9aab1f8d24"}
+{"@t":"2020-05-07T20:20:12.3675299Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"3d821d55-1417-474c-99a4-25a1099fa2fd"}
+{"@t":"2020-05-07T20:20:13.0964909Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281378"}
+{"@t":"2020-05-07T20:20:13.1522134Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281369"}
+{"@t":"2020-05-07T20:20:13.2880439Z","@m":"Job finished: 22 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":22,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"3d821d55-1417-474c-99a4-25a1099fa2fd"}
+{"@t":"2020-05-07T20:20:13.5796600Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281374"}
+{"@t":"2020-05-07T20:20:13.6892575Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281371"}
+{"@t":"2020-05-07T20:20:15.3538281Z","@m":"Job finished: 70 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":70,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"386d5b11-7e1c-45af-a740-ef9aab1f8d24"}
+{"@t":"2020-05-07T20:25:12.4489286Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"d61e60bb-bd49-4cc9-a53a-fc40a4bafae3"}
+{"@t":"2020-05-07T20:25:12.4554129Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"ad474240-4965-408e-8564-b83057b88abf"}
+{"@t":"2020-05-07T20:25:13.4252528Z","@m":"Too few parts for value: D2","@i":"83c15490","@l":"Warning","SourceContext":"MkeAlerts.Web.Services.Functional.GeocodingService","JobRunId":"ad474240-4965-408e-8564-b83057b88abf"}
+{"@t":"2020-05-07T20:25:13.4415110Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281392"}
+{"@t":"2020-05-07T20:25:13.4467452Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281391"}
+{"@t":"2020-05-07T20:25:13.6975165Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281387"}
+{"@t":"2020-05-07T20:25:13.9466177Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281375"}
+{"@t":"2020-05-07T20:25:14.2288355Z","@m":"Job finished: 22 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":22,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"d61e60bb-bd49-4cc9-a53a-fc40a4bafae3"}
+{"@t":"2020-05-07T20:25:14.4258165Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281382"}
+{"@t":"2020-05-07T20:25:14.4930692Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281311"}
+{"@t":"2020-05-07T20:25:16.6629851Z","@m":"Job finished: 67 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":67,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"ad474240-4965-408e-8564-b83057b88abf"}
+{"@t":"2020-05-07T20:30:12.5450443Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"af435a56-e47c-4ef7-b2b1-853619120c5c"}
+{"@t":"2020-05-07T20:30:12.5450988Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"36bf002b-0cc6-4377-8a5b-1d1d8af8f61b"}
+{"@t":"2020-05-07T20:30:13.3023624Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281385"}
+{"@t":"2020-05-07T20:30:13.6215374Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281408"}
+{"@t":"2020-05-07T20:30:13.7660075Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281401"}
+{"@t":"2020-05-07T20:30:13.8523334Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281262"}
+{"@t":"2020-05-07T20:30:14.0581988Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281394"}
+{"@t":"2020-05-07T20:30:14.1513896Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281398"}
+{"@t":"2020-05-07T20:30:14.4907184Z","@m":"Job finished: 24 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":24,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"af435a56-e47c-4ef7-b2b1-853619120c5c"}
+{"@t":"2020-05-07T20:30:14.5719384Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281400"}
+{"@t":"2020-05-07T20:30:14.6840301Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281395"}
+{"@t":"2020-05-07T20:30:16.2301572Z","@m":"Job finished: 69 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":69,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"36bf002b-0cc6-4377-8a5b-1d1d8af8f61b"}
+{"@t":"2020-05-07T20:35:12.5970906Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"25134787-d523-4222-8e4a-40517d508b17"}
+{"@t":"2020-05-07T20:35:12.5970906Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"d3587d79-7143-46c1-86c5-94b3130d0e66"}
+{"@t":"2020-05-07T20:35:13.3551928Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281403"}
+{"@t":"2020-05-07T20:35:13.7740279Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281420"}
+{"@t":"2020-05-07T20:35:13.8342977Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281422"}
+{"@t":"2020-05-07T20:35:13.9474805Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281418"}
+{"@t":"2020-05-07T20:35:14.3158298Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281416"}
+{"@t":"2020-05-07T20:35:14.5049785Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281414"}
+{"@t":"2020-05-07T20:35:14.5303254Z","@m":"Job finished: 27 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":27,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"d3587d79-7143-46c1-86c5-94b3130d0e66"}
+{"@t":"2020-05-07T20:35:14.6155926Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281412"}
+{"@t":"2020-05-07T20:35:14.9439271Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281411"}
+{"@t":"2020-05-07T20:35:16.0256455Z","@m":"Job finished: 70 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":70,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"25134787-d523-4222-8e4a-40517d508b17"}
+{"@t":"2020-05-07T20:40:12.6947080Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"a36b888f-9e7d-47b8-bff5-8b00f141f0da"}
+{"@t":"2020-05-07T20:40:12.6947657Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"3463de6c-98f6-465b-8781-3a14f0cc0597"}
+{"@t":"2020-05-07T20:40:13.1803687Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281439"}
+{"@t":"2020-05-07T20:40:13.3626735Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281437"}
+{"@t":"2020-05-07T20:40:13.3655372Z","@m":"Job finished: 27 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":27,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"a36b888f-9e7d-47b8-bff5-8b00f141f0da"}
+{"@t":"2020-05-07T20:40:13.4354526Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281434"}
+{"@t":"2020-05-07T20:40:13.5172125Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281350"}
+{"@t":"2020-05-07T20:40:13.7529416Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281421"}
+{"@t":"2020-05-07T20:40:13.8356620Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281431"}
+{"@t":"2020-05-07T20:40:13.9156118Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281430"}
+{"@t":"2020-05-07T20:40:13.9723882Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281396"}
+{"@t":"2020-05-07T20:40:15.1688978Z","@m":"Job finished: 74 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":74,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"3463de6c-98f6-465b-8781-3a14f0cc0597"}
+{"@t":"2020-05-07T20:45:12.8005485Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"93a22f1d-db3d-4454-baa6-87b5d4315a91"}
+{"@t":"2020-05-07T20:45:12.8006633Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"f75e9d72-ddbc-4571-bf15-5c8ec2239099"}
+{"@t":"2020-05-07T20:45:13.5897475Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281455"}
+{"@t":"2020-05-07T20:45:13.6417175Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281447"}
+{"@t":"2020-05-07T20:45:13.8748708Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281376"}
+{"@t":"2020-05-07T20:45:13.9238682Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281448"}
+{"@t":"2020-05-07T20:45:13.9887668Z","@m":"Job finished: 28 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":28,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"93a22f1d-db3d-4454-baa6-87b5d4315a91"}
+{"@t":"2020-05-07T20:45:13.9976465Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281442"}
+{"@t":"2020-05-07T20:45:14.0788497Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281446"}
+{"@t":"2020-05-07T20:45:14.1506869Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281445"}
+{"@t":"2020-05-07T20:45:14.2022941Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281380"}
+{"@t":"2020-05-07T20:45:14.2797760Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281426"}
+{"@t":"2020-05-07T20:45:14.8513838Z","@m":"Job finished: 76 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":76,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"f75e9d72-ddbc-4571-bf15-5c8ec2239099"}
+{"@t":"2020-05-07T20:50:12.8495074Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"335bfae1-ec52-4f01-aaa0-4b6af0a8fc0b"}
+{"@t":"2020-05-07T20:50:12.8495073Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"635f131a-a538-4e13-9a5a-e37b7958115f"}
+{"@t":"2020-05-07T20:50:13.3738682Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281474"}
+{"@t":"2020-05-07T20:50:13.4414955Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281383"}
+{"@t":"2020-05-07T20:50:13.5055856Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281465"}
+{"@t":"2020-05-07T20:50:13.5513940Z","@m":"Job finished: 26 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":26,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"335bfae1-ec52-4f01-aaa0-4b6af0a8fc0b"}
+{"@t":"2020-05-07T20:50:13.6376470Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281466"}
+{"@t":"2020-05-07T20:50:13.6969559Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281463"}
+{"@t":"2020-05-07T20:50:13.7717171Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281462"}
+{"@t":"2020-05-07T20:50:13.8885567Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281461"}
+{"@t":"2020-05-07T20:50:13.9402198Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281460"}
+{"@t":"2020-05-07T20:50:15.6789570Z","@m":"Job finished: 77 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":77,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"635f131a-a538-4e13-9a5a-e37b7958115f"}
+{"@t":"2020-05-07T20:55:12.9161096Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"9eb0bebd-a557-4f74-ac64-a3ff90ee5f91"}
+{"@t":"2020-05-07T20:55:12.9161899Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"1cbd219f-ac71-40c7-8939-5406aad5cffb"}
+{"@t":"2020-05-07T20:55:13.5955016Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281482"}
+{"@t":"2020-05-07T20:55:13.6804439Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281467"}
+{"@t":"2020-05-07T20:55:13.9327687Z","@m":"Job finished: 27 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":27,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"1cbd219f-ac71-40c7-8939-5406aad5cffb"}
+{"@t":"2020-05-07T20:55:14.4596554Z","@m":"Job finished: 74 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":74,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"9eb0bebd-a557-4f74-ac64-a3ff90ee5f91"}
+{"@t":"2020-05-07T21:00:12.9660857Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"775b68c5-6df0-414a-b93c-ced050d16d18"}
+{"@t":"2020-05-07T21:00:12.9660915Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"40d134b5-1d29-4e6d-814b-badb0f5a1924"}
+{"@t":"2020-05-07T21:00:13.5383211Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281490"}
+{"@t":"2020-05-07T21:00:13.9954369Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281491"}
+{"@t":"2020-05-07T21:00:14.0426068Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281489"}
+{"@t":"2020-05-07T21:00:14.0800095Z","@m":"Job finished: 27 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":27,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"775b68c5-6df0-414a-b93c-ced050d16d18"}
+{"@t":"2020-05-07T21:00:14.1137895Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281485"}
+{"@t":"2020-05-07T21:00:14.1584524Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281484"}
+{"@t":"2020-05-07T21:00:17.6901752Z","@m":"Job finished: 77 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":77,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"40d134b5-1d29-4e6d-814b-badb0f5a1924"}
+{"@t":"2020-05-07T21:05:04.6416425Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8c5dd854-94ae-45fe-be3e-1ced8b94d1b3"}
+{"@t":"2020-05-07T21:05:04.6416425Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"4faf8f92-2ed5-43cd-b99f-ffa410221434"}
+{"@t":"2020-05-07T21:05:08.3727806Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281503"}
+{"@t":"2020-05-07T21:05:08.4841107Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281498"}
+{"@t":"2020-05-07T21:05:09.2805461Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281483"}
+{"@t":"2020-05-07T21:05:10.6791964Z","@m":"Job finished: 29 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":29,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"8c5dd854-94ae-45fe-be3e-1ced8b94d1b3"}
+{"@t":"2020-05-07T21:05:11.7456438Z","@m":"Job finished: 76 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":76,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"4faf8f92-2ed5-43cd-b99f-ffa410221434"}
+{"@t":"2020-05-07T21:10:04.0250591Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"6a2d1637-3179-434e-a5c3-fc439f38cdd4"}
+{"@t":"2020-05-07T21:10:04.0251399Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"6eae58ea-ee1f-4636-b401-52137d644b96"}
+{"@t":"2020-05-07T21:10:04.6838495Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281521"}
+{"@t":"2020-05-07T21:10:04.7523975Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281520"}
+{"@t":"2020-05-07T21:10:04.8005075Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281389"}
+{"@t":"2020-05-07T21:10:04.8865512Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281519"}
+{"@t":"2020-05-07T21:10:04.9277632Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281504"}
+{"@t":"2020-05-07T21:10:04.9863828Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281511"}
+{"@t":"2020-05-07T21:10:05.0458477Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281513"}
+{"@t":"2020-05-07T21:10:05.0963957Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281510"}
+{"@t":"2020-05-07T21:10:05.1029373Z","@m":"Job finished: 28 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":28,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"6a2d1637-3179-434e-a5c3-fc439f38cdd4"}
+{"@t":"2020-05-07T21:10:05.9786068Z","@m":"Job finished: 74 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":74,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"6eae58ea-ee1f-4636-b401-52137d644b96"}
+{"@t":"2020-05-07T21:15:15.3241706Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"b446ec5a-e6e9-4baf-b90a-ba9f78edc964"}
+{"@t":"2020-05-07T21:15:15.3242193Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"e7f3ef48-dfba-4d17-b2e0-906a99b12de4"}
+{"@t":"2020-05-07T21:15:16.4921386Z","@m":"Starting job: \"201281516\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281516"}
+{"@t":"2020-05-07T21:15:16.7622706Z","@m":"Job finished: 26 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":26,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"e7f3ef48-dfba-4d17-b2e0-906a99b12de4"}
+{"@t":"2020-05-07T21:15:23.0459881Z","@m":"Starting job: \"201281533\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281533"}
+{"@t":"2020-05-07T21:15:23.1498856Z","@m":"Starting job: \"201281532\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281532"}
+{"@t":"2020-05-07T21:15:23.2275984Z","@m":"Starting job: \"201281530\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281530"}
+{"@t":"2020-05-07T21:15:23.3804934Z","@m":"Starting job: \"201281529\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281529"}
+{"@t":"2020-05-07T21:15:23.6298690Z","@m":"Starting job: \"201281528\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281528"}
+{"@t":"2020-05-07T21:15:23.7177370Z","@m":"Starting job: \"201281525\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281525"}
+{"@t":"2020-05-07T21:15:23.8091728Z","@m":"Starting job: \"201281523\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281523"}
+{"@t":"2020-05-07T21:15:26.5224517Z","@m":"Job finished: 77 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":77,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"b446ec5a-e6e9-4baf-b90a-ba9f78edc964"}
+{"@t":"2020-05-07T21:20:14.3124469Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"28c183e3-385d-42bd-b857-73de0bc074ad"}
+{"@t":"2020-05-07T21:20:14.3124519Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"c35d8216-dead-49b2-b8d0-de8ba36115ec"}
+{"@t":"2020-05-07T21:20:14.9491401Z","@m":"Starting job: \"201281538\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281538"}
+{"@t":"2020-05-07T21:20:15.0158568Z","@m":"Starting job: \"201281537\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281537"}
+{"@t":"2020-05-07T21:20:15.0723453Z","@m":"Starting job: \"201281526\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281526"}
+{"@t":"2020-05-07T21:20:15.1170136Z","@m":"Starting job: \"201281518\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281518"}
+{"@t":"2020-05-07T21:20:15.2980012Z","@m":"Job finished: 28 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":28,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"28c183e3-385d-42bd-b857-73de0bc074ad"}
+{"@t":"2020-05-07T21:20:16.0378304Z","@m":"Job finished: 77 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":77,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"c35d8216-dead-49b2-b8d0-de8ba36115ec"}
+{"@t":"2020-05-07T21:25:14.6364023Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"d9a5446e-408c-4541-9386-f2f39a46f899"}
+{"@t":"2020-05-07T21:25:14.6364023Z","@m":"Starting job","@i":"cefdf58b","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"048dcde6-7581-415c-af2c-aa7131bb90bd"}
+{"@t":"2020-05-07T21:25:15.4199790Z","@m":"Starting job: \"201281427\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281427"}
+{"@t":"2020-05-07T21:25:15.5278741Z","@m":"Starting job: \"201281556\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281556"}
+{"@t":"2020-05-07T21:25:15.6171895Z","@m":"Starting job: \"201281555\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281555"}
+{"@t":"2020-05-07T21:25:15.6661063Z","@m":"Starting job: \"201281435\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281435"}
+{"@t":"2020-05-07T21:25:15.6994743Z","@m":"Job finished: 29 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":29,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"d9a5446e-408c-4541-9386-f2f39a46f899"}
+{"@t":"2020-05-07T21:25:15.7150116Z","@m":"Starting job: \"201281553\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281553"}
+{"@t":"2020-05-07T21:25:15.8479620Z","@m":"Starting job: \"201281551\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281551"}
+{"@t":"2020-05-07T21:25:15.9045976Z","@m":"Starting job: \"201281548\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281548"}
+{"@t":"2020-05-07T21:25:15.9596772Z","@m":"Starting job: \"201281545\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281545"}
+{"@t":"2020-05-07T21:25:16.1965375Z","@m":"Starting job: \"201281544\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281544"}
+{"@t":"2020-05-07T21:25:17.0424774Z","@m":"Job finished: 80 succeeded, 0 failed","@i":"f802e7c4","SuccessCount":80,"FailureCount":0,"SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"048dcde6-7581-415c-af2c-aa7131bb90bd"}
+{"@t":"2020-05-07T21:30:15.2611831Z","@m":"Starting job: 7740a258-c7e2-4923-a30c-6bc9cd93db16","@i":"121c291a","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"7740a258-c7e2-4923-a30c-6bc9cd93db16"}
+{"@t":"2020-05-07T21:30:15.2611705Z","@m":"Starting job: 767ab6e8-add1-4974-b33d-1dad6f57d860","@i":"121c291a","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"767ab6e8-add1-4974-b33d-1dad6f57d860"}
+{"@t":"2020-05-07T21:30:19.1657172Z","@m":"Starting job: \"201281572\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281572"}
+{"@t":"2020-05-07T21:30:22.6294329Z","@m":"Starting job: \"201281570\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281570"}
+{"@t":"2020-05-07T21:30:22.7037255Z","@m":"Starting job: \"201281567\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281567"}
+{"@t":"2020-05-07T21:30:22.9741075Z","@m":"Starting job: \"201281568\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281568"}
+{"@t":"2020-05-07T21:30:23.2046309Z","@m":"Starting job: \"201281397\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281397"}
+{"@t":"2020-05-07T21:30:23.7010829Z","@m":"Starting job: \"201281565\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281565"}
+{"@t":"2020-05-07T21:30:23.9170733Z","@m":"Starting job: \"201281564\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281564"}
+{"@t":"2020-05-07T21:30:24.0142947Z","@m":"Starting job: \"201281563\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281563"}
+{"@t":"2020-05-07T21:30:24.1019506Z","@m":"Starting job: \"201281535\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281535"}
+{"@t":"2020-05-07T21:30:24.2911640Z","@m":"Starting job: \"201281562\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281562"}
+{"@t":"2020-05-07T21:30:24.3568590Z","@m":"Starting job: \"201281561\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281561"}
+{"@t":"2020-05-07T21:30:24.4716166Z","@m":"Starting job: \"201281429\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281429"}
+{"@t":"2020-05-07T21:30:24.8679181Z","@m":"Starting job: \"201281560\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281560"}
+{"@t":"2020-05-07T21:30:25.1462957Z","@m":"Starting job: \"201281558\"","@i":"3f35526b","SourceContext":"MkeAlerts.Web.Jobs.SendPoliceDispatchCallNotifications","PoliceDispatchCallId":"201281558"}
+{"@t":"2020-05-07T21:30:59.2124067Z","@m":"Starting job: 28bec340-b926-47c9-8608-e007da801c30","@i":"121c291a","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"28bec340-b926-47c9-8608-e007da801c30"}
+{"@t":"2020-05-07T21:30:59.2124364Z","@m":"Starting job: 2821a45c-4f39-4fe1-8050-e0998e4383c7","@i":"121c291a","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"2821a45c-4f39-4fe1-8050-e0998e4383c7"}
+{"@t":"2020-05-07T21:31:29.2663685Z","@m":"Starting job: 9a35ce27-d3bb-48ac-bb7b-5fd92b6859e3","@i":"121c291a","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"9a35ce27-d3bb-48ac-bb7b-5fd92b6859e3"}
+{"@t":"2020-05-07T21:32:14.2823559Z","@m":"Starting job: 8fb1546e-9f42-4706-a484-174c8544d7a9","@i":"121c291a","SourceContext":"MkeAlerts.Web.Jobs.ImportPoliceDispatchCallsJob","JobRunId":"8fb1546e-9f42-4706-a484-174c8544d7a9"}
+{"@t":"2020-05-07T21:32:29.2864524Z","@m":"Starting job: 65727dd7-8a33-4813-8e5a-0d99ca27904a","@i":"121c291a","SourceContext":"MkeAlerts.Web.Jobs.ImportFireDispatchCallsJob","JobRunId":"65727dd7-8a33-4813-8e5a-0d99ca27904a"}

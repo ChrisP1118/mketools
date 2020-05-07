@@ -1,0 +1,50 @@
+2020-05-07 09:48:06.674 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/  
+2020-05-07 09:48:09.188 -05:00 [INF] Request finished in 2515.0255ms 200 text/html; charset=UTF-8
+2020-05-07 09:48:09.268 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/app.js  
+2020-05-07 09:48:09.538 -05:00 [INF] Request finished in 269.8052ms 200 application/javascript; charset=UTF-8
+2020-05-07 09:48:10.217 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/app.js.map  
+2020-05-07 09:48:10.390 -05:00 [INF] Request finished in 172.595ms 200 application/json; charset=UTF-8
+2020-05-07 09:48:10.917 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/streetReference?municipality=Milwaukee  
+2020-05-07 09:48:11.106 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/sockjs-node/info?t=1588862891054  
+2020-05-07 09:48:11.119 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/favicon.ico  
+2020-05-07 09:48:11.255 -05:00 [INF] Request finished in 149.3581ms 200 application/json; charset=UTF-8
+2020-05-07 09:48:11.265 -05:00 [INF] Request finished in 146.3574ms 200 image/x-icon
+2020-05-07 09:48:11.328 -05:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/sockjs-node/666/iqlr4eng/websocket  
+2020-05-07 09:48:13.460 -05:00 [INF] Request starting HTTP/2 POST https://localhost:5001/sockjs-node/666/ncithhib/xhr_streaming?t=1588862893456  0
+2020-05-07 09:48:13.463 -05:00 [INF] Request finished in 2135.2643ms 0 
+2020-05-07 09:48:15.546 -05:00 [INF] Request finished in 4629.5033ms 200 application/json; charset=utf-8
+2020-05-07 10:37:56.634 -05:00 [INF] Request finished in 2983173.7717ms 200 application/javascript; charset=UTF-8
+2020-05-07 11:59:54.076 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/  
+2020-05-07 12:00:36.414 -05:00 [INF] Request finished in 42338.46ms 200 text/html; charset=UTF-8
+2020-05-07 12:00:36.562 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/app.js  
+2020-05-07 12:00:37.054 -05:00 [INF] Request finished in 492.3948ms 200 application/javascript; charset=UTF-8
+2020-05-07 12:00:37.511 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/app.js.map  
+2020-05-07 12:00:37.686 -05:00 [INF] Request finished in 175.5974ms 200 application/json; charset=UTF-8
+2020-05-07 12:00:37.982 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/streetReference?municipality=Milwaukee  
+2020-05-07 12:00:38.073 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/sockjs-node/info?t=1588870838042  
+2020-05-07 12:00:38.075 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/favicon.ico  
+2020-05-07 12:00:38.114 -05:00 [INF] Request finished in 41.6913ms 200 application/json; charset=UTF-8
+2020-05-07 12:00:38.131 -05:00 [INF] Request finished in 56.1728ms 200 image/x-icon
+2020-05-07 12:00:38.152 -05:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/sockjs-node/420/v4q32fgx/websocket  
+2020-05-07 12:00:39.018 -05:00 [INF] Request starting HTTP/2 POST https://localhost:5001/sockjs-node/420/32y5pnxu/xhr_streaming?t=1588870839013  0
+2020-05-07 12:00:39.019 -05:00 [INF] Request finished in 867.1618ms 0 
+2020-05-07 12:00:39.101 -05:00 [INF] Request finished in 1120.5766ms 200 application/json; charset=utf-8
+2020-05-07 16:02:31.172 -05:00 [INF] Request finished in 14512153.4861ms 200 application/javascript; charset=UTF-8
+2020-05-07 16:13:23.242 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/  
+2020-05-07 16:13:25.507 -05:00 [INF] Request finished in 2265.0263ms 200 text/html; charset=UTF-8
+2020-05-07 16:13:25.563 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/app.js  
+2020-05-07 16:13:25.675 -05:00 [INF] Request finished in 112.1784ms 200 application/javascript; charset=UTF-8
+2020-05-07 16:13:26.122 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/app.js.map  
+2020-05-07 16:13:26.243 -05:00 [INF] Request finished in 120.6906ms 200 application/json; charset=UTF-8
+2020-05-07 16:13:26.626 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/api/streetReference?municipality=Milwaukee  
+2020-05-07 16:13:26.992 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/sockjs-node/info?t=1588886006988  
+2020-05-07 16:13:27.002 -05:00 [INF] Request finished in 9.7392ms 200 application/json; charset=UTF-8
+2020-05-07 16:13:27.361 -05:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/sockjs-node/748/1lgd2yfx/websocket  
+2020-05-07 16:13:27.364 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/favicon.ico  
+2020-05-07 16:13:27.597 -05:00 [INF] Request finished in 232.5998ms 200 image/x-icon
+2020-05-07 16:13:28.205 -05:00 [INF] Request finished in 1579.4151ms 200 application/json; charset=utf-8
+2020-05-07 16:14:25.809 -05:00 [INF] Request finished in 58448.5378ms 101 
+2020-05-07 16:15:32.122 -05:00 [INF] Request starting HTTP/2 GET https://localhost:5001/sockjs-node/info?t=1588886132046  
+2020-05-07 16:15:34.332 -05:00 [INF] Request finished in 2211.291ms 200 application/json; charset=UTF-8
+2020-05-07 16:15:34.357 -05:00 [INF] Request starting HTTP/1.1 GET https://localhost:5001/sockjs-node/960/tx121qre/websocket  
+2020-05-07 16:29:41.759 -05:00 [INF] Request finished in 847402.2824ms 101 

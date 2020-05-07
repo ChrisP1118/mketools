@@ -48,6 +48,7 @@ using Microsoft.OpenApi.Models;
 using MkeAlerts.Web.Models.Data.AppHealth;
 using Hangfire.Dashboard;
 using Hangfire.Dashboard.BasicAuthorization;
+using Serilog;
 
 namespace MkeAlerts.Web
 {
@@ -372,6 +373,8 @@ Here are the original sources for the data exposed through this API. Additional 
             {
                 c.SwaggerEndpoint("v1/swagger.json", "Milwaukee Alerts API - V1");
             });
+
+            app.UseSerilogRequestLogging();
 
             app.UseRouting();
 
