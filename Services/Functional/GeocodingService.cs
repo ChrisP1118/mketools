@@ -117,6 +117,11 @@ namespace MkeAlerts.Web.Services.Functional
             if (string.IsNullOrEmpty(value))
                 return GetNoGeometryResult();
 
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            GeocodeResults geocodeResults = null;
+
             try
             {
                 string modValue = value.Trim();
@@ -128,15 +133,20 @@ namespace MkeAlerts.Web.Services.Functional
                 modValue = modValue.ToUpper();
 
                 if (modValue.Contains("/"))
-                    return await GeocodeIntersection(new IntersectionGeocodeRequest(value, modValue));
+                    geocodeResults = await GeocodeIntersection(new IntersectionGeocodeRequest(value, modValue));
                 else
-                    return await GeocodeAddress(new AddressGeocodeRequest(value, modValue));
+                    geocodeResults = await GeocodeAddress(new AddressGeocodeRequest(value, modValue));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error geocoding value: {GeocodeValue}", value);
-                return GetNoGeometryResult();
+                geocodeResults = GetNoGeometryResult();
             }
+
+            stopwatch.Stop();
+            _logger.LogInformation("Geocoded {GeocodeValue} from {GeocodeSource} to {GeocodeAccuracy} in {GeocodeTime}ms", value, geocodeResults.Source, geocodeResults.Accuracy, stopwatch.ElapsedMilliseconds);
+
+            return geocodeResults;
         }
 
         private async Task<GeocodeResults> GeocodeIntersection(IntersectionGeocodeRequest request)

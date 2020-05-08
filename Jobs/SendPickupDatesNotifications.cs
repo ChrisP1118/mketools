@@ -105,10 +105,13 @@ namespace MkeAlerts.Web.Jobs
                     updateAction(subscription);
 
                     await _pickupDatesSubscriptionService.Update(await GetClaimsPrincipal(), subscription);
+
+                    ++_successCount;
                 }
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "Error sending notification");
+                    ++_failureCount;
                 }
             }
         }

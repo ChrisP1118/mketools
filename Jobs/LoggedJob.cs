@@ -42,7 +42,7 @@ namespace MkeAlerts.Web.Jobs
 
             using (var logContext = LogContext.PushProperty("JobRunId", jobRun.Id))
             {
-                _logger.LogInformation("Starting job");
+                _logger.LogInformation("Starting job: {JobName}: {JobId}", jobRun.JobName, jobRun.Id);
 
                 try
                 {
@@ -56,8 +56,7 @@ namespace MkeAlerts.Web.Jobs
                     jobRun.ErrorStackTrace = GetInnerStackTrack(ex);
                 }
 
-                //_logger.LogInformation($"Job finished {jobRun.Id.ToString()}: {_successCount} succeeded, {_failureCount} failed");
-                _logger.LogInformation("Job finished: {SuccessCount} succeeded, {FailureCount} failed", _successCount, _failureCount);
+                _logger.LogInformation("Finishing job: {JobName}: {JobId}: {SuccessCount} succeeded, {FailureCount} failed", jobRun.JobName, jobRun.Id, _successCount, _failureCount);
 
                 jobRun.SuccessCount = _successCount;
                 jobRun.FailureCount = _failureCount;

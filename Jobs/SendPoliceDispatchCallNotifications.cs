@@ -45,7 +45,11 @@ namespace MkeAlerts.Web.Jobs
         {
             using (var logContext = LogContext.PushProperty("PoliceDispatchCallId", policeDispatchCallId))
             {
-                _logger.LogInformation("Starting job");
+                _logger.LogInformation("Starting job: {JobName}: {JobId}", "SendPoliceDispatchCallNotifications", policeDispatchCallId);
+
+                int successCount = 0;
+                int skippedCount = 0;
+                int failureCount = 0;
 
                 ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
                 PoliceDispatchCall policeDispatchCall = await _policeDispatchCallService.GetOne(claimsPrincipal, policeDispatchCallId, null);
@@ -85,6 +89,7 @@ namespace MkeAlerts.Web.Jobs
                         {
                             if (emailAddresses.Contains(dispatchCallSubscription.ApplicationUser.Email))
                             {
+                                ++skippedCount;
                                 _logger.LogInformation("{SubscriptionAction} notification", "Skipping (Duplicate)");
                                 continue;
                             }
@@ -112,13 +117,17 @@ namespace MkeAlerts.Web.Jobs
                             );
 
                             emailAddresses.Add(dispatchCallSubscription.ApplicationUser.Email);
+                            ++successCount;
                         }
                         catch (Exception ex)
                         {
                             _logger.LogError(ex, "Error sending notification");
+                            ++failureCount;
                         }
                     }
                 }
+
+                _logger.LogInformation("Finishing job: {JobName}: {JobId}: {SuccessCount} succeeded, {SkippedCount} skipped, {FailureCount} failed", "SendPoliceDispatchCallNotifications", policeDispatchCallId, successCount, skippedCount, failureCount);
             }
         }
     }
