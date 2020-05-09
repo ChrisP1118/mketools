@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MkeAlerts.Web.Data;
 using NetTopologySuite.Geometries;
@@ -10,9 +11,10 @@ using NetTopologySuite.Geometries;
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200508212308_AddressIndex")]
+    partial class AddressIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,7 +161,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "a6d0f79d-483c-408d-8b95-da1e5da1e80e",
+                            ConcurrencyStamp = "13d76b35-3071-4f2a-befb-8f9facfb39fb",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -243,13 +245,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "491e3952-6d52-4b27-a9c1-2ff32ecdef8d",
+                            ConcurrencyStamp = "d4545db8-a826-48ee-975c-0f2dd35a5478",
                             Email = "cwilson@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "cwilson@mkealerts.com",
                             NormalizedUserName = "cwilson@mkealerts.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFWWqAZbg+hMiAyzp4OFjXAjW2cDYCJ3gKopoFk5dfeqwWwYOXE7S2bfebU8+OxgAA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFeoyMEkvOdRgQbZLwQMdXtlulRjGNv/u1mf1Tfe/Wbrw2R72Xa5QGezp/LiGm21FA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -322,9 +324,6 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<decimal>("ALD")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int?>("Accuracy")
-                        .HasColumnType("int");
-
                     b.Property<int>("Arson")
                         .HasColumnType("int");
 
@@ -339,9 +338,6 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<int>("Homicide")
                         .HasColumnType("int");
-
-                    b.Property<DateTime?>("LastGeocodeAttempt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(128)")
@@ -392,9 +388,6 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<int>("SexOffense")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Source")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("TRACT")
                         .HasColumnType("decimal(18,2)");
 
@@ -427,7 +420,7 @@ namespace MkeAlerts.Web.Migrations
                         .HasColumnType("nvarchar(12)")
                         .HasMaxLength(12);
 
-                    b.Property<int?>("Accuracy")
+                    b.Property<int>("Accuracy")
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
@@ -450,9 +443,6 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<Geometry>("Geometry")
                         .HasColumnType("geography");
 
-                    b.Property<DateTime?>("LastGeocodeAttempt")
-                        .HasColumnType("datetime2");
-
                     b.Property<decimal>("MaxLat")
                         .HasColumnType("decimal(13, 10)");
 
@@ -473,7 +463,7 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<DateTime>("ReportedDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Source")
+                    b.Property<int>("Source")
                         .HasColumnType("int");
 
                     b.HasKey("CFS");
@@ -509,7 +499,7 @@ namespace MkeAlerts.Web.Migrations
                         .HasColumnType("nvarchar(12)")
                         .HasMaxLength(12);
 
-                    b.Property<int?>("Accuracy")
+                    b.Property<int>("Accuracy")
                         .HasColumnType("int");
 
                     b.Property<int>("District")
@@ -517,9 +507,6 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<Geometry>("Geometry")
                         .HasColumnType("geography");
-
-                    b.Property<DateTime?>("LastGeocodeAttempt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -546,7 +533,7 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<DateTime>("ReportedDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Source")
+                    b.Property<int>("Source")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -1107,8 +1094,6 @@ namespace MkeAlerts.Web.Migrations
                     b.HasIndex("MinLat");
 
                     b.HasIndex("MinLng");
-
-                    b.HasIndex("DIR", "STREET", "STTYPE");
 
                     b.ToTable("Streets");
                 });

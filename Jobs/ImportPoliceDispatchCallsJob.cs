@@ -64,6 +64,7 @@ namespace MkeAlerts.Web.Jobs
                         dispatchCall.Geometry = geocodeResults.Geometry;
                         dispatchCall.Accuracy = geocodeResults.Accuracy;
                         dispatchCall.Source = geocodeResults.Source;
+                        dispatchCall.LastGeocodeAttempt = DateTime.Now;
 
                         GeographicUtilities.SetBounds(dispatchCall, geocodeResults.Geometry);
 

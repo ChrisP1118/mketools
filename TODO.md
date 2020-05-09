@@ -1,21 +1,11 @@
 # Launch
-* ImportCrimesJob
-  * Can we get rid of the projection and DotSpatial?
-  * Should we re-geocode these?
-  * Remove projection (.prj) file from project
-* GeocodeItemsJob
-  * Save geocoded items
-  * Better batching (don't want the entire job on a single EF content)
-  * Add indexes for address fields to speed this up
-* Geocoding: Should we limit results to Milwaukee? Or add a way of specifying a municipality?
-* MCLIO Datasets
-  * Download automatically?
-  * Schedule
-* Import MPROP data (and override MCLIO parcels as needed)
-* Log API response times?
+* Improvement: GeocodeItemsJob: Save geocoded items
+* Improvement: GeocodeItemsJob: Better batching (don't want the entire job on a single EF content)
+* Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
+* Improvement: Download MCLIO datasets
+* Improvement: Import MPROP data (and override MCLIO parcels as needed)
 * Doc: Document what's "major" and "minor"
 * Prep: Convert MkeTrashDay accounts
-* Improvement: Better health checks
 
 # Minor Issues - Front-End
 * Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)
@@ -55,6 +45,9 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Log API response times?~~
+* ~~Improvement: Better health checks~~
+* ~~Improvement: Add indexes for address fields to speed this geocoding~~
 * ~~Improvement: Refresh map on home page periodically~~
 * ~~Improvement: Hangfire Dashboard~~
 * ~~Fix: Split crime (WIBR) data into two jobs (historical and current)~~

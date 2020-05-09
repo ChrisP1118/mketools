@@ -333,7 +333,7 @@ namespace MkeAlerts.Web.Services.Functional
         {
             return await _dbContext.Parcels
                 .Include(x => x.CommonParcel)
-                .Where(x => x.HOUSENR == request.HouseNumber.ToString())
+                .Where(x => x.HouseNumber == request.HouseNumber)
                 .Where(x => x.STREETDIR == request.Direction)
                 .Where(x => x.STREETNAME == request.Street)
                 .Where(x => x.STREETTYPE == request.StreetType)
@@ -418,38 +418,50 @@ namespace MkeAlerts.Web.Services.Functional
 
         public async Task<ReverseGeocodeResults> ReverseGeocode(double latitude, double longitude)
         {
-            // The returned values are off by a few blocks. Sigh.
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             Point location = new Point(longitude, latitude)
             {
                 SRID = 4326
             };
 
-            double northBound = Math.Ceiling(latitude * 100) / 100;
-            double southBound = Math.Floor(latitude * 100) / 100;
-            double westBound = Math.Floor(longitude * 100) / 100;
-            double eastBound = Math.Ceiling(longitude * 100) / 100;
+            double northBound = latitude;
+            double southBound = latitude;
+            double westBound = longitude;
+            double eastBound = longitude;
 
-            northBound += 0.01;
-            southBound -= 0.01;
-            westBound -= 0.01;
-            eastBound += 0.01;
+            CommonParcel commonParcel = null;
 
-            CommonParcel commonParcel = await _dbContext.CommonParcels
-                .Include(p => p.Parcels)
-                .Where(p => p.Parcels != null)
-                .Where(x =>
-                    (x.MinLat <= northBound && x.MaxLat >= northBound) ||
-                    (x.MinLat <= southBound && x.MaxLat >= southBound) ||
-                    (x.MinLat >= northBound && x.MaxLat <= southBound) ||
-                    (x.MinLat >= southBound && x.MaxLat <= northBound))
-                .Where(x =>
-                    (x.MinLng <= westBound && x.MaxLng >= westBound) ||
-                    (x.MinLng <= eastBound && x.MaxLng >= eastBound) ||
-                    (x.MinLng >= westBound && x.MaxLng <= eastBound) ||
-                    (x.MinLng >= eastBound && x.MaxLng <= westBound))
-                .OrderBy(p => p.Outline.Distance(location))
-                .FirstOrDefaultAsync();
+            for (int attempt = 0; attempt < 3; ++attempt)
+            {
+                northBound += 0.0003;
+                southBound -= 0.0003;
+                westBound -= 0.0003;
+                eastBound += 0.0003;
+
+                commonParcel = await _dbContext.CommonParcels
+                    .Include(p => p.Parcels)
+                    .Where(p => p.Parcels != null)
+                    .Where(x =>
+                        (x.MinLat <= northBound && x.MaxLat >= northBound) ||
+                        (x.MinLat <= southBound && x.MaxLat >= southBound) ||
+                        (x.MinLat >= northBound && x.MaxLat <= southBound) ||
+                        (x.MinLat >= southBound && x.MaxLat <= northBound))
+                    .Where(x =>
+                        (x.MinLng <= westBound && x.MaxLng >= westBound) ||
+                        (x.MinLng <= eastBound && x.MaxLng >= eastBound) ||
+                        (x.MinLng >= westBound && x.MaxLng <= eastBound) ||
+                        (x.MinLng >= eastBound && x.MaxLng <= westBound))
+                    .OrderBy(p => p.Outline.Distance(location))
+                    .FirstOrDefaultAsync();
+
+                if (commonParcel != null)
+                    break;
+            }
+
+            stopwatch.Stop();
+            _logger.LogInformation("Reverse geocoded {GeocodeLatitude},{GeocodeLongitude} to {CommonParcelId} in {GeocodeTime}ms", latitude, longitude, commonParcel?.GetId().ToString() ?? "(none)", stopwatch.ElapsedMilliseconds);
 
             if (commonParcel == null)
                 return null;

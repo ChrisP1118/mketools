@@ -105,7 +105,7 @@ namespace MkeAlerts.Web.Jobs
 
             try
             {
-                Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results = await _writeService.BulkCreate(claimsPrincipal, dataModels, false);
+                Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results = await _writeService.BulkUpsert(claimsPrincipal, dataModels, false);
                 _successCount += results.Item1.Count();
                 _failureCount += results.Item2.Count();
                 dataModels.Clear();

@@ -25,7 +25,8 @@ namespace MkeAlerts.Web.Jobs
 
         protected override IQueryable<PoliceDispatchCall> GetFilter(IQueryable<PoliceDispatchCall> queryable)
         {
-            return queryable.Where(x => x.Geometry == null);
+            return queryable
+                .Where(x => x.Geometry == null);
         }
 
         protected override string GetGeocodeValue(PoliceDispatchCall dataModel)
@@ -36,10 +37,6 @@ namespace MkeAlerts.Web.Jobs
         protected override void SetGeocodeResults(PoliceDispatchCall dataModel, GeocodeResults geocodeResults)
         {
             dataModel.Geometry = geocodeResults.Geometry;
-            dataModel.Accuracy = geocodeResults.Accuracy;
-            dataModel.Source = geocodeResults.Source;
-
-            GeographicUtilities.SetBounds(dataModel, geocodeResults.Geometry);
         }
     }
 }

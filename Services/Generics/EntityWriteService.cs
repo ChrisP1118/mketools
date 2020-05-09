@@ -48,7 +48,7 @@ namespace MkeAlerts.Web.Services
             return dataModel;
         }
 
-        public async Task<Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>>> BulkCreate(ClaimsPrincipal user, IList<TDataModel> dataModels, bool useBulkInsert = true)
+        public async Task<Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>>> BulkUpsert(ClaimsPrincipal user, IList<TDataModel> dataModels, bool useBulkInsert = true)
         {
             var applicationUser = await GetApplicationUser(user);
             List<TDataModel> validatedDataModels = new List<TDataModel>();
@@ -132,22 +132,6 @@ namespace MkeAlerts.Web.Services
                     }
                 }
 
-                //foreach (TDataModel dataModel in validatedDataModels)
-                //{
-                //    try
-                //    {
-                //        await _dbContext
-                //            .Set<TDataModel>()
-                //            .Upsert(dataModel)
-                //            .RunAsync();
-                //        success.Add(dataModel);
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        _logger.LogError(ex, "Error upserting item");
-                //        failure.Add(dataModel);
-                //    }
-                //}
             }
 
             foreach (TDataModel dataModel in validatedDataModels)
@@ -171,6 +155,29 @@ namespace MkeAlerts.Web.Services
             await OnUpdated(dataModel);
 
             return dataModel;
+        }
+
+        public async Task<IEnumerable<TDataModel>> BulkUpdate(ClaimsPrincipal user, IEnumerable<TDataModel> dataModels)
+        {
+            var applicationUser = await GetApplicationUser(user);
+
+            foreach (TDataModel dataModel in dataModels)
+            {
+                if (!await CanCreate(applicationUser, dataModel))
+                    throw new ForbiddenException();
+
+                _validator.ValidateAndThrow(dataModel);
+            }
+
+            foreach (TDataModel dataModel in dataModels)
+                _dbContext.Entry(dataModel).State = EntityState.Modified;
+
+            await _dbContext.SaveChangesAsync();
+
+            foreach (TDataModel dataModel in dataModels) 
+                await OnUpdated(dataModel);
+
+            return dataModels;
         }
 
         public async Task<TDataModel> Delete(ClaimsPrincipal user, TIdType id)

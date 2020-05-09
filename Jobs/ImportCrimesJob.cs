@@ -86,6 +86,10 @@ namespace MkeAlerts.Web.Jobs
                     item.Point = multiPolygon.Centroid;
             }
 
+            item.Source = geocodeResults.Source;
+            item.Accuracy = geocodeResults.Accuracy;
+            item.LastGeocodeAttempt = DateTime.Now;
+
             // If geocoding fails, fall back on the imported coordinates (which are only accurate to the block level, not address)
             if (item.Point == null)
             {

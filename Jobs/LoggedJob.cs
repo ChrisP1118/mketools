@@ -29,7 +29,7 @@ namespace MkeAlerts.Web.Jobs
             _logger = logger;
         }
 
-        public async Task Run()
+        public async virtual Task Run()
         {
             JobRun jobRun = new JobRun()
             {

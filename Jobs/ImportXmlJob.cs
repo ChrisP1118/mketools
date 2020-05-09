@@ -83,7 +83,7 @@ namespace MkeAlerts.Web.Jobs
                             {
                                 try
                                 {
-                                    Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results1 = await _writeService.BulkCreate(claimsPrincipal, items, UseBulkInsert);
+                                    Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results1 = await _writeService.BulkUpsert(claimsPrincipal, items, UseBulkInsert);
                                     _successCount += results1.Item1.Count();
                                     _failureCount += results1.Item2.Count();
 
@@ -103,7 +103,7 @@ namespace MkeAlerts.Web.Jobs
 
                 try
                 {
-                    Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results2 = await _writeService.BulkCreate(claimsPrincipal, items, UseBulkInsert);
+                    Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results2 = await _writeService.BulkUpsert(claimsPrincipal, items, UseBulkInsert);
                     _successCount += results2.Item1.Count();
                     _failureCount += results2.Item2.Count();
 

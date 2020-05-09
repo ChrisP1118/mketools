@@ -7,6 +7,7 @@ using MkeAlerts.Web.Models.Internal;
 using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Services.Data.Interfaces;
 using MkeAlerts.Web.Services.Functional;
+using MkeAlerts.Web.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,11 +18,11 @@ using System.Threading.Tasks;
 namespace MkeAlerts.Web.Jobs
 {
     public abstract class GeocodeItemsJob<TDataModel, TIdType> : LoggedJob
-        where TDataModel : class, IHasId<TIdType>, new()
+        where TDataModel : class, IHasId<TIdType>, IGeocodable, new()
     {
         private readonly IEntityWriteService<TDataModel, TIdType> _writeService;
         private readonly IGeocodingService _geocodingService;
-        private const int _batchSize = 10000;
+        private const int _batchSize = 100;
 
         protected string _shapefileName = null;
 
@@ -40,24 +41,40 @@ namespace MkeAlerts.Web.Jobs
         {
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
-            List<TDataModel> dataModels = await _writeService.GetAll(claimsPrincipal, 0, _batchSize, null, null, null, null, null, null, null, false, false, queryable => GetFilter(queryable));
-
-            int i = 0;
-            foreach (TDataModel dataModel in dataModels)
+            do
             {
-                ++i;
+                List<TDataModel> dataModels = await _writeService.GetAll(claimsPrincipal, 0, _batchSize, null, null, null, null, null, null, null, false, false, queryable => GetFilter(queryable).Where(x => x.LastGeocodeAttempt == null));
 
-                string value = GetGeocodeValue(dataModel);
-                GeocodeResults geocodeResults = await _geocodingService.Geocode(value);
-                SetGeocodeResults(dataModel, geocodeResults);
+                if (dataModels.Count == 0)
+                    break;
 
-                _logger.LogInformation("{Accuracy}: {Source}: {Value}", geocodeResults.Accuracy, geocodeResults.Source, value);
+                foreach (TDataModel dataModel in dataModels)
+                {
+                    string value = GetGeocodeValue(dataModel);
+                    GeocodeResults geocodeResults = await _geocodingService.Geocode(value);
+                    SetGeocodeResults(dataModel, geocodeResults);
 
-                if (geocodeResults.Accuracy == Models.GeometryAccuracy.NoGeometry)
-                    ++_failureCount;
-                else
-                    ++_successCount;
-            }
+                    dataModel.Accuracy = geocodeResults.Accuracy;
+                    dataModel.Source = geocodeResults.Source;
+
+                    GeographicUtilities.SetBounds(dataModel, geocodeResults.Geometry);
+
+                    if (geocodeResults.Accuracy == Models.GeometryAccuracy.NoGeometry)
+                        ++_failureCount;
+                    else
+                        ++_successCount;
+                }
+
+                try
+                {
+                    await _writeService.BulkUpdate(claimsPrincipal, dataModels);
+                    dataModels = new List<TDataModel>();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error bulk updating");
+                }
+            } while (true);
         }
     }
 }

@@ -59,10 +59,18 @@ namespace MkeAlerts.Web.Data
                 .WithMany(x => x.Addresses)
                 .HasForeignKey(x => x.TAXKEY);
 
+            // This combination of fields is used by the geocoding service
+            modelBuilder.Entity<Address>()
+                .HasIndex(x => new { x.DIR, x.STREET, x.STTYPE, x.HouseNumber });
+
             modelBuilder.Entity<Parcel>()
                 .HasOne(x => x.CommonParcel)
                 .WithMany(x => x.Parcels)
                 .HasForeignKey(x => x.MAP_ID);
+
+            // This combination of fields is used by the geocoding service
+            modelBuilder.Entity<Parcel>()
+                .HasIndex(x => new { x.STREETDIR, x.STREETNAME, x.STREETTYPE, x.HouseNumber });
 
             modelBuilder.Entity<CommonParcel>()
                 .HasKey(x => x.MAP_ID);
@@ -93,6 +101,10 @@ namespace MkeAlerts.Web.Data
 
             modelBuilder.Entity<Street>()
                 .HasIndex(x => x.MaxLng);
+
+            // This combination of fields is used by the geocoding service
+            modelBuilder.Entity<Street>()
+                .HasIndex(x => new { x.DIR, x.STREET, x.STTYPE });
 
             /* Incidents */
 
