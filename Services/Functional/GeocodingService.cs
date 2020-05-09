@@ -184,35 +184,23 @@ namespace MkeAlerts.Web.Services.Functional
                     request.Streets[i].Street = request.Streets[i].StreetType.Substring(0, request.Streets[i].Direction.Length - 1);
             }
 
-            List<Street> streets0 = await GetStreets(request.Streets[0]);
-            List<Street> streets1 = await GetStreets(request.Streets[1]);
+            var result = await _dbContext.Streets
+                .Join(
+                    _dbContext.Streets,
+                    s => s.CLINEID,
+                    s => s.CLINEID,
+                    (s1, s2) => new { Street1 = s1, Street2 = s2 }
+                )
+                .Where(x => x.Street1.Outline.Intersects(x.Street2.Outline))
+                .FirstOrDefaultAsync();
 
-            if (streets0.Count() == 0)
+            if (result != null)
             {
-                _logger.LogWarning("No streets found for {Street}: {GeocodeValue}", request.Streets[0].Street, request.RawValue);
-                return GetNoGeometryResult();
-            }
+                request.Results.Geometry = result.Street1.Outline.Intersection(result.Street2.Outline);
+                request.Results.Accuracy = GeometryAccuracy.High;
+                request.Results.Source = GeometrySource.StreetIntersection;
 
-            if (streets1.Count() == 0)
-            {
-                _logger.LogWarning("No streets found for {Street}: {GeocodeValue}", request.Streets[1].Street, request.RawValue);
-                return GetNoGeometryResult();
-            }
-
-            foreach (Street street0 in streets0)
-            {
-                foreach (Street street1 in streets1)
-                {
-                    Geometry intersection = street0.Outline.Intersection(street1.Outline);
-                    if (intersection != null && !intersection.IsEmpty)
-                    {
-                        request.Results.Geometry = intersection;
-                        request.Results.Accuracy = GeometryAccuracy.High;
-                        request.Results.Source = GeometrySource.StreetIntersection;
-
-                        return request.Results;
-                    }
-                }
+                return request.Results;
             }
 
             _logger.LogWarning("No intersection found for: {GeocodeValue}", request.RawValue);

@@ -56,6 +56,7 @@ namespace MkeAlerts.Web.Jobs
 
                     dataModel.Accuracy = geocodeResults.Accuracy;
                     dataModel.Source = geocodeResults.Source;
+                    dataModel.LastGeocodeAttempt = DateTime.Now;
 
                     GeographicUtilities.SetBounds(dataModel, geocodeResults.Geometry);
 

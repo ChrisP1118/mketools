@@ -1,6 +1,4 @@
 # Launch
-* Improvement: GeocodeItemsJob: Save geocoded items
-* Improvement: GeocodeItemsJob: Better batching (don't want the entire job on a single EF content)
 * Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
 * Improvement: Download MCLIO datasets
 * Improvement: Import MPROP data (and override MCLIO parcels as needed)
@@ -45,6 +43,8 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Improvement: GeocodeItemsJob: Save geocoded items~~
+* ~~Improvement: GeocodeItemsJob: Better batching (don't want the entire job on a single EF content)~~
 * ~~Log API response times?~~
 * ~~Improvement: Better health checks~~
 * ~~Improvement: Add indexes for address fields to speed this geocoding~~
