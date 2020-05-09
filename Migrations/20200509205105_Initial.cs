@@ -8,6 +8,9 @@ namespace MkeAlerts.Web.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("Sqlite:InitSpatialMetaData", true);
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -55,10 +58,10 @@ namespace MkeAlerts.Web.Migrations
                 {
                     MAP_ID = table.Column<int>(nullable: false),
                     Outline = table.Column<Geometry>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false)
+                    MinLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MinLng = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLng = table.Column<double>(type: "decimal(13, 10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,10 +74,13 @@ namespace MkeAlerts.Web.Migrations
                 {
                     IncidentNum = table.Column<string>(maxLength: 20, nullable: false),
                     Point = table.Column<Point>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MinLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MinLng = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLng = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    Accuracy = table.Column<int>(nullable: true),
+                    Source = table.Column<int>(nullable: true),
+                    LastGeocodeAttempt = table.Column<DateTime>(nullable: true),
                     ReportedDateTime = table.Column<DateTime>(nullable: false),
                     ReportedYear = table.Column<decimal>(nullable: false),
                     ReportedMonth = table.Column<decimal>(nullable: false),
@@ -116,12 +122,13 @@ namespace MkeAlerts.Web.Migrations
                     NatureOfCall = table.Column<string>(maxLength: 40, nullable: false),
                     Disposition = table.Column<string>(maxLength: 60, nullable: true),
                     Geometry = table.Column<Geometry>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    Accuracy = table.Column<int>(nullable: false),
-                    Source = table.Column<int>(nullable: false)
+                    MinLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MinLng = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLng = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    Accuracy = table.Column<int>(nullable: true),
+                    Source = table.Column<int>(nullable: true),
+                    LastGeocodeAttempt = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -171,12 +178,13 @@ namespace MkeAlerts.Web.Migrations
                     NatureOfCall = table.Column<string>(maxLength: 20, nullable: false),
                     Status = table.Column<string>(maxLength: 60, nullable: true),
                     Geometry = table.Column<Geometry>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    Accuracy = table.Column<int>(nullable: false),
-                    Source = table.Column<int>(nullable: false)
+                    MinLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MinLng = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLng = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    Accuracy = table.Column<int>(nullable: true),
+                    Source = table.Column<int>(nullable: true),
+                    LastGeocodeAttempt = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -206,11 +214,15 @@ namespace MkeAlerts.Web.Migrations
                 {
                     CLINEID = table.Column<int>(nullable: false),
                     Outline = table.Column<Geometry>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MinLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MinLng = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLng = table.Column<double>(type: "decimal(13, 10)", nullable: false),
                     OBJECTID = table.Column<int>(nullable: false),
+                    LeftNumberHigh = table.Column<int>(nullable: false),
+                    LeftNumberLow = table.Column<int>(nullable: false),
+                    RightNumberHigh = table.Column<int>(nullable: false),
+                    RightNumberLow = table.Column<int>(nullable: false),
                     DIR = table.Column<string>(maxLength: 2, nullable: true),
                     STREET = table.Column<string>(maxLength: 24, nullable: true),
                     STTYPE = table.Column<string>(maxLength: 4, nullable: true),
@@ -242,7 +254,7 @@ namespace MkeAlerts.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     RoleId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -263,7 +275,7 @@ namespace MkeAlerts.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -420,10 +432,8 @@ namespace MkeAlerts.Web.Migrations
                 columns: table => new
                 {
                     TAXKEY = table.Column<string>(maxLength: 10, nullable: false),
-                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    HouseNumber = table.Column<int>(nullable: false),
+                    HouseNumberHigh = table.Column<int>(nullable: false),
                     OBJECTID = table.Column<int>(nullable: false),
                     MAP_ID = table.Column<int>(nullable: false),
                     PARCEL_KEY = table.Column<string>(maxLength: 50, nullable: true),
@@ -500,10 +510,10 @@ namespace MkeAlerts.Web.Migrations
                     ADDRESS_ID = table.Column<int>(nullable: false),
                     HouseNumber = table.Column<int>(nullable: false),
                     Point = table.Column<Point>(nullable: true),
-                    MinLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLat = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MinLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
-                    MaxLng = table.Column<decimal>(type: "decimal(13, 10)", nullable: false),
+                    MinLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLat = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MinLng = table.Column<double>(type: "decimal(13, 10)", nullable: false),
+                    MaxLng = table.Column<double>(type: "decimal(13, 10)", nullable: false),
                     OBJECTID = table.Column<int>(nullable: false),
                     TAXKEY = table.Column<string>(maxLength: 10, nullable: true),
                     HOUSENO = table.Column<string>(maxLength: 15, nullable: true),
@@ -543,12 +553,12 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "e909918a-cd7e-430a-a755-ece85c836e1b", "SiteAdmin", "SiteAdmin" });
+                values: new object[] { new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"), "19663565-a927-4ef5-aa56-29fe2cd27740", "SiteAdmin", "SITEADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "d5c41c9c-bb3f-4d48-852e-561181cb1963", "cwilson@mkealerts.com", true, null, null, false, null, "cwilson@mkealerts.com", "cwilson@mkealerts.com", "AQAAAAEAACcQAAAAEKSL1hEhkNfMHWL96Vl2GgIGahgLgmegiR/orxlRVQls/1Sz+1X8zDnRJy4D8aHSJg==", null, false, "", false, "cwilson@mkealerts.com" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "c2502828-f0aa-4f7f-a11c-67b917d4895a", "cwilson@mkealerts.com", true, null, null, false, null, "CWILSON@MKEALERTS.COM", "CWILSON@MKEALERTS.COM", "AQAAAAEAACcQAAAAEAEzcDne6YcO33ojupDLj5+2ot/ZKL5rQ01nCdO7NrWc7M8C7B4LoUa7ad8xqyDqVw==", null, false, "HALICG3767VFP5B5FTAF4P2X7AEHFSWZ", false, "cwilson@mkealerts.com" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -561,6 +571,11 @@ namespace MkeAlerts.Web.Migrations
                 column: "TAXKEY");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Addresses_DIR_STREET_STTYPE_HouseNumber",
+                table: "Addresses",
+                columns: new[] { "DIR", "STREET", "STTYPE", "HouseNumber" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -569,8 +584,7 @@ namespace MkeAlerts.Web.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -596,8 +610,7 @@ namespace MkeAlerts.Web.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_CommonParcels_MaxLat",
@@ -650,6 +663,11 @@ namespace MkeAlerts.Web.Migrations
                 column: "MAP_ID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Parcels_STREETDIR_STREETNAME_STREETTYPE_HouseNumber",
+                table: "Parcels",
+                columns: new[] { "STREETDIR", "STREETNAME", "STREETTYPE", "HouseNumber" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PickupDateSubscriptions_ApplicationUserId",
                 table: "PickupDateSubscriptions",
                 column: "ApplicationUserId");
@@ -678,6 +696,11 @@ namespace MkeAlerts.Web.Migrations
                 name: "IX_Streets_MinLng",
                 table: "Streets",
                 column: "MinLng");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Streets_DIR_STREET_STTYPE",
+                table: "Streets",
+                columns: new[] { "DIR", "STREET", "STTYPE" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -52,7 +52,7 @@ namespace MkeAlerts.Web.Utilities
                     if (source.Geometry.SRID == 0)
                     {
                         transformedGeometry = source.Geometry;
-                        transformedGeometry.SRID = 4326;
+                        //transformedGeometry.SRID = 4326;
                     }
                     else
                     {

@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MkeAlerts.Web.Data;
 using NetTopologySuite.Geometries;
@@ -16,25 +15,22 @@ namespace MkeAlerts.Web.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "3.1.3");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -47,17 +43,16 @@ namespace MkeAlerts.Web.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -69,16 +64,16 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -90,10 +85,10 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -112,16 +107,16 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -132,26 +127,25 @@ namespace MkeAlerts.Web.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
 
@@ -159,9 +153,9 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "a6d0f79d-483c-408d-8b95-da1e5da1e80e",
+                            ConcurrencyStamp = "19663565-a927-4ef5-aa56-29fe2cd27740",
                             Name = "SiteAdmin",
-                            NormalizedName = "SiteAdmin"
+                            NormalizedName = "SITEADMIN"
                         });
                 });
 
@@ -169,61 +163,61 @@ namespace MkeAlerts.Web.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -233,8 +227,7 @@ namespace MkeAlerts.Web.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
 
@@ -243,15 +236,15 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "491e3952-6d52-4b27-a9c1-2ff32ecdef8d",
+                            ConcurrencyStamp = "c2502828-f0aa-4f7f-a11c-67b917d4895a",
                             Email = "cwilson@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "cwilson@mkealerts.com",
-                            NormalizedUserName = "cwilson@mkealerts.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFWWqAZbg+hMiAyzp4OFjXAjW2cDYCJ3gKopoFk5dfeqwWwYOXE7S2bfebU8+OxgAA==",
+                            NormalizedEmail = "CWILSON@MKEALERTS.COM",
+                            NormalizedUserName = "CWILSON@MKEALERTS.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAEzcDne6YcO33ojupDLj5+2ot/ZKL5rQ01nCdO7NrWc7M8C7B4LoUa7ad8xqyDqVw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
+                            SecurityStamp = "HALICG3767VFP5B5FTAF4P2X7AEHFSWZ",
                             TwoFactorEnabled = false,
                             UserName = "cwilson@mkealerts.com"
                         });
@@ -261,16 +254,16 @@ namespace MkeAlerts.Web.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ExternalId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Provider")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -282,29 +275,29 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.AppHealth.JobRun", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTimeOffset?>("EndTime")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ErrorMessages")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ErrorStackTrace")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("FailureCount")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("JobName")
-                        .HasColumnType("nvarchar(40)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(40);
 
                     b.Property<DateTimeOffset>("StartTime")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("SuccessCount")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -316,103 +309,103 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.Crime", b =>
                 {
                     b.Property<string>("IncidentNum")
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(20);
 
                     b.Property<decimal>("ALD")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("Accuracy")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Arson")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("AssaultOffense")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Burglary")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CriminalDamage")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Homicide")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("LastGeocodeAttempt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Location")
-                        .HasColumnType("nvarchar(128)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(128);
 
                     b.Property<int>("LockedVehicle")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("MaxLat")
+                    b.Property<double>("MaxLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MaxLng")
+                    b.Property<double>("MaxLng")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLat")
+                    b.Property<double>("MinLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLng")
+                    b.Property<double>("MinLng")
                         .HasColumnType("decimal(13, 10)");
 
                     b.Property<decimal>("NSP")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("POLICE")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<Point>("Point")
-                        .HasColumnType("geography");
+                        .HasColumnType("POINT");
 
                     b.Property<DateTime>("ReportedDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("ReportedMonth")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<decimal>("ReportedYear")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Robbery")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("RoughX")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<double>("RoughY")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<int>("SexOffense")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Source")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("TRACT")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("Theft")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("VehicleTheft")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<decimal>("WARD")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("WeaponUsed")
-                        .HasColumnType("nvarchar(128)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(128);
 
                     b.Property<decimal>("ZIP")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("IncidentNum");
 
@@ -424,57 +417,57 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.FireDispatchCall", b =>
                 {
                     b.Property<string>("CFS")
-                        .HasColumnType("nvarchar(12)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(12);
 
                     b.Property<int?>("Accuracy")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(60)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(60);
 
                     b.Property<string>("Apt")
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
                     b.Property<string>("Disposition")
-                        .HasColumnType("nvarchar(60)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(60);
 
                     b.Property<Geometry>("Geometry")
-                        .HasColumnType("geography");
+                        .HasColumnType("GEOMETRY");
 
                     b.Property<DateTime?>("LastGeocodeAttempt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
-                    b.Property<decimal>("MaxLat")
+                    b.Property<double>("MaxLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MaxLng")
+                    b.Property<double>("MaxLng")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLat")
+                    b.Property<double>("MinLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLng")
+                    b.Property<double>("MinLng")
                         .HasColumnType("decimal(13, 10)");
 
                     b.Property<string>("NatureOfCall")
                         .IsRequired()
-                        .HasColumnType("nvarchar(40)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(40);
 
                     b.Property<DateTime>("ReportedDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("Source")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("CFS");
 
@@ -486,17 +479,17 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.FireDispatchCallType", b =>
                 {
                     b.Property<string>("NatureOfCall")
-                        .HasColumnType("nvarchar(40)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(40);
 
                     b.Property<bool>("IsCritical")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsFire")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsMedical")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("NatureOfCall");
 
@@ -506,51 +499,51 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.PoliceDispatchCall", b =>
                 {
                     b.Property<string>("CallNumber")
-                        .HasColumnType("nvarchar(12)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(12);
 
                     b.Property<int?>("Accuracy")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("District")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<Geometry>("Geometry")
-                        .HasColumnType("geography");
+                        .HasColumnType("GEOMETRY");
 
                     b.Property<DateTime?>("LastGeocodeAttempt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .HasColumnType("nvarchar(60)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(60);
 
-                    b.Property<decimal>("MaxLat")
+                    b.Property<double>("MaxLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MaxLng")
+                    b.Property<double>("MaxLng")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLat")
+                    b.Property<double>("MinLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLng")
+                    b.Property<double>("MinLng")
                         .HasColumnType("decimal(13, 10)");
 
                     b.Property<string>("NatureOfCall")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(20);
 
                     b.Property<DateTime>("ReportedDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("Source")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Status")
-                        .HasColumnType("nvarchar(60)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(60);
 
                     b.HasKey("CallNumber");
@@ -563,26 +556,26 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.PoliceDispatchCallType", b =>
                 {
                     b.Property<string>("NatureOfCall")
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(20);
 
                     b.Property<bool>("IsCritical")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsDrug")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsOtherCrime")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsProperty")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsTraffic")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsViolent")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("NatureOfCall");
 
@@ -592,117 +585,117 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Address", b =>
                 {
                     b.Property<int>("ADDRESS_ID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ALT_ID")
-                        .HasColumnType("nvarchar(15)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(15);
 
                     b.Property<int>("BUILDING_I")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("CLINEID")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("COMMENT")
-                        .HasColumnType("nvarchar(140)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(140);
 
                     b.Property<string>("DD_LAT")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("DD_LONG")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("DIR")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("FULLADDR")
-                        .HasColumnType("nvarchar(30)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(30);
 
                     b.Property<string>("HOUSENO")
-                        .HasColumnType("nvarchar(15)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(15);
 
                     b.Property<string>("HOUSESX")
-                        .HasColumnType("nvarchar(2)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(2);
 
                     b.Property<int>("HouseNumber")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("MAILABLE")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("MUNI")
-                        .HasColumnType("nvarchar(15)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(15);
 
-                    b.Property<decimal>("MaxLat")
+                    b.Property<double>("MaxLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MaxLng")
+                    b.Property<double>("MaxLng")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLat")
+                    b.Property<double>("MinLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLng")
+                    b.Property<double>("MinLng")
                         .HasColumnType("decimal(13, 10)");
 
                     b.Property<int>("OBJECTID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("PDIR")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<Point>("Point")
-                        .HasColumnType("geography");
+                        .HasColumnType("POINT");
 
                     b.Property<string>("SOURCE")
-                        .HasColumnType("nvarchar(36)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(36);
 
                     b.Property<string>("SOURCE_ID")
-                        .HasColumnType("nvarchar(21)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(21);
 
                     b.Property<string>("STREET")
-                        .HasColumnType("nvarchar(19)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(19);
 
                     b.Property<string>("STTYPE")
-                        .HasColumnType("nvarchar(4)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(4);
 
                     b.Property<string>("TAG")
-                        .HasColumnType("nvarchar(41)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(41);
 
                     b.Property<string>("TAXKEY")
-                        .HasColumnType("nvarchar(10)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(10);
 
                     b.Property<string>("UNIT")
-                        .HasColumnType("nvarchar(5)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(5);
 
                     b.Property<string>("X")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("Y")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("ZIP_CODE")
-                        .HasColumnType("nvarchar(9)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(9);
 
                     b.HasKey("ADDRESS_ID");
@@ -717,22 +710,22 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.CommonParcel", b =>
                 {
                     b.Property<int>("MAP_ID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("MaxLat")
+                    b.Property<double>("MaxLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MaxLng")
+                    b.Property<double>("MaxLng")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLat")
+                    b.Property<double>("MinLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLng")
+                    b.Property<double>("MinLng")
                         .HasColumnType("decimal(13, 10)");
 
                     b.Property<Geometry>("Outline")
-                        .HasColumnType("geography");
+                        .HasColumnType("GEOMETRY");
 
                     b.HasKey("MAP_ID");
 
@@ -750,228 +743,228 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Parcel", b =>
                 {
                     b.Property<string>("TAXKEY")
-                        .HasColumnType("nvarchar(10)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(10);
 
                     b.Property<double>("ACRES")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<string>("ADDRESS")
-                        .HasColumnType("nvarchar(32)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(32);
 
                     b.Property<int>("ASSESSEDVA")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ASSESSMENT")
-                        .HasColumnType("nvarchar(88)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(88);
 
                     b.Property<string>("CLASS")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("CODE")
-                        .HasColumnType("nvarchar(2)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(2);
 
                     b.Property<string>("COMMENT")
-                        .HasColumnType("nvarchar(84)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(84);
 
                     b.Property<string>("CONDO_NAME")
-                        .HasColumnType("nvarchar(74)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(74);
 
                     b.Property<string>("DESCRIPTIO")
-                        .HasColumnType("nvarchar(23)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(23);
 
                     b.Property<string>("DWELLING_C")
-                        .HasColumnType("nvarchar(8)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(8);
 
                     b.Property<string>("EXM_CLASS_")
-                        .HasColumnType("nvarchar(76)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(76);
 
                     b.Property<string>("EXM_TYP")
-                        .HasColumnType("nvarchar(3)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(3);
 
                     b.Property<string>("EXM_TYP_DE")
-                        .HasColumnType("nvarchar(94)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(94);
 
                     b.Property<int>("FAIR_MKT_V")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("GIS_ACRES")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<double>("GROSS_TAX")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<string>("HOUSENR")
-                        .HasColumnType("nvarchar(10)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(10);
 
                     b.Property<string>("HOUSENRHI")
-                        .HasColumnType("nvarchar(10)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(10);
 
                     b.Property<string>("HOUSENRSFX")
-                        .HasColumnType("nvarchar(3)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(3);
 
                     b.Property<int>("HouseNumber")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("HouseNumberHigh")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("IMPVALUE")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("LANDVALUE")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LEGALDESCR")
-                        .HasColumnType("nvarchar(254)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(254);
 
                     b.Property<int>("MAP_ID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("MCD")
-                        .HasColumnType("nvarchar(5)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(5);
 
                     b.Property<string>("MUNINAME")
-                        .HasColumnType("nvarchar(15)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(15);
 
                     b.Property<double>("NET_TAX")
-                        .HasColumnType("float");
+                        .HasColumnType("REAL");
 
                     b.Property<int>("OBJECTID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("OVERLAP")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("OWNERADDR")
-                        .HasColumnType("nvarchar(49)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(49);
 
                     b.Property<string>("OWNERCTYST")
-                        .HasColumnType("nvarchar(27)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(27);
 
                     b.Property<string>("OWNERNAME1")
-                        .HasColumnType("nvarchar(84)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(84);
 
                     b.Property<string>("OWNERNAME2")
-                        .HasColumnType("nvarchar(84)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(84);
 
                     b.Property<string>("OWNERNAME3")
-                        .HasColumnType("nvarchar(28)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(28);
 
                     b.Property<string>("OWNERZIP")
-                        .HasColumnType("nvarchar(10)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(10);
 
                     b.Property<string>("PARCELNO")
-                        .HasColumnType("nvarchar(10)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(10);
 
                     b.Property<string>("PARCEL_DES")
-                        .HasColumnType("nvarchar(30)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(30);
 
                     b.Property<string>("PARCEL_KEY")
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
                     b.Property<string>("PARCEL_TYP")
-                        .HasColumnType("nvarchar(13)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(13);
 
                     b.Property<string>("PAR_ZIP")
-                        .HasColumnType("nvarchar(5)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(5);
 
                     b.Property<string>("PAR_ZIP_EX")
-                        .HasColumnType("nvarchar(4)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(4);
 
                     b.Property<string>("POSTOFFICE")
-                        .HasColumnType("nvarchar(15)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(15);
 
                     b.Property<int>("RECID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("RECSOURCE")
-                        .HasColumnType("nvarchar(7)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(7);
 
                     b.Property<string>("SCHOOL_DIS")
-                        .HasColumnType("nvarchar(41)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(41);
 
                     b.Property<string>("SCHOOL_ID")
-                        .HasColumnType("nvarchar(4)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(4);
 
                     b.Property<string>("SOURCE")
-                        .HasColumnType("nvarchar(39)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(39);
 
                     b.Property<string>("STREETDIR")
-                        .HasColumnType("nvarchar(2)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(2);
 
                     b.Property<string>("STREETNAME")
-                        .HasColumnType("nvarchar(20)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(20);
 
                     b.Property<string>("STREETTYPE")
-                        .HasColumnType("nvarchar(4)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(4);
 
                     b.Property<string>("SUFFIXDIR")
-                        .HasColumnType("nvarchar(2)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(2);
 
                     b.Property<string>("TAX_INFO_U")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<int>("TAX_YR")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UNITNUMBER")
-                        .HasColumnType("nvarchar(8)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(8);
 
                     b.Property<string>("UNIT_TYPE")
-                        .HasColumnType("nvarchar(7)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(7);
 
                     b.Property<string>("ZONING_COD")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("ZONING_DES")
-                        .HasColumnType("nvarchar(29)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(29);
 
                     b.Property<string>("ZONING_URL")
-                        .HasColumnType("nvarchar(88)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(88);
 
                     b.HasKey("TAXKEY");
@@ -986,116 +979,116 @@ namespace MkeAlerts.Web.Migrations
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Street", b =>
                 {
                     b.Property<int>("CLINEID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("COMMENT")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("DATE_CHANG")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("DIR")
-                        .HasColumnType("nvarchar(2)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(2);
 
                     b.Property<string>("FCC")
-                        .HasColumnType("nvarchar(3)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(3);
 
                     b.Property<string>("HIGH")
-                        .HasColumnType("nvarchar(5)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(5);
 
                     b.Property<string>("HIGHWAY")
-                        .HasColumnType("nvarchar(16)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(16);
 
                     b.Property<string>("LEFTFR")
-                        .HasColumnType("nvarchar(5)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(5);
 
                     b.Property<string>("LEFTTO")
-                        .HasColumnType("nvarchar(5)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(5);
 
                     b.Property<string>("LOW")
-                        .HasColumnType("nvarchar(5)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(5);
 
                     b.Property<string>("L_MCD")
-                        .HasColumnType("nvarchar(5)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(5);
 
                     b.Property<int>("LeftNumberHigh")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("LeftNumberLow")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("MUNI")
-                        .HasColumnType("nvarchar(15)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(15);
 
-                    b.Property<decimal>("MaxLat")
+                    b.Property<double>("MaxLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MaxLng")
+                    b.Property<double>("MaxLng")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLat")
+                    b.Property<double>("MinLat")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<decimal>("MinLng")
+                    b.Property<double>("MinLng")
                         .HasColumnType("decimal(13, 10)");
 
                     b.Property<int>("OBJECTID")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("OWNER")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<Geometry>("Outline")
-                        .HasColumnType("geography");
+                        .HasColumnType("GEOMETRY");
 
                     b.Property<string>("PDIR")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("RIGHTFR")
-                        .HasColumnType("nvarchar(5)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(5);
 
                     b.Property<string>("RIGHTTO")
-                        .HasColumnType("nvarchar(5)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(5);
 
                     b.Property<string>("R_MCD")
-                        .HasColumnType("nvarchar(5)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(5);
 
                     b.Property<int>("RightNumberHigh")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("RightNumberLow")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SHIELD")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("SOURCE")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("STREET")
-                        .HasColumnType("nvarchar(24)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(24);
 
                     b.Property<string>("STTYPE")
-                        .HasColumnType("nvarchar(4)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(4);
 
                     b.HasKey("CLINEID");
@@ -1117,33 +1110,33 @@ namespace MkeAlerts.Web.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("DispatchCallType")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("Distance")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("HOUSE_NR")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<Point>("Point")
-                        .HasColumnType("geography");
+                        .HasColumnType("POINT");
 
                     b.Property<string>("SDIR")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("STREET")
-                        .HasColumnType("nvarchar(18)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(18);
 
                     b.Property<string>("STTYPE")
-                        .HasColumnType("nvarchar(2)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(2);
 
                     b.HasKey("Id");
@@ -1157,40 +1150,40 @@ namespace MkeAlerts.Web.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("HoursBefore")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LADDR")
-                        .HasColumnType("nvarchar(10)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(10);
 
                     b.Property<DateTime?>("NextGarbagePickupDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("NextGarbagePickupNotification")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("NextRecyclingPickupDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("NextRecyclingPickupNotification")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("SDIR")
-                        .HasColumnType("nvarchar(1)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(1);
 
                     b.Property<string>("SNAME")
-                        .HasColumnType("nvarchar(18)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(18);
 
                     b.Property<string>("STYPE")
-                        .HasColumnType("nvarchar(2)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(2);
 
                     b.HasKey("Id");

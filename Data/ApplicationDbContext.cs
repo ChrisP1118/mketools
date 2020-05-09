@@ -172,19 +172,19 @@ namespace MkeAlerts.Web.Data
             {
                 Id = Guid.Parse("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
                 Name = ApplicationRole.SiteAdminRole,
-                NormalizedName = ApplicationRole.SiteAdminRole
+                NormalizedName = ApplicationRole.SiteAdminRole.ToUpper()
             });
 
             modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 Id = Guid.Parse("85f00d40-d578-4988-9f22-4d023175f852"),
                 UserName = "cwilson@mkealerts.com",
-                NormalizedUserName = "cwilson@mkealerts.com",
+                NormalizedUserName = "cwilson@mkealerts.com".ToUpper(),
                 Email = "cwilson@mkealerts.com",
-                NormalizedEmail = "cwilson@mkealerts.com",
+                NormalizedEmail = "cwilson@mkealerts.com".ToUpper(),
                 EmailConfirmed = true,
                 PasswordHash = passwordHasher.HashPassword(null, "abc123"),
-                SecurityStamp = string.Empty
+                SecurityStamp = "HALICG3767VFP5B5FTAF4P2X7AEHFSWZ"
             });
 
             modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(new IdentityUserRole<Guid>()
