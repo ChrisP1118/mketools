@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MkeAlerts.Web.Migrations
 {
-    public partial class JobRunsIndex : Migration
+    public partial class AddressIndex : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,40 +12,49 @@ namespace MkeAlerts.Web.Migrations
                 keyColumn: "Id",
                 keyValue: new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
                 column: "ConcurrencyStamp",
-                value: "71c40c78-0c61-43df-83e7-cb1b9e632474");
+                value: "13d76b35-3071-4f2a-befb-8f9facfb39fb");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "0fd0740c-fce2-4b8c-b931-399f050cb151", "AQAAAAEAACcQAAAAEG6YLwdEWtIWX9wYQznyMXz5hIF7YBh8VQSKAyARIVkwSQPSv7NHbitOuaaeo2EwDg==" });
+                values: new object[] { "d4545db8-a826-48ee-975c-0f2dd35a5478", "AQAAAAEAACcQAAAAEFeoyMEkvOdRgQbZLwQMdXtlulRjGNv/u1mf1Tfe/Wbrw2R72Xa5QGezp/LiGm21FA==" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobRuns_StartTime",
-                table: "JobRuns",
-                column: "StartTime");
+                name: "IX_Parcels_STREETDIR_STREETNAME_STREETTYPE_HouseNumber",
+                table: "Parcels",
+                columns: new[] { "STREETDIR", "STREETNAME", "STREETTYPE", "HouseNumber" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_DIR_STREET_STTYPE_HouseNumber",
+                table: "Addresses",
+                columns: new[] { "DIR", "STREET", "STTYPE", "HouseNumber" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropIndex(
-                name: "IX_JobRuns_StartTime",
-                table: "JobRuns");
+                name: "IX_Parcels_STREETDIR_STREETNAME_STREETTYPE_HouseNumber",
+                table: "Parcels");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Addresses_DIR_STREET_STTYPE_HouseNumber",
+                table: "Addresses");
 
             migrationBuilder.UpdateData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
                 column: "ConcurrencyStamp",
-                value: "1544a9f3-f3ca-4b8c-b1c2-c1721a75be67");
+                value: "02ed99b0-536d-471d-8672-612e036e3f20");
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                 columns: new[] { "ConcurrencyStamp", "PasswordHash" },
-                values: new object[] { "87795195-30f9-42d4-8d71-26cd8e580baa", "AQAAAAEAACcQAAAAEFw2lO9JRD+ep3+v+A6lsB25ixEFmEtfk6szdCc7f8Oqhf4y+VoLd2O+Sani672BPQ==" });
+                values: new object[] { "b49f4a80-974c-4c7d-9bf5-e1dae1071ba3", "AQAAAAEAACcQAAAAEN1Iez9ivDuQILfrrkAsXITG7DbeWYR/NCw9JxET3sO+5XG+6gPBDLkXTvR0KxMvvw==" });
         }
     }
 }

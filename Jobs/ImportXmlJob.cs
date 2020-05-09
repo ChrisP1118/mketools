@@ -48,7 +48,7 @@ namespace MkeAlerts.Web.Jobs
         {
             string fileName = await PackageUtilities.DownloadPackageFile(_logger, PackageName, PackageFormat);
 
-            _logger.LogDebug("Download complete: " + fileName);
+            _logger.LogDebug("Download complete: {Filename}", fileName);
 
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
@@ -83,17 +83,17 @@ namespace MkeAlerts.Web.Jobs
                             {
                                 try
                                 {
-                                    Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results1 = await _writeService.BulkCreate(claimsPrincipal, items, UseBulkInsert);
+                                    Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results1 = await _writeService.BulkUpsert(claimsPrincipal, items, UseBulkInsert);
                                     _successCount += results1.Item1.Count();
                                     _failureCount += results1.Item2.Count();
 
-                                    _logger.LogDebug("Bulk inserted items at mod " + i.ToString());
+                                    _logger.LogDebug("Bulk inserted items at mod {Index}", i);
                                 }
                                 catch (Exception ex)
                                 {
                                     _failureCount += items.Count;
 
-                                    _logger.LogError(ex, "Error bulk inserting items at mod " + i.ToString());
+                                    _logger.LogError(ex, "Error bulk inserting items at mod {Index}", i);
                                 }
                                 items.Clear();
                             }
@@ -103,17 +103,17 @@ namespace MkeAlerts.Web.Jobs
 
                 try
                 {
-                    Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results2 = await _writeService.BulkCreate(claimsPrincipal, items, UseBulkInsert);
+                    Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>> results2 = await _writeService.BulkUpsert(claimsPrincipal, items, UseBulkInsert);
                     _successCount += results2.Item1.Count();
                     _failureCount += results2.Item2.Count();
 
-                    _logger.LogDebug("Bulk inserted items at mod " + i.ToString());
+                    _logger.LogDebug("Bulk inserted items at mod {Index}", i);
                 }
                 catch (Exception ex)
                 {
                     _failureCount += items.Count;
 
-                    _logger.LogError(ex, "Error bulk inserting items at mod " + i.ToString());
+                    _logger.LogError(ex, "Error bulk inserting items at mod {Index}", i);
                 }
             }
 

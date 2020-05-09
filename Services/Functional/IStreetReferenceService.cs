@@ -8,8 +8,8 @@ namespace MkeAlerts.Web.Services.Functional
 {
     public interface IStreetReferenceService
     {
-        Task<List<string>> GetAllStreetDirections(ClaimsPrincipal user);
-        Task<List<string>> GetAllStreetNames(ClaimsPrincipal user);
-        Task<List<string>> GetAllStreetTypes(ClaimsPrincipal user);
+        Task<List<string>> GetAllStreetDirections(ClaimsPrincipal user, string municipality);
+        Task<List<string>> GetAllStreetNames(ClaimsPrincipal user, string municipality);
+        Task<List<string>> GetAllStreetTypes(ClaimsPrincipal user, string municipality);
     }
 }

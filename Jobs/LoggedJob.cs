@@ -5,6 +5,8 @@ using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.AppHealth;
 using MkeAlerts.Web.Services.Data.Interfaces;
 using MkeAlerts.Web.Services.Functional;
+using Serilog;
+using Serilog.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,7 @@ namespace MkeAlerts.Web.Jobs
             _logger = logger;
         }
 
-        public async Task Run()
+        public async virtual Task Run()
         {
             JobRun jobRun = new JobRun()
             {
@@ -38,27 +40,30 @@ namespace MkeAlerts.Web.Jobs
 
             await _jobRunService.Create(await GetClaimsPrincipal(), jobRun);
 
-            _logger.LogInformation($"Starting job {jobRun.Id.ToString()}");
-
-            try
+            using (var logContext = LogContext.PushProperty("JobRunId", jobRun.Id))
             {
-                await RunInternal();
+                _logger.LogInformation("Starting job: {JobName}: {JobId}", jobRun.JobName, jobRun.Id);
+
+                try
+                {
+                    await RunInternal();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Critical error in job");
+
+                    jobRun.ErrorMessages = GetAllErrorMessages(ex);
+                    jobRun.ErrorStackTrace = GetInnerStackTrack(ex);
+                }
+
+                _logger.LogInformation("Finishing job: {JobName}: {JobId}: {SuccessCount} succeeded, {FailureCount} failed", jobRun.JobName, jobRun.Id, _successCount, _failureCount);
+
+                jobRun.SuccessCount = _successCount;
+                jobRun.FailureCount = _failureCount;
+                jobRun.EndTime = DateTimeOffset.Now;
+
+                await _jobRunService.Update(await GetClaimsPrincipal(), jobRun);
             }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Critical error in job {jobRun.Id.ToString()}");
-
-                jobRun.ErrorMessages = GetAllErrorMessages(ex);
-                jobRun.ErrorStackTrace = GetInnerStackTrack(ex);
-            }
-
-            _logger.LogInformation($"Job finished {jobRun.Id.ToString()}: {_successCount} succeeded, {_failureCount} failed");
-
-            jobRun.SuccessCount = _successCount;
-            jobRun.FailureCount = _failureCount;
-            jobRun.EndTime = DateTimeOffset.Now;
-
-            await _jobRunService.Update(await GetClaimsPrincipal(), jobRun);
         }
 
         protected abstract Task RunInternal();

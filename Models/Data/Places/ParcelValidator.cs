@@ -10,7 +10,8 @@ namespace MkeAlerts.Web.Models.Data.Places
     {
         public ParcelValidator()
         {
-            RuleFor(x => x.Taxkey).NotNull().NotEmpty();
+            RuleFor(x => x.TAXKEY).NotNull().NotEmpty();
+            RuleFor(x => x.MAP_ID).NotNull().NotEmpty().NotEqual(0);
         }
     }
 }

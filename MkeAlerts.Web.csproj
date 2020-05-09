@@ -45,7 +45,9 @@
     <PackageReference Include="NetTopologySuite" Version="2.0.0" />
     <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="2.0.2" />
     <PackageReference Include="NetTopologySuite.IO.ShapeFile" Version="2.0.0" />
-    <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.2" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="4.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.4.0" />
@@ -77,12 +79,6 @@
   <ItemGroup>
     <Content Include="Geodata\parcelbase_mprop_full.prj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="nlog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

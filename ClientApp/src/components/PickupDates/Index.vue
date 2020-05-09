@@ -12,7 +12,7 @@
             <hr />
           </div>
           <p v-if="subscriptions.length == 0">Enter an address below to get started.</p>
-          <address-lookup :addressData.sync="addressData" :noGeolookup="true" />
+          <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" :noGeolookup="true" />
         </b-jumbotron>
       </b-col>
     </b-row>
@@ -20,7 +20,7 @@
       <b-col>
         <b-card bg-variant="light">
           <b-card-text>
-            <address-lookup :addressData.sync="addressData" :noGeolookup="true"/>
+            <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" :noGeolookup="true"/>
             <hr />
             <user-pickup-dates-subscription-list :subscriptions="subscriptions" @selected="onSubscriptionSelected" @deleted="onSubscriptionDeleted" />
             <hr v-if="subscriptions.length > 0" />
@@ -39,7 +39,7 @@
       </b-col>
     </b-row>
     <b-row class="mt-3">
-      <b-col>
+      <b-col xs="12" sm="6">
         <b-card-group v-if="pickupDates">
           <b-card class="text-center">
             <template v-slot:header>
@@ -50,6 +50,7 @@
             </template>
             <b-card-text>
               <h5>{{formattedNextGarbagePickupDate}}</h5>
+              <p>{{pickupAddress.number}} {{pickupAddress.streetDirection}} {{pickupAddress.streetName}} {{pickupAddress.streetType}}</p>
             </b-card-text>
           </b-card>
           <b-card class="text-center">
@@ -61,9 +62,13 @@
             </template>
             <b-card-text>
               <h5>{{formattedNextRecyclingPickupDate}}</h5>
+              <p>{{pickupAddress.number}} {{pickupAddress.streetDirection}} {{pickupAddress.streetName}} {{pickupAddress.streetType}}</p>
             </b-card-text>
           </b-card>
         </b-card-group>
+      </b-col>
+      <b-col xs="12" sm="6">
+        <nearby-map :position="position"  v-if="position"></nearby-map>
       </b-col>
     </b-row>
     <b-modal id="subscription-modal" size="lg" title="Sign Up for Email Notifications" 
@@ -101,10 +106,14 @@ export default {
     return {
       addressData: null,
       pickupDates: null,
+      pickupAddress: null,
 
       hoursBefore: -6,
 
       subscriptions: [],
+
+      position: null,
+      locationData: null
     }
   },
   computed: {
@@ -222,15 +231,25 @@ export default {
     },
   },
   watch: {
+    locationData: function (newValue, oldValue) {
+      this.position = newValue;
+    },
     addressData: function (newValue, oldValue) {
+      if (newValue == null) {
+        this.pickupDates = null;
+        this.pickupAddress = null;
+        return;
+      }
+      
       axios
         .get('/api/pickupDates/fromAddress?laddr=' + this.addressData.number + '&sdir=' + this.addressData.streetDirection + '&sname=' + this.addressData.streetName + '&stype=' + this.addressData.streetType)
         .then(response => {
           this.pickupDates = response.data;
-          })
+          this.pickupAddress = this.addressData;
+        })
         .catch(error => {
           console.log(error);
-          });
+        });
     },
   },
   created() {

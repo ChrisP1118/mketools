@@ -55,11 +55,11 @@ namespace MkeAlerts.Web.Jobs
                 {
                     try
                     {
-                        FireDispatchCall fireDispatchCall = await _fireDispatchCallWriteService.GetOne(claimsPrincipal, (string)item.Property("CFS").Value, null);
+                        FireDispatchCall dispatchCall = await _fireDispatchCallWriteService.GetOne(claimsPrincipal, (string)item.Property("CFS").Value, null);
 
-                        if (fireDispatchCall == null)
+                        if (dispatchCall == null)
                         {
-                            fireDispatchCall = new FireDispatchCall()
+                            dispatchCall = new FireDispatchCall()
                             {
                                 CFS = (string)item.Property("CFS").Value,
                                 ReportedDateTime = DateTime.Parse((string)item.Property("DATEANDTIME").Value),
@@ -70,24 +70,25 @@ namespace MkeAlerts.Web.Jobs
                                 Disposition = (string)item.Property("DISPOSITION").Value
                             };
 
-                            GeocodeResults geocodeResults = await _geocodingService.Geocode(fireDispatchCall.Address);
-                            fireDispatchCall.Geometry = geocodeResults.Geometry;
-                            fireDispatchCall.Accuracy = geocodeResults.Accuracy;
-                            fireDispatchCall.Source = geocodeResults.Source;
+                            GeocodeResults geocodeResults = await _geocodingService.Geocode(dispatchCall.Address);
+                            dispatchCall.Geometry = geocodeResults.Geometry;
+                            dispatchCall.Accuracy = geocodeResults.Accuracy;
+                            dispatchCall.Source = geocodeResults.Source;
+                            dispatchCall.LastGeocodeAttempt = DateTime.Now;
 
-                            GeographicUtilities.SetBounds(fireDispatchCall, geocodeResults.Geometry);
+                            GeographicUtilities.SetBounds(dispatchCall, geocodeResults.Geometry);
 
-                            await _fireDispatchCallWriteService.Create(claimsPrincipal, fireDispatchCall);
+                            await _fireDispatchCallWriteService.Create(claimsPrincipal, dispatchCall);
                             ++_successCount;
                         }
                         else
                         {
                             if (item.Property("DISPOSITION") != null)
-                                fireDispatchCall.Disposition = (string)item.Property("DISPOSITION").Value;
+                                dispatchCall.Disposition = (string)item.Property("DISPOSITION").Value;
                             if (item.Property("disposition") != null)
-                                fireDispatchCall.Disposition = (string)item.Property("disposition").Value;
+                                dispatchCall.Disposition = (string)item.Property("disposition").Value;
 
-                            await _fireDispatchCallWriteService.Update(claimsPrincipal, fireDispatchCall);
+                            await _fireDispatchCallWriteService.Update(claimsPrincipal, dispatchCall);
                             ++_successCount;
                         }
                     }

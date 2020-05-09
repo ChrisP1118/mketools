@@ -5,15 +5,14 @@ Interested in contributing? Let me know - cwilson at mkealerts.com.
 ## VS Code
 * Open the root folder in VS Code
 * To run the solution, in the VS Code terminal, type: dotnet run
-* Alternatively, press F5
 * The site will be at:
   * http://localhost:5000
   * https://localhost:5001
 * HMR (Hot Module Replacement) will run for VueJS. So as you edit Vue files, you'll see them reflected in the browser without refreshing.
 
-## Visual Studio 2017
+## Visual Studio 2019
 * Open the solution file
-* To run the solution, pres F5
+* To run the solution, press F5
 * The site will be at:
   * http://localhost:5010
   * https://localhost:5011 -- I haven't actually been able to get this to work.
@@ -52,14 +51,15 @@ Interested in contributing? Let me know - cwilson at mkealerts.com.
 * AutoMapper
 * FluentValidation
 * Authentication with JWT
-* OpenAPI Docs with Swagger (via Swashbuckle)
-* VueJS
+* OpenAPI 3 Docs with Swagger (via Swashbuckle)
+* VueJS 2.x
 * Vue CLI 3
 * Vue Router
 * Vuelidate
 * Leaflet and vue2-leaflet
 * Webpack
-* Bootstrap and BootstrapVue
+* Bootstrap and BootstrapVue 2.x
+* Serilog
 
 
 ## Notes
@@ -74,11 +74,10 @@ When running .NET stuff, be in the root folder.
 
 
 ## Hosting
-* https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/index?tabs=aspnetcore2x&view=aspnetcore-2.2
 * The .NET Core 3.1.3 Hosting Bundle for Windows: https://dotnet.microsoft.com/download/dotnet-core/thank-you/runtime-aspnetcore-3.1.3-windows-hosting-bundle-installer
-* You may also want to turn on stdout logging in the published web.config. If you do this, be sure to create a Logs folder.
+* You may also want to turn on stdout logging in the published web.config. If you do this, be sure to create a Logs folder that the IIS user/application pool identity has access to.
 
 
-# .NET Core 3.1 Upgrade Notes
+# Entity Framework Core Commands
 * Add EF migrations with: dotnet ef migrations add MigrationName
 * Update database with: dotnet ef database update

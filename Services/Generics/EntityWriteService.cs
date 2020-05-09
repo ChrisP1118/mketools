@@ -1,15 +1,17 @@
 ﻿using EFCore.BulkExtensions;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Exceptions;
 using MkeAlerts.Web.Models.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
+using MkeAlerts.Web.Models.Data.Places;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
@@ -20,12 +22,10 @@ namespace MkeAlerts.Web.Services
     public abstract class EntityWriteService<TDataModel, TIdType> : EntityReadService<TDataModel, TIdType>, IEntityWriteService<TDataModel, TIdType>
         where TDataModel : class, IHasId<TIdType>
     {
-        //protected readonly ILogger<EntityWriteService<TDataModel, TIdType>> _logger;
         protected readonly IValidator<TDataModel> _validator;
 
         public EntityWriteService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<TDataModel> validator, ILogger<EntityWriteService<TDataModel, TIdType>> logger) : base(dbContext, userManager, logger)
         {
-            //_logger = logger;
             _validator = validator;
         }
 
@@ -48,9 +48,10 @@ namespace MkeAlerts.Web.Services
             return dataModel;
         }
 
-        public async Task<Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>>> BulkCreate(ClaimsPrincipal user, IList<TDataModel> dataModels, bool useBulkInsert = true)
+        public async Task<Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>>> BulkUpsert(ClaimsPrincipal user, IList<TDataModel> dataModels, bool useBulkInsert = true)
         {
             var applicationUser = await GetApplicationUser(user);
+            List<TDataModel> validatedDataModels = new List<TDataModel>();
 
             // Throw any errors first before adding these to our context
             foreach (TDataModel dataModel in dataModels)
@@ -58,25 +59,32 @@ namespace MkeAlerts.Web.Services
                 if (!await CanCreate(applicationUser, dataModel))
                     throw new ForbiddenException();
 
-                _validator.ValidateAndThrow(dataModel);
+                var validationResults = _validator.Validate(dataModel);
+                if (validationResults.IsValid)
+                    validatedDataModels.Add(dataModel);
+                else
+                    _logger.LogWarning("Validation failed for {Id}: {Errors}", dataModel.GetId(), string.Join("; ", validationResults.Errors.Select(x => x.ErrorMessage)));
             }
 
-            IList<TDataModel> success = new List<TDataModel>();
-            IList<TDataModel> failure = new List<TDataModel>();
+            // Remove duplicates (based on GetId)
+            validatedDataModels = validatedDataModels.GroupBy(x => x.GetId()).Select(x => x.First()).ToList();
+
+            List<TDataModel> success = new List<TDataModel>();
+            List<TDataModel> failure = new List<TDataModel>();
 
             if (useBulkInsert)
             {
                 try
                 {
-                    await _dbContext.BulkInsertOrUpdateAsync<TDataModel>(dataModels, new BulkConfig
+                    await _dbContext.BulkInsertOrUpdateAsync<TDataModel>(validatedDataModels, new BulkConfig
                     {
-                        SqlBulkCopyOptions = SqlBulkCopyOptions.Default
+                        SqlBulkCopyOptions = Microsoft.Data.SqlClient.SqlBulkCopyOptions.Default
                     });
-                    success = dataModels;
+                    success = validatedDataModels;
                 }
                 catch (Exception ex)
                 {
-                    foreach (TDataModel dataModel in dataModels)
+                    foreach (TDataModel dataModel in validatedDataModels)
                     {
                         try
                         {
@@ -85,7 +93,7 @@ namespace MkeAlerts.Web.Services
                         }
                         catch (Exception ex2)
                         {
-                            _logger.LogError(ex, "Error bulk inserting item");
+                            _logger.LogError(ex, "Error bulk inserting item {Id}", dataModel.GetId());
                             failure.Add(dataModel);
                         }
                     }
@@ -95,25 +103,38 @@ namespace MkeAlerts.Web.Services
             {
                 _dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
 
-                foreach (TDataModel dataModel in dataModels)
+                try
                 {
-                    try
+                    await _dbContext
+                        .Set<TDataModel>()
+                        .UpsertRange(validatedDataModels)
+                        .RunAsync();
+
+                    success.AddRange(validatedDataModels);
+                }
+                catch (Exception ex)
+                {
+                    foreach (TDataModel dataModel in validatedDataModels)
                     {
-                        await _dbContext
-                            .Set<TDataModel>()
-                            .Upsert(dataModel)
-                            .RunAsync();
-                        success.Add(dataModel);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Error upserting item");
-                        failure.Add(dataModel);
+                        try
+                        {
+                            await _dbContext
+                                .Set<TDataModel>()
+                                .Upsert(dataModel)
+                                .RunAsync();
+                            success.Add(dataModel);
+                        }
+                        catch (Exception ex2)
+                        {
+                            _logger.LogError(ex2, "Error upserting item {Id}", dataModel.GetId());
+                            failure.Add(dataModel);
+                        }
                     }
                 }
+
             }
 
-            foreach (TDataModel dataModel in dataModels)
+            foreach (TDataModel dataModel in validatedDataModels)
                 await OnCreated(dataModel);
 
             return new Tuple<IEnumerable<TDataModel>, IEnumerable<TDataModel>>(success, failure);
@@ -134,6 +155,29 @@ namespace MkeAlerts.Web.Services
             await OnUpdated(dataModel);
 
             return dataModel;
+        }
+
+        public async Task<IEnumerable<TDataModel>> BulkUpdate(ClaimsPrincipal user, IEnumerable<TDataModel> dataModels)
+        {
+            var applicationUser = await GetApplicationUser(user);
+
+            foreach (TDataModel dataModel in dataModels)
+            {
+                if (!await CanCreate(applicationUser, dataModel))
+                    throw new ForbiddenException();
+
+                _validator.ValidateAndThrow(dataModel);
+            }
+
+            foreach (TDataModel dataModel in dataModels)
+                _dbContext.Entry(dataModel).State = EntityState.Modified;
+
+            await _dbContext.SaveChangesAsync();
+
+            foreach (TDataModel dataModel in dataModels) 
+                await OnUpdated(dataModel);
+
+            return dataModels;
         }
 
         public async Task<TDataModel> Delete(ClaimsPrincipal user, TIdType id)

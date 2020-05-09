@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data.Incidents
 {
-    public class Crime : IHasId<string>, IHasBounds
+    public class Crime : IHasId<string>, IHasBounds, IGeocodable
     {
         public string GetId() => this.IncidentNum;
 
@@ -26,6 +26,10 @@ namespace MkeAlerts.Web.Models.Data.Incidents
 
         [Column(TypeName = "decimal(13, 10)")]
         public double MaxLng { get; set; }
+
+        public GeometryAccuracy? Accuracy { get; set; }
+        public GeometrySource? Source { get; set; }
+        public DateTime? LastGeocodeAttempt { get; set; }
 
         [MaxLength(20)]
         [Required]

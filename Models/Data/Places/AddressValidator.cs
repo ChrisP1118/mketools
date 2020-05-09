@@ -10,8 +10,7 @@ namespace MkeAlerts.Web.Models.Data.Places
     {
         public AddressValidator()
         {
-            //RuleFor(x => x.FormattedAddress).NotNull().NotEmpty();
-            RuleFor(x => x.RCD_NBR).NotNull().NotEmpty();
+            RuleFor(x => x.ADDRESS_ID).NotNull().NotEmpty().NotEqual(0);
             RuleFor(x => x.TAXKEY).NotNull().NotEmpty();
         }
     }

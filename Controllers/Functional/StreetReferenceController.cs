@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using MkeAlerts.Web.Filters.Support;
 using MkeAlerts.Web.Middleware.Exceptions;
@@ -38,14 +39,14 @@ namespace MkeAlerts.Web.Controllers.Functional
         [HttpGet("")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<StreetReferenceDTO>> GetAllAsync()
+        public async Task<ActionResult<StreetReferenceDTO>> GetAllAsync(string municipality)
         {
             // TODO: This could benefit from some parallelism
             // TODO: All of these should be cached as well
 
-            List<string> streetDirections = await _streetReferenceService.GetAllStreetDirections(HttpContext.User);
-            List<string> streetNames = await _streetReferenceService.GetAllStreetNames(HttpContext.User);
-            List<string> streetTypes = await _streetReferenceService.GetAllStreetTypes(HttpContext.User);
+            List<string> streetDirections = await _streetReferenceService.GetAllStreetDirections(HttpContext.User, municipality);
+            List<string> streetNames = await _streetReferenceService.GetAllStreetNames(HttpContext.User, municipality);
+            List<string> streetTypes = await _streetReferenceService.GetAllStreetTypes(HttpContext.User, municipality);
 
             return Ok(new StreetReferenceDTO
             {
@@ -62,9 +63,9 @@ namespace MkeAlerts.Web.Controllers.Functional
         [HttpGet("streetDirections")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<IEnumerable<string>>> GetAllStreetDirectionsAsync()
+        public async Task<ActionResult<IEnumerable<string>>> GetAllStreetDirectionsAsync(string municipality)
         {
-            var items = await _streetReferenceService.GetAllStreetDirections(HttpContext.User);
+            var items = await _streetReferenceService.GetAllStreetDirections(HttpContext.User, municipality);
 
             return Ok(items);
         }
@@ -76,9 +77,9 @@ namespace MkeAlerts.Web.Controllers.Functional
         [HttpGet("streetNames")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<IEnumerable<string>>> GetAllStreetNamesAsync()
+        public async Task<ActionResult<IEnumerable<string>>> GetAllStreetNamesAsync(string municipality)
         {
-            var items = await _streetReferenceService.GetAllStreetNames(HttpContext.User);
+            var items = await _streetReferenceService.GetAllStreetNames(HttpContext.User, municipality);
 
             return Ok(items);
         }
@@ -90,9 +91,9 @@ namespace MkeAlerts.Web.Controllers.Functional
         [HttpGet("streetTypes")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorDetails), StatusCodes.Status403Forbidden)]
-        public async Task<ActionResult<IEnumerable<string>>> GetAllStreetTypesAsync()
+        public async Task<ActionResult<IEnumerable<string>>> GetAllStreetTypesAsync(string municipality)
         {
-            var items = await _streetReferenceService.GetAllStreetTypes(HttpContext.User);
+            var items = await _streetReferenceService.GetAllStreetTypes(HttpContext.User, municipality);
 
             return Ok(items);
         }

@@ -78,9 +78,9 @@ namespace MkeAlerts.Web.Services.Functional
 
             MailjetResponse response = await client.PostAsync(request);
             if (response.IsSuccessStatusCode)
-                _logger.LogInformation("Email sent to " + to + " (" + subject + ")");
+                _logger.LogInformation("Sending email {EmailAction} to {EmailAddress}: {EmaiSubject}", "succeeded", to, subject);
             else
-                _logger.LogError("Email failed to send to " + to + " (" + subject + "): " + response.StatusCode + ", " + response.GetErrorInfo() + ", " + response.GetErrorMessage());
+                _logger.LogError("Sending email {EmailAction} to {EmailAddress}: {EmailSubect}: {EmailResponseStatusCode}, {EmailResponseErrorInfo}, {EmailResponseErrorMessage}", "failed", to, subject, response.StatusCode, response.GetErrorInfo(), response.GetErrorMessage());
         }
 
         public async Task SendAdminAlert(string alertName, string alertMessage)

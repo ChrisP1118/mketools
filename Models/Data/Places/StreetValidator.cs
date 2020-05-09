@@ -10,7 +10,7 @@ namespace MkeAlerts.Web.Models.Data.Places
     {
         public StreetValidator()
         {
-            RuleFor(x => x.NEWDIME_ID).NotNull().NotEmpty();
+            RuleFor(x => x.CLINEID).NotNull().NotEmpty().NotEqual(0);
         }
     }
 }

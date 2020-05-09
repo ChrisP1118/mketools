@@ -1,7 +1,9 @@
 # Launch
+* Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
+* Improvement: Download MCLIO datasets
+* Improvement: Import MPROP data (and override MCLIO parcels as needed)
 * Doc: Document what's "major" and "minor"
 * Prep: Convert MkeTrashDay accounts
-* Improvement: Better health checks
 
 # Minor Issues - Front-End
 * Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)
@@ -26,6 +28,7 @@
 * Improvement: Reset password/my profile page
 
 # Backlog
+* Epic: Property assessment viewer, with notifications on property owner changes
 * Improvement: Open keyword search on table (for example: property search across owner fields)
   * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
 * Improvement: Load table filters from URL (and link from info windows?)
@@ -40,6 +43,11 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Improvement: GeocodeItemsJob: Save geocoded items~~
+* ~~Improvement: GeocodeItemsJob: Better batching (don't want the entire job on a single EF content)~~
+* ~~Log API response times?~~
+* ~~Improvement: Better health checks~~
+* ~~Improvement: Add indexes for address fields to speed this geocoding~~
 * ~~Improvement: Refresh map on home page periodically~~
 * ~~Improvement: Hangfire Dashboard~~
 * ~~Fix: Split crime (WIBR) data into two jobs (historical and current)~~

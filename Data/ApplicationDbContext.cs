@@ -18,7 +18,6 @@ namespace MkeAlerts.Web.Data
     {
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<ExternalCredential> ExternalCredentials { get; set; }
-        public DbSet<Property> Properties { get; set; }
         public DbSet<Parcel> Parcels { get; set; }
         public DbSet<CommonParcel> CommonParcels { get; set; }
         public DbSet<Address> Addresses { get; set; }
@@ -47,57 +46,34 @@ namespace MkeAlerts.Web.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Property>()
+            /* Places */
+
+            modelBuilder.Entity<Parcel>()
                 .HasKey(x => x.TAXKEY);
 
-            modelBuilder.Entity<Property>()
-                .HasMany(x => x.Addresses)
-                .WithOne(x => x.Property)
+            modelBuilder.Entity<Address>()
+                .HasKey(x => x.ADDRESS_ID);
+
+            modelBuilder.Entity<Address>()
+                .HasOne(x => x.Parcel)
+                .WithMany(x => x.Addresses)
                 .HasForeignKey(x => x.TAXKEY);
 
-            //modelBuilder.Entity<Address>()
-            //    .HasOne(x => x.Property)
-            //    .WithMany()
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<Address>()
-            //    .HasOne(x => x.Property)
-            //    .WithMany();
-
-            //modelBuilder.Entity<Property>()
-            //    .HasMany(x => x.Addresses)
-            //    .WithOne(y => y.Property)
-            //    .IsRequired(false)
+            // This combination of fields is used by the geocoding service
+            modelBuilder.Entity<Address>()
+                .HasIndex(x => new { x.DIR, x.STREET, x.STTYPE, x.HouseNumber });
 
             modelBuilder.Entity<Parcel>()
-                .HasOne(x => x.Property)
-                .WithOne(x => x.Parcel)
-                .HasForeignKey<Parcel>(x => x.Taxkey);
+                .HasOne(x => x.CommonParcel)
+                .WithMany(x => x.Parcels)
+                .HasForeignKey(x => x.MAP_ID);
 
+            // This combination of fields is used by the geocoding service
             modelBuilder.Entity<Parcel>()
-                .HasKey(x => x.Taxkey);
+                .HasIndex(x => new { x.STREETDIR, x.STREETNAME, x.STREETTYPE, x.HouseNumber });
 
             modelBuilder.Entity<CommonParcel>()
-                .HasKey(x => x.Id);
-
-            modelBuilder.Entity<CommonParcel>()
-                .HasMany(x => x.Parcels)
-                .WithOne(x => x.CommonParcel)
-                .HasForeignKey(x => x.CommonParcelId);
-
-            //modelBuilder.Entity<Property>()
-            //    .HasOne(x => x.Parcel)
-            //    .WithOne(y => y.Property);
-
-            //modelBuilder.Entity<Parcel>()
-            //    .HasOne(x => x.CommonParcel)
-            //    .WithMany(x => x.Parcels);
-
-            //modelBuilder.Entity<CommonParcel>()
-            //    .HasMany(x => x.Parcels)
-            //    .WithOne(x => x.CommonParcel)
-            //    .HasForeignKey(x => x.CommonParcelId)
-            //    .IsRequired(true);
+                .HasKey(x => x.MAP_ID);
 
             modelBuilder.Entity<CommonParcel>()
                 .HasIndex(x => x.MinLat);
@@ -111,11 +87,26 @@ namespace MkeAlerts.Web.Data
             modelBuilder.Entity<CommonParcel>()
                 .HasIndex(x => x.MaxLng);
 
-            modelBuilder.Entity<Address>()
-                .HasKey(x => x.RCD_NBR);
+            modelBuilder.Entity<Street>()
+                .HasKey(x => x.CLINEID);
 
             modelBuilder.Entity<Street>()
-                .HasKey(x => x.NEWDIME_ID);
+                .HasIndex(x => x.MinLat);
+
+            modelBuilder.Entity<Street>()
+                .HasIndex(x => x.MaxLat);
+
+            modelBuilder.Entity<Street>()
+                .HasIndex(x => x.MinLng);
+
+            modelBuilder.Entity<Street>()
+                .HasIndex(x => x.MaxLng);
+
+            // This combination of fields is used by the geocoding service
+            modelBuilder.Entity<Street>()
+                .HasIndex(x => new { x.DIR, x.STREET, x.STTYPE });
+
+            /* Incidents */
 
             modelBuilder.Entity<PoliceDispatchCall>()
                 .HasKey(x => x.CallNumber);
@@ -141,19 +132,23 @@ namespace MkeAlerts.Web.Data
             modelBuilder.Entity<Crime>()
                 .HasIndex(x => x.ReportedDateTime);
 
-            modelBuilder.Entity<ExternalCredential>()
-                .HasOne(x => x.ApplicationUser)
-                .WithMany(x => x.ExternalCredentials)
-                .HasForeignKey(x => x.ApplicationUserId);
-
             modelBuilder.Entity<DispatchCallSubscription>()
                 .HasOne(x => x.ApplicationUser)
                 .WithMany(x => x.DispatchCallSubscriptions)
                 .HasForeignKey(x => x.ApplicationUserId);
 
+            /* Pickup Dates */
+
             modelBuilder.Entity<PickupDatesSubscription>()
                 .HasOne(x => x.ApplicationUser)
                 .WithMany(x => x.PickupDateSubscriptions)
+                .HasForeignKey(x => x.ApplicationUserId);
+
+            /* Accounts */
+
+            modelBuilder.Entity<ExternalCredential>()
+                .HasOne(x => x.ApplicationUser)
+                .WithMany(x => x.ExternalCredentials)
                 .HasForeignKey(x => x.ApplicationUserId);
 
             modelBuilder.Entity<StringReference>()
@@ -165,14 +160,6 @@ namespace MkeAlerts.Web.Data
 
             modelBuilder.Entity<JobRun>()
                 .HasIndex(x => x.StartTime);
-
-            //modelBuilder.Entity<Role>()
-            //    .HasKey(x => new { x.ApplicationUserId, x.StationId });
-
-            //modelBuilder.Entity<Role>()
-            //    .HasOne(x => x.ApplicationUser)
-            //    .WithMany(x => x.Roles)
-            //    .HasForeignKey(x => x.ApplicationUserId);
 
             SeedSampleData(modelBuilder);
         }

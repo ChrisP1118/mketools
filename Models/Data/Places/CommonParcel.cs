@@ -8,15 +8,13 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data.Places
 {
-    public class CommonParcel : IHasId<Guid>, IHasBounds
+    public class CommonParcel : IHasId<int>, IHasBounds
     {
-        public Guid GetId() => this.Id;
+        public int GetId() => this.MAP_ID;
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Required]
-        public Guid Id { get; set; }
+        public int MAP_ID { get; set; }
 
-        //[Column(TypeName = "geometry")]
         public Geometry Outline { get; set; }
 
         [Column(TypeName = "decimal(13, 10)")]
@@ -32,6 +30,5 @@ namespace MkeAlerts.Web.Models.Data.Places
         public double MaxLng { get; set; }
 
         public List<Parcel> Parcels { get; set; }
-
     }
 }

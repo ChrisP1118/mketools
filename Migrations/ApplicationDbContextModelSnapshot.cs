@@ -159,7 +159,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "71c40c78-0c61-43df-83e7-cb1b9e632474",
+                            ConcurrencyStamp = "a6d0f79d-483c-408d-8b95-da1e5da1e80e",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -243,13 +243,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0fd0740c-fce2-4b8c-b931-399f050cb151",
+                            ConcurrencyStamp = "491e3952-6d52-4b27-a9c1-2ff32ecdef8d",
                             Email = "cwilson@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "cwilson@mkealerts.com",
                             NormalizedUserName = "cwilson@mkealerts.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG6YLwdEWtIWX9wYQznyMXz5hIF7YBh8VQSKAyARIVkwSQPSv7NHbitOuaaeo2EwDg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFWWqAZbg+hMiAyzp4OFjXAjW2cDYCJ3gKopoFk5dfeqwWwYOXE7S2bfebU8+OxgAA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -322,6 +322,9 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<decimal>("ALD")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int?>("Accuracy")
+                        .HasColumnType("int");
+
                     b.Property<int>("Arson")
                         .HasColumnType("int");
 
@@ -336,6 +339,9 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<int>("Homicide")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastGeocodeAttempt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Location")
                         .HasColumnType("nvarchar(128)")
@@ -386,6 +392,9 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<int>("SexOffense")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Source")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("TRACT")
                         .HasColumnType("decimal(18,2)");
 
@@ -418,7 +427,7 @@ namespace MkeAlerts.Web.Migrations
                         .HasColumnType("nvarchar(12)")
                         .HasMaxLength(12);
 
-                    b.Property<int>("Accuracy")
+                    b.Property<int?>("Accuracy")
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
@@ -441,6 +450,9 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<Geometry>("Geometry")
                         .HasColumnType("geography");
 
+                    b.Property<DateTime?>("LastGeocodeAttempt")
+                        .HasColumnType("datetime2");
+
                     b.Property<decimal>("MaxLat")
                         .HasColumnType("decimal(13, 10)");
 
@@ -461,7 +473,7 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<DateTime>("ReportedDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Source")
+                    b.Property<int?>("Source")
                         .HasColumnType("int");
 
                     b.HasKey("CFS");
@@ -497,7 +509,7 @@ namespace MkeAlerts.Web.Migrations
                         .HasColumnType("nvarchar(12)")
                         .HasMaxLength(12);
 
-                    b.Property<int>("Accuracy")
+                    b.Property<int?>("Accuracy")
                         .HasColumnType("int");
 
                     b.Property<int>("District")
@@ -505,6 +517,9 @@ namespace MkeAlerts.Web.Migrations
 
                     b.Property<Geometry>("Geometry")
                         .HasColumnType("geography");
+
+                    b.Property<DateTime?>("LastGeocodeAttempt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -531,7 +546,7 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<DateTime>("ReportedDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Source")
+                    b.Property<int?>("Source")
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
@@ -576,72 +591,133 @@ namespace MkeAlerts.Web.Migrations
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Address", b =>
                 {
-                    b.Property<string>("RCD_NBR")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                    b.Property<int>("ADDRESS_ID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ALT_ID")
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("BUILDING_I")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CLINEID")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("COMMENT")
+                        .HasColumnType("nvarchar(140)")
+                        .HasMaxLength(140);
+
+                    b.Property<string>("DD_LAT")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("DD_LONG")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("DIR")
                         .HasColumnType("nvarchar(1)")
                         .HasMaxLength(1);
 
-                    b.Property<int>("HSE_NBR")
-                        .HasColumnType("int");
+                    b.Property<string>("FULLADDR")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
-                    b.Property<int>("LAND_USE")
-                        .HasColumnType("int");
+                    b.Property<string>("HOUSENO")
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
 
-                    b.Property<int>("MAIL_ERROR_COUNT")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MAIL_STATUS")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
-
-                    b.Property<string>("RES_COM_FLAG")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
-
-                    b.Property<string>("SFX")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
-
-                    b.Property<string>("STREET")
-                        .HasColumnType("nvarchar(18)")
-                        .HasMaxLength(18);
-
-                    b.Property<string>("STTYPE")
+                    b.Property<string>("HOUSESX")
                         .HasColumnType("nvarchar(2)")
                         .HasMaxLength(2);
+
+                    b.Property<int>("HouseNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MAILABLE")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MUNI")
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<decimal>("MaxLat")
+                        .HasColumnType("decimal(13, 10)");
+
+                    b.Property<decimal>("MaxLng")
+                        .HasColumnType("decimal(13, 10)");
+
+                    b.Property<decimal>("MinLat")
+                        .HasColumnType("decimal(13, 10)");
+
+                    b.Property<decimal>("MinLng")
+                        .HasColumnType("decimal(13, 10)");
+
+                    b.Property<int>("OBJECTID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PDIR")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<Point>("Point")
+                        .HasColumnType("geography");
+
+                    b.Property<string>("SOURCE")
+                        .HasColumnType("nvarchar(36)")
+                        .HasMaxLength(36);
+
+                    b.Property<string>("SOURCE_ID")
+                        .HasColumnType("nvarchar(21)")
+                        .HasMaxLength(21);
+
+                    b.Property<string>("STREET")
+                        .HasColumnType("nvarchar(19)")
+                        .HasMaxLength(19);
+
+                    b.Property<string>("STTYPE")
+                        .HasColumnType("nvarchar(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<string>("TAG")
+                        .HasColumnType("nvarchar(41)")
+                        .HasMaxLength(41);
 
                     b.Property<string>("TAXKEY")
                         .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
-                    b.Property<string>("UNIT_NBR")
+                    b.Property<string>("UNIT")
                         .HasColumnType("nvarchar(5)")
                         .HasMaxLength(5);
 
-                    b.Property<int>("UPD_DATE")
-                        .HasColumnType("int");
+                    b.Property<string>("X")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<int>("WARD")
-                        .HasColumnType("int");
+                    b.Property<string>("Y")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("ZIP_CODE")
                         .HasColumnType("nvarchar(9)")
                         .HasMaxLength(9);
 
-                    b.HasKey("RCD_NBR");
+                    b.HasKey("ADDRESS_ID");
 
                     b.HasIndex("TAXKEY");
+
+                    b.HasIndex("DIR", "STREET", "STTYPE", "HouseNumber");
 
                     b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.CommonParcel", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("MAP_ID")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("MaxLat")
                         .HasColumnType("decimal(13, 10)");
@@ -658,7 +734,7 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<Geometry>("Outline")
                         .HasColumnType("geography");
 
-                    b.HasKey("Id");
+                    b.HasKey("MAP_ID");
 
                     b.HasIndex("MaxLat");
 
@@ -673,854 +749,292 @@ namespace MkeAlerts.Web.Migrations
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Parcel", b =>
                 {
-                    b.Property<string>("Taxkey")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("ATTIC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ActivatedD")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("AlternateS")
-                        .HasColumnType("int");
-
-                    b.Property<string>("AsmtChan_1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AsmtChange")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BASEMENT")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("BLDG_AREA")
-                        .HasColumnType("real");
-
-                    b.Property<string>("BuildingTy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("CONVEY_FEE")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Calculat_1")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Calculated")
-                        .HasColumnType("real");
-
-                    b.Property<int>("ComDiv")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Comments")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Commercial")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("CommonParcelId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CondoName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CondoType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CondoUnitT")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CurrentYea")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Deed")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DistrictNa")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FK_Histori")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FK_LandUse")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FK_Naics")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FK_Parcel")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FK_Zoning")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("InactiveFl")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LandUse")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NR_STORIES")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Neighborho")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("NumberOfBe")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfFi")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfFu")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfHa")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfRo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Owner1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Owner2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Owner3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OwnerBilli")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OwnerCityS")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("OwnerNameC")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OwnerZipCo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ParcelActi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ParcelType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ParkingTyp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("PercentAir")
-                        .HasColumnType("real");
-
-                    b.Property<string>("PlatPage")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PrevNonExe")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PreviousEx")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PreviousYe")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Previous_1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PrimaryJur")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PropertySt")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("RecordDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Residentia")
-                        .HasColumnType("int");
-
-                    b.Property<string>("STTYPE")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("SaleDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Source")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StreetDire")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetNu_1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StreetNumb")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotaPrevNo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TotalAss_1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TotalAsses")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TotalLandE")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TotalLandV")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TotalPre_1")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalPrevE")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalPrevL")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalPrevN")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalPrevY")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TotalYar_1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TotalYardI")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedDat")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("YearBuilt")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ZoningCFN")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Taxkey");
-
-                    b.HasIndex("CommonParcelId");
-
-                    b.ToTable("Parcels");
-                });
-
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Property", b =>
-                {
                     b.Property<string>("TAXKEY")
                         .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
-                    b.Property<string>("AIR_CONDITIONING")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
+                    b.Property<double>("ACRES")
+                        .HasColumnType("float");
 
-                    b.Property<int>("ANGLE")
+                    b.Property<string>("ADDRESS")
+                        .HasColumnType("nvarchar(32)")
+                        .HasMaxLength(32);
+
+                    b.Property<int>("ASSESSEDVA")
                         .HasColumnType("int");
 
-                    b.Property<string>("ATTIC")
+                    b.Property<string>("ASSESSMENT")
+                        .HasColumnType("nvarchar(88)")
+                        .HasMaxLength(88);
+
+                    b.Property<string>("CLASS")
                         .HasColumnType("nvarchar(1)")
                         .HasMaxLength(1);
 
-                    b.Property<string>("BASEMENT")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
-
-                    b.Property<int>("BATHS")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BEDROOMS")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BI_VIOL")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<int>("BLDG_AREA")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BLDG_TYPE")
-                        .HasColumnType("nvarchar(9)")
-                        .HasMaxLength(9);
-
-                    b.Property<string>("CHG_NR")
-                        .HasColumnType("nvarchar(6)")
-                        .HasMaxLength(6);
-
-                    b.Property<string>("CHK_DIGIT")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
-
-                    b.Property<DateTime>("CONVEY_DATE")
-                        .HasColumnType("datetime2");
-
-                    b.Property<float>("CONVEY_FEE")
-                        .HasColumnType("real");
-
-                    b.Property<string>("CONVEY_TYPE")
+                    b.Property<string>("CODE")
                         .HasColumnType("nvarchar(2)")
                         .HasMaxLength(2);
 
-                    b.Property<string>("CORNER_LOT")
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
+                    b.Property<string>("COMMENT")
+                        .HasColumnType("nvarchar(84)")
+                        .HasMaxLength(84);
 
-                    b.Property<string>("C_A_CLASS")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
+                    b.Property<string>("CONDO_NAME")
+                        .HasColumnType("nvarchar(74)")
+                        .HasMaxLength(74);
 
-                    b.Property<int>("C_A_EXM_IMPRV")
-                        .HasColumnType("int");
+                    b.Property<string>("DESCRIPTIO")
+                        .HasColumnType("nvarchar(23)")
+                        .HasMaxLength(23);
 
-                    b.Property<int>("C_A_EXM_LAND")
-                        .HasColumnType("int");
-
-                    b.Property<int>("C_A_EXM_TOTAL")
-                        .HasColumnType("int");
-
-                    b.Property<string>("C_A_EXM_TYPE")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
-
-                    b.Property<int>("C_A_IMPRV")
-                        .HasColumnType("int");
-
-                    b.Property<int>("C_A_LAND")
-                        .HasColumnType("int");
-
-                    b.Property<string>("C_A_SYMBOL")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<int>("C_A_TOTAL")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DIV_DROP")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DIV_ORG")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DPW_SANITATION")
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
-
-                    b.Property<float>("EXM_ACREAGE")
-                        .HasColumnType("real");
-
-                    b.Property<float>("EXM_PER_CT_IMPRV")
-                        .HasColumnType("real");
-
-                    b.Property<float>("EXM_PER_CT_LAND")
-                        .HasColumnType("real");
-
-                    b.Property<string>("FIREPLACE")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
-
-                    b.Property<string>("GARAGE_TYPE")
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
-
-                    b.Property<int>("GEO_ALDER")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GEO_ALDER_OLD")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GEO_BI_MAINT")
-                        .HasColumnType("int");
-
-                    b.Property<string>("GEO_BLOCK")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<int>("GEO_FIRE")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GEO_POLICE")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GEO_TRACT")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GEO_ZIP_CODE")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HIST_CODE")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
-
-                    b.Property<int>("HOUSE_NR_HI")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HOUSE_NR_LO")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HOUSE_NR_SFX")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
-
-                    b.Property<int>("LAND_USE")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LAND_USE_GP")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("LAST_NAME_CHG")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("LAST_VALUE_CHG")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("LOT_AREA")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NEIGHBORHOOD")
+                    b.Property<string>("DWELLING_C")
                         .HasColumnType("nvarchar(8)")
                         .HasMaxLength(8);
 
-                    b.Property<string>("NR_ROOMS")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
+                    b.Property<string>("EXM_CLASS_")
+                        .HasColumnType("nvarchar(76)")
+                        .HasMaxLength(76);
 
-                    b.Property<float>("NR_STORIES")
-                        .HasColumnType("real");
-
-                    b.Property<int>("NR_UNITS")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NUMBER_OF_SPACES")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OWNER_CITY_STATE")
-                        .HasColumnType("nvarchar(28)")
-                        .HasMaxLength(28);
-
-                    b.Property<string>("OWNER_MAIL_ADDR")
-                        .HasColumnType("nvarchar(28)")
-                        .HasMaxLength(28);
-
-                    b.Property<string>("OWNER_NAME_1")
-                        .HasColumnType("nvarchar(28)")
-                        .HasMaxLength(28);
-
-                    b.Property<string>("OWNER_NAME_2")
-                        .HasColumnType("nvarchar(28)")
-                        .HasMaxLength(28);
-
-                    b.Property<string>("OWNER_NAME_3")
-                        .HasColumnType("nvarchar(28)")
-                        .HasMaxLength(28);
-
-                    b.Property<string>("OWNER_ZIP")
-                        .HasColumnType("nvarchar(9)")
-                        .HasMaxLength(9);
-
-                    b.Property<string>("OWN_OCPD")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
-
-                    b.Property<int>("PARKING_SPACES")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PARKING_TYPE")
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
-
-                    b.Property<int>("PLAT_PAGE")
-                        .HasColumnType("int");
-
-                    b.Property<int>("POWDER_ROOMS")
-                        .HasColumnType("int");
-
-                    b.Property<string>("P_A_CLASS")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
-
-                    b.Property<int>("P_A_EXM_IMPRV")
-                        .HasColumnType("int");
-
-                    b.Property<int>("P_A_EXM_LAND")
-                        .HasColumnType("int");
-
-                    b.Property<int>("P_A_EXM_TOTAL")
-                        .HasColumnType("int");
-
-                    b.Property<string>("P_A_EXM_TYPE")
+                    b.Property<string>("EXM_TYP")
                         .HasColumnType("nvarchar(3)")
                         .HasMaxLength(3);
 
-                    b.Property<int>("P_A_IMPRV")
+                    b.Property<string>("EXM_TYP_DE")
+                        .HasColumnType("nvarchar(94)")
+                        .HasMaxLength(94);
+
+                    b.Property<int>("FAIR_MKT_V")
                         .HasColumnType("int");
 
-                    b.Property<int>("P_A_LAND")
-                        .HasColumnType("int");
+                    b.Property<double>("GIS_ACRES")
+                        .HasColumnType("float");
 
-                    b.Property<string>("P_A_SYMBOL")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
+                    b.Property<double>("GROSS_TAX")
+                        .HasColumnType("float");
 
-                    b.Property<int>("P_A_TOTAL")
-                        .HasColumnType("int");
+                    b.Property<string>("HOUSENR")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
-                    b.Property<int>("RAZE_STATUS")
-                        .HasColumnType("int");
+                    b.Property<string>("HOUSENRHI")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
-                    b.Property<string>("REASON_FOR_CHG")
+                    b.Property<string>("HOUSENRSFX")
                         .HasColumnType("nvarchar(3)")
                         .HasMaxLength(3);
 
-                    b.Property<string>("SDIR")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
-
-                    b.Property<string>("STREET")
-                        .HasColumnType("nvarchar(18)")
-                        .HasMaxLength(18);
-
-                    b.Property<string>("STTYPE")
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
-
-                    b.Property<int>("SUB_ACCT")
+                    b.Property<int>("HouseNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("SWIM_POOL")
-                        .HasColumnType("nvarchar(1)")
-                        .HasMaxLength(1);
-
-                    b.Property<int>("TAX_DELQ")
+                    b.Property<int>("HouseNumberHigh")
                         .HasColumnType("int");
 
-                    b.Property<string>("TAX_RATE_CD")
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
+                    b.Property<int>("IMPVALUE")
+                        .HasColumnType("int");
 
-                    b.Property<string>("TOT_UNABATED")
+                    b.Property<int>("LANDVALUE")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LEGALDESCR")
+                        .HasColumnType("nvarchar(254)")
+                        .HasMaxLength(254);
+
+                    b.Property<int>("MAP_ID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MCD")
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("MUNINAME")
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<double>("NET_TAX")
+                        .HasColumnType("float");
+
+                    b.Property<int>("OBJECTID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OVERLAP")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OWNERADDR")
+                        .HasColumnType("nvarchar(49)")
+                        .HasMaxLength(49);
+
+                    b.Property<string>("OWNERCTYST")
+                        .HasColumnType("nvarchar(27)")
+                        .HasMaxLength(27);
+
+                    b.Property<string>("OWNERNAME1")
+                        .HasColumnType("nvarchar(84)")
+                        .HasMaxLength(84);
+
+                    b.Property<string>("OWNERNAME2")
+                        .HasColumnType("nvarchar(84)")
+                        .HasMaxLength(84);
+
+                    b.Property<string>("OWNERNAME3")
+                        .HasColumnType("nvarchar(28)")
+                        .HasMaxLength(28);
+
+                    b.Property<string>("OWNERZIP")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("PARCELNO")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("PARCEL_DES")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("PARCEL_KEY")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("PARCEL_TYP")
+                        .HasColumnType("nvarchar(13)")
+                        .HasMaxLength(13);
+
+                    b.Property<string>("PAR_ZIP")
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("PAR_ZIP_EX")
                         .HasColumnType("nvarchar(4)")
                         .HasMaxLength(4);
 
-                    b.Property<int>("YEARS_DELQ")
+                    b.Property<string>("POSTOFFICE")
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("RECID")
                         .HasColumnType("int");
 
-                    b.Property<string>("YR_ASSMT")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<int>("YR_BUILT")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ZONING")
+                    b.Property<string>("RECSOURCE")
                         .HasColumnType("nvarchar(7)")
                         .HasMaxLength(7);
 
+                    b.Property<string>("SCHOOL_DIS")
+                        .HasColumnType("nvarchar(41)")
+                        .HasMaxLength(41);
+
+                    b.Property<string>("SCHOOL_ID")
+                        .HasColumnType("nvarchar(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<string>("SOURCE")
+                        .HasColumnType("nvarchar(39)")
+                        .HasMaxLength(39);
+
+                    b.Property<string>("STREETDIR")
+                        .HasColumnType("nvarchar(2)")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("STREETNAME")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("STREETTYPE")
+                        .HasColumnType("nvarchar(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<string>("SUFFIXDIR")
+                        .HasColumnType("nvarchar(2)")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("TAX_INFO_U")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<int>("TAX_YR")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UNITNUMBER")
+                        .HasColumnType("nvarchar(8)")
+                        .HasMaxLength(8);
+
+                    b.Property<string>("UNIT_TYPE")
+                        .HasColumnType("nvarchar(7)")
+                        .HasMaxLength(7);
+
+                    b.Property<string>("ZONING_COD")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("ZONING_DES")
+                        .HasColumnType("nvarchar(29)")
+                        .HasMaxLength(29);
+
+                    b.Property<string>("ZONING_URL")
+                        .HasColumnType("nvarchar(88)")
+                        .HasMaxLength(88);
+
                     b.HasKey("TAXKEY");
 
-                    b.ToTable("Properties");
+                    b.HasIndex("MAP_ID");
+
+                    b.HasIndex("STREETDIR", "STREETNAME", "STREETTYPE", "HouseNumber");
+
+                    b.ToTable("Parcels");
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Street", b =>
                 {
-                    b.Property<string>("NEWDIME_ID")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<int>("ALD2004_L")
+                    b.Property<int>("CLINEID")
                         .HasColumnType("int");
 
-                    b.Property<int>("ALD2004_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ALD_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ALD_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BI_CNDMN_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BI_CNDMN_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BI_CONST_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BI_CONST_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BI_ELECT_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BI_ELECT_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BI_ELEV_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BI_ELEV_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BI_PLUMB_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BI_PLUMB_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BI_SPRINK_")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BLOCK2K_L")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("BLOCK2K_R")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("BLOCK_L")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("BLOCK_R")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
-
-                    b.Property<int>("BOILER_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BOILER_R")
-                        .HasColumnType("int");
-
-                    b.Property<string>("BROOMALL_L")
-                        .HasColumnType("nvarchar(5)")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("BROOMALL_R")
-                        .HasColumnType("nvarchar(5)")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("BROOM_L")
-                        .HasColumnType("nvarchar(5)")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("BROOM_R")
-                        .HasColumnType("nvarchar(5)")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("BUS_L")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("BUS_R")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("CFCC")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
-
-                    b.Property<string>("CIPAREA_L")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
-
-                    b.Property<string>("CIPAREA_R")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
-
-                    b.Property<string>("CNTYNAME_L")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
-
-                    b.Property<string>("CNTYNAME_R")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
-
-                    b.Property<int>("CNTYSUP_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CNTYSUP_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CNTY_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CNTY_R")
-                        .HasColumnType("int");
-
-                    b.Property<string>("COMBSEW_L")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
-
-                    b.Property<string>("COMBSEW_R")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
-
-                    b.Property<int>("CONGR2K_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CONGR2K_R")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CONSERVE_L")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("CONSERVE_R")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.Property<int>("CSUP2K_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CSUP2K_R")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DIR")
+                    b.Property<string>("COMMENT")
                         .HasColumnType("nvarchar(1)")
                         .HasMaxLength(1);
 
-                    b.Property<string>("FBLOCK_L")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
+                    b.Property<string>("DATE_CHANG")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<string>("FBLOCK_R")
-                        .HasColumnType("nvarchar(4)")
-                        .HasMaxLength(4);
+                    b.Property<string>("DIR")
+                        .HasColumnType("nvarchar(2)")
+                        .HasMaxLength(2);
 
-                    b.Property<int>("FIREBAT_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FIREBAT_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FMCD_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FMCD_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FNODE")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FOODINSP_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FOODINSP_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FOR_BL_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FOR_BL_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FOR_PM_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FOR_PM_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FOR_TR_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FOR_TR_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FROM_NODE")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FTRACT_L")
-                        .HasColumnType("nvarchar(6)")
-                        .HasMaxLength(6);
-
-                    b.Property<string>("FTRACT_R")
-                        .HasColumnType("nvarchar(6)")
-                        .HasMaxLength(6);
-
-                    b.Property<double>("HIGH_X")
-                        .HasColumnType("float");
-
-                    b.Property<double>("HIGH_Y")
-                        .HasColumnType("float");
-
-                    b.Property<int>("HI_ADD_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HI_ADD_R")
-                        .HasColumnType("int");
-
-                    b.Property<double>("LENGTH")
-                        .HasColumnType("float");
-
-                    b.Property<int>("LEVEL")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LOCDIST_L")
-                        .HasColumnType("nvarchar(8)")
-                        .HasMaxLength(8);
-
-                    b.Property<string>("LOCDIST_R")
-                        .HasColumnType("nvarchar(8)")
-                        .HasMaxLength(8);
-
-                    b.Property<double>("LOW_X")
-                        .HasColumnType("float");
-
-                    b.Property<double>("LOW_Y")
-                        .HasColumnType("float");
-
-                    b.Property<int>("LO_ADD_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LO_ADD_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LPOLY")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MPS_ELEM_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MPS_ELEM_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MPS_HS_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MPS_HS_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MPS_MS_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MPS_MS_R")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MUNICODE_L")
+                    b.Property<string>("FCC")
                         .HasColumnType("nvarchar(3)")
                         .HasMaxLength(3);
 
-                    b.Property<string>("MUNICODE_R")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
+                    b.Property<string>("HIGH")
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
 
-                    b.Property<string>("MUNI_L")
-                        .HasColumnType("nvarchar(15)")
-                        .HasMaxLength(15);
+                    b.Property<string>("HIGHWAY")
+                        .HasColumnType("nvarchar(16)")
+                        .HasMaxLength(16);
 
-                    b.Property<string>("MUNI_R")
+                    b.Property<string>("LEFTFR")
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("LEFTTO")
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("LOW")
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("L_MCD")
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("LeftNumberHigh")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LeftNumberLow")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MUNI")
                         .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
 
@@ -1536,258 +1050,65 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<decimal>("MinLng")
                         .HasColumnType("decimal(13, 10)");
 
-                    b.Property<int>("NEWDIMENR")
+                    b.Property<int>("OBJECTID")
                         .HasColumnType("int");
+
+                    b.Property<string>("OWNER")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
 
                     b.Property<Geometry>("Outline")
                         .HasColumnType("geography");
 
-                    b.Property<int>("POLICE_L")
-                        .HasColumnType("int");
+                    b.Property<string>("PDIR")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<int>("POLICE_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("POLRD_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("POLRD_R")
-                        .HasColumnType("int");
-
-                    b.Property<string>("QTR_SECT_L")
+                    b.Property<string>("RIGHTFR")
                         .HasColumnType("nvarchar(5)")
                         .HasMaxLength(5);
 
-                    b.Property<string>("QTR_SECT_R")
+                    b.Property<string>("RIGHTTO")
                         .HasColumnType("nvarchar(5)")
                         .HasMaxLength(5);
 
-                    b.Property<int>("RCD_NBR")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RECYC_DA_L")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
-
-                    b.Property<string>("RECYC_DA_R")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
-
-                    b.Property<string>("RECYC_SM_L")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("RECYC_SM_R")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("RECYC_WN_L")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("RECYC_WN_R")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<int>("RPOLY")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SANBIZPL_L")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("SANBIZPL_R")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("SANLEAF_L")
+                    b.Property<string>("R_MCD")
                         .HasColumnType("nvarchar(5)")
                         .HasMaxLength(5);
 
-                    b.Property<string>("SANLEAF_R")
-                        .HasColumnType("nvarchar(5)")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("SANPLOW_L")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
-
-                    b.Property<string>("SANPLOW_R")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
-
-                    b.Property<string>("SAN_DIST_L")
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
-
-                    b.Property<string>("SAN_DIST_R")
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
-
-                    b.Property<int>("SCHOOL2K_L")
+                    b.Property<int>("RightNumberHigh")
                         .HasColumnType("int");
 
-                    b.Property<int>("SCHOOL2K_R")
+                    b.Property<int>("RightNumberLow")
                         .HasColumnType("int");
 
-                    b.Property<int>("SCHOOL_L")
-                        .HasColumnType("int");
+                    b.Property<string>("SHIELD")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<int>("SCHOOL_R")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SEG_L_TYPE")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<int>("SPRINK_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SQUAD_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SQUAD_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("STASS2K_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("STASS2K_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("STASS_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("STASS_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("STCLASS")
-                        .HasColumnType("int");
+                    b.Property<string>("SOURCE")
+                        .HasColumnType("nvarchar(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("STREET")
-                        .HasColumnType("nvarchar(18)")
-                        .HasMaxLength(18);
-
-                    b.Property<int>("STSEN2K_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("STSEN2K_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("STSEN_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("STSEN_R")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(24)")
+                        .HasMaxLength(24);
 
                     b.Property<string>("STTYPE")
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
+                        .HasColumnType("nvarchar(4)")
+                        .HasMaxLength(4);
 
-                    b.Property<string>("ST_MAIN_L")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                    b.HasKey("CLINEID");
 
-                    b.Property<string>("ST_MAIN_R")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                    b.HasIndex("MaxLat");
 
-                    b.Property<int>("ST_OP_L")
-                        .HasColumnType("int");
+                    b.HasIndex("MaxLng");
 
-                    b.Property<int>("ST_OP_R")
-                        .HasColumnType("int");
+                    b.HasIndex("MinLat");
 
-                    b.Property<string>("SUM_DA_L")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
+                    b.HasIndex("MinLng");
 
-                    b.Property<string>("SUM_DA_R")
-                        .HasColumnType("nvarchar(3)")
-                        .HasMaxLength(3);
-
-                    b.Property<string>("SUM_RT_L")
-                        .HasColumnType("nvarchar(12)")
-                        .HasMaxLength(12);
-
-                    b.Property<string>("SUM_RT_R")
-                        .HasColumnType("nvarchar(12)")
-                        .HasMaxLength(12);
-
-                    b.Property<int>("TNODE")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TO_NODE")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TRACT2K_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TRACT2K_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TRACT_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TRACT_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TRANS_ID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WARD2K_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WARD2K_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WARD_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WARD_R")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WIN_RT_L")
-                        .HasColumnType("nvarchar(12)")
-                        .HasMaxLength(12);
-
-                    b.Property<string>("WIN_RT_R")
-                        .HasColumnType("nvarchar(12)")
-                        .HasMaxLength(12);
-
-                    b.Property<string>("WTR16TH_L")
-                        .HasColumnType("nvarchar(5)")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("WTR16TH_R")
-                        .HasColumnType("nvarchar(5)")
-                        .HasMaxLength(5);
-
-                    b.Property<int>("WW_PRES_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WW_PRES_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WW_ROUT_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WW_ROUT_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WW_SERV_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WW_SERV_R")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ZIP_L")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ZIP_R")
-                        .HasColumnType("int");
-
-                    b.HasKey("NEWDIME_ID");
+                    b.HasIndex("DIR", "STREET", "STTYPE");
 
                     b.ToTable("Streets");
                 });
@@ -1941,7 +1262,7 @@ namespace MkeAlerts.Web.Migrations
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Address", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Places.Property", "Property")
+                    b.HasOne("MkeAlerts.Web.Models.Data.Places.Parcel", "Parcel")
                         .WithMany("Addresses")
                         .HasForeignKey("TAXKEY");
                 });
@@ -1950,13 +1271,7 @@ namespace MkeAlerts.Web.Migrations
                 {
                     b.HasOne("MkeAlerts.Web.Models.Data.Places.CommonParcel", "CommonParcel")
                         .WithMany("Parcels")
-                        .HasForeignKey("CommonParcelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MkeAlerts.Web.Models.Data.Places.Property", "Property")
-                        .WithOne("Parcel")
-                        .HasForeignKey("MkeAlerts.Web.Models.Data.Places.Parcel", "Taxkey")
+                        .HasForeignKey("MAP_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

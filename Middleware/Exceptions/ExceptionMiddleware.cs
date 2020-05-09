@@ -34,7 +34,7 @@ namespace MkeAlerts.Web.Middleware.Exceptions
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Something went wrong: {ex}");
+                _logger.LogError(ex, "Error in middleware");
                 await HandleExceptionAsync(httpContext, ex);
             }
         }

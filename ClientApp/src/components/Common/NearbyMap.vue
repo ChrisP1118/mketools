@@ -1,5 +1,11 @@
 <template>
   <div>
+    <b-alert :show="!isShowingParcelOverlays" variant="info">
+      Zoom in on the map to view parcel overlays.
+    </b-alert>
+    <b-alert :show="!isShowingAllParcels" variant="info">
+      Only 200 parcels are shown on the map below.
+    </b-alert>
     <l-map v-if="position" style="height: 80vh; width: 100%" :zoom="zoom" :center="position" @update:zoom="zoomUpdated" @update:bounds="boundsUpdated">
       <l-tile-layer :url="tileUrl" :attribution="attribution"></l-tile-layer>
       <l-marker :lat-lng="position" :icon="icon">
@@ -34,10 +40,19 @@ export default {
         iconAnchor: [20, 0]
       }),
 
-      bounds: null
+      bounds: null,
+
+      parcelLoadLimit: 200,
+      minZoomForParcels: 17
     };
   },
   computed: {
+    isShowingParcelOverlays () {
+      return this.zoom >= this.minZoomForParcels;
+    },
+    isShowingAllParcels () {
+      return !this.commonParcels || this.commonParcels.length < this.parcelLoadLimit;
+    }
   },
   methods: {
     zoomUpdated (zoom) {
@@ -51,12 +66,12 @@ export default {
       let latDiff = 0.0010;
       let lngDiff = 0.0015;
 
-      if (this.zoom >= 18) {
+      if (this.zoom >= this.minZoomForParcels) {
         let url = '';
         if (this.bounds)
-          url = '/api/commonParcel?limit=200&includes=parcels%2Cparcels.property&northBound=' + this.bounds._northEast.lat + '&southBound=' + this.bounds._southWest.lat + '&eastBound=' + this.bounds._northEast.lng + '&westBound=' + this.bounds._southWest.lng;
+          url = '/api/commonParcel?limit=' + this.parcelLoadLimit + '&includes=parcels&northBound=' + this.bounds._northEast.lat + '&southBound=' + this.bounds._southWest.lat + '&eastBound=' + this.bounds._northEast.lng + '&westBound=' + this.bounds._southWest.lng;
         else
-          url = '/api/commonParcel?limit=200&includes=parcels%2Cparcels.property&northBound=' + (this.position.lat + latDiff) + '&southBound=' + (this.position.lat - latDiff) + '&eastBound=' + (this.position.lng + lngDiff) + '&westBound=' + (this.position.lng - lngDiff);
+          url = '/api/commonParcel?limit=' + this.parcelLoadLimit + '&includes=parcels&northBound=' + (this.position.lat + latDiff) + '&southBound=' + (this.position.lat - latDiff) + '&eastBound=' + (this.position.lng + lngDiff) + '&westBound=' + (this.position.lng - lngDiff);
 
         axios
           .get(url)

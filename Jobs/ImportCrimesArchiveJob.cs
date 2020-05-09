@@ -15,8 +15,8 @@ namespace MkeAlerts.Web.Jobs
 {
     public class ImportCrimesArchiveJob : ImportCrimesJob
     {
-        public ImportCrimesArchiveJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, IJobRunService jobRunService, ILogger<ImportCrimesArchiveJob> logger, IEntityWriteService<Crime, string> writeService) :
-            base(configuration, signInManager, userManager, mailerService, jobRunService, logger, writeService)
+        public ImportCrimesArchiveJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, IJobRunService jobRunService, ILogger<ImportCrimesArchiveJob> logger, IEntityWriteService<Crime, string> writeService, IGeocodingService geocodingService) :
+            base(configuration, signInManager, userManager, mailerService, jobRunService, logger, writeService, geocodingService)
         {
         }
         protected override string PackageName => "wibrarchive";

@@ -10,7 +10,7 @@ namespace MkeAlerts.Web.Models.Data.Places
     {
         public CommonParcelValidator()
         {
-            RuleFor(x => x.Id).NotNull().NotEmpty();
+            RuleFor(x => x.MAP_ID).NotNull().NotEmpty().NotEqual(0);
         }
     }
 }

@@ -110,7 +110,7 @@ export const store = new Vuex.Store({
       let cachedItem = state.geocode.cache.find(x => x.position.lat == params.position.lat && x.position.lng == params.position.lng);
 
       cachedItem.state = STATE_LOADED;
-      cachedItem.property = params.property;
+      cachedItem.address = params.address;
       cachedItem.resolves = [];
       cachedItem.rejects = [];
     }
@@ -127,7 +127,7 @@ export const store = new Vuex.Store({
         commit('SET_STREET_REFERENCES_LOAD_STATE', STATE_LOADING);
 
         axios
-          .get('/api/streetReference')
+          .get('/api/streetReference?municipality=Milwaukee')
           .then(response => {
             commit(
               'LOAD_STREET_REFERENCES',
@@ -217,12 +217,12 @@ export const store = new Vuex.Store({
           .get('/api/geocoding/fromCoordinates?latitude=' + position.lat + '&longitude=' + position.lng)
           .then(response => {
               cachedItem.resolves.forEach(r => {
-                r(response.data.commonParcel.parcels[0].property);
+                r(response.data.commonParcel.parcels[0]);
               });
 
               context.commit('UPDATE_GEOCODE_CACHE_ITEM', {
                 position: position,
-                property: response.data.commonParcel.parcels[0].property
+                parcel: response.data.commonParcel.parcels[0]
               });
             })
           .catch(error => {
@@ -232,7 +232,7 @@ export const store = new Vuex.Store({
 
             context.commit('UPDATE_GEOCODE_CACHE_ITEM', {
               position: position,
-              property: null
+              parcel: null
             });
           });
         });
@@ -336,92 +336,79 @@ export const store = new Vuex.Store({
     getLocationData: state => () => {
       return state.locationData;
     },
-    getPropertyInfoWindow: state => property => {
-      let address = property.house_nr_lo;
-      if (property.house_nr_hi != property.house_nr_lo)
-        address += '-' + property.house_nr_hi;
-      address += ' ' + property.sdir + ' ' + property.street + ' ' + property.sttype;
+    getParcelInfoWindow: (state, getters) => parcel => {
+      let address = parcel.address;
 
-      let owner = property.owner_name_1;
-      if (property.owner_name_2)
-        owner += '<br />' + property.owner_name_2;
-      if (property.owner_name_3)
-        owner += '<br />' + property.owner_name_3;
-      owner += '<br />' + property.owner_mail_addr + '<br />' + property.owner_city_state;
+      let owner = parcel.ownername1;
+      if (parcel.ownername2)
+        owner += '<br />' + parcel.ownername2;
+      if (parcel.ownername3)
+        owner += '<br />' + parcel.ownername3;
 
-      let full = '<div style="font-size: 125%; font-weight: bold;"><a href="#/property/' + property.taxkey + '">' + address + '</a></div><div>' + owner + '</div>';
-      
-      return full;
+      return '<div style="font-size: 125%; font-weight: bold;"><a href="#/property/' + parcel.taxkey + '">' + address + '</a></div><div>' + owner + '</div>';
     },
     getCommonParcelInfoWindow: (state, getters) => commonParcel => {
-      if (commonParcel.parcels.length == 1) {
-        return getters.getPropertyInfoWindow(commonParcel.parcels[0].property);
-      } else {
-        let options = [];
-        commonParcel.parcels.forEach(i => {
-          let propertyInfo = getters.getPropertyInfoWindow(i.property);
+      if (commonParcel.parcels.length == 0)
+        return 'No parcels';
+      
+      if (commonParcel.parcels.length == 1)
+        return getters.getParcelInfoWindow(commonParcel.parcels[0]);
 
-          let address = i.property.house_nr_lo;
-          if (i.property.house_nr_hi != i.property.house_nr_lo)
-            address += '-' + i.property.house_nr_hi;
-          address += ' ' + i.property.sdir + ' ' + i.property.street + ' ' + i.property.sttype;
+      let options = [];
+      commonParcel.parcels.forEach(i => {
+        let propertyInfo = getters.getParcelInfoWindow(i);
 
-          options.push('<option data-text="' + encodeURIComponent(propertyInfo) + '">' + address + '</option>');
-        });
+        options.push('<option data-text="' + encodeURIComponent(propertyInfo) + '">' + i.address + '</option>');
+      });
 
-        let retVal = '<select onchange="this.nextSibling.innerHTML = decodeURIComponent(this.querySelector(\':checked\').getAttribute(\'data-text\'))">' + options.join('') + '</select><div>' + getters.getPropertyInfoWindow(commonParcel.parcels[0].property) + '</div>';
-        
-        if (commonParcel.parcels[0].condoName)
-          retVal = '<div style="font-size: 125%; font-weight: bold;">' + commonParcel.parcels[0].condoName + '</div>' + retVal;
+      let retVal = '<select onchange="this.nextSibling.innerHTML = decodeURIComponent(this.querySelector(\':checked\').getAttribute(\'data-text\'))">' + options.join('') + '</select><div>' + getters.getParcelInfoWindow(commonParcel.parcels[0]) + '</div>';
+      
+      if (commonParcel.parcels[0].condo_name)
+        retVal = '<div style="font-size: 125%; font-weight: bold;">' + commonParcel.parcels[0].condo_name + '</div>' + retVal;
 
-        return retVal;
-      }
+      return retVal;
     },
-    getPropertyPolygonColor: state => property => {
+    getParcelPolygonColor: state => parcel => {
       return '#333333';
     },
     getCommonParcelPolygonColor: state => commonParcel => {
       return '#333333';
     },
-    getPropertyPolygonWeight: state => property => {
+    getParcelPolygonWeight: state => parcel => {
       return 1;
     },
     getCommonParcelPolygonWeight: state => commonParcel => {
       return 1;
     },
-    getPropertyPolygonFillColor: state => property => {
-      if (property.c_a_class == 1)
-        // Residential
+    getParcelPolygonFillColor: state => parcel => {
+      if (!parcel)
+        return '#6f6f6f';
+      else if (parcel.descriptio == 'RESIDENTIAL')
         return '#28a745';
-      else if (property.c_a_class == 5)
-        // Condominiums
-        return '#f7a800';
-      else if (property.c_a_class == 2 || property.c_a_class == 4)
-        // Mercantile
+      else if (parcel.descriptio == 'COMMERCIAL')
         return '#fd7e14';
-      else if (property.c_a_class == 3)
-        // Manufacturing
+      else if (parcel.descriptio == 'MANUFACTURING')
         return '#dc3545';
-      else if (property.c_a_class == 7)
-        // Mercantile apartments
-        return '#28a745';
+      else if (parcel.descriptio == 'COUNTY' || parcel.descriptio == 'STATE' || parcel.descriptio == 'FEDERAL')
+        return '#f7a800';
       else
         return '#3f3f3f';
     },
     getCommonParcelPolygonFillColor: (state, getters) => commonParcel => {
-      let property = commonParcel.parcels[0].property;
-      return getters.getPropertyPolygonFillColor(property);
+      return getters.getParcelPolygonFillColor(commonParcel.parcels[0]);
     },
-    getPropertyPolygonFillOpacity: state => property => {
-      if (property.c_a_class == 1)
-        // Residential
-        return 0.2;
-      else
+    getParcelPolygonFillOpacity: state => parcel => {
+      if (parcel.dwelling_c >= 24)
+        return 0.5;
+      if (parcel.dwelling_c >= 8)
         return 0.4;
+      else if (parcel.dwelling_c >= 2)
+        return 0.3;
+      else
+        return 0.2;
     },    
     getCommonParcelPolygonFillOpacity: (state, getters) => commonParcel => {
-      let property = commonParcel.parcels[0].property;
-      return getters.getPropertyPolygonFillOpacity(property);
+      return getters.getParcelPolygonFillOpacity(commonParcel.parcels[0]);
     },    
   }
 })

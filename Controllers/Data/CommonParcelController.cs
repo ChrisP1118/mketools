@@ -7,9 +7,9 @@ using System;
 
 namespace MkeAlerts.Web.Controllers.Data
 {
-    public class CommonParcelController : EntityReadController<CommonParcel, CommonParcelDTO, IEntityReadService<CommonParcel, Guid>, Guid>
+    public class CommonParcelController : EntityReadController<CommonParcel, CommonParcelDTO, IEntityReadService<CommonParcel, int>, int>
     {
-        public CommonParcelController(IConfiguration configuration, IMapper mapper, IEntityReadService<CommonParcel, Guid> service) : base(configuration, mapper, service)
+        public CommonParcelController(IConfiguration configuration, IMapper mapper, IEntityReadService<CommonParcel, int> service) : base(configuration, mapper, service)
         {
         }
     }

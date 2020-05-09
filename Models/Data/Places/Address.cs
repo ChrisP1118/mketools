@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NetTopologySuite.Geometries;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,52 +8,58 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data.Places
 {
-    public class Address : IHasId<string>
+    public class Address : IHasId<int>, IHasBounds
     {
-        public string GetId() => this.RCD_NBR;
+        public int GetId() => this.ADDRESS_ID;
 
-        public Property Property { get; set; }
+        public Parcel Parcel { get; set; }
 
-        [MaxLength(10)]
-        public string TAXKEY { get; set; }
-
-        public int HSE_NBR { get; set; }
-
-        [MaxLength(3)]
-        public string SFX { get; set; }
-
-        [MaxLength(1)]
-        public string DIR { get; set; }
-
-        [MaxLength(18)]
-        public string STREET { get; set; }
-
-        [MaxLength(2)]
-        public string STTYPE { get; set; }
-
-        [MaxLength(5)]
-        public string UNIT_NBR { get; set; }
-
-        [MaxLength(9)]
-        public string ZIP_CODE { get; set; }
-
-        public int LAND_USE { get; set; }
+        public int HouseNumber { get; set; }
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [Required]
-        [MaxLength(10)]
-        public string RCD_NBR { get; set; }
+        public int ADDRESS_ID { get; set; }
 
-        public int UPD_DATE { get; set; }
+        public Point Point { get; set; }
 
-        public int WARD { get; set; }
+        [Column(TypeName = "decimal(13, 10)")]
+        public double MinLat { get; set; }
 
-        public int MAIL_ERROR_COUNT { get; set; }
+        [Column(TypeName = "decimal(13, 10)")]
+        public double MaxLat { get; set; }
 
-        [MaxLength(1)]
-        public string MAIL_STATUS { get; set; }
+        [Column(TypeName = "decimal(13, 10)")]
+        public double MinLng { get; set; }
 
-        [MaxLength(1)]
-        public string RES_COM_FLAG { get; set; }
+        [Column(TypeName = "decimal(13, 10)")]
+        public double MaxLng { get; set; }
+
+        public int OBJECTID { get; set; }
+
+        [MaxLength(10)] public string TAXKEY { get; set; }
+        [MaxLength(15)] public string HOUSENO { get; set; }
+        [MaxLength(2)] public string HOUSESX { get; set; }
+        [MaxLength(15)] public string ALT_ID { get; set; }
+        [MaxLength(1)] public string DIR { get; set; }
+        [MaxLength(19)] public string STREET { get; set; }
+        [MaxLength(4)] public string STTYPE { get; set; }
+        [MaxLength(1)] public string PDIR { get; set; }
+        [MaxLength(15)] public string MUNI { get; set; }
+        [MaxLength(5)] public string UNIT { get; set; }
+        [MaxLength(9)] public string ZIP_CODE { get; set; }
+        //public DateTime DATE_CHANG { get; set; }
+        [MaxLength(140)] public string COMMENT { get; set; }
+        [MaxLength(36)] public string SOURCE { get; set; }
+        //public DateTime SOURCE_DAT { get; set; }
+        [MaxLength(21)] public string SOURCE_ID { get; set; }
+        public int MAILABLE { get; set; }
+        [MaxLength(30)] public string FULLADDR { get; set; }
+        [MaxLength(1)] public string X { get; set; }
+        [MaxLength(1)] public string Y { get; set; }
+        [MaxLength(1)] public string DD_LAT { get; set; }
+        [MaxLength(1)] public string DD_LONG { get; set; }
+        [MaxLength(41)] public string TAG { get; set; }
+        [MaxLength(1)] public string CLINEID { get; set; }
+        public int BUILDING_I { get; set; }
+
     }
 }

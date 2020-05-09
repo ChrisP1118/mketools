@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Services.Data
 {
-    public class StreetService : EntityWriteService<Street, string>
+    public class StreetService : EntityWriteService<Street, int>
     {
-        public StreetService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Street> validator, ILogger<EntityWriteService<Street, string>> logger) : base(dbContext, userManager, validator, logger)
+        public StreetService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Street> validator, ILogger<EntityWriteService<Street, int>> logger) : base(dbContext, userManager, validator, logger)
         {
         }
 
-        protected override async Task<IQueryable<Street>> ApplyIdFilter(IQueryable<Street> queryable, string id)
+        protected override async Task<IQueryable<Street>> ApplyIdFilter(IQueryable<Street> queryable, int id)
         {
-            return queryable.Where(x => x.NEWDIME_ID == id);
+            return queryable.Where(x => x.CLINEID == id);
         }
 
         protected override async Task<IQueryable<Street>> ApplyReadSecurity(ApplicationUser applicationUser, IQueryable<Street> queryable)
