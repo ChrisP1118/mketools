@@ -49,7 +49,7 @@ using MkeAlerts.Web.Models.Data.AppHealth;
 using Hangfire.Dashboard;
 using Hangfire.Dashboard.BasicAuthorization;
 using Serilog;
-using Hangfire.SQLite;
+using Hangfire.MemoryStorage;
 
 namespace MkeAlerts.Web
 {
@@ -80,8 +80,10 @@ namespace MkeAlerts.Web
 
             services.AddHangfire(config =>
             {
-                //config.UseSqlServerStorage(Configuration.GetConnectionString("Default"));
-                config.UseSQLiteStorage(Configuration.GetConnectionString("Default"));
+                //config.UseSqlServerStorage(Configuration.GetConnectionString("Hangfire"));
+                //config.UseSQLiteStorage(Configuration.GetConnectionString("Hangfire"));
+                //config.UseSQLiteStorage("Hangfire.db");
+                config.UseMemoryStorage();
             });
             services.AddHangfireServer();
 
