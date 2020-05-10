@@ -2,6 +2,7 @@
 * Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
 * Improvement: Download MCLIO datasets
 * Improvement: Import MPROP data (and override MCLIO parcels as needed)
+* Improvement: Property list (change to parcel list?)
 * Doc: Document what's "major" and "minor"
 * Prep: Convert MkeTrashDay accounts
 
