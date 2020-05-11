@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Controllers.Data
+namespace MkeAlerts.Web.Controllers.Functional
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -207,22 +207,6 @@ namespace MkeAlerts.Web.Controllers.Data
         }
 
         /// <summary>
-        /// Geocodes police dispatch calls
-        /// </summary>
-        /// <remarks>
-        /// The user making the request must be a site administrator.
-        /// </remarks>
-        /// <returns></returns>
-        [HttpPost("geocodePoliceDispatchCalls")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> GeocodePoliceDispatchCalls()
-        {
-            BackgroundJob.Enqueue<GeocodePoliceDispatchCallsJob>(x => x.Run());
-
-            return Ok();
-        }
-
-        /// <summary>
         /// Imports crimes
         /// </summary>
         /// <remarks>
@@ -250,6 +234,38 @@ namespace MkeAlerts.Web.Controllers.Data
         public async Task<ActionResult> ImportCrimesArchive()
         {
             BackgroundJob.Enqueue<ImportCrimesArchiveJob>(x => x.Run());
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Geocodes police dispatch calls
+        /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
+        /// <returns></returns>
+        [HttpPost("geocodePoliceDispatchCalls")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> GeocodePoliceDispatchCalls()
+        {
+            BackgroundJob.Enqueue<GeocodePoliceDispatchCallsJob>(x => x.Run());
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Geocodes fire dispatch calls
+        /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
+        /// <returns></returns>
+        [HttpPost("geocodeFireDispatchCalls")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> GeocodeFireDispatchCalls()
+        {
+            BackgroundJob.Enqueue<GeocodeFireDispatchCallsJob>(x => x.Run());
 
             return Ok();
         }
