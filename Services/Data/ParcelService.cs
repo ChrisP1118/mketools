@@ -1,16 +1,20 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Places;
+using MkeAlerts.Web.Services.Data.Interfaces;
 using NetTopologySuite.Geometries;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Services.Data
 {
-    public class ParcelService : EntityWriteService<Parcel, string>
+    public class ParcelService : EntityWriteService<Parcel, string>, IParcelService
     {
         public ParcelService(ApplicationDbContext dbContext, UserManager<ApplicationUser> userManager, IValidator<Parcel> validator, ILogger<EntityWriteService<Parcel, string>> logger) : base(dbContext, userManager, validator, logger)
         {
@@ -54,6 +58,18 @@ namespace MkeAlerts.Web.Services.Data
                 return true;
 
             return false;
+        }
+
+        public async Task<HashSet<string>> GetAllTaxkeys(ClaimsPrincipal user)
+        {
+            var applicationUser = await GetApplicationUser(user);
+
+            List<string> allTaxkeys = await (await GetDataSet(applicationUser))
+                .Select(x => x.TAXKEY)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return allTaxkeys.ToHashSet<string>();
         }
     }
 }

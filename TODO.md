@@ -2,7 +2,6 @@
 * Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
 * Improvement: Download MCLIO datasets
 * Improvement: Import MPROP data (and override MCLIO parcels as needed)
-* Improvement: Property list (change to parcel list?)
 * Doc: Document what's "major" and "minor"
 * Prep: Convert MkeTrashDay accounts
 
@@ -44,6 +43,9 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Check: Do we have some 9-digit TAXKEYs (Excel removed the leading zero?)~~
+* ~~Check: mprop2019 seems to be funky~~
+* ~~Improvement: Property list (change to parcel list?)~~
 * ~~Improvement: GeocodeItemsJob: Save geocoded items~~
 * ~~Improvement: GeocodeItemsJob: Better batching (don't want the entire job on a single EF content)~~
 * ~~Log API response times?~~

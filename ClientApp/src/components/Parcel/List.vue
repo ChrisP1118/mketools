@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-title title="Properties" />
+    <page-title title="Parcels" />
     <b-row class="mb-3">
       <b-col>
         <b-card bg-variant="light">
@@ -11,8 +11,7 @@
       </b-col>
     </b-row>
     <p class="small">
-      This page displays data from the city's Master Property Record. It contains assessment data -- and more than 90 other data points -- for each property in
-      the city. 
+      This page displays data, including assessment and ownership data, from public property records.
       <a href="https://data.milwaukee.gov/dataset/mprop" target="_blank">More details are available here.</a>
     </p>
     <b-row>
@@ -30,7 +29,7 @@ import axios from "axios";
 import { mapGetters } from 'vuex'
 
 export default {
-  name: "PropertyList",
+  name: "ParcelList",
   props: {},
   data() {
     return {
@@ -38,7 +37,7 @@ export default {
       locationData: null,
 
       tableSettings: {
-        endpoint: '/api/property',
+        endpoint: '/api/parcel',
         columns: [
           {
             key: 'taxkey',
@@ -54,48 +53,55 @@ export default {
             sortable: false,
             render: (x, row) => {
               return [
-                row.house_nr_lo,
-                row.house_nr_hi != row.house_nr_lo ? '-' + row.house_nr_hi : '',
+                row.houseNumber,
+                (row.houseNumber != row.houseNumberHigh  && row.houseNumberHigh > 0) ? '-' + row.houseNumberHigh : '',
                 ' ',
-                row.sdir,
+                row.streetdir,
                 ' ',
-                row.street,
+                row.streetname,
                 ' ',
-                row.sttype
+                row.streettype
               ].join('');
             }
           },
           {
-            key: 'house_nr_lo',
-            name: 'HOUSE_NR_LO',
+            key: 'houseNumber',
+            name: 'House Number',
             visible: false,
             sortable: true,
             filter: 'number'
           },
           {
-            key: 'house_nr_hi',
-            name: 'HOUSE_NR_HI',
+            key: 'houseNumberHigh',
+            name: 'House Number (High)',
             visible: false,
             sortable: true,
             filter: 'number'
           },
           {
-            key: 'sdir',
-            name: 'SDIR',
+            key: 'streetdir',
+            name: 'Street Dir',
             visible: false,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'street',
-            name: 'STREET',
+            key: 'streetname',
+            name: 'Street Name',
             visible: false,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'sttype',
-            name: 'STTYPE',
+            key: 'streettype',
+            name: 'Street Type',
+            visible: false,
+            sortable: true,
+            filter: 'text'
+          },
+          {
+            key: 'muniname',
+            name: 'Municipality',
             visible: false,
             sortable: true,
             filter: 'text'
@@ -103,33 +109,33 @@ export default {
           {
             key: 'v-owners',
             name: 'Owners',
-            visible: true,
+            visible: false,
             sortable: false,
             render: (x, row) => {
               return [
-                row.owner_name_1,
-                row.owner_name_2 ? ', ' + row.owner_name_2 : '',
-                row.owner_name_3 ? ', ' + row.owner_name_3 : '',
+                row.ownername1,
+                row.ownername2 ? ', ' + row.ownername2 : '',
+                row.ownername3 ? ', ' + row.ownername3 : '',
               ].join('');
             }
           },
           {
-            key: 'owner_name_1',
-            name: 'OWNER_NAME_1',
+            key: 'ownername1',
+            name: 'Owner Name 1',
+            visible: true,
+            sortable: true,
+            filter: 'text'
+          },
+          {
+            key: 'ownername2',
+            name: 'Owner Name 2',
             visible: false,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'owner_name_2',
-            name: 'OWNER_NAME_2',
-            visible: false,
-            sortable: true,
-            filter: 'text'
-          },
-          {
-            key: 'owner_name_3',
-            name: 'OWNER_NAME_3',
+            key: 'ownername3',
+            name: 'Owner Name 3',
             visible: false,
             sortable: true,
             filter: 'text'
@@ -141,83 +147,89 @@ export default {
             sortable: false,
             render: (x, row) => {
               return [
-                row.owner_mail_addr,
+                row.owneraddr,
                 ' ',
-                row.owner_city_state,
+                row.ownerctyst,
                 ' ',
-                row.owner_zip.substring(0, 5) == '00000' ? '' : row.owner_zip.substring(0, 5)
+                row.ownerzip ? (row.ownerzip.substring(0, 5) == '00000' ? '' : row.ownerzip.substring(0, 5)) : ''
               ].join('');
             }
           },
           {
-            key: 'owner_mail_addr',
-            name: 'OWNER_MAIL_ADDR',
+            key: 'owneraddr',
+            name: 'Owner Address',
             visible: false,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'owner_city_state',
-            name: 'OWNER_CITY_STATE',
+            key: 'ownerctyst',
+            name: 'Owner City/State',
             visible: false,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'owner_zip',
-            name: 'OWNER_ZIP',
+            key: 'ownerzip',
+            name: 'Owner Zip',
             visible: false,
             sortable: true,
             filter: 'text'
           },
           {
-            key: 'parcel.condoName',
+            key: 'condo_name',
             name: 'Condo Name',
+            visible: false,
+            sortable: true,
+            filter: 'text'
+          },
+          {
+            key: 'unitnumber',
+            name: 'Unit Number',
             visible: false,
             sortable: true,
             filter: 'text'
           }
         ],
         includes: [
-          'parcel',
-          'parcel.commonParcel'
+          'commonParcel'
         ],
         getDefaultFilter: function () {
         },
         rowClicked: function (item, context) {
-          context.$router.push('/property/' + item.taxkey)
+          context.$router.push('/parcel/' + item.taxkey)
         },
         getItemInfoWindowText: function (item) {
-          return this.$store.getters.getPropertyInfoWindow(item._raw);
+          return this.$store.getters.getParcelInfoWindow(item._raw);
         },
         getItemPolygonGeometry: function (item) {
-          if (!item || !item._raw || !item._raw.parcel)
+          if (!item || !item._raw || !item._raw.commonParcel)
             return null;
 
-          return item._raw.parcel.commonParcel.outline;
+          return item._raw.commonParcel.outline;
         },
         getItemId: function (item) {
           return item._raw.taxkey;
         },
         getItemPolygonColor: function (item) {
-          return this.$store.getters.getPropertyPolygonColor(item._raw);
+          return this.$store.getters.getParcelPolygonColor(item._raw);
         },
         getItemPolygonFillColor: function (item) {
-          return this.$store.getters.getPropertyPolygonFillColor(item._raw);
+          return this.$store.getters.getParcelPolygonFillColor(item._raw);
         },
         getItemPolygonFillOpacity: function (item) {
-          return this.$store.getters.getPropertyPolygonFillOpacity(item._raw);
+          return this.$store.getters.getParcelPolygonFillOpacity(item._raw);
         },
         defaultLimit: 100
       }
     }
   },
   computed: {
-    ...mapGetters(['getPropertyInfoWindow']),
+    ...mapGetters(['getParcelInfoWindow']),
   },
   methods: {
     onRowClicked: function (rawItem) {
-      this.$router.push('/property/' + rawItem.taxkey);
+      this.$router.push('/parcel/' + rawItem.taxkey);
     }
   },
   mounted () {

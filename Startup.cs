@@ -283,6 +283,7 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddTransient<IEntityReadService<ApplicationUser, Guid>, ApplicationUserService>();
             services.AddTransient<IEntityReadService<Parcel, string>, ParcelService>();
             services.AddTransient<IEntityWriteService<Parcel, string>, ParcelService>();
+            services.AddTransient<IParcelService, ParcelService>();
             services.AddTransient<IEntityReadService<CommonParcel, int>, CommonParcelService>();
             services.AddTransient<IEntityWriteService<CommonParcel, int>, CommonParcelService>();
             services.AddTransient<ICommonParcelService, CommonParcelService>();
@@ -290,6 +291,8 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddTransient<IEntityWriteService<Address, int>, AddressService>();
             services.AddTransient<IEntityReadService<Street, int>, StreetService>();
             services.AddTransient<IEntityWriteService<Street, int>, StreetService>();
+            services.AddTransient<IEntityReadService<Property, Guid>, PropertyService>();
+            services.AddTransient<IEntityWriteService<Property, Guid>, PropertyService>();
             services.AddTransient<IEntityReadService<PoliceDispatchCall, string>, PoliceDispatchCallService>();
             services.AddTransient<IEntityWriteService<PoliceDispatchCall, string>, PoliceDispatchCallService>();
             services.AddTransient<IEntityReadService<PoliceDispatchCallType, string>, PoliceDispatchCallTypeService>();
@@ -317,6 +320,7 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddSingleton<IValidator<Parcel>, ParcelValidator>();
             services.AddSingleton<IValidator<CommonParcel>, CommonParcelValidator>();
             services.AddSingleton<IValidator<Street>, StreetValidator>();
+            services.AddSingleton<IValidator<Property>, PropertyValidator>();
             services.AddSingleton<IValidator<PoliceDispatchCall>, PoliceDispatchCallValidator>();
             services.AddSingleton<IValidator<PoliceDispatchCallType>, PoliceDispatchCallTypeValidator>();
             services.AddSingleton<IValidator<FireDispatchCall>, FireDispatchCallValidator>();

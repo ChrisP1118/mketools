@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MkeAlerts.Web.Data;
 using NetTopologySuite.Geometries;
@@ -10,9 +11,10 @@ using NetTopologySuite.Geometries;
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200511042348_Property")]
+    partial class Property
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,7 +161,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "a09bf2be-7b0b-484a-91b0-375794e79457",
+                            ConcurrencyStamp = "8fe6ac9b-4954-46d1-8e66-4dad56e6cfa4",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -243,13 +245,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f1ee38ab-c196-4429-a2cd-9d575e6b560c",
+                            ConcurrencyStamp = "3cb7c226-5bb3-4cec-8cd6-f4337e4a9fbc",
                             Email = "cwilson@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "cwilson@mkealerts.com",
                             NormalizedUserName = "cwilson@mkealerts.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGaHlTBP4+iH+4glqZa7jZAqCtRmjbqomtl53Lx5xMklxWgMr0tFiRFzp5qGYA8OoA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBbz+D04htrBzXyhbona/OJbGvhfIP9otU7jIGkv5a3mZfTGL2ezTxvDcwtKGKnRQQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -985,8 +987,9 @@ namespace MkeAlerts.Web.Migrations
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Property", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("TAXKEY")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("AIR_CONDITIONING")
                         .HasColumnType("nvarchar(3)")
@@ -1209,13 +1212,6 @@ namespace MkeAlerts.Web.Migrations
                         .HasColumnType("nvarchar(12)")
                         .HasMaxLength(12);
 
-                    b.Property<DateTime>("SourceDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TAXKEY")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
                     b.Property<string>("TAX_RATE_CD")
                         .HasColumnType("nvarchar(2)")
                         .HasMaxLength(2);
@@ -1231,9 +1227,7 @@ namespace MkeAlerts.Web.Migrations
                         .HasColumnType("nvarchar(7)")
                         .HasMaxLength(7);
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("TAXKEY");
+                    b.HasKey("TAXKEY");
 
                     b.ToTable("Properties");
                 });
@@ -1535,7 +1529,9 @@ namespace MkeAlerts.Web.Migrations
                 {
                     b.HasOne("MkeAlerts.Web.Models.Data.Places.Parcel", "Parcel")
                         .WithMany("Properties")
-                        .HasForeignKey("TAXKEY");
+                        .HasForeignKey("TAXKEY")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MkeAlerts.Web.Models.Data.Subscriptions.DispatchCallSubscription", b =>

@@ -175,6 +175,22 @@ namespace MkeAlerts.Web.Controllers.Functional
         }
 
         /// <summary>
+        /// Imports properties archives
+        /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
+        /// <returns></returns>
+        [HttpPost("importPropertiesArchives")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ImportPropertiesArchives()
+        {
+            BackgroundJob.Enqueue<ImportPropertiesArchivesJob>(x => x.Run());
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Imports police dispatch calls
         /// </summary>
         /// <remarks>

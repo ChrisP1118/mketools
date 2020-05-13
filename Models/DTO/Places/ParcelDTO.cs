@@ -13,6 +13,7 @@ namespace MkeAlerts.Web.Models.DTO.Places
         public CommonParcelDTO CommonParcel { get; set; }
 
         public List<AddressDTO> Addresses { get; set; }
+        public List<PropertyDTO> Properties { get; set; }
 
         public int HouseNumber { get; set; }
         public int HouseNumberHigh { get; set; }

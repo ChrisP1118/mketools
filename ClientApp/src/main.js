@@ -47,8 +47,8 @@ import Developers from './components/Developers.vue'
 import Login from './components/Login.vue'
 import Logout from './components/Logout.vue'
 import Home from './components/Home.vue'
-import PropertyList from './components/Property/List.vue'
-import PropertyView from './components/Property/View.vue'
+import ParcelList from './components/Parcel/List.vue'
+import ParcelView from './components/Parcel/View.vue'
 import ApplicationUserList from './components/ApplicationUser/List.vue'
 import ApplicationUserFields from './components/ApplicationUser/Fields.vue'
 import ApplicationUserEdit from './components/ApplicationUser/Edit.vue'
@@ -124,8 +124,8 @@ const routes = [
   { path: '/developers', component: Developers, meta: { public: true } },
   { path: '/login', component: Login, meta: { public: true } },
   { path: '/logout', component: Logout, meta: { public: true } },
-  { path: '/property', component: PropertyList, meta: { public: true } },
-  { path: '/property/:id', component: PropertyView, meta: { public: true }, props: true },
+  { path: '/parcel', component: ParcelList, meta: { public: true } },
+  { path: '/parcel/:id', component: ParcelView, meta: { public: true }, props: true },
   { path: '/policeDispatchCall', component: PoliceDispatchCallList, meta: { public: true } },
   { path: '/policeDispatchCall/:id', component: PoliceDispatchCallView, meta: { public: true }, props: true },
   { path: '/fireDispatchCall', component: FireDispatchCallList, meta: { public: true } },

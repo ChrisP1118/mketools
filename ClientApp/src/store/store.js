@@ -345,7 +345,7 @@ export const store = new Vuex.Store({
       if (parcel.ownername3)
         owner += '<br />' + parcel.ownername3;
 
-      return '<div style="font-size: 125%; font-weight: bold;"><a href="#/property/' + parcel.taxkey + '">' + address + '</a></div><div>' + owner + '</div>';
+      return '<div style="font-size: 125%; font-weight: bold;"><a href="#/parcel/' + parcel.taxkey + '">' + address + '</a></div><div>' + owner + '</div>';
     },
     getCommonParcelInfoWindow: (state, getters) => commonParcel => {
       if (commonParcel.parcels.length == 0)

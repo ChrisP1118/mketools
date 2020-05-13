@@ -22,6 +22,7 @@ namespace MkeAlerts.Web.Data
         public DbSet<CommonParcel> CommonParcels { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Street> Streets { get; set; }
+        public DbSet<Property> Properties { get; set; }
         public DbSet<PoliceDispatchCall> PoliceDispatchCalls { get; set; }
         public DbSet<PoliceDispatchCallType> PoliceDispatchCallTypes { get; set; }
         public DbSet<FireDispatchCall> FireDispatchCalls { get; set; }
@@ -105,6 +106,18 @@ namespace MkeAlerts.Web.Data
             // This combination of fields is used by the geocoding service
             modelBuilder.Entity<Street>()
                 .HasIndex(x => new { x.DIR, x.STREET, x.STTYPE });
+
+            modelBuilder.Entity<Property>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<Property>()
+                .HasIndex(x => x.TAXKEY);
+
+            modelBuilder.Entity<Property>()
+                .HasOne(x => x.Parcel)
+                .WithMany(x => x.Properties)
+                .HasForeignKey(x => x.TAXKEY);
+
 
             /* Incidents */
 
