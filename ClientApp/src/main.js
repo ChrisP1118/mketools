@@ -42,7 +42,6 @@ import BasicMap from './components/Home/BasicMap.vue'
 
 // Pages
 import About from './components/About.vue'
-import Support from './components/Support.vue'
 import Developers from './components/Developers.vue'
 import Login from './components/Login.vue'
 import Logout from './components/Logout.vue'
@@ -120,7 +119,6 @@ Vue.config.productionTip = false;
 const routes = [
   { path: '/', component: Home, meta: { public: true } },
   { path: '/about', component: About, meta: { public: true } },
-  { path: '/support', component: Support, meta: { public: true } },
   { path: '/developers', component: Developers, meta: { public: true } },
   { path: '/login', component: Login, meta: { public: true } },
   { path: '/logout', component: Logout, meta: { public: true } },

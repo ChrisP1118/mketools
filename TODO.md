@@ -1,6 +1,5 @@
 # Launch
 * Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
-* Improvement: Download MCLIO datasets
 * Improvement: Import MPROP data (and override MCLIO parcels as needed)
 * Doc: Document what's "major" and "minor"
 * Prep: Convert MkeTrashDay accounts
@@ -28,6 +27,7 @@
 * Improvement: Reset password/my profile page
 
 # Backlog
+* Improvement: Download MCLIO datasets
 * Epic: Property assessment viewer, with notifications on property owner changes
 * Improvement: Open keyword search on table (for example: property search across owner fields)
   * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)

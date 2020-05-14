@@ -240,7 +240,7 @@ export default {
       });
 
       if (this.total > this.limit && this.filterBasedOnMap)
-        this.infoMessage = 'The map is displaying the first ' + this.limit + ' items. Zoom in to view all items on the map, or select a different page to see more items.';
+        this.infoMessage = 'The map is displaying the first ' + this.limit + ' items. Zoom in to view all items on the map, select a different page to see more items, or increase the number of items displayed to more than ' + this.limit + '.';
     },
     refreshData: function (wait) {
       if (wait) {
@@ -343,6 +343,12 @@ export default {
 
     if (this.settings.defaultLimit)
       this.limit = this.settings.defaultLimit;
+
+    this.settings.columns.forEach(col => {
+      if (this.$route.query[col.key])
+        col.visible = true;
+        this.filters[col.key] = this.$route.query[col.key];
+    });
     
     this.refreshData();
   },

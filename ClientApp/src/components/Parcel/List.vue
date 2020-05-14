@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-title title="Parcels" />
+    <page-title title="Properties" />
     <b-row class="mb-3">
       <b-col>
         <b-card bg-variant="light">
@@ -47,22 +47,11 @@ export default {
             filter: 'text'
           },
           {
-            key: 'v-address',
+            key: 'address',
             name: 'Address',
             visible: true,
             sortable: false,
-            render: (x, row) => {
-              return [
-                row.houseNumber,
-                (row.houseNumber != row.houseNumberHigh  && row.houseNumberHigh > 0) ? '-' + row.houseNumberHigh : '',
-                ' ',
-                row.streetdir,
-                ' ',
-                row.streetname,
-                ' ',
-                row.streettype
-              ].join('');
-            }
+            filter: 'text'
           },
           {
             key: 'houseNumber',
@@ -142,8 +131,8 @@ export default {
           },
           {
             key: 'v-owners-address',
-            name: 'Owners Address',
-            visible: true,
+            name: 'Owners Complete Address',
+            visible: false,
             sortable: false,
             render: (x, row) => {
               return [
@@ -158,7 +147,7 @@ export default {
           {
             key: 'owneraddr',
             name: 'Owner Address',
-            visible: false,
+            visible: true,
             sortable: true,
             filter: 'text'
           },

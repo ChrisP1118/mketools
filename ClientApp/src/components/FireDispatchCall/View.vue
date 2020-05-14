@@ -20,7 +20,7 @@
               <li v-if="fireDispatchCallType.isMajor">Major</li>
               <li v-if="!fireDispatchCallType.isMajor">Minor</li>
             </ul>
-            <p class="small">Does this look incorrect? The way calls are categorized is fairly arbitrary and inexact. <b-link to="/support">Contact us if you think you could help improve this process.</b-link></p>
+            <p class="small">Does this look incorrect? The way calls are categorized is fairly arbitrary and inexact. <b-link to="/about">Contact us if you think you could help improve this process.</b-link></p>
           </b-card>
         </b-col>
         <b-col xs="12" md="6">
