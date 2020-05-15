@@ -2,6 +2,7 @@
 * Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
 * Improvement: Import MPROP data (and override MCLIO parcels as needed)
 * Improvement: Confirm email address before sending notifications?
+* Improvement: Update URL based on table filters
 * Doc: Document what's "major" and "minor"
 * Prep: Convert MkeTrashDay accounts
 

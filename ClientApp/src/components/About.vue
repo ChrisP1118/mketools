@@ -40,19 +40,24 @@
       use any data from them aside from your email address (only to send notifications you request).
     </p>
 
-    <h2>Interesting Data</h2>
+    <!-- <h2>Interesting Data</h2>
     <ul>
       <li>Properties
         <ul>
           <li><b-link to="/parcel?ownername1=CITY%20OF%20MILW">City of Milwaukee</b-link></li>
           <li><b-link to="/parcel?owneraddr=5225%20W%20VLIET%20ST">MPS</b-link></li>
-          <li><b-link to="/parcel?ownername1=MILWAUKEE%20COUNTY">Milwaukee County</b-link></li>
           <li><b-link to="/parcel?ownername1=MILWAUKEE%20COUNTY%20PARKS">Milwaukee County Parks</b-link></li>
-          <li><b-link to="/parcel?ownername1=STATE%20OF%20WISCONSIN">State of Wisconsin</b-link></li>
           <li><b-link to="/parcel?ownername1=BOARD%20OF%20REGENTS">University of Wisconsin</b-link></li>
+          <li><b-link to="/parcel?descriptio=COUNTY">County-Owned Property</b-link></li>
+          <li><b-link to="/parcel?descriptio=STATE">State-Owned Property</b-link></li>
+          <li><b-link to="/parcel?descriptio=FEDERAL">Federally-Owned Property</b-link></li>
+          <li><b-link to="/parcel?descriptio=MANUFACTURING">Manufacturing Land</b-link></li>
+          <li><b-link to="/parcel?descriptio=COMMERCIAL">Commercial Land</b-link></li>
+          <li><b-link to="/parcel?descriptio=AGRICULTURAL">Agricultural Land</b-link></li>
         </ul>
       </li>      
-    </ul>
+    </ul> -->
+
   </div>
 </template>
 

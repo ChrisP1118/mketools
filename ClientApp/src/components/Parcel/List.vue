@@ -178,6 +178,13 @@ export default {
             visible: false,
             sortable: true,
             filter: 'text'
+          },
+          {
+            key: 'descriptio',
+            name: 'Description',
+            visible: false,
+            sortable: true,
+            filter: 'text'
           }
         ],
         includes: [
