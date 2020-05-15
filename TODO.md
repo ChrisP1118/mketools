@@ -1,9 +1,7 @@
 # Launch
-* Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
-* Improvement: Confirm email address before sending notifications?
-* Improvement: Update URL based on table filters
-* Doc: Document what's "major" and "minor"
 * Prep: Convert MkeTrashDay accounts
+* Verify: Facebook, Google accounts
+* Verify: Log retention policy
 
 # Minor Issues - Front-End
 * Fix: Crime/List page - filters lost after clicking through to detail page
@@ -11,11 +9,12 @@
 * Fix: Caching headers - why Cache-Control: no-cache?
 
 # Minor Issues - Back-End
-* Verify: Facebook, Google accounts
-* Verify: Log retention policy
 * Fix: Automatically call script that creates dispatch types (as an EF migration?)
 
 # Backlog
+* Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
+* Improvement: Confirm email address before sending notifications?
+* Improvement: Update URL based on table filters
 * Improvement: Reset password/my profile page
 * Improvement: Change bulk import batch size (from 100 to ??)
 * Improvement: Crime/police dispatch call detail pages link cross-link
@@ -37,6 +36,7 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Doc: Document what's "major" and "minor"~~
 * ~~Fix: When a filtered table is pre-filtered (based on URL), don't filter based on the map/location data ~~
 * ~~Fix: Properties View page still only shows a single property per common parcel (ideally, we'd be able to use a function when displaying an info window that could make an API call to load all properties for the common parcel)~~
 * ~~Improvement: Cache StreetReferences data? (Or add some indexes to speed them up?)~~

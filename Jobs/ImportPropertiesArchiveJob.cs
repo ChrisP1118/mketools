@@ -60,8 +60,8 @@ namespace MkeAlerts.Web.Jobs
 
 			_logger.LogInformation("Loaded {TaxkeyCount} TAXKEYs", taxkeys.Count);
 
-			//List<string> files = Directory.GetFiles(@"M:\My Documents\GitHub\mpropsandbox\Data", "*.csv").OrderByDescending(x => GetFileYearFromFile(GetFileNameShort(x))).ToList();
-			List<string> files = Directory.GetFiles(@"M:\My Documents\GitHub\mpropsandbox\Data", "mprop2019dec.csv").OrderByDescending(x => GetFileYearFromFile(GetFileNameShort(x))).ToList();
+			List<string> files = Directory.GetFiles(_configuration.GetValue<string>("MpropArchiveFolder"), "*.csv").OrderByDescending(x => GetFileYearFromFile(GetFileNameShort(x))).ToList();
+			//List<string> files = Directory.GetFiles(@"M:\My Documents\GitHub\mpropsandbox\Data", "mprop2019dec.csv").OrderByDescending(x => GetFileYearFromFile(GetFileNameShort(x))).ToList();
 			List<Property> items = new List<Property>();
 
 			int i = 0;

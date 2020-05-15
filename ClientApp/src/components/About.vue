@@ -29,6 +29,9 @@
     <ul>
       <li><a href="https://city.milwaukee.gov/Directory/police/Crime-Maps-and-Statistics.htm" target="_blank">Milwaukee Crime Maps and Statistics</a> - this app has some great visualizations of crime trends in Milwaukee over time</li>
     </ul>
+
+    <h2>Dispatch Call Types</h2>
+    <p>More information on how dispatch call types are classified is available <b-link to="/dispatchCallTypes">here</b-link>.</p>
     
     <h2>Privacy Policy</h2>
     <p>
