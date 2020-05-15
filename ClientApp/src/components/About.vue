@@ -49,6 +49,7 @@
           <li><b-link to="/parcel?ownername1=MILWAUKEE%20COUNTY">Milwaukee County</b-link></li>
           <li><b-link to="/parcel?ownername1=MILWAUKEE%20COUNTY%20PARKS">Milwaukee County Parks</b-link></li>
           <li><b-link to="/parcel?ownername1=STATE%20OF%20WISCONSIN">State of Wisconsin</b-link></li>
+          <li><b-link to="/parcel?ownername1=BOARD%20OF%20REGENTS">University of Wisconsin</b-link></li>
         </ul>
       </li>      
     </ul>

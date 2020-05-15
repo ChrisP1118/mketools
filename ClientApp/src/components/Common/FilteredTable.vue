@@ -96,7 +96,7 @@
           :get-item-polygon-weight="settings.getItemPolygonWeight"
           :get-item-polygon-fill-color="settings.getItemPolygonFillColor"
           :get-item-polygon-fill-opacity="settings.getItemPolygonFillOpacity"
-          :location-data="locationData"
+          :location-data="noInitialFilterBasedOnMap < 1 ? locationData : null"
           :info-message="infoMessage">
         </filtered-table-map>
       </b-col>
@@ -145,6 +145,7 @@ export default {
       bounds: null,
       filterBasedOnMap: false,
       canFilterBasedOnMap: true,
+      noInitialFilterBasedOnMap: 0,
       refreshingData: false,
       refreshDataTime: null,
       zoom: null,
@@ -335,6 +336,13 @@ export default {
   },
   watch: {
     locationData: function (newValue, oldValue) {
+      if (this.noInitialFilterBasedOnMap == 1) {
+        this.noInitialFilterBasedOnMap = 2;
+        return;
+      } else if (this.noInitialFilterBasedOnMap == 2) {
+        this.noInitialFilterBasedOnMap = 0;
+      }
+
       if (newValue)
         this.filterBasedOnMap = true;
       else {
@@ -353,9 +361,11 @@ export default {
       this.limit = this.settings.defaultLimit;
 
     this.settings.columns.forEach(col => {
-      if (this.$route.query[col.key])
+      if (this.$route.query[col.key]) {
         col.visible = true;
         this.filters[col.key] = this.$route.query[col.key];
+        this.noInitialFilterBasedOnMap = 1;
+      }
     });
 
     this.refreshData();

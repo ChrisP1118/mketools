@@ -151,6 +151,9 @@ export default {
     locationData: function (newValue, oldValue) {
       //console.log('filtered data map - location: ' + (newValue ? newValue.lat + ',' + newValue.lng : '(null)'));
 
+      console.log('locationData changed in Map');
+      console.log(newValue);
+
       if (newValue) {
         this.center = [newValue.lat, newValue.lng];
         this.zoom = this.defaultZoomWithLocationData;

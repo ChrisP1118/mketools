@@ -1,5 +1,4 @@
 # Launch
-* Fix: When a filtered table is pre-filtered (based on URL), don't filter based on the map/location data 
 * Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
 * Improvement: Import MPROP data (and override MCLIO parcels as needed)
 * Improvement: Confirm email address before sending notifications?
@@ -23,21 +22,20 @@
 * Improvement: Properties/List - add additional table fields
 * Improvement: Better map icons/markers
 * Improvement: Download MCLIO datasets
-* Epic: Property assessment viewer, with notifications on property owner changes
 * Improvement: Open keyword search on table (for example: property search across owner fields)
   * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
 * Improvement: Load table filters from URL (and link from info windows?)
 * Improvement: Add "share" link on filtered table that creates a link with URL parameters for filter
+* Epic: Property assessment viewer, with notifications on property owner changes
 * Epic: Add way to lookup crime rate relative to specific address
 * Epic: PWA - add notifications API support
 * Epic: Add fire history
 * Epic: Add traffic accident data?
 * Epic: Add GraphQL support
-* Add TAXKEY (and property) for crimes?
-* Add TAXKEY (and property) for dispatch calls -- might have multiple properties nearby?
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Fix: When a filtered table is pre-filtered (based on URL), don't filter based on the map/location data ~~
 * ~~Fix: Properties View page still only shows a single property per common parcel (ideally, we'd be able to use a function when displaying an info window that could make an API call to load all properties for the common parcel)~~
 * ~~Improvement: Cache StreetReferences data? (Or add some indexes to speed them up?)~~
 * ~~Improvement: Better error handling/logging (error alert emails)~~
