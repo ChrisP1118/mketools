@@ -1,6 +1,5 @@
 # Launch
 * Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
-* Improvement: Import MPROP data (and override MCLIO parcels as needed)
 * Improvement: Confirm email address before sending notifications?
 * Improvement: Update URL based on table filters
 * Doc: Document what's "major" and "minor"
@@ -27,6 +26,8 @@
   * Filtering isn't clear on property page (HOUSE_NR_HI vs LO)
 * Improvement: Load table filters from URL (and link from info windows?)
 * Improvement: Add "share" link on filtered table that creates a link with URL parameters for filter
+* Improvement: Update parcels with MPROP data
+  * May not be needed, since we have "CurrentProperty" instead?
 * Epic: Property assessment viewer, with notifications on property owner changes
 * Epic: Add way to lookup crime rate relative to specific address
 * Epic: PWA - add notifications API support

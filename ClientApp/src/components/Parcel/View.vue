@@ -109,8 +109,6 @@ export default {
       axios
         .get(url)
         .then(response => {
-          console.log(response);
-
           this.item = response.data;
           this.position = this.$store.getters.getGeometryPosition(this.item.commonParcel.outline);
 

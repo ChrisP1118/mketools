@@ -16,6 +16,7 @@ namespace MkeAlerts.Web.Models.Data.Places
 
         public List<Address> Addresses { get; set; }
         public List<Property> Properties { get; set; }
+        public CurrentProperty CurrentProperty { get; set; }
 
         public int HouseNumber { get; set; }
         public int HouseNumberHigh { get; set; }

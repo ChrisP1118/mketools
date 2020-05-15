@@ -240,8 +240,6 @@ export default {
         });
 
         this.items.push(item);
-
-        //console.log(this.items);
       });
 
       if (this.total > this.limit && this.filterBasedOnMap)

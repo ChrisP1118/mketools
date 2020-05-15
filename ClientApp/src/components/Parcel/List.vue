@@ -189,6 +189,8 @@ export default {
         ],
         includes: [
           'commonParcel'
+          // This uses a fairly expensive view, so it really slows things down
+          // 'currentProperty'
         ],
         getDefaultFilter: function () {
         },

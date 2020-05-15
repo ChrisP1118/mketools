@@ -127,6 +127,14 @@ namespace MkeAlerts.Web.Data
                 .HasNoKey()
                 .ToView(null);
 
+            modelBuilder.Entity<CurrentProperty>()
+                .ToView("CurrentProperties");
+
+            modelBuilder.Entity<Parcel>()
+                .HasOne(x => x.CurrentProperty)
+                .WithOne(x => x.Parcel)
+                .HasForeignKey<CurrentProperty>(p => p.TAXKEY);
+
 
             /* Incidents */
 
