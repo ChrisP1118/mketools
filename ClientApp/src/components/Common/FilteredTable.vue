@@ -39,7 +39,7 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col lg="6" order-lg="1" order="2" style="overflow-x: scroll;">
+      <b-col :lg="showMap ? 6 : 12" order-lg="1" order="2" style="overflow-x: scroll;">
         <b-table striped hover :items="items" :fields="visibleFields" :busy="refreshingData" caption-top thead-class="hidden_header" @row-clicked="rowClicked">
           <template slot="table-caption">
           </template>
@@ -83,7 +83,7 @@
         </span>
         <b-pagination v-model="page" :total-rows="total" :per-page="limit" @input="refreshData"></b-pagination>
       </b-col>
-      <b-col lg="6" order-lg="2" order="1">
+      <b-col v-if="showMap" lg="6" order-lg="2" order="1">
         <filtered-table-map :items="items" @bounds-changed="boundsChanged" @zoom-changed="zoomChanged"
           :default-zoom-with-location-data="defaultZoomWithLocationData"
           :default-zoom-without-location-data="defaultZoomWithoutLocationData"
@@ -124,12 +124,16 @@ export default {
     defaultZoomWithoutLocationData: {
       type: Number,
       default: 11
+    },
+    showMap: {
+      type: Boolean,
+      default: true
     }
   },
   data() {
     return {
       limit: 10,
-      limits: [1, 2, 5, 10, 25, 50, 100, 500, 1000],
+      limits: [1, 2, 5, 10, 25, 50, 100, 250, 500, 1000],
       filters: {},
       rawItems: [],
       items: [],
@@ -316,6 +320,10 @@ export default {
 
           this.rawItems = response.data;
           this.total = response.headers['x-total-count'];
+
+          if (this.settings.onRefreshingItems)
+            this.settings.onRefreshingItems(this.rawItems);
+
           this.refreshItems();
 
           this.refreshingData = false;
@@ -349,7 +357,7 @@ export default {
         col.visible = true;
         this.filters[col.key] = this.$route.query[col.key];
     });
-    
+
     this.refreshData();
   },
   activated () {

@@ -185,11 +185,19 @@ export default {
         ],
         getDefaultFilter: function () {
         },
+        onRefreshingItems: function (items) {
+          items.forEach(i => {
+            if (!i.commonParcel)
+              return;
+            
+            i.commonParcel.parcels = items.filter(x => x.map_id == i.map_id);
+          })
+        },
         rowClicked: function (item, context) {
           context.$router.push('/parcel/' + item.taxkey)
         },
         getItemInfoWindowText: function (item) {
-          return this.$store.getters.getParcelInfoWindow(item._raw);
+          return this.$store.getters.getCommonParcelInfoWindow(item._raw.commonParcel);
         },
         getItemPolygonGeometry: function (item) {
           if (!item || !item._raw || !item._raw.commonParcel)
@@ -201,15 +209,15 @@ export default {
           return item._raw.taxkey;
         },
         getItemPolygonColor: function (item) {
-          return this.$store.getters.getParcelPolygonColor(item._raw);
+          return this.$store.getters.getCommonParcelPolygonColor(item._raw.commonParcel);
         },
         getItemPolygonFillColor: function (item) {
-          return this.$store.getters.getParcelPolygonFillColor(item._raw);
+          return this.$store.getters.getCommonParcelPolygonFillColor(item._raw.commonParcel);
         },
         getItemPolygonFillOpacity: function (item) {
-          return this.$store.getters.getParcelPolygonFillOpacity(item._raw);
+          return this.$store.getters.getCommonParcelPolygonFillOpacity(item._raw.commonParcel);
         },
-        defaultLimit: 100
+        defaultLimit: 250
       }
     }
   },

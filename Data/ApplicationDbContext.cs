@@ -38,6 +38,8 @@ namespace MkeAlerts.Web.Data
 
         public DbSet<JobRun> JobRuns { get; set; }
 
+        public DbSet<CurrentPropertyRecord> CurrentPropertyRecords { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
@@ -114,9 +116,16 @@ namespace MkeAlerts.Web.Data
                 .HasIndex(x => x.TAXKEY);
 
             modelBuilder.Entity<Property>()
+                .HasIndex(x => x.Source);
+
+            modelBuilder.Entity<Property>()
                 .HasOne(x => x.Parcel)
                 .WithMany(x => x.Properties)
                 .HasForeignKey(x => x.TAXKEY);
+
+            modelBuilder.Entity<CurrentPropertyRecord>()
+                .HasNoKey()
+                .ToView(null);
 
 
             /* Incidents */

@@ -293,6 +293,7 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddTransient<IEntityWriteService<Street, int>, StreetService>();
             services.AddTransient<IEntityReadService<Property, Guid>, PropertyService>();
             services.AddTransient<IEntityWriteService<Property, Guid>, PropertyService>();
+            services.AddTransient<IPropertyService, PropertyService>();
             services.AddTransient<IEntityReadService<PoliceDispatchCall, string>, PoliceDispatchCallService>();
             services.AddTransient<IEntityWriteService<PoliceDispatchCall, string>, PoliceDispatchCallService>();
             services.AddTransient<IEntityReadService<PoliceDispatchCallType, string>, PoliceDispatchCallTypeService>();

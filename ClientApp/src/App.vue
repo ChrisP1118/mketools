@@ -61,7 +61,7 @@
       <b-row class="mt-3">
         <b-col>
           <b-alert show variant="info" class="small text-center">
-            <div>This is not an official City of Milwaukee website. This site is not affiliated in any way with the City of Milwaukee, Milwaukee Police Department, Milwaukee Fire Department, or any other government agency.</div>
+            <div>This is not an official City of Milwaukee website. This site is not affiliated in any way with the City of Milwaukee, Milwaukee County, Milwaukee Police Department, Milwaukee Fire Department, or any other government agency.</div>
           </b-alert>
         </b-col>
       </b-row>

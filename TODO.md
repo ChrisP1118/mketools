@@ -1,32 +1,27 @@
 # Launch
+* Fix: When a filtered table is pre-filtered (based on URL), don't filter based on the map/location data 
 * Improvement: Should we limit geocoding results to Milwaukee? Or add a way of specifying a municipality?
 * Improvement: Import MPROP data (and override MCLIO parcels as needed)
+* Improvement: Confirm email address before sending notifications?
 * Doc: Document what's "major" and "minor"
 * Prep: Convert MkeTrashDay accounts
 
 # Minor Issues - Front-End
-* Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)
 * Fix: Crime/List page - filters lost after clicking through to detail page
-* Fix: Properties View page still only shows a single property per common parcel (ideally, we'd be able to use a function when displaying an info window that could make an API call to load all properties for the common parcel)
 * Fix: "overflow-x: scroll" on filtered table container
 * Fix: Caching headers - why Cache-Control: no-cache?
-* Improvement: Crime/police dispatch call detail pages link cross-link
-* Improvement: Properties/List - add additional table fields
-* Improvement: CommonParcels map instead of Properties?
-* Improvement: Better map icons/markers
-* Improvement: When we're loading a "polygon" geometry, we should use the centroid instead of the first corner
 
 # Minor Issues - Back-End
 * Verify: Facebook, Google accounts
 * Verify: Log retention policy
 * Fix: Automatically call script that creates dispatch types (as an EF migration?)
-* Improvement: Confirm email address before sending notifications?
-* Improvement: Change bulk import batch size (from 100 to ??)
-* Improvement: Cache StreetReferences data? (Or add some indexes to speed them up?)
-* Improvement: Better error handling/logging (error alert emails)
-* Improvement: Reset password/my profile page
 
 # Backlog
+* Improvement: Reset password/my profile page
+* Improvement: Change bulk import batch size (from 100 to ??)
+* Improvement: Crime/police dispatch call detail pages link cross-link
+* Improvement: Properties/List - add additional table fields
+* Improvement: Better map icons/markers
 * Improvement: Download MCLIO datasets
 * Epic: Property assessment viewer, with notifications on property owner changes
 * Improvement: Open keyword search on table (for example: property search across owner fields)
@@ -43,6 +38,11 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Fix: Properties View page still only shows a single property per common parcel (ideally, we'd be able to use a function when displaying an info window that could make an API call to load all properties for the common parcel)~~
+* ~~Improvement: Cache StreetReferences data? (Or add some indexes to speed them up?)~~
+* ~~Improvement: Better error handling/logging (error alert emails)~~
+* ~~Improvement: When we're loading a "polygon" geometry, we should use the centroid instead of the first corner~~
+* ~~Fix: Overlays are wrong (after partial map reload?) on nearby map (but fine on other maps?)~~
 * ~~Check: Do we have some 9-digit TAXKEYs (Excel removed the leading zero?)~~
 * ~~Check: mprop2019 seems to be funky~~
 * ~~Improvement: Property list (change to parcel list?)~~

@@ -3,7 +3,7 @@
     <page-title title="Users" />
     <b-row>
       <b-col>
-        <filtered-table :settings="tableSettings">
+        <filtered-table :settings="tableSettings" :showMap="false">
         </filtered-table>
       </b-col>
     </b-row>

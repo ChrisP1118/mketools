@@ -107,12 +107,21 @@ export default {
           return;
 
         let coords = [];
-        geometry.coordinates[0].forEach(y => {
-          coords.push({
-            lat: y[1],
-            lng: y[0]
+        if (geometry.type == 'Polygon') {
+          geometry.coordinates[0].forEach(y => {
+            coords.push({
+              lat: y[1],
+              lng: y[0]
+            });
           });
-        });
+        } else if (geometry.type == 'MultiPolygon') {
+          geometry.coordinates[0][0].forEach(y => {
+            coords.push({
+              lat: y[1],
+              lng: y[0]
+            });
+          });
+        }
 
         this.polygons.push({
           id: this.getItemId(i),

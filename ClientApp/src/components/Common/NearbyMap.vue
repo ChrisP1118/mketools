@@ -10,7 +10,7 @@
       <l-tile-layer :url="tileUrl" :attribution="attribution"></l-tile-layer>
       <l-marker :lat-lng="position" :icon="icon">
       </l-marker>
-      <l-polygon v-for="polygon in polygons" v-bind:key="polygon.id" :lat-lngs="polygon.coordinates" :color="polygon.color" :weight="polygon.weight" :fill-color="polygon.fillColor" :fill-opacity="polygon.fillOpacity">
+      <l-polygon v-for="polygon in polygons" v-bind:key="polygon.map_id" :lat-lngs="polygon.coordinates" :color="polygon.color" :weight="polygon.weight" :fill-color="polygon.fillColor" :fill-opacity="polygon.fillOpacity">
         <l-popup :content="polygon.popup"></l-popup>
       </l-polygon>
     </l-map>
@@ -42,7 +42,7 @@ export default {
 
       bounds: null,
 
-      parcelLoadLimit: 200,
+      parcelLoadLimit: 250,
       minZoomForParcels: 17
     };
   },
@@ -63,8 +63,8 @@ export default {
       this.loadCommonParcels();
     },
     loadCommonParcels: function () {
-      let latDiff = 0.0010;
-      let lngDiff = 0.0015;
+      let latDiff = 0.0015;
+      let lngDiff = 0.0020;
 
       if (this.zoom >= this.minZoomForParcels) {
         let url = '';
@@ -87,7 +87,7 @@ export default {
       }
     },
     showCommonParcels: function () {
-      this.polygons = [];
+      let newPolygons = [];
 
       this.commonParcels.forEach(i => {
         let coords = [];
@@ -98,19 +98,25 @@ export default {
           });
         });
 
-        this.polygons.push({
-          id: i.taxkey,
-          coordinates: [
-            coords
-          ],
-          popup: this.$store.getters.getCommonParcelInfoWindow(i),
-          color: this.$store.getters.getCommonParcelPolygonColor(i),
-          weight: this.$store.getters.getCommonParcelPolygonWeight(i),
-          fillColor: this.$store.getters.getCommonParcelPolygonFillColor(i),
-          fillOpacity: this.$store.getters.getCommonParcelPolygonFillOpacity(i),
-        });
+        let polygon = this.polygons.find(x => x.map_id == i.map_id);
+        if (polygon) {
+          newPolygons.push(polygon);
+        } else {
+          newPolygons.push({
+            map_id: i.map_id,
+            coordinates: [
+              coords
+            ],
+            popup: this.$store.getters.getCommonParcelInfoWindow(i),
+            color: this.$store.getters.getCommonParcelPolygonColor(i),
+            weight: this.$store.getters.getCommonParcelPolygonWeight(i),
+            fillColor: this.$store.getters.getCommonParcelPolygonFillColor(i),
+            fillOpacity: this.$store.getters.getCommonParcelPolygonFillOpacity(i),
+          });
+        }
       });
 
+      this.polygons = newPolygons;
     },
   },
   watch: {

@@ -1,1002 +1,214 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration;
-using DotSpatial.Projections;
-using Hangfire;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Models.Data;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.Places;
+using MkeAlerts.Web.Models.Internal;
 using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Services.Data;
 using MkeAlerts.Web.Services.Data.Interfaces;
 using MkeAlerts.Web.Services.Functional;
 using MkeAlerts.Web.Utilities;
-using NetTopologySuite;
-using NetTopologySuite.Features;
-using NetTopologySuite.Geometries;
-using NetTopologySuite.IO;
-using NetTopologySuite.IO.ShapeFile.Extended;
-using NetTopologySuite.IO.ShapeFile.Extended.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
-using System.Globalization;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using Parcel = MkeAlerts.Web.Models.Data.Places.Parcel;
+using System.Xml;
 
 namespace MkeAlerts.Web.Jobs
 {
-    public class ImportPropertiesArchivesJob : LoggedJob
+    public class ImportPropertiesJob : LoggedJob
     {
-        private readonly IEntityWriteService<Property, Guid> _writeService;
-		private readonly IParcelService _parcelService;
+        private readonly IPropertyService _propertyService;
+        private readonly IParcelService _parcelService;
 
-        public ImportPropertiesArchivesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, IJobRunService jobRunService, ILogger<ImportPropertiesArchivesJob> logger, IEntityWriteService<Property, Guid> writeService, IParcelService parcelService)
-            : base(configuration, signInManager, userManager, mailerService, jobRunService, logger)
+        public ImportPropertiesJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, IJobRunService jobRunService, ILogger<ImportPropertiesJob> logger, IPropertyService propertyService, IParcelService parcelService) :
+            base(configuration, signInManager, userManager, mailerService, jobRunService, logger)
         {
-            _writeService = writeService;
-			_parcelService = parcelService;
+            _propertyService = propertyService;
+            _parcelService = parcelService;
+        }
+
+        protected string PackageName => "mprop";
+        protected string PackageFormat => "XML";
+
+        protected virtual bool UseBulkInsert => true;
+
+        protected int ParseInt(string value, int defaultValue = 0)
+        {
+            return ParsingUtilities.ParseInt(value, defaultValue);
+        }
+
+        protected string EnforceLength(string value, int maxLength)
+        {
+            if (value.Length > maxLength)
+                value = value.Substring(0, maxLength);
+
+            return value;
         }
 
         protected override async Task RunInternal()
         {
-			List<MpropField> mpropFields = GetMpropFields();
+            DateTime sourceDate = DateTime.Now;
+            ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
-			ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
+            string fileName = await PackageUtilities.DownloadPackageFile(_logger, PackageName, PackageFormat);
 
-			_logger.LogInformation("Getting parcel TAXKEYs");
+            _logger.LogDebug("Download complete: {Filename}", fileName);
 
-			HashSet<string> taxkeys = await _parcelService.GetAllTaxkeys(claimsPrincipal);
+            _logger.LogInformation("Loading taxkeys");
+            HashSet<string> taxkeys = await _parcelService.GetAllTaxkeys(claimsPrincipal);
+            _logger.LogInformation("Loaded {Count} taxkeys", taxkeys.Count);
 
-			_logger.LogInformation("Loaded {TaxkeyCount} TAXKEYs", taxkeys.Count);
+            _logger.LogInformation("Loading current property records");
+            Dictionary<string, CurrentPropertyRecord> currentPropertyRecords = await _propertyService.GetCurrentRecords(claimsPrincipal);
+            _logger.LogInformation("Loaded {Count} current property records", currentPropertyRecords.Count);
 
-			//List<string> files = Directory.GetFiles(@"M:\My Documents\GitHub\mpropsandbox\Data", "*.csv").OrderByDescending(x => GetFileYearFromFile(GetFileNameShort(x))).ToList();
-			List<string> files = Directory.GetFiles(@"M:\My Documents\GitHub\mpropsandbox\Data", "mprop2019dec.csv").OrderByDescending(x => GetFileYearFromFile(GetFileNameShort(x))).ToList();
-			List<Property> items = new List<Property>();
+            List<Property> items = new List<Property>();
+            Property item = null;
+            string currentElement = null;
+            int i = 0;
 
-			int i = 0;
+            using (XmlTextReader xmlReader = new XmlTextReader(fileName))
+            {
+                while (xmlReader.Read())
+                {
+                    if (xmlReader.NodeType == XmlNodeType.Element && xmlReader.Name == "element")
+                        item = new Property()
+                        {
+                            Id = Guid.NewGuid(),
+                            Source = "CurrentMprop",
+                            SourceDate = sourceDate
+                        };
+                    else if (xmlReader.NodeType == XmlNodeType.Element)
+                        currentElement = xmlReader.Name;
 
-			foreach (string file in files)
-			{
-				string fileNameShort = GetFileNameShort(file).ToLower();
-				int row = 0;
-				DateTime sourceDate = new DateTime(GetFileYearFromFile(fileNameShort), 12, 31);
+                    if (xmlReader.NodeType == XmlNodeType.Text)
+                        ProcessElement(item, currentElement, xmlReader.Value);
 
-				_logger.LogInformation("Reading {FileNameShort}", fileNameShort);
+                    if (xmlReader.NodeType == XmlNodeType.EndElement)
+                    {
+                        if (xmlReader.Name == "element")
+                        {
+                            ++i;
 
-				using (var streamReader = new StreamReader(file))
-				using (var csvReader = new CsvReader(streamReader, new CsvConfiguration(CultureInfo.InvariantCulture)
-				{
-					BadDataFound = (ReadingContext context) => { },
-					MissingFieldFound = (string[] headerNames, int index, ReadingContext context) => { }
-				}))
-				{
-					csvReader.Read();
-					csvReader.ReadHeader();
+                            if (taxkeys.Contains(item.TAXKEY))
+                            {
+                                if (!currentPropertyRecords.ContainsKey(item.TAXKEY))
+                                    items.Add(item);
 
-					while (csvReader.Read())
-					{
-						++i;
-						++row;
+                                else
+                                {
+                                    CurrentPropertyRecord currentPropertyRecord = currentPropertyRecords[item.TAXKEY];
+                                    if (currentPropertyRecord.LAST_NAME_CHG != item.LAST_NAME_CHG || currentPropertyRecord.LAST_VALUE_CHG != item.LAST_VALUE_CHG)
+                                        items.Add(item);
+                                }
+                            }
 
-						try
-						{
-							Property property = new Property();
-							property.Id = Guid.NewGuid();
-							property.Source = fileNameShort;
-							property.SourceDate = sourceDate;
+                            if (i % 100 == 0)
+                            {
+                                try
+                                {
+                                    Tuple<IEnumerable<Property>, IEnumerable<Property>> results1 = await _propertyService.BulkUpsert(claimsPrincipal, items, UseBulkInsert);
+                                    _successCount += results1.Item1.Count();
+                                    _failureCount += results1.Item2.Count();
 
-							foreach (MpropField mpropField in mpropFields)
-							{
-								string rawValue = null;
+                                    _logger.LogDebug("Bulk inserted {Count} items at mod {Index}", _successCount, i);
+                                }
+                                catch (Exception ex)
+                                {
+                                    _failureCount += items.Count;
 
-								foreach (string dataFileName in mpropField.DataFileNames)
-								{
-									rawValue = csvReader.GetField(dataFileName);
-									if (rawValue != null)
-										break;
-								}
+                                    _logger.LogError(ex, "Error bulk inserting items at mod {Index}", i);
+                                }
 
-								if (rawValue == null)
-									continue;
+                                items.Clear();
+                            }
+                        }
+                    }
+                }
+            }
 
-								rawValue = rawValue.Trim();
+            File.Delete(fileName);
+        }
 
-								if (mpropField.PropertyInfo.PropertyType == typeof(string))
-								{
-									MaxLengthAttribute maxLengthAttribute = mpropField.PropertyInfo.GetCustomAttribute<MaxLengthAttribute>();
-									if (maxLengthAttribute != null && rawValue.Length > maxLengthAttribute.Length)
-										rawValue = rawValue.Substring(0, maxLengthAttribute.Length);
-
-									if (rawValue.Length > 0)
-										mpropField.PropertyInfo.SetValue(property, rawValue);
-								}
-								else if (mpropField.PropertyInfo.PropertyType == typeof(int?))
-								{
-									int n = 0;
-									if (int.TryParse(rawValue, out n))
-										mpropField.PropertyInfo.SetValue(property, n);
-								}
-								else if (mpropField.PropertyInfo.PropertyType == typeof(float?))
-								{
-									float n = 0;
-									if (float.TryParse(rawValue, out n))
-										mpropField.PropertyInfo.SetValue(property, n);
-								}
-								else if (mpropField.PropertyInfo.PropertyType == typeof(DateTime?))
-								{
-									// Leading zeros are missing - maybe they were lost in Excel when converting to CSV?
-									if (rawValue.Length == 3)
-										rawValue = "0" + rawValue;
-
-									if (rawValue.Length == 5)
-										rawValue = "0" + rawValue;
-
-									try
-									{
-										if (rawValue.Length == 4)
-										{
-											// I'll regret this in 2030
-											if (int.TryParse(rawValue.Substring(0, 2), out int y) && int.TryParse(rawValue.Substring(2, 2), out int m))
-												if (m != 0)
-													mpropField.PropertyInfo.SetValue(property, new DateTime(y < 30 ? 2000 + y : 1900 + y, m, 1));
-										}
-										else if (rawValue.Length == 6)
-										{
-											if (int.TryParse(rawValue.Substring(0, 2), out int m) && int.TryParse(rawValue.Substring(2, 2), out int d) && int.TryParse(rawValue.Substring(4, 2), out int y))
-												if (m > 12)
-													// Some of the older files use a different date format, YYMMDD
-													mpropField.PropertyInfo.SetValue(property, new DateTime(m, d, y));
-												else if (m != 0 && d != 0)
-													mpropField.PropertyInfo.SetValue(property, new DateTime(y < 30 ? 2000 + y : 1900 + y, m, d));
-										}
-										else if (rawValue.Length > 6)
-										{
-											if (DateTime.TryParse(rawValue, out DateTime dt))
-												mpropField.PropertyInfo.SetValue(property, new DateTime?(dt));
-										}
-									}
-									catch (Exception ex)
-									{
-										_logger.LogError("Error parsing DateTime value {Value} on row {Row} in {FileNameShort}", rawValue, row, fileNameShort);
-									}
-								}
-								else
-								{
-									throw new Exception("Unhandled type");
-								}
-							}
-
-							// Don't add items if the TAXKEY doesn't exist in parcels -- it'll just create a foreign key violation that will slow down the bulk insert
-							if (taxkeys.Contains(property.TAXKEY))
-							{
-								while (property.TAXKEY.Length < 10)
-									property.TAXKEY = "0" + property.TAXKEY;
-
-								items.Add(property);
-							}
-						}
-						catch (Exception ex)
-						{
-							_logger.LogError("Error inserting row {Row} in {FileNameShort}", row, fileNameShort);
-						}
-
-						if (i % 100 == 0)
-						{
-							try
-							{
-								Tuple<IEnumerable<Property>, IEnumerable<Property>> results1 = await _writeService.BulkUpsert(claimsPrincipal, items, true);
-								_successCount += results1.Item1.Count();
-								_failureCount += results1.Item2.Count();
-
-								_logger.LogDebug("Bulk inserted items at mod {Index}", i);
-							}
-							catch (Exception ex)
-							{
-								_failureCount += items.Count;
-
-								_logger.LogError(ex, "Error bulk inserting items at mod {Index}", i);
-							}
-							items.Clear();
-						}
-					}
-				}
-			}
-		}
-
-		protected string GetFileNameShort(string file)
-		{
-			string fileNameShort = file.Substring(file.LastIndexOf("\\") + 1);
-			return fileNameShort.Replace(".csv", "");
-		}
-
-		protected int GetFileYearFromFile(string fileNameShort)
-		{
-			string fileYearShort = fileNameShort;
-
-			if (fileYearShort.ToLower().StartsWith("mprop") && fileYearShort.Length == 7)
-				fileYearShort = fileYearShort.Substring(5);
-			else if (fileYearShort.ToLower().StartsWith("mprop") && fileYearShort.Length == 12)
-				fileYearShort = fileYearShort.Substring(7, 2);
-
-			int fileYear = int.Parse(fileYearShort);
-			if (fileYear < 30)
-				fileYear += 2000;
-			else
-				fileYear += 1900;
-
-			return fileYear;
-		}
-
-		/// <summary>
-		/// This list comes from the MpropSandbox project (https://github.com/ChrisP1118/mpropsandbox)
-		/// </summary>
-		/// <returns></returns>
-		protected List<MpropField> GetMpropFields()
+        protected void ProcessElement(Property item, string elementName, string elementValue)
         {
-			List<MpropField> mpropFields = new List<MpropField>()
-			{
-				new MpropField
-				{
-					DataModelName = "AIR_CONDITIONING",
-					PropertyInfo = typeof(Property).GetProperty("AIR_CONDITIONING"),
-					DataFileNames = new List<string>()
-					{
-						"AIR_CONDITIONING",
-						"AIRCONDIT",
-						"AIR_CONDIT",
-						"AIRCOND",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "ATTIC",
-					PropertyInfo = typeof(Property).GetProperty("ATTIC"),
-					DataFileNames = new List<string>()
-					{
-						"ATTIC",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "BASEMENT",
-					PropertyInfo = typeof(Property).GetProperty("BASEMENT"),
-					DataFileNames = new List<string>()
-					{
-						"BASEMENT",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "BATHS",
-					PropertyInfo = typeof(Property).GetProperty("BATHS"),
-					DataFileNames = new List<string>()
-					{
-						"BATHS",
-						"BATHROOM",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "BEDROOMS",
-					PropertyInfo = typeof(Property).GetProperty("BEDROOMS"),
-					DataFileNames = new List<string>()
-					{
-						"BEDROOMS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "BLDG_AREA",
-					PropertyInfo = typeof(Property).GetProperty("BLDG_AREA"),
-					DataFileNames = new List<string>()
-					{
-						"BLDG_AREA",
-						"BLDGAREA",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "BLDG_TYPE",
-					PropertyInfo = typeof(Property).GetProperty("BLDG_TYPE"),
-					DataFileNames = new List<string>()
-					{
-						"BLDG_TYPE",
-						"BLDGTYPE",
-						"BUILDTYP",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "C_A_CLASS",
-					PropertyInfo = typeof(Property).GetProperty("C_A_CLASS"),
-					DataFileNames = new List<string>()
-					{
-						"C_A_CLASS",
-						"CACLASS",
-						"CURCLSCD",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "C_A_EXM_IMPRV",
-					PropertyInfo = typeof(Property).GetProperty("C_A_EXM_IMPRV"),
-					DataFileNames = new List<string>()
-					{
-						"C_A_EXM_IMPRV",
-						"CAEXMIMPRV",
-						"C_A_EXM_IM",
-						"CUREXIMP",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "C_A_EXM_LAND",
-					PropertyInfo = typeof(Property).GetProperty("C_A_EXM_LAND"),
-					DataFileNames = new List<string>()
-					{
-						"C_A_EXM_LAND",
-						"CAEXMLAND",
-						"C_A_EXM_LA",
-						"CUREXLND",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "C_A_EXM_TOTAL",
-					PropertyInfo = typeof(Property).GetProperty("C_A_EXM_TOTAL"),
-					DataFileNames = new List<string>()
-					{
-						"C_A_EXM_TOTAL",
-						"CAEXMTOTAL",
-						"C_A_EXM_TO",
-						"CUREXTOT",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "C_A_EXM_TYPE",
-					PropertyInfo = typeof(Property).GetProperty("C_A_EXM_TYPE"),
-					DataFileNames = new List<string>()
-					{
-						"C_A_EXM_TYPE",
-						"CAEXMTYPE",
-						"C_A_EXM_TY",
-						"CUREXTYP",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "C_A_IMPRV",
-					PropertyInfo = typeof(Property).GetProperty("C_A_IMPRV"),
-					DataFileNames = new List<string>()
-					{
-						"C_A_IMPRV",
-						"CAIMPRV",
-						"CURIMPAS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "C_A_LAND",
-					PropertyInfo = typeof(Property).GetProperty("C_A_LAND"),
-					DataFileNames = new List<string>()
-					{
-						"C_A_LAND",
-						"CALAND",
-						"CURLNDAS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "C_A_SYMBOL",
-					PropertyInfo = typeof(Property).GetProperty("C_A_SYMBOL"),
-					DataFileNames = new List<string>()
-					{
-						"C_A_SYMBOL",
-						"CASYMBOL",
-						"CURSYMBL",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "C_A_TOTAL",
-					PropertyInfo = typeof(Property).GetProperty("C_A_TOTAL"),
-					DataFileNames = new List<string>()
-					{
-						"C_A_TOTAL",
-						"CATOTAL",
-						"CURTOTAS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "CHK_DIGIT",
-					PropertyInfo = typeof(Property).GetProperty("CHK_DIGIT"),
-					DataFileNames = new List<string>()
-					{
-						"CHK_DIGIT",
-						"CHKDIGIT",
-						"CHECKDIG",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "CONVEY_DATE",
-					PropertyInfo = typeof(Property).GetProperty("CONVEY_DATE"),
-					DataFileNames = new List<string>()
-					{
-						"CONVEY_DATE",
-						"CONVEYDATE",
-						"CONVEY_DAT",
-						"CONVDATE",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "CONVEY_FEE",
-					PropertyInfo = typeof(Property).GetProperty("CONVEY_FEE"),
-					DataFileNames = new List<string>()
-					{
-						"CONVEY_FEE",
-						"CONVEYFEE",
-						"CONVFEE",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "CONVEY_TYPE",
-					PropertyInfo = typeof(Property).GetProperty("CONVEY_TYPE"),
-					DataFileNames = new List<string>()
-					{
-						"CONVEY_TYPE",
-						"CONVEYTYPE",
-						"CONVEY_TYP",
-						"CONVTYPE",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "DIV_ORG",
-					PropertyInfo = typeof(Property).GetProperty("DIV_ORG"),
-					DataFileNames = new List<string>()
-					{
-						"DIV_ORG",
-						"DIVORG",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "FIREPLACE",
-					PropertyInfo = typeof(Property).GetProperty("FIREPLACE"),
-					DataFileNames = new List<string>()
-					{
-						"FIREPLACE",
-						"FIREPLAC",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "GARAGE_TYPE",
-					PropertyInfo = typeof(Property).GetProperty("GARAGE_TYPE"),
-					DataFileNames = new List<string>()
-					{
-						"GARAGE_TYPE",
-						"GARAGETYPE",
-						"GARAGE",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "GEO_ALDER",
-					PropertyInfo = typeof(Property).GetProperty("GEO_ALDER"),
-					DataFileNames = new List<string>()
-					{
-						"GEO_ALDER",
-						"GEOALDER",
-						"ALDERDIS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "GEO_ALDER_OLD",
-					PropertyInfo = typeof(Property).GetProperty("GEO_ALDER_OLD"),
-					DataFileNames = new List<string>()
-					{
-						"GEO_ALDER_OLD",
-						"GEOALDERO",
-						"GEO_ALDER_",
-						"ALDEROLD",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "GEO_BLOCK",
-					PropertyInfo = typeof(Property).GetProperty("GEO_BLOCK"),
-					DataFileNames = new List<string>()
-					{
-						"GEO_BLOCK",
-						"GEOBLOCK",
-						"CENBLOCK",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "GEO_POLICE",
-					PropertyInfo = typeof(Property).GetProperty("GEO_POLICE"),
-					DataFileNames = new List<string>()
-					{
-						"GEO_POLICE",
-						"GEOPOLICE",
-						"POLICEDS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "GEO_TRACT",
-					PropertyInfo = typeof(Property).GetProperty("GEO_TRACT"),
-					DataFileNames = new List<string>()
-					{
-						"GEO_TRACT",
-						"GEOTRACT",
-						"CENTRACT",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "GEO_ZIP_CODE",
-					PropertyInfo = typeof(Property).GetProperty("GEO_ZIP_CODE"),
-					DataFileNames = new List<string>()
-					{
-						"GEO_ZIP_CODE",
-						"GEOZIPCODE",
-						"GEO_ZIP_CO",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "HIST_CODE",
-					PropertyInfo = typeof(Property).GetProperty("HIST_CODE"),
-					DataFileNames = new List<string>()
-					{
-						"HIST_CODE",
-						"HISTCODE",
-						"HISTDES",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "HOUSE_NR_HI",
-					PropertyInfo = typeof(Property).GetProperty("HOUSE_NR_HI"),
-					DataFileNames = new List<string>()
-					{
-						"HOUSE_NR_HI",
-						"HOUSENRHI",
-						"HOUSE_NR_H",
-						"HSNUMHI",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "HOUSE_NR_LO",
-					PropertyInfo = typeof(Property).GetProperty("HOUSE_NR_LO"),
-					DataFileNames = new List<string>()
-					{
-						"HOUSE_NR_LO",
-						"HOUSENRLO",
-						"HOUSE_NR_L",
-						"HSNUMLO",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "HOUSE_NR_SFX",
-					PropertyInfo = typeof(Property).GetProperty("HOUSE_NR_SFX"),
-					DataFileNames = new List<string>()
-					{
-						"HOUSE_NR_SFX",
-						"HOUSENRSFX",
-						"HOUSE_NR_S",
-						"HSNUMSUF",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "LAND_USE",
-					PropertyInfo = typeof(Property).GetProperty("LAND_USE"),
-					DataFileNames = new List<string>()
-					{
-						"LAND_USE",
-						"LANDUSE",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "LAND_USE_GP",
-					PropertyInfo = typeof(Property).GetProperty("LAND_USE_GP"),
-					DataFileNames = new List<string>()
-					{
-						"LAND_USE_GP",
-						"LANDUSEGP",
-						"LAND_USE_G",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "LAST_NAME_CHG",
-					PropertyInfo = typeof(Property).GetProperty("LAST_NAME_CHG"),
-					DataFileNames = new List<string>()
-					{
-						"LAST_NAME_CHG",
-						"LASTNAMECH",
-						"LAST_NAME_",
-						"NAMCHDAT",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "LAST_VALUE_CHG",
-					PropertyInfo = typeof(Property).GetProperty("LAST_VALUE_CHG"),
-					DataFileNames = new List<string>()
-					{
-						"LAST_VALUE_CHG",
-						"LASTVALUE",
-						"LAST_VALUE",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "LOT_AREA",
-					PropertyInfo = typeof(Property).GetProperty("LOT_AREA"),
-					DataFileNames = new List<string>()
-					{
-						"LOT_AREA",
-						"LOTAREA",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "NEIGHBORHOOD",
-					PropertyInfo = typeof(Property).GetProperty("NEIGHBORHOOD"),
-					DataFileNames = new List<string>()
-					{
-						"NEIGHBORHOOD",
-						"NEIGHBORHD",
-						"NEIGHBORHO",
-						"NBRHOOD",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "NR_STORIES",
-					PropertyInfo = typeof(Property).GetProperty("NR_STORIES"),
-					DataFileNames = new List<string>()
-					{
-						"NR_STORIES",
-						"NRSTORIES",
-						"NSTORIES",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "NR_UNITS",
-					PropertyInfo = typeof(Property).GetProperty("NR_UNITS"),
-					DataFileNames = new List<string>()
-					{
-						"NR_UNITS",
-						"NRUNITS",
-						"NUMUNITS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "OWN_OCPD",
-					PropertyInfo = typeof(Property).GetProperty("OWN_OCPD"),
-					DataFileNames = new List<string>()
-					{
-						"OWN_OCPD",
-						"OWNOCPD",
-						"OWNEROCC",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "OWNER_CITY_STATE",
-					PropertyInfo = typeof(Property).GetProperty("OWNER_CITY_STATE"),
-					DataFileNames = new List<string>()
-					{
-						"OWNER_CITY_STATE",
-						"OWNERCITY",
-						"OWNER_CITY",
-						"OWNRCITY",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "OWNER_MAIL_ADDR",
-					PropertyInfo = typeof(Property).GetProperty("OWNER_MAIL_ADDR"),
-					DataFileNames = new List<string>()
-					{
-						"OWNER_MAIL_ADDR",
-						"OWNERADDR",
-						"OWNER_MAIL",
-						"OWNRADDR",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "OWNER_NAME_1",
-					PropertyInfo = typeof(Property).GetProperty("OWNER_NAME_1"),
-					DataFileNames = new List<string>()
-					{
-						"OWNER_NAME_1",
-						"OWNERNAME1",
-						"OWNRNAM1",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "OWNER_NAME_2",
-					PropertyInfo = typeof(Property).GetProperty("OWNER_NAME_2"),
-					DataFileNames = new List<string>()
-					{
-						"OWNER_NAME_2",
-						"OWNERNAME2",
-						"OWNRNAM2",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "OWNER_NAME_3",
-					PropertyInfo = typeof(Property).GetProperty("OWNER_NAME_3"),
-					DataFileNames = new List<string>()
-					{
-						"OWNER_NAME_3",
-						"OWNERNAME3",
-						"OWNRNAM3",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "OWNER_ZIP",
-					PropertyInfo = typeof(Property).GetProperty("OWNER_ZIP"),
-					DataFileNames = new List<string>()
-					{
-						"OWNER_ZIP",
-						"OWNERZIP",
-						"OWNRZIP",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "P_A_CLASS",
-					PropertyInfo = typeof(Property).GetProperty("P_A_CLASS"),
-					DataFileNames = new List<string>()
-					{
-						"P_A_CLASS",
-						"PACLASS",
-						"PRECLSCD",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "P_A_EXM_IMPRV",
-					PropertyInfo = typeof(Property).GetProperty("P_A_EXM_IMPRV"),
-					DataFileNames = new List<string>()
-					{
-						"P_A_EXM_IMPRV",
-						"PAEXMIMPRV",
-						"P_A_EXM_IM",
-						"PREEXIMP",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "P_A_EXM_LAND",
-					PropertyInfo = typeof(Property).GetProperty("P_A_EXM_LAND"),
-					DataFileNames = new List<string>()
-					{
-						"P_A_EXM_LAND",
-						"PAEXMLAND",
-						"P_A_EXM_LA",
-						"PREEXLND",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "P_A_EXM_TOTAL",
-					PropertyInfo = typeof(Property).GetProperty("P_A_EXM_TOTAL"),
-					DataFileNames = new List<string>()
-					{
-						"P_A_EXM_TOTAL",
-						"PAEXMTOTAL",
-						"P_A_EXM_TO",
-						"PREEXTOT",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "P_A_IMPRV",
-					PropertyInfo = typeof(Property).GetProperty("P_A_IMPRV"),
-					DataFileNames = new List<string>()
-					{
-						"P_A_IMPRV",
-						"PAIMPRV",
-						"PREIMPAS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "P_A_LAND",
-					PropertyInfo = typeof(Property).GetProperty("P_A_LAND"),
-					DataFileNames = new List<string>()
-					{
-						"P_A_LAND",
-						"PALAND",
-						"PRELNDAS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "P_A_SYMBOL",
-					PropertyInfo = typeof(Property).GetProperty("P_A_SYMBOL"),
-					DataFileNames = new List<string>()
-					{
-						"P_A_SYMBOL",
-						"PASYMBOL",
-						"PRESYMBL",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "P_A_TOTAL",
-					PropertyInfo = typeof(Property).GetProperty("P_A_TOTAL"),
-					DataFileNames = new List<string>()
-					{
-						"P_A_TOTAL",
-						"PATOTAL",
-						"PRETOTAS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "PLAT_PAGE",
-					PropertyInfo = typeof(Property).GetProperty("PLAT_PAGE"),
-					DataFileNames = new List<string>()
-					{
-						"PLAT_PAGE",
-						"PLATPAGE",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "POWDER_ROOMS",
-					PropertyInfo = typeof(Property).GetProperty("POWDER_ROOMS"),
-					DataFileNames = new List<string>()
-					{
-						"POWDER_ROOMS",
-						"POWDERROOM",
-						"POWDER_ROO",
-						"PWDRROOM",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "REASON_FOR_CHG",
-					PropertyInfo = typeof(Property).GetProperty("REASON_FOR_CHG"),
-					DataFileNames = new List<string>()
-					{
-						"REASON_FOR_CHG",
-						"REASONFOR",
-						"REASON_FOR",
-						"REASFCHG",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "SDIR",
-					PropertyInfo = typeof(Property).GetProperty("SDIR"),
-					DataFileNames = new List<string>()
-					{
-						"SDIR",
-						"DIR",
-						"STRTDIR",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "Source",
-					PropertyInfo = typeof(Property).GetProperty("Source"),
-					DataFileNames = new List<string>()
-					{
-						"Source",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "STREET",
-					PropertyInfo = typeof(Property).GetProperty("STREET"),
-					DataFileNames = new List<string>()
-					{
-						"STREET",
-						"STRTNAME",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "STTYPE",
-					PropertyInfo = typeof(Property).GetProperty("STTYPE"),
-					DataFileNames = new List<string>()
-					{
-						"STTYPE",
-						"STRTTYPE",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "TAX_RATE_CD",
-					PropertyInfo = typeof(Property).GetProperty("TAX_RATE_CD"),
-					DataFileNames = new List<string>()
-					{
-						"TAX_RATE_CD",
-						"TAXRATECD",
-						"TAX_RATE_C",
-						"TAXDIST",
-						"TAXRATEC",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "TAXKEY",
-					PropertyInfo = typeof(Property).GetProperty("TAXKEY"),
-					DataFileNames = new List<string>()
-					{
-						"TAXKEY",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "YR_ASSMT",
-					PropertyInfo = typeof(Property).GetProperty("YR_ASSMT"),
-					DataFileNames = new List<string>()
-					{
-						"YR_ASSMT",
-						"YRASSMT",
-						"YEARASS",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "YR_BUILT",
-					PropertyInfo = typeof(Property).GetProperty("YR_BUILT"),
-					DataFileNames = new List<string>()
-					{
-						"YR_BUILT",
-						"YRBUILT",
-					}
-				},
-				new MpropField
-				{
-					DataModelName = "ZONING",
-					PropertyInfo = typeof(Property).GetProperty("ZONING"),
-					DataFileNames = new List<string>()
-					{
-						"ZONING",
-					}
-				},
-			};
-
-			return mpropFields;
-		}
-	}
+            switch (elementName)
+            {
+                case "AIR_CONDITIONING": item.AIR_CONDITIONING = EnforceLength(elementValue, 3); break;
+                case "ATTIC": item.ATTIC = EnforceLength(elementValue, 1); break;
+                case "BASEMENT": item.BASEMENT = EnforceLength(elementValue, 1); break;
+                case "BATHS": item.BATHS = ParseInt(elementValue); break;
+                case "BEDROOMS": item.BEDROOMS = ParseInt(elementValue); break;
+                case "BLDG_AREA": item.BLDG_AREA = ParseInt(elementValue); break;
+                case "BLDG_TYPE": item.BLDG_TYPE = EnforceLength(elementValue, 9); break;
+                case "C_A_CLASS": item.C_A_CLASS = EnforceLength(elementValue, 4); break;
+                case "C_A_EXM_IMPRV": item.C_A_EXM_IMPRV = ParseInt(elementValue); break;
+                case "C_A_EXM_LAND": item.C_A_EXM_LAND = ParseInt(elementValue); break;
+                case "C_A_EXM_TOTAL": item.C_A_EXM_TOTAL = ParseInt(elementValue); break;
+                case "C_A_EXM_TYPE": item.C_A_EXM_TYPE = EnforceLength(elementValue, 3); break;
+                case "C_A_IMPRV": item.C_A_IMPRV = ParseInt(elementValue); break;
+                case "C_A_LAND": item.C_A_LAND = ParseInt(elementValue); break;
+                case "C_A_SYMBOL": item.C_A_SYMBOL = EnforceLength(elementValue, 1); break;
+                case "C_A_TOTAL": item.C_A_TOTAL = ParseInt(elementValue); break;
+                case "CHK_DIGIT": item.CHK_DIGIT = EnforceLength(elementValue, 1); break;
+                case "CONVEY_DATE": item.CONVEY_DATE = DateTime.Parse(elementValue); break;
+                case "CONVEY_FEE": item.CONVEY_FEE = float.Parse(elementValue); break;
+                case "CONVEY_TYPE": item.CONVEY_TYPE = EnforceLength(elementValue, 2); break;
+                case "SDIR": item.SDIR = EnforceLength(elementValue, 1); break;
+                case "DIV_ORG": item.DIV_ORG = ParseInt(elementValue); break;
+                case "FIREPLACE": item.FIREPLACE = EnforceLength(elementValue, 1); break;
+                case "GARAGE_TYPE": item.GARAGE_TYPE = EnforceLength(elementValue, 2); break;
+                case "GEO_ALDER": item.GEO_ALDER = ParseInt(elementValue); break;
+                case "GEO_ALDER_OLD": item.GEO_ALDER_OLD = ParseInt(elementValue); break;
+                case "GEO_BLOCK": item.GEO_BLOCK = EnforceLength(elementValue, 4); break;
+                case "GEO_POLICE": item.GEO_POLICE = ParseInt(elementValue); break;
+                case "GEO_TRACT": item.GEO_TRACT = ParseInt(elementValue); break;
+                case "GEO_ZIP_CODE": item.GEO_ZIP_CODE = ParseInt(elementValue); break;
+                case "HIST_CODE": item.HIST_CODE = EnforceLength(elementValue, 1); break;
+                case "HOUSE_NR_HI": item.HOUSE_NR_HI = ParseInt(elementValue); break;
+                case "HOUSE_NR_LO": item.HOUSE_NR_LO = ParseInt(elementValue); break;
+                case "HOUSE_NR_SFX": item.HOUSE_NR_SFX = EnforceLength(elementValue, 3); break;
+                case "LAND_USE": item.LAND_USE = EnforceLength(elementValue, 4); break;
+                case "LAND_USE_GP": item.LAND_USE_GP = EnforceLength(elementValue, 2); break;
+                case "LAST_NAME_CHG": item.LAST_NAME_CHG = DateTime.Parse(elementValue); break;
+                case "LAST_VALUE_CHG": item.LAST_VALUE_CHG = DateTime.Parse(elementValue); break;
+                case "LOT_AREA": item.LOT_AREA = ParseInt(elementValue); break;
+                case "NEIGHBORHOOD": item.NEIGHBORHOOD = EnforceLength(elementValue, 8); break;
+                case "NR_STORIES": item.NR_STORIES = float.Parse(elementValue); break;
+                case "NR_UNITS": item.NR_UNITS = ParseInt(elementValue); break;
+                case "OWNER_CITY_STATE": item.OWNER_CITY_STATE = EnforceLength(elementValue, 28); break;
+                case "OWNER_MAIL_ADDR": item.OWNER_MAIL_ADDR = EnforceLength(elementValue, 28); break;
+                case "OWNER_NAME_1": item.OWNER_NAME_1 = EnforceLength(elementValue, 28); break;
+                case "OWNER_NAME_2": item.OWNER_NAME_2 = EnforceLength(elementValue, 28); break;
+                case "OWNER_NAME_3": item.OWNER_NAME_3 = EnforceLength(elementValue, 28); break;
+                case "OWNER_ZIP": item.OWNER_ZIP = EnforceLength(elementValue, 9); break;
+                case "OWN_OCPD": item.OWN_OCPD = EnforceLength(elementValue, 1); break;
+                case "P_A_CLASS": item.P_A_CLASS = EnforceLength(elementValue, 1); break;
+                case "P_A_EXM_IMPRV": item.P_A_EXM_IMPRV = ParseInt(elementValue); break;
+                case "P_A_EXM_LAND": item.P_A_EXM_LAND = ParseInt(elementValue); break;
+                case "P_A_EXM_TOTAL": item.P_A_EXM_TOTAL = ParseInt(elementValue); break;
+                case "P_A_IMPRV": item.P_A_IMPRV = ParseInt(elementValue); break;
+                case "P_A_LAND": item.P_A_LAND = ParseInt(elementValue); break;
+                case "P_A_SYMBOL": item.P_A_SYMBOL = EnforceLength(elementValue, 4); break;
+                case "P_A_TOTAL": item.P_A_TOTAL = ParseInt(elementValue); break;
+                case "PLAT_PAGE": item.PLAT_PAGE = EnforceLength(elementValue, 5); break;
+                case "POWDER_ROOMS": item.POWDER_ROOMS = ParseInt(elementValue); break;
+                case "REASON_FOR_CHG": item.REASON_FOR_CHG = EnforceLength(elementValue, 3); break;
+                case "STREET": item.STREET = EnforceLength(elementValue, 18); break;
+                case "STTYPE": item.STTYPE = EnforceLength(elementValue, 2); break;
+                case "TAXKEY": item.TAXKEY = EnforceLength(elementValue, 10); break;
+                case "TAX_RATE_CD": item.TAX_RATE_CD = EnforceLength(elementValue, 2); break;
+                case "YR_ASSMT": item.YR_ASSMT = EnforceLength(elementValue, 4); break;
+                case "YR_BUILT": item.YR_BUILT = ParseInt(elementValue); break;
+                case "ZONING": item.ZONING = EnforceLength(elementValue, 7); break;
+            }
+        }
+    }
 }
