@@ -1,9 +1,9 @@
 # Launch
+* Deployment pipeline
 * ToDo: Database backups
 * Fix: Marker icons on "Crimes" page
 * Prep: Convert MkeTrashDay accounts
 * Verify: Facebook, Google accounts
-* Verify: Log retention policy
 
 # Minor Issues - Front-End
 * Fix: Crime/List page - filters lost after clicking through to detail page
@@ -38,6 +38,7 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~Verify: Log retention policy~~
 * ~~ToDo: Reenable startup jobs/tasks on prod~~
 * ~~ToDo: Set up GA events~~
 * ~~Doc: Document what's "major" and "minor"~~
