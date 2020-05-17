@@ -1,7 +1,6 @@
 # Launch
-* ToDo: Reenable startup jobs/tasks on prod
 * ToDo: Database backups
-* ToDo: Set up GA events
+* Fix: Marker icons on "Crimes" page
 * Prep: Convert MkeTrashDay accounts
 * Verify: Facebook, Google accounts
 * Verify: Log retention policy
@@ -39,6 +38,8 @@
 * Epic: Regular, automated dispatch call data export to static file (available for download)
 
 # Done
+* ~~ToDo: Reenable startup jobs/tasks on prod~~
+* ~~ToDo: Set up GA events~~
 * ~~Doc: Document what's "major" and "minor"~~
 * ~~Fix: When a filtered table is pre-filtered (based on URL), don't filter based on the map/location data ~~
 * ~~Fix: Properties View page still only shows a single property per common parcel (ideally, we'd be able to use a function when displaying an info window that could make an API call to load all properties for the common parcel)~~

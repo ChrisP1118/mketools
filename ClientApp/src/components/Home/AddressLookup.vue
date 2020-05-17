@@ -72,6 +72,8 @@ export default {
       navigator.geolocation.getCurrentPosition(this.gotPosition);
     },
     gotPosition: function (position) {
+      gtag('event', 'GotPosition', { event_category: 'Location', event_label: 'Got Position' });
+
       this.lat = position.coords.latitude;
       this.lng = position.coords.longitude;
 
@@ -93,6 +95,8 @@ export default {
       });
     },
     onSubmit: function () {
+      gtag('event', 'AddressLookup_Go', { event_category: 'Location', event_label: 'Address Lookup' });
+
       axios
         .get('/api/geocoding/fromAddress?address=' + this.number + ' ' + this.streetDirection + ' ' + this.streetName + ' ' + this.streetType)
         .then(response => {
@@ -111,6 +115,8 @@ export default {
         });
     },
     onClear: function () {
+      gtag('event', 'AddressLookup_Clear', { event_category: 'Location', event_label: 'Address Lookup Clear' });
+
       this.number = null;
       this.streetDirection = '';
       this.streetName = '';

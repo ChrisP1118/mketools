@@ -153,9 +153,12 @@ export default {
     },
     addSubscription: function () {
       if (!this.authUser) {
+        gtag('event', 'AddPickupDatesSubscriptionAnonymous', { event_category: 'Subscription', event_label: 'Add Pickup Dates Subscription - Anonymous' });
         this.$bvModal.show('subscription-modal');
         return;
       }
+
+      gtag('event', 'AddPickupDatesSubscriptionAuthenticated', { event_category: 'Subscription', event_label: 'Add Pickup Dates Subscription - Authenticated' });
 
       axios
         .post('/api/pickupDatesSubscription', {
@@ -199,6 +202,8 @@ export default {
       .then(value => {
         if (!value)
           return;
+
+        gtag('event', 'DeletePickupDatesSubscription', { event_category: 'Subscription', event_label: 'Delete Pickup Dates Subscription' });
 
         axios
           .delete('/api/PickupDatesSubscription/' + subscription.id)

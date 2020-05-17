@@ -138,9 +138,12 @@ export default {
     },
     addSubscription: function () {
       if (!this.authUser) {
+        gtag('event', 'AddDispatchCallSubscriptionAnonymous', { event_category: 'Subscription', event_label: 'Add Dispatch Call Subscription - Anonymous' });
         this.$bvModal.show('subscription-modal');
         return;
       }
+
+      gtag('event', 'AddDispatchCallSubscriptionAuthenticated', { event_category: 'Subscription', event_label: 'Add Dispatch Call Subscription - Authenticated' });
 
       axios
         .post('/api/dispatchCallSubscription', {
@@ -190,6 +193,8 @@ export default {
       .then(value => {
         if (!value)
           return;
+
+        gtag('event', 'DeleteDispatchCallSubscription', { event_category: 'Subscription', event_label: 'Delete Dispatch Call Subscription' });
 
         axios
           .delete('/api/DispatchCallSubscription/' + subscription.id)

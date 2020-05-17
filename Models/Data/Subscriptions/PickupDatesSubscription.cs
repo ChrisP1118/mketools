@@ -29,10 +29,10 @@ namespace MkeAlerts.Web.Models.Data.Subscriptions
         [MaxLength(1)]
         public string SDIR { get; set; }
 
-        [MaxLength(18)]
+        [MaxLength(19)]
         public string SNAME { get; set; }
 
-        [MaxLength(2)]
+        [MaxLength(4)]
         public string STYPE { get; set; }
     }
 }

@@ -17,10 +17,10 @@ namespace MkeAlerts.Web.Models.Data.Subscriptions
         [MaxLength(1)]
         public string SDIR { get; set; }
 
-        [MaxLength(18)]
+        [MaxLength(19)]
         public string STREET { get; set; }
 
-        [MaxLength(2)]
+        [MaxLength(4)]
         public string STTYPE { get; set; }
 
         public int HOUSE_NR { get; set; }
