@@ -41,11 +41,12 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150493181-1"></script>
     <script>
+      window.GA_TRACKING_ID = 'UA-150493181-1';
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-150493181-1');
+      gtag('config', window.GA_TRACKING_ID, { app_name: 'Monitive Web App', send_page_view: false });
     </script>
   </head>
   <body>

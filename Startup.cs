@@ -446,29 +446,22 @@ Here are the original sources for the data exposed through this API. Additional 
             RecurringJob.AddOrUpdate<ImportFireDispatchCallsJob>(x => x.Run(), "*/5 * * * *");
 
             //// Run at 10am and 10pm
-            //RecurringJob.AddOrUpdate<UpdateNextPickupDatesNotifications>(x => x.Run(), "0 10,22 * * *");
+            RecurringJob.AddOrUpdate<UpdateNextPickupDatesNotifications>(x => x.Run(), "0 10,22 * * *");
 
             //// Run every hour
-            //RecurringJob.AddOrUpdate<SendPickupDatesNotifications>(x => x.Run(), "0 * * * *");
+            RecurringJob.AddOrUpdate<SendPickupDatesNotifications>(x => x.Run(), "0 * * * *");
 
-            //if (!env.IsDevelopment())
-            //{
-            //    // Every day at 6:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
-            //    RecurringJob.AddOrUpdate<ImportCrimesJob>("ImportCrimesJob", x => x.Run(), "0 6 * * *");
+            if (!env.IsDevelopment())
+            {
+                // Every day at 6:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
+                RecurringJob.AddOrUpdate<ImportCrimesJob>("ImportCrimesJob", x => x.Run(), "0 6 * * *");
 
-            //    // Every Saturday at 6:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/mai)
-            //    RecurringJob.AddOrUpdate<ImportAddressesJob>("ImportAddressesJob", x => x.Run(), "0 6 * * SAT");
+                // First day of every month at 1:00am UTC - this dataset shouldn't really change
+                RecurringJob.AddOrUpdate<ImportCrimesArchiveJob>("ImportCrimesArchiveJob", x => x.Run(), "0 1 1 * *");
 
-            //    // Every Monday at 6:00am UTC
-            //    RecurringJob.AddOrUpdate<ImportParcelsJob>("ImportParcelsJob", x => x.Run(), "0 6 * * MON");
-
-            //    // Every Tuesday at 6:00am UTC
-            //    RecurringJob.AddOrUpdate<ImportStreetsJob>("ImportStreetsJob", x => x.Run(), "0 6 * * TUE");
-
-            //    // First day of every month at 1:00am UTC (Dataset is updated daily: https://data.milwaukee.gov/dataset/wibr)
-            //    RecurringJob.AddOrUpdate<ImportCrimesJob>("ImportCrimesArchiveJob", x => x.Run(), "0 1 1 * *");
-
-            //}
+                // Every Saturday and Wednesday at 9:00am UTC
+                RecurringJob.AddOrUpdate<ImportPropertiesJob>("ImportPropertiesJob", x => x.Run(), "0 9 * * SAT,WED");
+            }
         }
     }
 

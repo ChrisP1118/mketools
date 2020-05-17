@@ -160,8 +160,13 @@ router.beforeEach((to, from, next) => {
 });
 
 router.afterEach((to, from) => {
-  ga('set', 'page', to.path);
-  ga('send', 'pageview');
+  //ga('set', 'page', to.path);
+  //ga('send', 'pageview');
+  gtag('config', window.GA_TRACKING_ID, {
+    page_path: to.fullPath,
+    app_name: 'MkeAlerts',
+    send_page_view: true,
+  });
 });
 
 new Vue({

@@ -1,4 +1,7 @@
 # Launch
+* ToDo: Reenable startup jobs/tasks on prod
+* ToDo: Database backups
+* ToDo: Set up GA events
 * Prep: Convert MkeTrashDay accounts
 * Verify: Facebook, Google accounts
 * Verify: Log retention policy
