@@ -20,6 +20,8 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore MkeAlerts.sln
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+    - name: dotnet publish
+      run: dotnet publish -c Release
