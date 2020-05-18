@@ -18,10 +18,10 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore MkeAlerts.sln
     - name: Build
       run: dotnet build --configuration Release --no-restore MkeAlerts.sln
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --no-restore --verbosity normal MkeAlerts.sln
     - name: dotnet publish
-      run: dotnet publish -c Release
+      run: dotnet publish -c Release MkeAlerts.sln
