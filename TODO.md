@@ -1,5 +1,5 @@
 # Launch
-* Deployment pipeline
+* ToDo: Geocoding failures should be warnings, not errors
 * ToDo: Database backups
 * Fix: Marker icons on "Crimes" page
 * Prep: Convert MkeTrashDay accounts
