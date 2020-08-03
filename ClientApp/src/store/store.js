@@ -398,11 +398,11 @@ export const store = new Vuex.Store({
       return getters.getParcelPolygonFillColor(commonParcel.parcels[0]);
     },
     getParcelPolygonFillOpacity: state => parcel => {
-      if (parcel.dwelling_c >= 24)
+      if (parcel && parcel.dwelling_c >= 24)
         return 0.5;
-      if (parcel.dwelling_c >= 8)
+      if (parcel && parcel.dwelling_c >= 8)
         return 0.4;
-      else if (parcel.dwelling_c >= 2)
+      else if (parcel && parcel.dwelling_c >= 2)
         return 0.3;
       else
         return 0.2;

@@ -28,14 +28,14 @@
               <li v-if="item.owneraddr">Address: <b-link :to="'/parcel?owneraddr=' + item.owneraddr">{{item.owneraddr}}</b-link></li>
               <li v-if="item.ownerctyst">City/State: {{item.ownerctyst}}</li>
               <li v-if="item.ownerzip">Zip Code: {{item.ownerzip}}</li>
-              <li v-if="property.last_name_chg">Last Name Change: {{property.last_name_chg}}</li>
+              <li v-if="property && property.last_name_chg">Last Name Change: {{property.last_name_chg}}</li>
             </ul>            
           </b-card>
           <b-card class="mt-3">
             <h4 slot="header">Details</h4>
             <ul>
-              <li>Owner Occupied: {{property.own_ocpd == 'O' ? 'Yes' : 'No'}}</li>
-              <li>Year Built: {{property.yr_built}}</li>
+              <li v-if="property">Owner Occupied: {{property.own_ocpd == 'O' ? 'Yes' : 'No'}}</li>
+              <li v-if="property">Year Built: {{property.yr_built}}</li>
               <!-- This is unreliable with mprop2019 -->
               <!-- <li>Area: {{property.bldg_area}}</li> -->
               <!-- <li>Number of Units: {{property.nr_units}}</li>
