@@ -43,6 +43,9 @@
       use any data from them aside from your email address (only to send notifications you request).
     </p>
 
+    <h2>Status</h2>
+    <p><a href="https://status.mkealerts.com/" target="_blank">Server Status/Uptime</a></p>
+
     <!-- <h2>Interesting Data</h2>
     <ul>
       <li>Properties
