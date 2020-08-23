@@ -11,6 +11,7 @@ using MkeAlerts.Web.Models.Data.Places;
 using MkeAlerts.Web.Models.Data.Incidents;
 using MkeAlerts.Web.Models.Data.Subscriptions;
 using MkeAlerts.Web.Models.Data.AppHealth;
+using MkeAlerts.Web.Models.Data.HistoricPhotos;
 
 namespace MkeAlerts.Web.Data
 {
@@ -28,6 +29,7 @@ namespace MkeAlerts.Web.Data
         public DbSet<FireDispatchCall> FireDispatchCalls { get; set; }
         public DbSet<FireDispatchCallType> FireDispatchCallTypes { get; set; }
         public DbSet<Crime> Crimes { get; set; }
+        public DbSet<HistoricPhoto> HistoricPhotos { get; set; }
 
         public DbSet<DispatchCallSubscription> DispatchCallSubscriptions { get; set; }
         public DbSet<PickupDatesSubscription> PickupDateSubscriptions { get; set; }
@@ -173,6 +175,13 @@ namespace MkeAlerts.Web.Data
                 .HasOne(x => x.ApplicationUser)
                 .WithMany(x => x.PickupDateSubscriptions)
                 .HasForeignKey(x => x.ApplicationUserId);
+
+            /* Historic Photos */
+
+            modelBuilder.Entity<HistoricPhoto>()
+                .HasKey(x => x.Id);
+
+            // TODO: Should we index Min/Max Lat/Lng? On HistoricPhotos, but also some of these other tables?
 
             /* Accounts */
 

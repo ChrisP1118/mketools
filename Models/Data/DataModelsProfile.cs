@@ -16,6 +16,8 @@ using MkeAlerts.Web.Models.Internal;
 using MkeAlerts.Web.Models.DTO.Geocoding;
 using MkeAlerts.Web.Models.DTO.PickupDates;
 using NetTopologySuite.Geometries;
+using MkeAlerts.Web.Models.Data.HistoricPhotos;
+using MkeAlerts.Web.Models.DTO.HistoricPhotos;
 
 namespace MkeAlerts.Web.Models.Data
 {
@@ -38,6 +40,7 @@ namespace MkeAlerts.Web.Models.Data
             CreateMap<FireDispatchCall, FireDispatchCallDTO>().ReverseMap();
             CreateMap<FireDispatchCallType, FireDispatchCallTypeDTO>().ReverseMap();
             CreateMap<Crime, CrimeDTO>().ReverseMap();
+            CreateMap<HistoricPhoto, HistoricPhotoDTO>().ReverseMap();
 
             CreateMap<DispatchCallSubscription, DispatchCallSubscriptionDTO>().ReverseMap();
             CreateMap<PickupDatesSubscription, PickupDatesSubscriptionDTO>().ReverseMap();

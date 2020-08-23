@@ -1,16 +1,25 @@
 ﻿using HtmlAgilityPack;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MkeAlerts.Web.Models.Data.Accounts;
 using MkeAlerts.Web.Models.Data.AppHealth;
+using MkeAlerts.Web.Models.Data.HistoricPhotos;
+using MkeAlerts.Web.Models.Internal;
+using MkeAlerts.Web.Services;
 using MkeAlerts.Web.Services.Data.Interfaces;
 using MkeAlerts.Web.Services.Functional;
+using MkeAlerts.Web.Utilities;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Security.Policy;
 using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Jobs
@@ -19,89 +28,159 @@ namespace MkeAlerts.Web.Jobs
     {
         private static HttpClient _httpClient = new HttpClient();
 
-        public ImportHistoricPhotosJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, IJobRunService jobRunService, ILogger<LoggedJob> logger) :
+        private readonly IGeocodingService _geocodingService;
+        private readonly IEntityWriteService<HistoricPhoto, string> _historicPhotoService;
+
+        public ImportHistoricPhotosJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, IJobRunService jobRunService, ILogger<LoggedJob> logger, IGeocodingService geocodingService, IEntityWriteService<HistoricPhoto, string> historicPhotoService) :
             base(configuration, signInManager, userManager, mailerService, jobRunService, logger)
         {
+            _geocodingService = geocodingService;
+            _historicPhotoService = historicPhotoService;
         }
 
         protected override async Task RunInternal()
         {
-            await CrawlListPage(@"https://content.mpl.org/digital/collection/HstoricPho/search/order/title/ad/asc");
+            ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
+
+            for (var id = 7900; id < 8000; ++id)
+            {
+                await ProcessArchiveItem(claimsPrincipal, "MPL", id.ToString(), "https://content.mpl.org/digital/api/collections/HstoricPho/items/{0}/false", "https://content.mpl.org/digital/collection/HstoricPho/id/{0}/rec/1");
+            }
         }
 
-        private async Task CrawlListPage(string url)
+        private async Task ProcessArchiveItem(ClaimsPrincipal claimsPrincipal, string collection, string id, string apiUrl, string uiUrl)
         {
-            _logger.LogInformation("Crawling list page: {Url}", url);
+            string historicPhotoId = collection + "_" + id;
+            string url = string.Format(apiUrl, id);
 
-            string rawHtml = null;
-
-            using (HttpResponseMessage response = await _httpClient.GetAsync(url))
+            try
             {
-                if (!response.IsSuccessStatusCode)
+                HistoricPhoto historicPhoto = await _historicPhotoService.GetOne(claimsPrincipal, historicPhotoId, null);
+                if (historicPhoto != null)
                 {
-                    _logger.LogWarning("Non-success status code {StatusCode} loading {Url}", response.StatusCode.ToString(), url);
+                    _logger.LogDebug("Skipping existing historic photo: {HistoricPhotoId}", historicPhotoId);
                     return;
                 }
-                rawHtml = await response.Content.ReadAsStringAsync();
-            }
 
-            if (string.IsNullOrEmpty(rawHtml))
-                return;
-
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(rawHtml);
-
-            foreach (HtmlNode linkTag in htmlDoc.DocumentNode.SelectNodes("//a[@href]"))
-            {
-                string hrefValue = linkTag.GetAttributeValue("href", string.Empty);
-                if (hrefValue.StartsWith("https://content.mpl.org/digital/collection/HstoricPho/id/", StringComparison.OrdinalIgnoreCase))
+                string rawResponse = null;
+                using (HttpResponseMessage response = await _httpClient.GetAsync(url))
                 {
-                    await CrawlItemPage(hrefValue);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        _logger.LogWarning("Non-success status code {StatusCode} loading {Url}", response.StatusCode.ToString(), url);
+                        return;
+                    }
+                    rawResponse = await response.Content.ReadAsStringAsync();
                 }
-            }
-        }
 
-        private async Task CrawlItemPage(string url)
-        {
-            _logger.LogInformation("Crawling item page: {Url}", url);
+                var archiveItem = JsonConvert.DeserializeObject<ArchiveItem>(rawResponse);
 
-            string rawHtml = null;
+                var title = archiveItem.Fields.Where(x => x.Key == "title").FirstOrDefault()?.Value;
+                var description = archiveItem.Fields.Where(x => x.Key == "descri").FirstOrDefault()?.Value;
+                var date = archiveItem.Fields.Where(x => x.Key == "date").FirstOrDefault()?.Value;
+                var place = archiveItem.Fields.Where(x => x.Key == "place").FirstOrDefault()?.Value;
+                var currentAddress = archiveItem.Fields.Where(x => x.Key == "curren").FirstOrDefault()?.Value;
+                var oldAddress = archiveItem.Fields.Where(x => x.Key == "old").FirstOrDefault()?.Value;
 
-            using (HttpResponseMessage response = await _httpClient.GetAsync(url))
-            {
-                if (!response.IsSuccessStatusCode)
+                GeocodeResults bestResult = null;
+
+                if (!string.IsNullOrEmpty(currentAddress))
                 {
-                    _logger.LogWarning("Non-success status code {StatusCode} loading {Url}", response.StatusCode.ToString(), url);
-                    return;
+                    var currentAddresses = currentAddress.Split(';').Select(x => x.Trim()).ToList();
+                    foreach (string address in currentAddresses)
+                    {
+                        var geocodeResult = await _geocodingService.Geocode(address);
+
+                        if (geocodeResult.Accuracy == Models.GeometryAccuracy.High)
+                        {
+                            bestResult = geocodeResult;
+                            break;
+                        }
+
+                        if (geocodeResult.Accuracy == Models.GeometryAccuracy.Medium && (bestResult == null || bestResult.Accuracy == Models.GeometryAccuracy.Low))
+                            bestResult = geocodeResult;
+
+                        if (geocodeResult.Accuracy == Models.GeometryAccuracy.Low && bestResult == null)
+                            bestResult = geocodeResult;
+
+                        _logger.LogDebug("Geocoded {CurrentAddress}", currentAddress);
+                    }
                 }
-                rawHtml = await response.Content.ReadAsStringAsync();
+
+                int? year = null;
+
+                date = date.Replace("c.", "");
+                date = date.Trim();
+
+                if (date.Length >= 4 && (date.StartsWith("18") || date.StartsWith("19") || date.StartsWith("20")))
+                {
+                    int tempYear = 0;
+                    if (int.TryParse(date.Substring(0, 4), out tempYear))
+                        year = tempYear;
+                }
+
+                historicPhoto = new HistoricPhoto()
+                {
+                    Id = historicPhotoId,
+                    Collection = collection,
+                    Title = title,
+                    Description = description,
+                    Date = date,
+                    Year = year,
+                    Place = place,
+                    CurrentAddress = currentAddress,
+                    OldAddress = oldAddress,
+                    ImageUrl = archiveItem.ImageUri,
+                    Url = string.Format(uiUrl, id)
+                };
+
+                if (bestResult != null)
+                {
+                    historicPhoto.Geometry = bestResult.Geometry;
+                    historicPhoto.Accuracy = bestResult.Accuracy;
+                    historicPhoto.Source = bestResult.Source;
+                    historicPhoto.LastGeocodeAttempt = DateTime.Now;
+
+                    GeographicUtilities.SetBounds(historicPhoto, bestResult.Geometry);
+                }
+
+                await _historicPhotoService.Create(claimsPrincipal, historicPhoto);
+                ++_successCount;
+
+                _logger.LogInformation("Processed {Url}", url);
             }
+            catch (Exception ex)
+            {
+                ++_failureCount;
 
-            if (string.IsNullOrEmpty(rawHtml))
-                return;
-
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(rawHtml);
-
-            var itemImage = htmlDoc.DocumentNode.SelectSingleNode("//div[@class='ItemImage-itemImage']//img");
-            if (itemImage == null)
-                return;
-
-            string imageHref = itemImage.GetAttributeValue("href", null);
-
-            var itemMetadataTable = htmlDoc.DocumentNode.SelectSingleNode("//table[@class='ItemView-itemMetadata']");
-            if (itemMetadataTable == null)
-                return;
-
-            var itemTitle = GetMetadataValue(itemMetadataTable, "title");
-            var itemDescription = GetMetadataValue(itemMetadataTable, "descri");
+                _logger.LogError(ex, "Error processing {Url}", url);
+            }
         }
 
-        private string GetMetadataValue(HtmlNode metadataTable, string name)
+        private class ArchiveItem
         {
-            var itemTitle = metadataTable.SelectSingleNode("/tr[@class='field-" + name + "']/td[@class='field-value']/span");
-            return itemTitle.InnerText;
-
+            public string CollectionAlias { get; set; }
+            public string CollectionName { get; set; }
+            public string ContentType { get; set; }
+            public string DownloadUri { get; set; }
+            public List<ItemField> Fields { get; set; }
+            public string Filename { get; set; }
+            public string Id { get; set; }
+            public int? ImageHeight { get; set; }
+            public string ImageUri { get; set; }
+            public int? ImageWidth { get; set; }
+            public string Text { get; set; }
+            public string ThumbnailUri { get; set; }
+            public string Title { get; set; }
+            public string Url { get; set; }
         }
+
+        private class ItemField
+        {
+            public string Key { get; set; }
+            public string Title { get; set; }
+            public string Value { get; set; }
+        }
+
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MkeAlerts.Web.Data;
 using NetTopologySuite.Geometries;
@@ -10,9 +11,10 @@ using NetTopologySuite.Geometries;
 namespace MkeAlerts.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200823201938_HistoricPhotos_Collection")]
+    partial class HistoricPhotos_Collection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -159,7 +161,7 @@ namespace MkeAlerts.Web.Migrations
                         new
                         {
                             Id = new Guid("7e3f1477-2377-4e5f-b02c-a13b9795e157"),
-                            ConcurrencyStamp = "f367bc10-39b7-4039-aede-808be849108c",
+                            ConcurrencyStamp = "1280b310-51d7-4b50-98c3-57239f2af839",
                             Name = "SiteAdmin",
                             NormalizedName = "SiteAdmin"
                         });
@@ -243,13 +245,13 @@ namespace MkeAlerts.Web.Migrations
                         {
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "69bf8f79-afb1-484f-878d-fdfb7d26c19b",
+                            ConcurrencyStamp = "6fd5f273-c68a-4efb-95e7-3202bcb48635",
                             Email = "cwilson@mkealerts.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "cwilson@mkealerts.com",
                             NormalizedUserName = "cwilson@mkealerts.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ6ZHuKZgyd07ccZnYItkHG4Ix6PENDBjfQqyvjTo3bH0dvShvtzZVlxE4sDK2rbCw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMaBjUHtNctxRzokmq+8iSn54/GkHyQNv8ZEtnseggldDibsjoNnSSZdtsCw2nrXPw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -376,9 +378,6 @@ namespace MkeAlerts.Web.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
-
-                    b.Property<int?>("Year")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

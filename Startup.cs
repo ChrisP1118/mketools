@@ -49,6 +49,7 @@ using MkeAlerts.Web.Models.Data.AppHealth;
 using Hangfire.Dashboard;
 using Hangfire.Dashboard.BasicAuthorization;
 using Serilog;
+using MkeAlerts.Web.Models.Data.HistoricPhotos;
 
 namespace MkeAlerts.Web
 {
@@ -304,6 +305,8 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddTransient<IEntityWriteService<FireDispatchCallType, string>, FireDispatchCallTypeService>();
             services.AddTransient<IEntityReadService<Crime, string>, CrimeService>();
             services.AddTransient<IEntityWriteService<Crime, string>, CrimeService>();
+            services.AddTransient<IEntityReadService<HistoricPhoto, string>, HistoricPhotoService>();
+            services.AddTransient<IEntityWriteService<HistoricPhoto, string>, HistoricPhotoService>();
             services.AddTransient<IEntityReadService<DispatchCallSubscription, Guid>, DispatchCallSubscriptionService>();
             services.AddTransient<IEntityWriteService<DispatchCallSubscription, Guid>, DispatchCallSubscriptionService>();
             services.AddTransient<IEntityReadService<PickupDatesSubscription, Guid>, PickupDatesSubscriptionService>();
@@ -327,6 +330,7 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddSingleton<IValidator<FireDispatchCall>, FireDispatchCallValidator>();
             services.AddSingleton<IValidator<FireDispatchCallType>, FireDispatchCallTypeValidator>();
             services.AddSingleton<IValidator<Crime>, CrimeValidator>();
+            services.AddSingleton<IValidator<HistoricPhoto>, HistoricPhotoValidator>();
             services.AddSingleton<IValidator<DispatchCallSubscription>, DispatchCallSubscriptionValidator>();
             services.AddSingleton<IValidator<PickupDatesSubscription>, PickupDatesSubscriptionValidator>();
             services.AddSingleton<IValidator<JobRun>, JobRunValidator>();
