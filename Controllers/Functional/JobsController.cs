@@ -271,6 +271,22 @@ namespace MkeAlerts.Web.Controllers.Functional
         }
 
         /// <summary>
+        /// Imports historic photos
+        /// </summary>
+        /// <remarks>
+        /// The user making the request must be a site administrator.
+        /// </remarks>
+        /// <returns></returns>
+        [HttpPost("importHistoricPhotos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ImportHistoricPhotos()
+        {
+            BackgroundJob.Enqueue<ImportHistoricPhotosJob>(x => x.Run());
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Geocodes police dispatch calls
         /// </summary>
         /// <remarks>
