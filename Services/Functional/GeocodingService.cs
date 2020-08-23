@@ -237,7 +237,9 @@ namespace MkeAlerts.Web.Services.Functional
                 houseNumberString = houseNumberString.Substring(0, houseNumberString.IndexOf("-"));
             //houseNumberString = houseNumberString.Replace("-BLK", "");
             //houseNumberString = houseNumberString.Replace("-BLOCK", "");
-            request.HouseNumber = int.Parse(houseNumberString);
+            
+            // Strip out the non-numeric characters
+            request.HouseNumber = int.Parse(new String(houseNumberString.Where(c => char.IsDigit(c)).ToArray()));
             request.Direction = parts[1];
             request.Street = string.Join(' ', parts, 2, parts.Length - (request.StreetType == "" ? 2 : 3));
 
