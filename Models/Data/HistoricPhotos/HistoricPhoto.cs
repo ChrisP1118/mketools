@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MkeAlerts.Web.Models.Data.HistoricPhotos
 {
-    public class HistoricPhoto : IHasId<string>, IHasBounds, IGeocodable
+    public class HistoricPhoto : IHasId<string>
     {
         public string GetId() => this.Id;
 
@@ -20,24 +20,8 @@ namespace MkeAlerts.Web.Models.Data.HistoricPhotos
         [MaxLength(12)]
         public string Collection { get; set; }
 
-        public Geometry Geometry { get; set; }
-
-        [Column(TypeName = "decimal(13, 10)")]
-        public double MinLat { get; set; }
-
-        [Column(TypeName = "decimal(13, 10)")]
-        public double MaxLat { get; set; }
-
-        [Column(TypeName = "decimal(13, 10)")]
-        public double MinLng { get; set; }
-
-        [Column(TypeName = "decimal(13, 10)")]
-        public double MaxLng { get; set; }
-
-        public GeometryAccuracy? Accuracy { get; set; }
-        public GeometrySource? Source { get; set; }
-
-        public DateTime? LastGeocodeAttempt { get; set; }
+        public Guid? HistoricPhotoLocationId { get; set; }
+        public HistoricPhotoLocation HistoricPhotoLocation { get; set; }
 
         public string Title { get; set; }
         public string Description { get; set; }

@@ -30,19 +30,21 @@ namespace MkeAlerts.Web.Jobs
 
         private readonly IGeocodingService _geocodingService;
         private readonly IEntityWriteService<HistoricPhoto, string> _historicPhotoService;
+        private readonly IEntityWriteService<HistoricPhotoLocation, Guid> _historicPhotoLocationService;
 
-        public ImportHistoricPhotosJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, IJobRunService jobRunService, ILogger<LoggedJob> logger, IGeocodingService geocodingService, IEntityWriteService<HistoricPhoto, string> historicPhotoService) :
+        public ImportHistoricPhotosJob(IConfiguration configuration, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IMailerService mailerService, IJobRunService jobRunService, ILogger<LoggedJob> logger, IGeocodingService geocodingService, IEntityWriteService<HistoricPhoto, string> historicPhotoService, IEntityWriteService<HistoricPhotoLocation, Guid> historicPhotoLocationService) :
             base(configuration, signInManager, userManager, mailerService, jobRunService, logger)
         {
             _geocodingService = geocodingService;
             _historicPhotoService = historicPhotoService;
+            _historicPhotoLocationService = historicPhotoLocationService;
         }
 
         protected override async Task RunInternal()
         {
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
-            for (var id = 2000; id < 8000; ++id)
+            for (var id = 2000; id < 3000; ++id)
             {
                 await ProcessArchiveItem(claimsPrincipal, "MPL", id.ToString(), "https://content.mpl.org/digital", "https://content.mpl.org/digital/api/collections/HstoricPho/items/{0}/false", "https://content.mpl.org/digital/collection/HstoricPho/id/{0}/rec/1");
             }
@@ -82,10 +84,11 @@ namespace MkeAlerts.Web.Jobs
                 var currentAddress = archiveItem.Fields.Where(x => x.Key == "curren").FirstOrDefault()?.Value;
                 var oldAddress = archiveItem.Fields.Where(x => x.Key == "old").FirstOrDefault()?.Value;
 
-                GeocodeResults bestResult = null;
-
+                Guid? historicPhotoLocationId = null;
                 if (!string.IsNullOrEmpty(currentAddress))
                 {
+                    GeocodeResults bestResult = null;
+
                     var currentAddresses = currentAddress.Split(';').Select(x => x.Trim()).ToList();
                     foreach (string address in currentAddresses)
                     {
@@ -105,6 +108,32 @@ namespace MkeAlerts.Web.Jobs
 
                         _logger.LogDebug("Geocoded {CurrentAddress}", currentAddress);
                     }
+
+                    if (bestResult != null)
+                    {
+                        var historicPhotoLocations = await _historicPhotoLocationService.GetAll(claimsPrincipal, 0, 10, null, null, null, null, null, null, null, false, false, queryable => queryable.Where(x => x.Geometry.EqualsTopologically(bestResult.Geometry)));
+
+                        if (historicPhotoLocations.Count > 0)
+                        {
+                            historicPhotoLocationId = historicPhotoLocations[0].Id;
+                        }
+                        else
+                        {
+                            HistoricPhotoLocation historicPhotoLocation = new HistoricPhotoLocation()
+                            {
+                                Id = Guid.NewGuid(),
+                                Geometry = bestResult.Geometry,
+                                Accuracy = bestResult.Accuracy,
+                                Source = bestResult.Source,
+                                LastGeocodeAttempt = DateTime.Now
+                            };
+
+                            GeographicUtilities.SetBounds(historicPhotoLocation, bestResult.Geometry);
+
+                            await _historicPhotoLocationService.Create(claimsPrincipal, historicPhotoLocation);
+                            historicPhotoLocationId = historicPhotoLocation.Id;
+                        }
+                    }
                 }
 
                 int? year = null;
@@ -122,6 +151,7 @@ namespace MkeAlerts.Web.Jobs
                 historicPhoto = new HistoricPhoto()
                 {
                     Id = historicPhotoId,
+                    HistoricPhotoLocationId = historicPhotoLocationId,
                     Collection = collection,
                     Title = title,
                     Description = description,
@@ -133,16 +163,6 @@ namespace MkeAlerts.Web.Jobs
                     ImageUrl = imageUrlPrefix + archiveItem.ImageUri,
                     Url = string.Format(uiUrl, id)
                 };
-
-                if (bestResult != null)
-                {
-                    historicPhoto.Geometry = bestResult.Geometry;
-                    historicPhoto.Accuracy = bestResult.Accuracy;
-                    historicPhoto.Source = bestResult.Source;
-                    historicPhoto.LastGeocodeAttempt = DateTime.Now;
-
-                    GeographicUtilities.SetBounds(historicPhoto, bestResult.Geometry);
-                }
 
                 await _historicPhotoService.Create(claimsPrincipal, historicPhoto);
                 ++_successCount;

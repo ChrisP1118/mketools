@@ -1,4 +1,5 @@
-﻿using NetTopologySuite.Geometries;
+﻿using MkeAlerts.Web.Models.Data.HistoricPhotos;
+using NetTopologySuite.Geometries;
 using NetTopologySuite.IO.Converters;
 using Newtonsoft.Json;
 using System;
@@ -12,8 +13,8 @@ namespace MkeAlerts.Web.Models.DTO.HistoricPhotos
     {
         public string Id { get; set; }
 
-        [JsonConverter(typeof(GeometryConverter))]
-        public Geometry Geometry { get; set; }
+        public Guid? HistoricPhotoLocationId { get; set; }
+        public HistoricPhotoLocationDTO HistoricPhotoLocation { get; set; }
 
         public string Title { get; set; }
         public string Description { get; set; }

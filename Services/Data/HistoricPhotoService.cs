@@ -29,27 +29,6 @@ namespace MkeAlerts.Web.Services.Data
             return queryable;
         }
 
-        protected override async Task<IQueryable<HistoricPhoto>> ApplyBounds(IQueryable<HistoricPhoto> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds, bool useHighPrecision)
-        {
-            queryable = queryable
-                .Where(x =>
-                    (x.MinLat <= southBound && x.MaxLat >= southBound) ||
-                    (x.MinLat <= northBound && x.MaxLat >= northBound) ||
-                    (x.MinLat >= southBound && x.MaxLat <= northBound) ||
-                    (x.MinLat >= northBound && x.MaxLat <= southBound))
-                .Where(x =>
-                    (x.MinLng <= westBound && x.MaxLng >= westBound) ||
-                    (x.MinLng <= eastBound && x.MaxLng >= eastBound) ||
-                    (x.MinLng >= westBound && x.MaxLng <= eastBound) ||
-                    (x.MinLng >= eastBound && x.MaxLng <= westBound));
-
-            if (useHighPrecision)
-                queryable = queryable
-                    .Where(x => x.Geometry.Intersects(bounds));
-
-            return queryable;
-        }
-
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, HistoricPhoto dataModel)
         {
             // Site admins can write

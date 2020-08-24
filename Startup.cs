@@ -307,6 +307,8 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddTransient<IEntityWriteService<Crime, string>, CrimeService>();
             services.AddTransient<IEntityReadService<HistoricPhoto, string>, HistoricPhotoService>();
             services.AddTransient<IEntityWriteService<HistoricPhoto, string>, HistoricPhotoService>();
+            services.AddTransient<IEntityReadService<HistoricPhotoLocation, Guid>, HistoricPhotoLocationService>();
+            services.AddTransient<IEntityWriteService<HistoricPhotoLocation, Guid>, HistoricPhotoLocationService>();
             services.AddTransient<IEntityReadService<DispatchCallSubscription, Guid>, DispatchCallSubscriptionService>();
             services.AddTransient<IEntityWriteService<DispatchCallSubscription, Guid>, DispatchCallSubscriptionService>();
             services.AddTransient<IEntityReadService<PickupDatesSubscription, Guid>, PickupDatesSubscriptionService>();
@@ -331,6 +333,7 @@ Here are the original sources for the data exposed through this API. Additional 
             services.AddSingleton<IValidator<FireDispatchCallType>, FireDispatchCallTypeValidator>();
             services.AddSingleton<IValidator<Crime>, CrimeValidator>();
             services.AddSingleton<IValidator<HistoricPhoto>, HistoricPhotoValidator>();
+            services.AddSingleton<IValidator<HistoricPhotoLocation>, HistoricPhotoLocationValidator>();
             services.AddSingleton<IValidator<DispatchCallSubscription>, DispatchCallSubscriptionValidator>();
             services.AddSingleton<IValidator<PickupDatesSubscription>, PickupDatesSubscriptionValidator>();
             services.AddSingleton<IValidator<JobRun>, JobRunValidator>();
