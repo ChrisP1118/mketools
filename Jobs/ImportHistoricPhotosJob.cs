@@ -42,13 +42,13 @@ namespace MkeAlerts.Web.Jobs
         {
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
-            for (var id = 7000; id < 8000; ++id)
+            for (var id = 2000; id < 8000; ++id)
             {
-                await ProcessArchiveItem(claimsPrincipal, "MPL", id.ToString(), "https://content.mpl.org/digital/api/collections/HstoricPho/items/{0}/false", "https://content.mpl.org/digital/collection/HstoricPho/id/{0}/rec/1");
+                await ProcessArchiveItem(claimsPrincipal, "MPL", id.ToString(), "https://content.mpl.org/digital", "https://content.mpl.org/digital/api/collections/HstoricPho/items/{0}/false", "https://content.mpl.org/digital/collection/HstoricPho/id/{0}/rec/1");
             }
         }
 
-        private async Task ProcessArchiveItem(ClaimsPrincipal claimsPrincipal, string collection, string id, string apiUrl, string uiUrl)
+        private async Task ProcessArchiveItem(ClaimsPrincipal claimsPrincipal, string collection, string id, string imageUrlPrefix, string apiUrl, string uiUrl)
         {
             string historicPhotoId = collection + "_" + id;
             string url = string.Format(apiUrl, id);
@@ -130,7 +130,7 @@ namespace MkeAlerts.Web.Jobs
                     Place = place,
                     CurrentAddress = currentAddress,
                     OldAddress = oldAddress,
-                    ImageUrl = archiveItem.ImageUri,
+                    ImageUrl = imageUrlPrefix + archiveItem.ImageUri,
                     Url = string.Format(uiUrl, id)
                 };
 

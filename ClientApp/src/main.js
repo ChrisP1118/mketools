@@ -58,6 +58,7 @@ import FireDispatchCallList from './components/FireDispatchCall/List.vue'
 import FireDispatchCallView from './components/FireDispatchCall/View.vue'
 import CrimeList from './components/Crime/List.vue'
 import CrimeView from './components/Crime/View.vue'
+import HistoricPhotoList from './components/HistoricPhoto/List.vue'
 import DispatchCallSubscriptionUnsubscribe from './components/DispatchCallSubscription/Unsubscribe.vue'
 import PickupDatesSubscriptionUnsubscribe from './components/PickupDatesSubscription/Unsubscribe.vue'
 import PickupDatesIndex from './components/PickupDates/Index.vue'
@@ -132,6 +133,7 @@ const routes = [
   { path: '/fireDispatchCall/:id', component: FireDispatchCallView, meta: { public: true }, props: true },
   { path: '/crime', component: CrimeList, meta: { public: true } },
   { path: '/crime/:id', component: CrimeView, meta: { public: true }, props: true },
+  { path: '/historicPhoto', component: HistoricPhotoList, meta: { public: true } },
   { path: '/applicationUser', component: ApplicationUserList },
   { path: '/applicationUser/:id', component: ApplicationUserEdit, props: true },
   { path: '/dispatchCallSubscription/unsubscribe', component: DispatchCallSubscriptionUnsubscribe, meta: {public: true }},

@@ -19,6 +19,7 @@
             <b-nav-item to="/crime">Crimes</b-nav-item>
             <b-nav-item to="/pickupDates">Garbage and Recycling</b-nav-item>
             <b-nav-item to="/parcel">Properties</b-nav-item>
+            <b-nav-item to="/historicPhoto">Historic Photos</b-nav-item>
           </b-navbar-nav>
 
           <b-navbar-nav class="ml-auto">

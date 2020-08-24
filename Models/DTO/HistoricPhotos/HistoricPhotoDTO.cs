@@ -18,6 +18,7 @@ namespace MkeAlerts.Web.Models.DTO.HistoricPhotos
         public string Title { get; set; }
         public string Description { get; set; }
         public string Date { get; set; }
+        public int? Year { get; set; }
         public string Place { get; set; }
         public string CurrentAddress { get; set; }
         public string OldAddress { get; set; }
