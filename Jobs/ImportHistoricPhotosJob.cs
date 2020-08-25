@@ -44,7 +44,7 @@ namespace MkeAlerts.Web.Jobs
         {
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
-            for (var id = 2000; id < 3000; ++id)
+            for (var id = 1; id < 12000; ++id)
             {
                 await ProcessArchiveItem(claimsPrincipal, "MPL", id.ToString(), "https://content.mpl.org/digital", "https://content.mpl.org/digital/api/collections/HstoricPho/items/{0}/false", "https://content.mpl.org/digital/collection/HstoricPho/id/{0}/rec/1");
             }
@@ -138,14 +138,17 @@ namespace MkeAlerts.Web.Jobs
 
                 int? year = null;
 
-                date = date.Replace("c.", "");
-                date = date.Trim();
-
-                if (date.Length >= 4 && (date.StartsWith("18") || date.StartsWith("19") || date.StartsWith("20")))
+                if (date != null)
                 {
-                    int tempYear = 0;
-                    if (int.TryParse(date.Substring(0, 4), out tempYear))
-                        year = tempYear;
+                    date = date.Replace("c.", "");
+                    date = date.Trim();
+
+                    if (date.Length >= 4 && (date.StartsWith("18") || date.StartsWith("19") || date.StartsWith("20")))
+                    {
+                        int tempYear = 0;
+                        if (int.TryParse(date.Substring(0, 4), out tempYear))
+                            year = tempYear;
+                    }
                 }
 
                 historicPhoto = new HistoricPhoto()
