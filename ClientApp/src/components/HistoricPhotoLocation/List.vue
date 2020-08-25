@@ -10,7 +10,7 @@
         </b-card>        
       </b-col>
     </b-row>
-    <p class="small">This list contains historic photos from the <a href="http://www.mpl.org/special_collections/images/index.php?slug=milwaukee-historic-photos" target="_blank">Milwaukee
+    <p class="small">These historic photos are from the <a href="http://www.mpl.org/special_collections/images/index.php?slug=milwaukee-historic-photos" target="_blank">Milwaukee
       Public Library's historic photos collection</a>.
     </p>
     <b-row>
