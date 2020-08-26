@@ -82,3 +82,9 @@ When running .NET stuff, be in the root folder.
 # Entity Framework Core Commands
 * Add EF migrations with: dotnet ef migrations add MigrationName
 * Update database with: dotnet ef database update
+
+# Full Resolution IIIF Images
+* https://github.com/lovasoa/dezoomify/wiki/How-to-download-full-resolution-images-from-an-IIIF-compatible-server
+* Example
+  * Original image URL: https://cdm16698.contentdm.oclc.org/digital/iiif/MKEMaps/33/0,0,3929,4096/983,/0/default.jpg?highlightTerms=
+  * Full res URL: https://cdm16698.contentdm.oclc.org/digital/iiif/MKEMaps/33/full/full/0/default.jpg?highlightTerms=

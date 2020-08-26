@@ -65,7 +65,7 @@ import PickupDatesSubscriptionUnsubscribe from './components/PickupDatesSubscrip
 import PickupDatesIndex from './components/PickupDates/Index.vue'
 
 // Leaflet
-import { LMap, LTileLayer, LMarker, LPopup, LCircle, LPolygon } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker, LPopup, LCircle, LPolygon, LImageOverlay } from 'vue2-leaflet';
 import { Icon } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -75,6 +75,7 @@ Vue.component('l-marker', LMarker);
 Vue.component('l-polygon', LPolygon);
 Vue.component('l-popup', LPopup);
 Vue.component('l-circle', LCircle);
+Vue.component('l-image-overlay', LImageOverlay);
 
 delete Icon.Default.prototype._getIconUrl;
 
