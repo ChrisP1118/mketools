@@ -29,6 +29,27 @@ namespace MkeAlerts.Web.Services.Data
             return queryable;
         }
 
+        protected override async Task<IQueryable<HistoricPhoto>> ApplyBounds(IQueryable<HistoricPhoto> queryable, double northBound, double southBound, double eastBound, double westBound, Polygon bounds, bool useHighPrecision)
+        {
+            queryable = queryable
+                .Where(x =>
+                    (x.HistoricPhotoLocation.MinLat <= southBound && x.HistoricPhotoLocation.MaxLat >= southBound) ||
+                    (x.HistoricPhotoLocation.MinLat <= northBound && x.HistoricPhotoLocation.MaxLat >= northBound) ||
+                    (x.HistoricPhotoLocation.MinLat >= southBound && x.HistoricPhotoLocation.MaxLat <= northBound) ||
+                    (x.HistoricPhotoLocation.MinLat >= northBound && x.HistoricPhotoLocation.MaxLat <= southBound))
+                .Where(x =>
+                    (x.HistoricPhotoLocation.MinLng <= westBound && x.HistoricPhotoLocation.MaxLng >= westBound) ||
+                    (x.HistoricPhotoLocation.MinLng <= eastBound && x.HistoricPhotoLocation.MaxLng >= eastBound) ||
+                    (x.HistoricPhotoLocation.MinLng >= westBound && x.HistoricPhotoLocation.MaxLng <= eastBound) ||
+                    (x.HistoricPhotoLocation.MinLng >= eastBound && x.HistoricPhotoLocation.MaxLng <= westBound));
+
+            if (useHighPrecision)
+                queryable = queryable
+                    .Where(x => x.HistoricPhotoLocation.Geometry.Intersects(bounds));
+
+            return queryable;
+        }
+
         protected override async Task<bool> CanWrite(ApplicationUser applicationUser, HistoricPhoto dataModel)
         {
             // Site admins can write

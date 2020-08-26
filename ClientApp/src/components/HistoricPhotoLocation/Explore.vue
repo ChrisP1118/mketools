@@ -28,7 +28,7 @@
           </b-button-group>
           <b-button-group>
             <b-dropdown text="Eras">
-              <b-dropdown-item-button v-for="eraOption in eras" v-bind:key="eraOption.value" @click="eraOption.checked = !eraOption.checked">
+              <b-dropdown-item-button v-for="eraOption in eras" v-bind:key="eraOption.value" @click="eraOption.checked = !eraOption.checked; redrawItems()">
                 <font-awesome-icon icon="square" v-if="!eraOption.checked" />
                 <font-awesome-icon icon="check-square" v-if="eraOption.checked" />
                 {{eraOption.text}}
@@ -72,7 +72,7 @@
         </div>
         <div v-if="selectedItem">
           <b-card-group columns>
-            <b-card v-for="(historicPhoto, index) in filteredHistoricPhotos" v-bind:key="index">
+            <b-card v-for="(historicPhoto, index) in selectedItem.filteredHistoricPhotos" v-bind:key="index">
               <template v-slot:header>
                 <span class="float-right" v-if="historicPhoto.year">
                   <b-badge>{{historicPhoto.year}}</b-badge>
@@ -95,7 +95,7 @@
         </div>
       </b-col>
     </b-row>
-    <b-modal id="modalFullSizeImage" size="lg" scrollable :title="selectedHistoricPhoto ? selectedHistoricPhoto.title : ''">
+    <b-modal id="modalFullSizeImage" size="lg" scrollable :title="selectedHistoricPhoto ? selectedHistoricPhoto.title : ''" ok-only>
       <div v-if="selectedHistoricPhoto" class="text-center">
         <b-img :src="selectedHistoricPhoto.imageUrl"></b-img>
       </div>
@@ -105,7 +105,6 @@
 
 <script>
 import axios from "axios";
-import moment from 'moment'
 
 export default {
   name: "HistoricPhotoLocationExplore",
@@ -190,36 +189,54 @@ export default {
       },
       eras: [
         {
-          value: '1880',
           text: 'Before 1880',
-          filter: x => x.filter(y => y.date < 1880),
+          filter: x => x.year && x.year < 1880,
           checked: true
         },
         {
-          value: '1880-1900',
           text: '1880-1900',
-          filter: x => x.filter(y => y.date >= 1880 && y.date < 1900),
+          filter: x => x.year && x.year >= 1880 && x.year < 1900,
           checked: true
         },
         {
-          value: '1900-1920',
           text: '1900-1920',
-          filter: x => x.filter(y => y.date >= 1900 && y.date < 1920),
+          filter: x => x.year && x.year >= 1900 && x.year < 1920,
           checked: true
         },
         {
-          value: '1920-1960',
-          text: '1920-1960',
+          text: '1920-1940',
+          filter: x => x.year && x.year >= 1920 && x.year < 1940,
           checked: true
         },
         {
-          value: '>=1960',
-          text: 'After 1960',
+          text: '1940-1960',
+          filter: x => x.year && x.year >= 1940 && x.year < 1960,
+          checked: true
+        },
+        {
+          text: '1960-1980',
+          filter: x => x.year && x.year >= 1960 && x.year < 1980,
+          checked: true
+        },
+        {
+          text: '1980-2000',
+          filter: x => x.year && x.year >= 1980 && x.year < 2000,
+          checked: true
+        },
+        {
+          text: 'After 2000',
+          filter: x => x.year && x.year >= 2000,
+          checked: true
+        },
+        {
+          text: 'Undated',
+          filter: x => !x.year,
           checked: true
         }
       ],
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       markers: [],
+      rawItems: [],
       items: [],
       selectedItem: null,
       selectedHistoricPhoto: null
@@ -229,17 +246,6 @@ export default {
     selectedOverlay () {
       return this.overlays.find(x => x.value == this.overlay);
     },
-    filteredHistoricPhotos () {
-      if (!this.selectedItem || !this.selectedItem.historicPhotos)
-        return [];
-
-      return this.selectedItem.historicPhotos;
-
-      // let retVal = [];
-      // this.eras.filter(era => era.checked).forEach(era => retVal.push(era.filter(selectedItem.historicPhotos)));
-
-      // return retVal;
-    }
   },
   methods: {
     zoomUpdated (zoom) {
@@ -274,37 +280,47 @@ export default {
       axios
         .get(url)
         .then(response => {
-          this.items = response.data;
+          this.rawItems = response.data;
 
-          this.markers = [];
-          this.items.forEach(item => {
-
-          if (!item || !item.geometry || !item.geometry.coordinates)
-            return null;
-
-            let geometry = {
-              lat: item.geometry.coordinates[1],
-              lng: item.geometry.coordinates[0]
-            }
-
-            let icon = 'https://maps.google.com/mapfiles/kml/paddle/wht-blank.png';
-
-            this.markers.push({
-              id: item.id,
-              icon: L.icon({
-                iconUrl: icon,
-                iconSize: [40, 40],
-                iconAnchor: [20, 0]
-              }),
-              position: geometry,
-            });
-          });
-
+          this.redrawItems();
         })
         .catch(error => {
           console.log(error);
         });
+    },
+    redrawItems: function () {
+      this.items = this.rawItems;
 
+      this.markers = [];
+      this.items.forEach(item => {
+
+        if (!item || !item.geometry || !item.geometry.coordinates)
+          return;
+
+        //let retVal = [];
+        let eras = this.eras.filter(era => era.checked);
+        item.filteredHistoricPhotos = item.historicPhotos.filter(x => eras.some(era => era.filter(x)));
+
+        if (item.filteredHistoricPhotos.length == 0)
+          return;
+
+        let geometry = {
+          lat: item.geometry.coordinates[1],
+          lng: item.geometry.coordinates[0]
+        }
+
+        let icon = 'https://maps.google.com/mapfiles/kml/paddle/wht-blank.png';
+
+        this.markers.push({
+          id: item.id,
+          icon: L.icon({
+            iconUrl: icon,
+            iconSize: [40, 40],
+            iconAnchor: [20, 0]
+          }),
+          position: geometry,
+        });
+      });
     }
   },
   watch: {
