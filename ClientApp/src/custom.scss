@@ -108,3 +108,20 @@ $enable-gradients: true;
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.explore-map-wrapper {
+  width: 100%;
+  height: 50vh;
+}
+
+@include media-breakpoint-up(lg) {
+  .explore-map-wrapper {
+    width: 100%;
+    height: 80vh;
+  }
+}
+
+.explore-map {
+  width: 100%;
+  height: 100%;
+}
