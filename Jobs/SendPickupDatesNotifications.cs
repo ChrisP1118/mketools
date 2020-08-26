@@ -61,7 +61,7 @@ namespace MkeAlerts.Web.Jobs
                 await SendNotification(garbageSubscription, "garbage", garbageSubscription.NextGarbagePickupDate, s => s.NextGarbagePickupNotification = null);
 
             foreach (PickupDatesSubscription recyclingSubscription in recyclingSubscriptions)
-                await SendNotification(recyclingSubscription, "recycling", recyclingSubscription.NextGarbagePickupDate, s => s.NextRecyclingPickupNotification = null);
+                await SendNotification(recyclingSubscription, "recycling", recyclingSubscription.NextRecyclingPickupDate, s => s.NextRecyclingPickupNotification = null);
         }
 
         private async Task SendNotification(PickupDatesSubscription subscription, string type, DateTime? nextPickup, Action<PickupDatesSubscription> updateAction)
