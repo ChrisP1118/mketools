@@ -98,3 +98,6 @@ When running .NET stuff, be in the root folder.
   * 1934
     * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/669/4096,2048,2048,2048/1024,/0/default.jpg?highlightTerms=
     * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/669/full/full/0/default.jpg?highlightTerms=
+  * 1901
+    * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/665/full/359,/0/default.jpg?highlightTerms=
+    * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/665/full/full/0/default.jpg?highlightTerms=

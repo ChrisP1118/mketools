@@ -18,8 +18,27 @@
     </b-row>
     <b-row>
       <b-col lg="4" xl="6" class="mb-3">
-        <b-form-select v-model="overlay" :options="overlays" class="w-75"></b-form-select>
-        <b-form-spinbutton v-model="opacity" min="0" max="1" step="0.1" inline class="w-25"></b-form-spinbutton>
+        <div>
+        <b-button-toolbar>
+          <b-button-group>
+            <b-dropdown :text="selectedOverlay.text">
+              <b-dropdown-item v-for="overlayOption in overlays" v-bind:key="overlayOption.value" @click="overlay = overlayOption.value">{{overlayOption.text}}</b-dropdown-item>
+            </b-dropdown>
+            <b-form-spinbutton v-if="overlay != ''" v-model="opacity" min="0" max="1" step="0.1"></b-form-spinbutton>
+          </b-button-group>
+          <b-button-group>
+            <b-dropdown text="Eras">
+              <b-dropdown-item-button v-for="eraOption in eras" v-bind:key="eraOption.value" @click="eraOption.checked = !eraOption.checked">
+                <font-awesome-icon icon="square" v-if="!eraOption.checked" />
+                <font-awesome-icon icon="check-square" v-if="eraOption.checked" />
+                {{eraOption.text}}
+              </b-dropdown-item-button>
+            </b-dropdown>
+          </b-button-group>
+        </b-button-toolbar>
+        </div>
+        <!-- <b-form-select v-model="overlay" :options="overlays" class="w-75"></b-form-select> -->
+        <!-- <b-form-spinbutton v-if="overlay != ''" v-model="opacity" min="0" max="1" step="0.1"></b-form-spinbutton> -->
         <div class="explore-map-wrapper">
           <l-map class="explore-map" :zoom="zoom" :center="center" @update:zoom="zoomUpdated" @update:center="centerUpdated" @update:bounds="boundsUpdated" @ready="refreshItems">
             <l-image-overlay v-if="selectedOverlay" :url="selectedOverlay.url" :opacity="opacity" :bounds="[[selectedOverlay.boundN, selectedOverlay.boundW], [selectedOverlay.boundS, selectedOverlay.boundE]]"></l-image-overlay>
@@ -53,9 +72,14 @@
         </div>
         <div v-if="selectedItem">
           <b-card-group columns>
-            <b-card v-for="(historicPhoto, index) in selectedItem.historicPhotos" v-bind:key="index">
+            <b-card v-for="(historicPhoto, index) in filteredHistoricPhotos" v-bind:key="index">
               <template v-slot:header>
-                <h4><a :href="historicPhoto.url" target="_blank">{{historicPhoto.title}}</a></h4>
+                <span class="float-right" v-if="historicPhoto.year">
+                  <b-badge>{{historicPhoto.year}}</b-badge>
+                </span>
+                <h4>
+                  <a :href="historicPhoto.url" target="_blank">{{historicPhoto.title}}</a>
+                </h4>
               </template>
               <b-card-img :src="historicPhoto.imageUrl" @click="onThumbnailClick(historicPhoto)"></b-card-img>
               <b-card-title>{{historicPhoto.place}}</b-card-title>
@@ -101,7 +125,7 @@ export default {
       overlays: [
         {
           value: '',
-          text: 'None',
+          text: 'No Map Overlay',
           url: '/Pixel.png',
           boundE: -87.852897,
           boundW: -88.056214,
@@ -164,6 +188,36 @@ export default {
           lng: -87.91456093428515
         }
       },
+      eras: [
+        {
+          value: '1880',
+          text: 'Before 1880',
+          filter: x => x.filter(y => y.date < 1880),
+          checked: true
+        },
+        {
+          value: '1880-1900',
+          text: '1880-1900',
+          filter: x => x.filter(y => y.date >= 1880 && y.date < 1900),
+          checked: true
+        },
+        {
+          value: '1900-1920',
+          text: '1900-1920',
+          filter: x => x.filter(y => y.date >= 1900 && y.date < 1920),
+          checked: true
+        },
+        {
+          value: '1920-1960',
+          text: '1920-1960',
+          checked: true
+        },
+        {
+          value: '>=1960',
+          text: 'After 1960',
+          checked: true
+        }
+      ],
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       markers: [],
       items: [],
@@ -174,6 +228,17 @@ export default {
   computed: {
     selectedOverlay () {
       return this.overlays.find(x => x.value == this.overlay);
+    },
+    filteredHistoricPhotos () {
+      if (!this.selectedItem || !this.selectedItem.historicPhotos)
+        return [];
+
+      return this.selectedItem.historicPhotos;
+
+      // let retVal = [];
+      // this.eras.filter(era => era.checked).forEach(era => retVal.push(era.filter(selectedItem.historicPhotos)));
+
+      // return retVal;
     }
   },
   methods: {
