@@ -1,7 +1,35 @@
 <template>
   <div>
-    <page-title title="Historic Photos" />
-    <b-row class="mb-3">
+    <!-- <page-title title="Historic Photos" /> -->
+    <b-row v-show="!addressData">
+      <b-col>
+        <b-jumbotron class="text-center">
+          <template v-slot:header>
+            <img src="../../assets/MkeAlerts_100_60.png" style="margin-bottom: 8px;" />
+            MKE Historic Photos
+          </template>
+          <template v-slot:lead>
+            Explore <a href="http://www.mpl.org/special_collections/images/index.php?slug=milwaukee-historic-photos" target="_blank">Milwaukee Public Library's historic photo collection</a>
+          </template>
+          <p>Enter an address to get started or jump to the map below.</p>
+          <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" :noGeolookup="true" />
+        </b-jumbotron>
+      </b-col>
+    </b-row>
+    <b-row v-show="addressData" class="mb-3">
+      <b-col>
+        <b-card bg-variant="light">
+          <b-card-text>
+            <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" :noGeolookup="true"/>
+            <hr />
+            <div class="text-center">
+              Explore <a href="http://www.mpl.org/special_collections/images/index.php?slug=milwaukee-historic-photos" target="_blank">Milwaukee Public Library's historic photo collection</a>
+            </div>
+          </b-card-text>
+        </b-card>        
+      </b-col>
+    </b-row>
+    <!-- <b-row class="mb-3">
       <b-col>
         <b-card bg-variant="light" class="mb-3">
           <b-card-text class="text-center">
@@ -15,7 +43,7 @@
           </b-card-text>
         </b-card>
       </b-col>
-    </b-row>
+    </b-row> -->
     <b-row>
       <b-col lg="4" xl="6" class="mb-3">
         <div>
@@ -37,8 +65,6 @@
           </b-button-group>
         </b-button-toolbar>
         </div>
-        <!-- <b-form-select v-model="overlay" :options="overlays" class="w-75"></b-form-select> -->
-        <!-- <b-form-spinbutton v-if="overlay != ''" v-model="opacity" min="0" max="1" step="0.1"></b-form-spinbutton> -->
         <div class="explore-map-wrapper">
           <l-map class="explore-map" :zoom="zoom" :center="center" @update:zoom="zoomUpdated" @update:center="centerUpdated" @update:bounds="boundsUpdated" @ready="refreshItems">
             <l-image-overlay v-if="selectedOverlay" :url="selectedOverlay.url" :opacity="opacity" :bounds="[[selectedOverlay.boundN, selectedOverlay.boundW], [selectedOverlay.boundS, selectedOverlay.boundE]]"></l-image-overlay>
