@@ -26,7 +26,7 @@
             </b-dropdown>
             <b-form-spinbutton v-if="overlay != ''" v-model="opacity" min="0" max="1" step="0.1"></b-form-spinbutton>
           </b-button-group>
-          <b-button-group>
+          <b-button-group class="ml-3">
             <b-dropdown text="Eras">
               <b-dropdown-item-button v-for="eraOption in eras" v-bind:key="eraOption.value" @click="eraOption.checked = !eraOption.checked; redrawItems()">
                 <font-awesome-icon icon="square" v-if="!eraOption.checked" />
@@ -300,6 +300,22 @@ export default {
         //let retVal = [];
         let eras = this.eras.filter(era => era.checked);
         item.filteredHistoricPhotos = item.historicPhotos.filter(x => eras.some(era => era.filter(x)));
+        item.filteredHistoricPhotos.sort((a, b) => {
+          if (!a.year && !b.year)
+            return 0;
+          else if (!a.year)
+            return -1;
+          else if (!b.year)
+            return 1;
+          else if (a.year == b.year)
+            return 0;
+          else if (a.year < b.year)
+            return -1;
+          else
+            return 1;
+        });
+
+        console.log(item.filteredHistoricPhotos);
 
         if (item.filteredHistoricPhotos.length == 0)
           return;
