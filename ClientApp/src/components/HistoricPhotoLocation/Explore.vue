@@ -31,9 +31,7 @@
       </b-col>
       <b-col lg="8" xl="6">
         <div v-if="!selectedItem">
-          {{overlay}}
-          {{selectedOverlay}}
-          <div v-if="selectedOverlay">
+          <div v-if="editOverlay && selectedOverlay">
             <div>
               <b-input v-model="opacity"></b-input>
             </div>
@@ -94,8 +92,11 @@ export default {
       addressData: null,
       locationData: null,
       tileUrl: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+      //tileUrl: 'http://a.tile.stamen.com/toner/{z}/{x}/{y}.png',
       zoom: 17,
       center: [43.0417177, -87.9098005],
+      // Set this to true to modify overlay coordinates
+      editOverlay: false,
       overlay: '',
       overlays: [
         {
@@ -115,6 +116,15 @@ export default {
           boundW: -87.960374,
           boundN: 43.078201,
           boundS: 43.000276
+        },
+        {
+          value: '1901',
+          text: '1901 - Map of Milwaukee',
+          url: '/Mke-1901.jpg',
+          boundE: -87.863937,
+          boundW: -87.98829,
+          boundN: 43.099701,
+          boundS: 42.963626
         },
         {
           value: '1912',
