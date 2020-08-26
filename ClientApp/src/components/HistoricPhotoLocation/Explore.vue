@@ -90,17 +90,22 @@ export default {
   props: {},
   data() {
     return {
-      opacity: 0.2,
+      opacity: 0.4,
       addressData: null,
       locationData: null,
       tileUrl: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
       zoom: 17,
       center: [43.0417177, -87.9098005],
-      overlay: '1931Transit',
+      overlay: '',
       overlays: [
         {
           value: '',
-          text: 'None'
+          text: 'None',
+          url: '/Pixel.png',
+          boundE: -87.852897,
+          boundW: -88.056214,
+          boundN: 43.145601,
+          boundS: 42.907076
         },
         {
           value: '1931Transit',
@@ -109,26 +114,9 @@ export default {
           boundE: -87.852897,
           boundW: -88.056214,
           boundN: 43.145601,
-          boundS: 42.907076,
+          boundS: 42.907076
         }
       ],
-      // Overlay editing
-      //boundE: -87.855527,
-      //boundW: -88.057924,
-      //boundN: 43.144601,
-      //boundS: 42.907076,
-      // overlayBounds: [
-      //   [43.133601, -88.044924],
-      //   [42.898076, -87.856327]
-      //   // [
-      //   //   43.19065313818291,
-      //   //   -87.6551432203354
-      //   // ],
-      //   // [
-      //   //   42.84223446764269,
-      //   //   -88.28823037853854
-      //   // ]
-      // ],
       bounds: {
         _northEast: {
           lat: 43.04344109368516,
@@ -139,16 +127,6 @@ export default {
           lng: -87.91456093428515
         }
       },
-      // maxBounds: {
-      //   _northEast: {
-      //     lat: 43.19065313818291,
-      //     lng: -87.6551432203354
-      //   },
-      //   _southWest: {
-      //     lat: 42.84223446764269,
-      //     lng: -88.28823037853854
-      //   }
-      // },
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
       markers: [],
       items: [],
@@ -169,8 +147,6 @@ export default {
       this.center = center;
     },
     boundsUpdated (bounds) {
-      console.log('bounds');
-      console.log(bounds);
       this.bounds = bounds;
       this.refreshItems();
     },
@@ -185,7 +161,7 @@ export default {
       if (!this.bounds)
         return;
 
-      let url ='/api/historicPhotoLocation?includes=historicPhotos&limit=100';
+      let url ='/api/historicPhotoLocation?includes=historicPhotos&limit=200';
 
       url += 
         '&northBound=' + this.bounds._northEast.lat +
