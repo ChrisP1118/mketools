@@ -88,3 +88,7 @@ When running .NET stuff, be in the root folder.
 * Example
   * Original image URL: https://cdm16698.contentdm.oclc.org/digital/iiif/MKEMaps/33/0,0,3929,4096/983,/0/default.jpg?highlightTerms=
   * Full res URL: https://cdm16698.contentdm.oclc.org/digital/iiif/MKEMaps/33/full/full/0/default.jpg?highlightTerms=
+  * Original image URL: https://ids.lib.harvard.edu/ids/iiif/10327530/5120,5120,1024,1024/1024,/0/default.jpg
+  * Full res URL: https://ids.lib.harvard.edu/ids/iiif/10327530/full/full/0/default.jpg
+  * Original image URL: https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/672/4096,6144,2048,2048/1024,/0/default.jpg?highlightTerms=
+  * Full res URL: https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/672/full/full/0/default.jpg?highlightTerms=

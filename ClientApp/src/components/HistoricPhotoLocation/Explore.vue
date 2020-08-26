@@ -108,6 +108,15 @@ export default {
           boundS: 42.907076
         },
         {
+          value: '1887',
+          text: '1887 - Map of Milwaukee',
+          url: '/Mke-1887.jpg',
+          boundE: -87.865597,
+          boundW: -87.960374,
+          boundN: 43.078201,
+          boundS: 43.000276
+        },
+        {
           value: '1931Transit',
           text: '1931 - Street Car and Bus Routes',
           url: '/Mke-1931-Transit.jpg',
