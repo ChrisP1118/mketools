@@ -117,13 +117,31 @@ export default {
           boundS: 43.000276
         },
         {
+          value: '1912',
+          text: '1912 - Map of Milwaukee',
+          url: '/Mke-1912.jpg',
+          boundE: -87.855597,
+          boundW: -87.99109,
+          boundN: 43.095801,
+          boundS: 42.980526
+        },
+        {
           value: '1931Transit',
-          text: '1931 - Street Car and Bus Routes',
+          text: '1931 - Milwaukee Street Car and Bus Routes',
           url: '/Mke-1931-Transit.jpg',
           boundE: -87.852897,
           boundW: -88.056214,
           boundN: 43.145601,
           boundS: 42.907076
+        },
+        {
+          value: '1934',
+          text: '1934 - Map of Milwaukee',
+          url: '/Mke-1934.jpg',
+          boundE: -87.856597,
+          boundW: -88.051674,
+          boundN: 43.14341,
+          boundS: 42.90983
         }
       ],
       bounds: {
