@@ -383,7 +383,7 @@ Here are the original sources for the data exposed through this API. Additional 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("v1/swagger.json", "Milwaukee Alerts API - V1");
+                c.SwaggerEndpoint("v1/swagger.json", "MKE Tools API - V1");
             });
 
             app.UseSerilogRequestLogging();

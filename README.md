@@ -103,6 +103,7 @@ When running .NET stuff, be in the root folder.
     * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/665/full/full/0/default.jpg?highlightTerms=
 
 # To Do
+* When logging in, an invalid password doesn't display an error message
 * Test SSO w/Google, Facebook
 * Update OAuth site name w/Google, Facebook
 * Email setup for mke.tools
