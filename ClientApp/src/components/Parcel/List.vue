@@ -1,12 +1,11 @@
 <template>
   <div>
-    <!-- <page-title title="Properties" /> -->
     <b-row v-show="!addressData">
       <b-col>
         <b-jumbotron class="text-center">
           <template v-slot:header>
-            <img src="../../assets/MkeAlerts_100_60.png" style="margin-bottom: 8px;" />
-            MKE Property Data
+            <img src="../../assets/MkeProperties_100_60.png" />
+            MKE Properties
           </template>
           <template v-slot:lead>
             <div>
@@ -28,19 +27,6 @@
         </b-card>        
       </b-col>
     </b-row>
-    <!-- <b-row class="mb-3">
-      <b-col>
-        <b-card bg-variant="light">
-          <b-card-text>
-            <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" />
-          </b-card-text>
-        </b-card>        
-      </b-col>
-    </b-row> -->
-    <!-- <p class="small">
-      This page displays data, including assessment and ownership data, from public property records.
-      <a href="https://data.milwaukee.gov/dataset/mprop" target="_blank">More details are available here.</a>
-    </p> -->
     <b-row>
       <b-col>
         <hr />

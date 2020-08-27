@@ -1,11 +1,10 @@
 <template>
   <div>
-    <!-- <page-title title="Historic Photos" /> -->
     <b-row v-show="!addressData">
       <b-col>
         <b-jumbotron class="text-center">
           <template v-slot:header>
-            <img src="../../assets/MkeAlerts_100_60.png" style="margin-bottom: 8px;" />
+            <img src="../../assets/MkeHistoricPhotos_100_60.png" />
             MKE Historic Photos
           </template>
           <template v-slot:lead>
@@ -29,21 +28,6 @@
         </b-card>        
       </b-col>
     </b-row>
-    <!-- <b-row class="mb-3">
-      <b-col>
-        <b-card bg-variant="light" class="mb-3">
-          <b-card-text class="text-center">
-            This page lets you explore historic photos from the <a href="http://www.mpl.org/special_collections/images/index.php?slug=milwaukee-historic-photos" target="_blank">
-            Milwaukee Public Library's historic photos collection</a>.
-          </b-card-text>
-        </b-card>
-        <b-card bg-variant="light">
-          <b-card-text>
-            <address-lookup :addressData.sync="addressData" :locationData.sync="locationData" />
-          </b-card-text>
-        </b-card>
-      </b-col>
-    </b-row> -->
     <b-row>
       <b-col lg="4" xl="6" class="mb-3">
         <div>
@@ -340,8 +324,6 @@ export default {
           else
             return 1;
         });
-
-        console.log(item.filteredHistoricPhotos);
 
         if (item.filteredHistoricPhotos.length == 0)
           return;

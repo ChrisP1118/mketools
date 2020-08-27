@@ -47,10 +47,11 @@ import Developers from './components/Developers.vue'
 import Login from './components/Login.vue'
 import Logout from './components/Logout.vue'
 import Home from './components/Home.vue'
-import ParcelList from './components/Parcel/List.vue'
-import ParcelView from './components/Parcel/View.vue'
 import ApplicationUserList from './components/ApplicationUser/List.vue'
 import ApplicationUserFields from './components/ApplicationUser/Fields.vue'
+import AlertHome from './components/Alerts/Home.vue'
+import ParcelList from './components/Parcel/List.vue'
+import ParcelView from './components/Parcel/View.vue'
 import ApplicationUserEdit from './components/ApplicationUser/Edit.vue'
 import PoliceDispatchCallList from './components/PoliceDispatchCall/List.vue'
 import PoliceDispatchCallView from './components/PoliceDispatchCall/View.vue'
@@ -123,25 +124,26 @@ Vue.config.productionTip = false;
 const routes = [
   { path: '/', component: Home, meta: { public: true } },
   { path: '/about', component: About, meta: { public: true } },
-  { path: '/dispatchCallTypes', component: DispatchCallTypes, meta: { public: true } },
   { path: '/developers', component: Developers, meta: { public: true } },
   { path: '/login', component: Login, meta: { public: true } },
   { path: '/logout', component: Logout, meta: { public: true } },
-  { path: '/parcel', component: ParcelList, meta: { public: true } },
-  { path: '/parcel/:id', component: ParcelView, meta: { public: true }, props: true },
-  { path: '/policeDispatchCall', component: PoliceDispatchCallList, meta: { public: true } },
-  { path: '/policeDispatchCall/:id', component: PoliceDispatchCallView, meta: { public: true }, props: true },
-  { path: '/fireDispatchCall', component: FireDispatchCallList, meta: { public: true } },
-  { path: '/fireDispatchCall/:id', component: FireDispatchCallView, meta: { public: true }, props: true },
-  { path: '/crime', component: CrimeList, meta: { public: true } },
-  { path: '/crime/:id', component: CrimeView, meta: { public: true }, props: true },
-  { path: '/historicPhotoLocation', component: HistoricPhotoLocationList, meta: { public: true } },
-  { path: '/historicPhotoLocation/explore', component: HistoricPhotoLocationExplore, meta: { public: true } },
   { path: '/applicationUser', component: ApplicationUserList },
   { path: '/applicationUser/:id', component: ApplicationUserEdit, props: true },
-  { path: '/dispatchCallSubscription/unsubscribe', component: DispatchCallSubscriptionUnsubscribe, meta: {public: true }},
-  { path: '/pickupDatesSubscription/unsubscribe', component: PickupDatesSubscriptionUnsubscribe, meta: {public: true }},
-  { path: '/pickupDates', component: PickupDatesIndex, meta: { public: true } },
+  { path: '/alerts', component: AlertHome, meta: { brand: 'Alerts', public: true } },
+  { path: '/dispatchCallTypes', component: DispatchCallTypes, meta: { brand: 'Alerts', public: true } },
+  { path: '/policeDispatchCall', component: PoliceDispatchCallList, meta: { brand: 'Alerts', public: true } },
+  { path: '/policeDispatchCall/:id', component: PoliceDispatchCallView, meta: { brand: 'Alerts', public: true }, props: true },
+  { path: '/fireDispatchCall', component: FireDispatchCallList, meta: { brand: 'Alerts', public: true } },
+  { path: '/fireDispatchCall/:id', component: FireDispatchCallView, meta: { brand: 'Alerts', public: true }, props: true },
+  { path: '/crime', component: CrimeList, meta: { brand: 'Alerts', public: true } },
+  { path: '/crime/:id', component: CrimeView, meta: { brand: 'Alerts', public: true }, props: true },
+  { path: '/dispatchCallSubscription/unsubscribe', component: DispatchCallSubscriptionUnsubscribe, meta: { brand: 'Alerts', public: true }},
+  { path: '/pickupDatesSubscription/unsubscribe', component: PickupDatesSubscriptionUnsubscribe, meta: { brand: 'Alerts', public: true }},
+  { path: '/pickupDates', component: PickupDatesIndex, meta: { brand: 'TrashDay', public: true } },
+  { path: '/parcel', component: ParcelList, meta: { brand: 'Properties', public: true } },
+  { path: '/parcel/:id', component: ParcelView, meta: { brand: 'Properties', public: true }, props: true },
+  { path: '/historicPhotoLocation', component: HistoricPhotoLocationList, meta: { brand: 'HistoricPhotos', public: true } },
+  { path: '/historicPhotoLocation/explore', component: HistoricPhotoLocationExplore, meta: { brand: 'HistoricPhotos', public: true } },
 ];
 
 const router = new VueRouter({

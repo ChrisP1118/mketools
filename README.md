@@ -101,3 +101,8 @@ When running .NET stuff, be in the root folder.
   * 1901
     * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/665/full/359,/0/default.jpg?highlightTerms=
     * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/665/full/full/0/default.jpg?highlightTerms=
+
+# To Do
+* Test SSO w/Google, Facebook
+* SQL backups
+* Set up new domain
