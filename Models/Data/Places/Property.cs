@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.Places
+namespace MkeTools.Web.Models.Data.Places
 {
     public class Property : IHasId<Guid>
     {

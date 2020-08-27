@@ -1,6 +1,6 @@
 <template>
   <div>
-    <l-map style="height: 80vh; width: 100%" :zoom="zoom" :center="center">
+    <l-map ref="basicMap" style="height: 80vh; width: 100%" :zoom="zoom" :center="center">
       <l-tile-layer :url="tileUrl" :attribution="attribution"></l-tile-layer>
       <l-circle v-if="circleCenter" :lat-lng="circleCenter" :radius="circleRadius" color="#bd2130" />
       <l-marker v-for="marker in markers" v-bind:key="marker.id" :lat-lng="marker.position" :icon="marker.icon">
@@ -171,8 +171,13 @@ export default {
       this.showMarkers();
     },
     locationData: function (newValue, oldValue) {
-      this.center = newValue;
-      this.zoom = 15;
+      //this.center = newValue;
+      //this.zoom = 15;
+
+      if (newValue)
+        this.$refs.basicMap.mapObject.setView(L.latLng(newValue.lat, newValue.lng), 15);
+      else
+        this.circleCenter = null;
 
       this.distanceUpdated(this.distance);
     },

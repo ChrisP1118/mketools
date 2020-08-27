@@ -3,15 +3,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.Incidents;
-using MkeAlerts.Web.Models.Data.Subscriptions;
-using MkeAlerts.Web.Models.Internal;
-using MkeAlerts.Web.Services;
-using MkeAlerts.Web.Services.Data.Interfaces;
-using MkeAlerts.Web.Services.Functional;
-using MkeAlerts.Web.Utilities;
+using MkeTools.Web.Models.Data;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.Data.Incidents;
+using MkeTools.Web.Models.Data.Subscriptions;
+using MkeTools.Web.Models.Internal;
+using MkeTools.Web.Services;
+using MkeTools.Web.Services.Data.Interfaces;
+using MkeTools.Web.Services.Functional;
+using MkeTools.Web.Utilities;
 using Serilog.Context;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace MkeAlerts.Web.Jobs
+namespace MkeTools.Web.Jobs
 {
     public class SendPickupDatesNotifications : LoggedJob
     {
@@ -61,7 +61,7 @@ namespace MkeAlerts.Web.Jobs
                 await SendNotification(garbageSubscription, "garbage", garbageSubscription.NextGarbagePickupDate, s => s.NextGarbagePickupNotification = null);
 
             foreach (PickupDatesSubscription recyclingSubscription in recyclingSubscriptions)
-                await SendNotification(recyclingSubscription, "recycling", recyclingSubscription.NextGarbagePickupDate, s => s.NextRecyclingPickupNotification = null);
+                await SendNotification(recyclingSubscription, "recycling", recyclingSubscription.NextRecyclingPickupDate, s => s.NextRecyclingPickupNotification = null);
         }
 
         private async Task SendNotification(PickupDatesSubscription subscription, string type, DateTime? nextPickup, Action<PickupDatesSubscription> updateAction)

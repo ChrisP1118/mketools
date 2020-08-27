@@ -6,14 +6,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.Places;
-using MkeAlerts.Web.Services;
-using MkeAlerts.Web.Services.Data;
-using MkeAlerts.Web.Services.Data.Interfaces;
-using MkeAlerts.Web.Services.Functional;
-using MkeAlerts.Web.Utilities;
+using MkeTools.Web.Models.Data;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.Data.Places;
+using MkeTools.Web.Services;
+using MkeTools.Web.Services.Data;
+using MkeTools.Web.Services.Data.Interfaces;
+using MkeTools.Web.Services.Functional;
+using MkeTools.Web.Utilities;
 using NetTopologySuite;
 using NetTopologySuite.Features;
 using NetTopologySuite.Geometries;
@@ -32,9 +32,9 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Parcel = MkeAlerts.Web.Models.Data.Places.Parcel;
+using Parcel = MkeTools.Web.Models.Data.Places.Parcel;
 
-namespace MkeAlerts.Web.Jobs
+namespace MkeTools.Web.Jobs
 {
     public class ImportPropertiesArchivesJob : LoggedJob
     {

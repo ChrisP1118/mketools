@@ -3,12 +3,13 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Data;
-using MkeAlerts.Web.Exceptions;
-using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.Places;
+using MkeTools.Web.Data;
+using MkeTools.Web.Exceptions;
+using MkeTools.Web.Models.Data;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.Data.Places;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -17,7 +18,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Services
+namespace MkeTools.Web.Services
 {
     public abstract class EntityWriteService<TDataModel, TIdType> : EntityReadService<TDataModel, TIdType>, IEntityWriteService<TDataModel, TIdType>
         where TDataModel : class, IHasId<TIdType>
@@ -37,6 +38,8 @@ namespace MkeAlerts.Web.Services
 
             if (!await CanCreate(applicationUser, dataModel))
                 throw new ForbiddenException();
+
+            TruncateFields(dataModel);
 
             _validator.ValidateAndThrow(dataModel);
 
@@ -147,6 +150,8 @@ namespace MkeAlerts.Web.Services
             if (!await CanUpdate(applicationUser, dataModel))
                 throw new ForbiddenException();
 
+            TruncateFields(dataModel);
+
             _validator.ValidateAndThrow(dataModel);
 
             _dbContext.Entry(dataModel).State = EntityState.Modified;
@@ -219,6 +224,37 @@ namespace MkeAlerts.Web.Services
         protected virtual async Task OnCreated(TDataModel dataModel) { }
         protected virtual async Task OnUpdated(TDataModel dataModel) { }
         protected virtual async Task OnDeleted(TDataModel dataModel) { }
+
+        protected virtual bool DoTruncateFields { get { return true; } }
+
+        private void TruncateFields(TDataModel dataModel)
+        {
+            if (!DoTruncateFields)
+                return;
+
+            var entityType = _dbContext.Model.FindEntityType(typeof(TDataModel));
+            foreach (var property in entityType.GetProperties())
+            {
+                var annotation = property.GetAnnotations().FirstOrDefault(x => x.Name == "MaxLength");
+                if (annotation != null)
+                {
+                    var maxLength = Convert.ToInt32(annotation.Value);
+                    if (maxLength > 0)
+                    {
+                        var propertyInfo = dataModel.GetType().GetProperty(property.Name);
+                        if (propertyInfo != null && propertyInfo.PropertyType == typeof(string))
+                        {
+                            string val = (string)propertyInfo.GetValue(dataModel);
+                            if (val != null && val.Length > maxLength)
+                            {
+                                val = val.Substring(0, maxLength);
+                                propertyInfo.SetValue(dataModel, val);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }

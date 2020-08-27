@@ -2,10 +2,13 @@
   <div>
     <b-row v-show="!addressData">
       <b-col>
-        <b-jumbotron class="text-center" lead="Get notified before garbage and recycling pickup days">
+        <b-jumbotron class="text-center">
           <template v-slot:header>
-            <img src="../../assets/MkeAlerts_100_60.png" style="margin-bottom: 8px;" />
-            MKE Trash Day Alerts
+            <img src="../../assets/MkeTrashDay_100_60.png" />
+            MKE Trash Day
+          </template>
+          <template v-slot:lead>
+            Get notified before garbage and recycling pickup days in Milwaukee
           </template>
           <div v-if="subscriptions.length > 0">
             <user-pickup-dates-subscription-list :subscriptions="subscriptions" @selected="onSubscriptionSelected" @deleted="onSubscriptionDeleted" />

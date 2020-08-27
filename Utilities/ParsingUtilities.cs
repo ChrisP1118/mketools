@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Utilities
+namespace MkeTools.Web.Utilities
 {
     public class ParsingUtilities
     {

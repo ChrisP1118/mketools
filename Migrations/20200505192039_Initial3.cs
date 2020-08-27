@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace MkeAlerts.Web.Migrations
+namespace MkeTools.Web.Migrations
 {
     public partial class Initial3 : Migration
     {

@@ -1,20 +1,19 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Data;
-using MkeAlerts.Web.Models;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.Places;
-using MkeAlerts.Web.Models.Internal;
+using MkeTools.Web.Data;
+using MkeTools.Web.Models;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.Data.Places;
+using MkeTools.Web.Models.Internal;
 using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-//using Location = MkeAlerts.Web.Models.Data.Places.Parcel;
 
-namespace MkeAlerts.Web.Services.Functional
+namespace MkeTools.Web.Services.Functional
 {
     public class GeocodingService : IGeocodingService
     {
@@ -237,7 +236,9 @@ namespace MkeAlerts.Web.Services.Functional
                 houseNumberString = houseNumberString.Substring(0, houseNumberString.IndexOf("-"));
             //houseNumberString = houseNumberString.Replace("-BLK", "");
             //houseNumberString = houseNumberString.Replace("-BLOCK", "");
-            request.HouseNumber = int.Parse(houseNumberString);
+            
+            // Strip out the non-numeric characters
+            request.HouseNumber = int.Parse(new String(houseNumberString.Where(c => char.IsDigit(c)).ToArray()));
             request.Direction = parts[1];
             request.Street = string.Join(' ', parts, 2, parts.Length - (request.StreetType == "" ? 2 : 3));
 

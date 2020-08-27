@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.DTO.Functional
+namespace MkeTools.Web.Models.DTO.Functional
 {
     public class StreetReferenceDTO
     {

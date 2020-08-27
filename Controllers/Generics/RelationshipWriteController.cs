@@ -2,16 +2,16 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using MkeAlerts.Web.Exceptions;
-using MkeAlerts.Web.Middleware.Exceptions;
-using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Services;
+using MkeTools.Web.Exceptions;
+using MkeTools.Web.Middleware.Exceptions;
+using MkeTools.Web.Models.Data;
+using MkeTools.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Controllers
+namespace MkeTools.Web.Controllers
 {
     [ApiController]
     public abstract class RelationshipWriteController<TDataModel, TDTOModel, TService> : RelationshipReadController<TDataModel, TDTOModel, TService>

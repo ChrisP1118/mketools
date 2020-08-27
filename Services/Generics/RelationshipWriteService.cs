@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MkeAlerts.Web.Data;
-using MkeAlerts.Web.Exceptions;
-using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Models.Data.Accounts;
+using MkeTools.Web.Data;
+using MkeTools.Web.Exceptions;
+using MkeTools.Web.Models.Data;
+using MkeTools.Web.Models.Data.Accounts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Services
+namespace MkeTools.Web.Services
 {
     public abstract class RelationshipWriteService<TDataModel> : RelationshipReadService<TDataModel>, IRelationshipWriteService<TDataModel>
         where TDataModel : class

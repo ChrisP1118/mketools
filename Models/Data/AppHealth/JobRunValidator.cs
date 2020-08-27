@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.AppHealth
+namespace MkeTools.Web.Models.Data.AppHealth
 {
     public class JobRunValidator : AbstractValidator<JobRun>
     {

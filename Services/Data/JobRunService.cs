@@ -1,16 +1,16 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Data;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.AppHealth;
-using MkeAlerts.Web.Services.Data.Interfaces;
+using MkeTools.Web.Data;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.Data.AppHealth;
+using MkeTools.Web.Services.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Services.Data
+namespace MkeTools.Web.Services.Data
 {
     public class JobRunService : EntityWriteService<JobRun, Guid>, IJobRunService
     {

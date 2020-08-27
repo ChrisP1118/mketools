@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.DTO.Places
+namespace MkeTools.Web.Models.DTO.Places
 {
     public class ParcelDTO
     {

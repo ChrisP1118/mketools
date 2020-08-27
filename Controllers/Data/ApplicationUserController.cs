@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.DTO.Accounts;
-using MkeAlerts.Web.Services;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.DTO.Accounts;
+using MkeTools.Web.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Controllers.Data
+namespace MkeTools.Web.Controllers.Data
 {
     public class ApplicationUserController : EntityReadController<ApplicationUser, ApplicationUserDTO, IEntityReadService<ApplicationUser, Guid>, Guid>
     {

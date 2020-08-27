@@ -7,12 +7,12 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web;
+using MkeTools.Web;
 using Serilog;
 using Serilog.Filters;
 using Serilog.Formatting.Compact;
 
-namespace MkeAlerts.Web
+namespace MkeTools.Web
 {
     public class Program
     {
@@ -27,8 +27,8 @@ namespace MkeAlerts.Web
                 )
                 //.WriteTo.Logger(l => l
                 //    .MinimumLevel.Information()
-                //    .Filter.ByIncludingOnly(Matching.FromSource("MkeAlerts"))
-                //    .WriteTo.File("logs/MkeAlerts.txt",
+                //    .Filter.ByIncludingOnly(Matching.FromSource("MkeTools"))
+                //    .WriteTo.File("logs/MkeTools.txt",
                 //        rollingInterval: RollingInterval.Day,
                 //        retainedFileCountLimit: 14
                 //    )
@@ -43,11 +43,11 @@ namespace MkeAlerts.Web
                 //)
                 .WriteTo.Logger(l => l
                     .MinimumLevel.Information()
-                    .Filter.ByIncludingOnly(Matching.FromSource("MkeAlerts"))
+                    .Filter.ByIncludingOnly(Matching.FromSource("MkeTools"))
                     .WriteTo.Seq("http://localhost:5341")
                     //.WriteTo.File(
                     //    new RenderedCompactJsonFormatter(),
-                    //    "logs/MkeAlerts.json",
+                    //    "logs/MkeTools.json",
                     //    rollingInterval: RollingInterval.Day,
                     //    retainedFileCountLimit: 14
                     //)

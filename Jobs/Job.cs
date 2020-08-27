@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.AppHealth;
-using MkeAlerts.Web.Services.Data.Interfaces;
-using MkeAlerts.Web.Services.Functional;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.Data.AppHealth;
+using MkeTools.Web.Services.Data.Interfaces;
+using MkeTools.Web.Services.Functional;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Jobs
+namespace MkeTools.Web.Jobs
 {
     public abstract class Job
     {

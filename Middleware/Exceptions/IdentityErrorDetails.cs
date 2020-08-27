@@ -1,10 +1,10 @@
-﻿using MkeAlerts.Web.Exceptions;
+﻿using MkeTools.Web.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Middleware.Exceptions
+namespace MkeTools.Web.Middleware.Exceptions
 {
     public class IdentityErrorDetails : ErrorDetails
     {

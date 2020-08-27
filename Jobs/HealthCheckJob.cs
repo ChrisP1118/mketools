@@ -2,15 +2,15 @@
 using Microsoft.EntityFrameworkCore.DynamicLinq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Data;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Services.Functional;
+using MkeTools.Web.Data;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Services.Functional;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Jobs
+namespace MkeTools.Web.Jobs
 {
     public class HealthCheckJob
     {

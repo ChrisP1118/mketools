@@ -1,6 +1,6 @@
 <template>
   <div style="height: 80vh; width: 100%;">
-    <l-map style="height: 100%; width: 100%" :zoom="zoom" :center="center" @update:zoom="zoomUpdated" @update:center="centerUpdated" @update:bounds="boundsUpdated">
+    <l-map ref="filteredTableMap" style="height: 100%; width: 100%" :zoom="zoom" :center="center" @update:zoom="zoomUpdated" @update:center="centerUpdated" @update:bounds="boundsUpdated">
       <l-tile-layer :url="tileUrl" :attribution="attribution"></l-tile-layer>
       <l-circle v-if="circleCenter" :lat-lng="circleCenter" :radius="circleRadius" color="#bd2130" />
       <l-marker v-for="marker in markers" v-bind:key="marker.id" :lat-lng="marker.position" :icon="marker.icon">
@@ -149,17 +149,15 @@ export default {
       this.redraw();
     },
     locationData: function (newValue, oldValue) {
-      //console.log('filtered data map - location: ' + (newValue ? newValue.lat + ',' + newValue.lng : '(null)'));
-
-      console.log('locationData changed in Map');
-      console.log(newValue);
-
       if (newValue) {
-        this.center = [newValue.lat, newValue.lng];
-        this.zoom = this.defaultZoomWithLocationData;
+        //this.zoom = this.defaultZoomWithLocationData;
+        //this.center = [newValue.lat, newValue.lng];
+        // https://github.com/vue-leaflet/Vue2Leaflet/issues/170
+        this.$refs.filteredTableMap.mapObject.setView(L.latLng(newValue.lat, newValue.lng), this.defaultZoomWithLocationData);
       } else {
-        this.center = [43.0315528, -87.9730566];
-        this.zoom = this.defaultZoomWithoutLocationData;
+        //this.zoom = this.defaultZoomWithoutLocationData;
+        //this.center = [43.0315528, -87.9730566];
+        this.$refs.filteredTableMap.mapObject.setView(L.latLng(43.0315528, -87.9730566), this.defaultZoomWithoutLocationData);
       }
     }
   },

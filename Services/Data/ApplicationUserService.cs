@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Data;
-using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Models.Data.Accounts;
+using MkeTools.Web.Data;
+using MkeTools.Web.Models.Data;
+using MkeTools.Web.Models.Data.Accounts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Services.Data
+namespace MkeTools.Web.Services.Data
 {
     public class ApplicationUserService : EntityReadService<ApplicationUser, Guid>
     {

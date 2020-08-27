@@ -1,4 +1,4 @@
-﻿using MkeAlerts.Web.Models.Data;
+﻿using MkeTools.Web.Models.Data;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO.Converters;
 using Newtonsoft.Json;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.DTO.Subscriptions
+namespace MkeTools.Web.Models.DTO.Subscriptions
 {
     public class DispatchCallSubscriptionDTO
     {

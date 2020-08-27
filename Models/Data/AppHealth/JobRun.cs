@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.AppHealth
+namespace MkeTools.Web.Models.Data.AppHealth
 {
     public class JobRun : IHasId<Guid>
     {

@@ -1,4 +1,4 @@
-﻿using MkeAlerts.Web.Models.DTO.Accounts;
+﻿using MkeTools.Web.Models.DTO.Accounts;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,18 +12,18 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using MkeAlerts.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.Data.Accounts;
 using Microsoft.AspNetCore.Http;
-using MkeAlerts.Web.Exceptions;
-using MkeAlerts.Web.Middleware.Exceptions;
+using MkeTools.Web.Exceptions;
+using MkeTools.Web.Middleware.Exceptions;
 using Hangfire;
-using MkeAlerts.Web.Data;
+using MkeTools.Web.Data;
 using Microsoft.EntityFrameworkCore;
-using MkeAlerts.Web.Utilities;
-using MkeAlerts.Web.Services.Functional;
+using MkeTools.Web.Utilities;
+using MkeTools.Web.Services.Functional;
 using System.Net;
 
-namespace MkeAlerts.Web.Controllers
+namespace MkeTools.Web.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class AccountController : ControllerBase
@@ -234,7 +234,7 @@ namespace MkeAlerts.Web.Controllers
             await _mailerService.SendEmail(
                 user.Email,
                 "Password Reset Request",
-                "To reset your password for MkeAlerts, click on the following link or visit this URL: " + resetPasswordUrl
+                "To reset your password for MKE Tools, click on the following link or visit this URL: " + resetPasswordUrl
             );
 
             return new RequestPasswordResetResultsDTO();

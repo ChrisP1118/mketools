@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using MkeAlerts.Web.Data;
-using MkeAlerts.Web.Exceptions;
-using MkeAlerts.Web.Filters.Support;
-using MkeAlerts.Web.Middleware.Exceptions;
-using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Services;
+using MkeTools.Web.Data;
+using MkeTools.Web.Exceptions;
+using MkeTools.Web.Filters.Support;
+using MkeTools.Web.Middleware.Exceptions;
+using MkeTools.Web.Models.Data;
+using MkeTools.Web.Services;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace MkeAlerts.Web.Controllers
+namespace MkeTools.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

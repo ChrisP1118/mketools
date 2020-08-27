@@ -1,4 +1,4 @@
-﻿using MkeAlerts.Web.Models.Data.Accounts;
+﻿using MkeTools.Web.Models.Data.Accounts;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Models.Data.Places;
-using MkeAlerts.Web.Models.Data.Incidents;
-using MkeAlerts.Web.Models.Data.Subscriptions;
-using MkeAlerts.Web.Models.Data.AppHealth;
+using MkeTools.Web.Models.Data;
+using MkeTools.Web.Models.Data.Places;
+using MkeTools.Web.Models.Data.Incidents;
+using MkeTools.Web.Models.Data.Subscriptions;
+using MkeTools.Web.Models.Data.AppHealth;
+using MkeTools.Web.Models.Data.HistoricPhotos;
 
-namespace MkeAlerts.Web.Data
+namespace MkeTools.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
@@ -28,6 +29,8 @@ namespace MkeAlerts.Web.Data
         public DbSet<FireDispatchCall> FireDispatchCalls { get; set; }
         public DbSet<FireDispatchCallType> FireDispatchCallTypes { get; set; }
         public DbSet<Crime> Crimes { get; set; }
+        public DbSet<HistoricPhoto> HistoricPhotos { get; set; }
+        public DbSet<HistoricPhotoLocation> HistoricPhotoLocations { get; set; }
 
         public DbSet<DispatchCallSubscription> DispatchCallSubscriptions { get; set; }
         public DbSet<PickupDatesSubscription> PickupDateSubscriptions { get; set; }
@@ -174,6 +177,26 @@ namespace MkeAlerts.Web.Data
                 .WithMany(x => x.PickupDateSubscriptions)
                 .HasForeignKey(x => x.ApplicationUserId);
 
+            /* Historic Photos */
+
+            modelBuilder.Entity<HistoricPhoto>()
+                .HasKey(x => x.Id);
+
+            modelBuilder.Entity<HistoricPhotoLocation>()
+                .HasMany(x => x.HistoricPhotos);
+
+            modelBuilder.Entity<HistoricPhotoLocation>()
+                .HasIndex(x => x.MinLat);
+
+            modelBuilder.Entity<HistoricPhotoLocation>()
+                .HasIndex(x => x.MaxLat);
+
+            modelBuilder.Entity<HistoricPhotoLocation>()
+                .HasIndex(x => x.MinLng);
+
+            modelBuilder.Entity<HistoricPhotoLocation>()
+                .HasIndex(x => x.MaxLng);
+
             /* Accounts */
 
             modelBuilder.Entity<ExternalCredential>()
@@ -208,10 +231,10 @@ namespace MkeAlerts.Web.Data
             modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 Id = Guid.Parse("85f00d40-d578-4988-9f22-4d023175f852"),
-                UserName = "cwilson@mkealerts.com",
-                NormalizedUserName = "cwilson@mkealerts.com",
-                Email = "cwilson@mkealerts.com",
-                NormalizedEmail = "cwilson@mkealerts.com",
+                UserName = "cwilson@mke.tools",
+                NormalizedUserName = "cwilson@mke.tools",
+                Email = "cwilson@mke.tools",
+                NormalizedEmail = "cwilson@mke.tools",
                 EmailConfirmed = true,
                 PasswordHash = passwordHasher.HashPassword(null, "abc123"),
                 SecurityStamp = string.Empty

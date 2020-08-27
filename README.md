@@ -1,6 +1,6 @@
-# MkeAlerts App
+# MKE Tools App
 
-Interested in contributing? Let me know - cwilson at mkealerts.com.
+Interested in contributing? Let me know - cwilson at mke dot tools.
 
 ## VS Code
 * Open the root folder in VS Code
@@ -82,3 +82,32 @@ When running .NET stuff, be in the root folder.
 # Entity Framework Core Commands
 * Add EF migrations with: dotnet ef migrations add MigrationName
 * Update database with: dotnet ef database update
+
+# Full Resolution IIIF Images
+* https://github.com/lovasoa/dezoomify/wiki/How-to-download-full-resolution-images-from-an-IIIF-compatible-server
+* Example
+  * 1931 Transit
+    * Original image URL: https://cdm16698.contentdm.oclc.org/digital/iiif/MKEMaps/33/0,0,3929,4096/983,/0/default.jpg?highlightTerms=
+    * Full res URL: https://cdm16698.contentdm.oclc.org/digital/iiif/MKEMaps/33/full/full/0/default.jpg?highlightTerms=
+  * 1912
+    * Original image URL: https://ids.lib.harvard.edu/ids/iiif/10327530/5120,5120,1024,1024/1024,/0/default.jpg
+    * Full res URL: https://ids.lib.harvard.edu/ids/iiif/10327530/full/full/0/default.jpg
+  * 1887
+    * Original image URL: https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/672/4096,6144,2048,2048/1024,/0/default.jpg?highlightTerms=
+    * Full res URL: https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/672/full/full/0/default.jpg?highlightTerms=
+  * 1934
+    * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/669/4096,2048,2048,2048/1024,/0/default.jpg?highlightTerms=
+    * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/669/full/full/0/default.jpg?highlightTerms=
+  * 1901
+    * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/665/full/359,/0/default.jpg?highlightTerms=
+    * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/665/full/full/0/default.jpg?highlightTerms=
+
+# To Do
+* Test SSO w/Google, Facebook
+* Update OAuth site name w/Google, Facebook
+* Email setup for mke.tools
+* Refactor namespaces
+* Rename repo
+* Migrate database
+* SQL backups
+* Set up new domain

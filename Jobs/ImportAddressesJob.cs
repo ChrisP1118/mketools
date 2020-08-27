@@ -3,12 +3,12 @@ using Hangfire;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.Places;
-using MkeAlerts.Web.Services;
-using MkeAlerts.Web.Services.Data.Interfaces;
-using MkeAlerts.Web.Services.Functional;
-using MkeAlerts.Web.Utilities;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.Data.Places;
+using MkeTools.Web.Services;
+using MkeTools.Web.Services.Data.Interfaces;
+using MkeTools.Web.Services.Functional;
+using MkeTools.Web.Utilities;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO;
@@ -25,7 +25,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Jobs
+namespace MkeTools.Web.Jobs
 {
     public class ImportAddressesJob : ImportShapefileJob<Address, int>
     {

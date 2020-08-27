@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.Places
+namespace MkeTools.Web.Models.Data.Places
 {
     public class MpropField
     {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using MkeAlerts.Web.Data;
-using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Models.Data.Accounts;
+using MkeTools.Web.Data;
+using MkeTools.Web.Models.Data;
+using MkeTools.Web.Models.Data.Accounts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Linq.Dynamic.Core;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Services.Functional
+namespace MkeTools.Web.Services.Functional
 {
     public class StreetReferenceService : IStreetReferenceService
     {
