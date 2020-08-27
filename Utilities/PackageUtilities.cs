@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Utilities
+namespace MkeTools.Web.Utilities
 {
     public static class PackageUtilities
     {

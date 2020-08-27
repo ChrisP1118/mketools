@@ -1,12 +1,12 @@
 ﻿using DotSpatial.Projections;
-using MkeAlerts.Web.Models.Data;
+using MkeTools.Web.Models.Data;
 using NetTopologySuite.Geometries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Utilities
+namespace MkeTools.Web.Utilities
 {
     public static class GeographicUtilities
     {

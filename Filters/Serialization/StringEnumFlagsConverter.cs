@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Filters.Serialization
+namespace MkeTools.Web.Filters.Serialization
 {
     public class StringEnumFlagsConverter : JsonConverter
     {

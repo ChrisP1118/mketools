@@ -1,6 +1,6 @@
-# MkeAlerts App
+# MKE Tools App
 
-Interested in contributing? Let me know - cwilson at mkealerts.com.
+Interested in contributing? Let me know - cwilson at mke dot tools.
 
 ## VS Code
 * Open the root folder in VS Code
@@ -105,6 +105,7 @@ When running .NET stuff, be in the root folder.
 # To Do
 * Test SSO w/Google, Facebook
 * Update OAuth site name w/Google, Facebook
+* Email setup for mke.tools
 * Refactor namespaces
 * Rename repo
 * Migrate database

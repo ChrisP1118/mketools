@@ -1,4 +1,4 @@
-﻿using MkeAlerts.Web.Models.Data.HistoricPhotos;
+﻿using MkeTools.Web.Models.Data.HistoricPhotos;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO.Converters;
 using Newtonsoft.Json;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.DTO.HistoricPhotos
+namespace MkeTools.Web.Models.DTO.HistoricPhotos
 {
     public class HistoricPhotoDTO
     {

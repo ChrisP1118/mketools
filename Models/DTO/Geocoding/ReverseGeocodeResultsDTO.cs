@@ -1,10 +1,10 @@
-﻿using MkeAlerts.Web.Models.DTO.Places;
+﻿using MkeTools.Web.Models.DTO.Places;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.DTO.Geocoding
+namespace MkeTools.Web.Models.DTO.Geocoding
 {
     public class ReverseGeocodeResultsDTO
     {

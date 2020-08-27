@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MkeAlerts.Web.Data;
+using MkeTools.Web.Data;
 using NetTopologySuite.Geometries;
 
-namespace MkeAlerts.Web.Migrations
+namespace MkeTools.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20200823202635_HistoricPhotos_Year")]
@@ -130,7 +130,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Accounts.ApplicationRole", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Accounts.ApplicationRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -167,7 +167,7 @@ namespace MkeAlerts.Web.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Accounts.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -246,20 +246,20 @@ namespace MkeAlerts.Web.Migrations
                             Id = new Guid("85f00d40-d578-4988-9f22-4d023175f852"),
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "69bf8f79-afb1-484f-878d-fdfb7d26c19b",
-                            Email = "cwilson@mkealerts.com",
+                            Email = "cwilson@mke.tools",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            NormalizedEmail = "cwilson@mkealerts.com",
-                            NormalizedUserName = "cwilson@mkealerts.com",
+                            NormalizedEmail = "cwilson@mke.tools",
+                            NormalizedUserName = "cwilson@mke.tools",
                             PasswordHash = "AQAAAAEAACcQAAAAEJ6ZHuKZgyd07ccZnYItkHG4Ix6PENDBjfQqyvjTo3bH0dvShvtzZVlxE4sDK2rbCw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
-                            UserName = "cwilson@mkealerts.com"
+                            UserName = "cwilson@mke.tools"
                         });
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Accounts.ExternalCredential", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Accounts.ExternalCredential", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -281,7 +281,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("ExternalCredentials");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.AppHealth.JobRun", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.AppHealth.JobRun", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -315,7 +315,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("JobRuns");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.HistoricPhotos.HistoricPhoto", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.HistoricPhotos.HistoricPhoto", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(20)")
@@ -387,7 +387,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("HistoricPhotos");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.Crime", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Incidents.Crime", b =>
                 {
                     b.Property<string>("IncidentNum")
                         .HasColumnType("nvarchar(20)")
@@ -495,7 +495,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("Crimes");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.FireDispatchCall", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Incidents.FireDispatchCall", b =>
                 {
                     b.Property<string>("CFS")
                         .HasColumnType("nvarchar(12)")
@@ -557,7 +557,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("FireDispatchCalls");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.FireDispatchCallType", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Incidents.FireDispatchCallType", b =>
                 {
                     b.Property<string>("NatureOfCall")
                         .HasColumnType("nvarchar(40)")
@@ -577,7 +577,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("FireDispatchCallTypes");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.PoliceDispatchCall", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Incidents.PoliceDispatchCall", b =>
                 {
                     b.Property<string>("CallNumber")
                         .HasColumnType("nvarchar(12)")
@@ -634,7 +634,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("PoliceDispatchCalls");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Incidents.PoliceDispatchCallType", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Incidents.PoliceDispatchCallType", b =>
                 {
                     b.Property<string>("NatureOfCall")
                         .HasColumnType("nvarchar(20)")
@@ -663,7 +663,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("PoliceDispatchCallTypes");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Address", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Places.Address", b =>
                 {
                     b.Property<int>("ADDRESS_ID")
                         .HasColumnType("int");
@@ -788,7 +788,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.CommonParcel", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Places.CommonParcel", b =>
                 {
                     b.Property<int>("MAP_ID")
                         .HasColumnType("int");
@@ -821,7 +821,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("CommonParcels");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Parcel", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Places.Parcel", b =>
                 {
                     b.Property<string>("TAXKEY")
                         .HasColumnType("nvarchar(10)")
@@ -1057,7 +1057,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("Parcels");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Property", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Places.Property", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -1314,7 +1314,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("Properties");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Street", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Places.Street", b =>
                 {
                     b.Property<int>("CLINEID")
                         .HasColumnType("int");
@@ -1444,7 +1444,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("Streets");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Subscriptions.DispatchCallSubscription", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Subscriptions.DispatchCallSubscription", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1484,7 +1484,7 @@ namespace MkeAlerts.Web.Migrations
                     b.ToTable("DispatchCallSubscriptions");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Subscriptions.PickupDatesSubscription", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Subscriptions.PickupDatesSubscription", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -1533,7 +1533,7 @@ namespace MkeAlerts.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationRole", null)
+                    b.HasOne("MkeTools.Web.Models.Data.Accounts.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1542,7 +1542,7 @@ namespace MkeAlerts.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser", null)
+                    b.HasOne("MkeTools.Web.Models.Data.Accounts.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1551,7 +1551,7 @@ namespace MkeAlerts.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser", null)
+                    b.HasOne("MkeTools.Web.Models.Data.Accounts.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1560,13 +1560,13 @@ namespace MkeAlerts.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationRole", null)
+                    b.HasOne("MkeTools.Web.Models.Data.Accounts.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser", null)
+                    b.HasOne("MkeTools.Web.Models.Data.Accounts.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1575,57 +1575,57 @@ namespace MkeAlerts.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser", null)
+                    b.HasOne("MkeTools.Web.Models.Data.Accounts.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Accounts.ExternalCredential", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Accounts.ExternalCredential", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser", "ApplicationUser")
+                    b.HasOne("MkeTools.Web.Models.Data.Accounts.ApplicationUser", "ApplicationUser")
                         .WithMany("ExternalCredentials")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Address", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Places.Address", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Places.Parcel", "Parcel")
+                    b.HasOne("MkeTools.Web.Models.Data.Places.Parcel", "Parcel")
                         .WithMany("Addresses")
                         .HasForeignKey("TAXKEY");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Parcel", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Places.Parcel", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Places.CommonParcel", "CommonParcel")
+                    b.HasOne("MkeTools.Web.Models.Data.Places.CommonParcel", "CommonParcel")
                         .WithMany("Parcels")
                         .HasForeignKey("MAP_ID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Places.Property", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Places.Property", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Places.Parcel", "Parcel")
+                    b.HasOne("MkeTools.Web.Models.Data.Places.Parcel", "Parcel")
                         .WithMany("Properties")
                         .HasForeignKey("TAXKEY");
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Subscriptions.DispatchCallSubscription", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Subscriptions.DispatchCallSubscription", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser", "ApplicationUser")
+                    b.HasOne("MkeTools.Web.Models.Data.Accounts.ApplicationUser", "ApplicationUser")
                         .WithMany("DispatchCallSubscriptions")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MkeAlerts.Web.Models.Data.Subscriptions.PickupDatesSubscription", b =>
+            modelBuilder.Entity("MkeTools.Web.Models.Data.Subscriptions.PickupDatesSubscription", b =>
                 {
-                    b.HasOne("MkeAlerts.Web.Models.Data.Accounts.ApplicationUser", "ApplicationUser")
+                    b.HasOne("MkeTools.Web.Models.Data.Accounts.ApplicationUser", "ApplicationUser")
                         .WithMany("PickupDateSubscriptions")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)

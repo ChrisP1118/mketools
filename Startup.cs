@@ -1,4 +1,4 @@
-using MkeAlerts.Web.Data;
+using MkeTools.Web.Data;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,39 +19,39 @@ using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Text;
 using VueCliMiddleware;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Services;
-using MkeAlerts.Web.Services.Data;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.Data;
+using MkeTools.Web.Services;
+using MkeTools.Web.Services.Data;
 using FluentValidation.AspNetCore;
 using FluentValidation;
-using MkeAlerts.Web.Middleware.Exceptions;
+using MkeTools.Web.Middleware.Exceptions;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Filters;
+using MkeTools.Web.Filters;
 using Hangfire;
-using MkeAlerts.Web.Models.Data.Places;
-using MkeAlerts.Web.Models.Data.Incidents;
-using MkeAlerts.Web.Jobs;
+using MkeTools.Web.Models.Data.Places;
+using MkeTools.Web.Models.Data.Incidents;
+using MkeTools.Web.Jobs;
 using NetTopologySuite.IO.Converters;
-using MkeAlerts.Web.Services.Functional;
-using MkeAlerts.Web.Models.Data.Subscriptions;
+using MkeTools.Web.Services.Functional;
+using MkeTools.Web.Models.Data.Subscriptions;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Routing;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Globalization;
-using MkeAlerts.Web.Utilities;
-using MkeAlerts.Web.Services.Data.Interfaces;
+using MkeTools.Web.Utilities;
+using MkeTools.Web.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.SpaServices;
 using Microsoft.OpenApi.Models;
-using MkeAlerts.Web.Models.Data.AppHealth;
+using MkeTools.Web.Models.Data.AppHealth;
 using Hangfire.Dashboard;
 using Hangfire.Dashboard.BasicAuthorization;
 using Serilog;
-using MkeAlerts.Web.Models.Data.HistoricPhotos;
+using MkeTools.Web.Models.Data.HistoricPhotos;
 
-namespace MkeAlerts.Web
+namespace MkeTools.Web
 {
     public class Startup
     {
@@ -162,11 +162,11 @@ namespace MkeAlerts.Web
 This API is designed for public consumption -- feel free to use it in your own application. I want this to be easily usable by other civic-oriented applications; accordingly, there aren't any API
 keys or registration process for applications that want to use this API. However, because I manage this on my own (and fund it out of my own pocket), please:
 
-* __Let me know if you're using the API.__ Send an email to cwilson at mkealerts.com and let me know what you're doing with it. This will help me keep track of what's being used, and also allow me to contact you if there might be any breaking changes coming. Also, I'm just interested in seeing any cool projects that use this!
+* __Let me know if you're using the API.__ Send an email to cwilson at mke.tools and let me know what you're doing with it. This will help me keep track of what's being used, and also allow me to contact you if there might be any breaking changes coming. Also, I'm just interested in seeing any cool projects that use this!
 * __Keep consumption to reasonable levels.__ To keep the cost manageable on this site, the underlying infrastructure is fairly limited. Don't do anything that will hog all the resources or prevent this site (or others using the API) from working.
 * __Don't charge for anything that's using the API.__ The data in this API is from public sources, and I'm making it all available free of charge.
 
-If you have any questions about how the API works, feel free to contact me. If you're interested in making changes/improvements, visit the project on GitHub: https://github.com/ChrisP1118/mkealerts.
+If you have any questions about how the API works, feel free to contact me. If you're interested in making changes/improvements, visit the project on GitHub: https://github.com/ChrisP1118/mketools.
 
 ## Authentication
 
@@ -271,7 +271,7 @@ Here are the original sources for the data exposed through this API. Additional 
 
                 c.OperationFilter<ResponseHeaderOperationFilter>();
 
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MkeAlerts.Web.xml"));
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "MkeTools.Web.xml"));
             });
             services.AddSwaggerGenNewtonsoftSupport();
 

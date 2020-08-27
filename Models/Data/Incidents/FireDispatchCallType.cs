@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.Incidents
+namespace MkeTools.Web.Models.Data.Incidents
 {
     public class FireDispatchCallType : IHasId<string>
     {

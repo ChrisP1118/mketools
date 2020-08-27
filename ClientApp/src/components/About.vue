@@ -16,7 +16,7 @@
     <p>I hope to strike a balance with this site -- even as it makes people more aware of the crime in our community, I hope it can also better inform our citizens about general trends in crime in Milwaukee. If you have any ideas on how to better balance the way this data is presented, <b-link to="/about">feel free to get in touch</b-link>.</p> -->
     
     <h2>Contact</h2>
-    <p>I always appreciate feedback -- if you have any, email me at cwilson at mkealerts.com.</p>
+    <p>I always appreciate feedback -- if you have any, email me at cwilson at mke.tools.</p>
     
     <h2>Additional Resources</h2>
     <ul>
@@ -37,7 +37,7 @@
     </p>
 
     <h2>Status</h2>
-    <p><a href="https://status.mkealerts.com/" target="_blank">Server Status/Uptime</a></p>
+    <p><a href="https://status.mke.tools/" target="_blank">Server Status/Uptime</a></p>
 
     <!-- <h2>Interesting Data</h2>
     <ul>

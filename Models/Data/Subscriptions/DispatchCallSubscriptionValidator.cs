@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.Subscriptions
+namespace MkeTools.Web.Models.Data.Subscriptions
 {
     public class DispatchCallSubscriptionValidator : AbstractValidator<DispatchCallSubscription>
     {

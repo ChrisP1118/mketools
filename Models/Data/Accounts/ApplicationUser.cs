@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using MkeAlerts.Web.Models.Data.Subscriptions;
+using MkeTools.Web.Models.Data.Subscriptions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.Accounts
+namespace MkeTools.Web.Models.Data.Accounts
 {
     public class ApplicationUser : IdentityUser<Guid>, IHasId<Guid>
     {

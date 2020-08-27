@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.Places
+namespace MkeTools.Web.Models.Data.Places
 {
     public class AddressValidator : AbstractValidator<Address>
     {

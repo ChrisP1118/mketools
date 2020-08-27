@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.Places;
-using MkeAlerts.Web.Services;
-using MkeAlerts.Web.Services.Data.Interfaces;
-using MkeAlerts.Web.Services.Functional;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.Data.Places;
+using MkeTools.Web.Services;
+using MkeTools.Web.Services.Data.Interfaces;
+using MkeTools.Web.Services.Functional;
 using NetTopologySuite.IO.ShapeFile.Extended.Entities;
 
-namespace MkeAlerts.Web.Jobs
+namespace MkeTools.Web.Jobs
 {
     public class ImportCommonParcelsJob : ImportShapefileJob<CommonParcel, int>
     {

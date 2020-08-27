@@ -1,11 +1,11 @@
-﻿using MkeAlerts.Web.Models.Data.Places;
+﻿using MkeTools.Web.Models.Data.Places;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Services.Data.Interfaces
+namespace MkeTools.Web.Services.Data.Interfaces
 {
     public interface IParcelService : IEntityWriteService<Parcel, string>
     {

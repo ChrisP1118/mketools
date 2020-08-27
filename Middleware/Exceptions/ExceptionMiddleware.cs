@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Exceptions;
+using MkeTools.Web.Exceptions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Middleware.Exceptions
+namespace MkeTools.Web.Middleware.Exceptions
 {
     public class ExceptionMiddleware
     {

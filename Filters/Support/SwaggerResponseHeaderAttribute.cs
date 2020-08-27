@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Filters.Support
+namespace MkeTools.Web.Filters.Support
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public class SwaggerResponseHeaderAttribute : Attribute

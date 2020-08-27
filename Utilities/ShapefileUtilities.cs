@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using MkeAlerts.Web.Models.Data;
+using MkeTools.Web.Models.Data;
 using NetTopologySuite;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO.ShapeFile.Extended.Entities;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Utilities
+namespace MkeTools.Web.Utilities
 {
     public static class ShapefileUtilities
     {

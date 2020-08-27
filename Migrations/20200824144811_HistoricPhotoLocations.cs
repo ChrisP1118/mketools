@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using NetTopologySuite.Geometries;
 
-namespace MkeAlerts.Web.Migrations
+namespace MkeTools.Web.Migrations
 {
     public partial class HistoricPhotoLocations : Migration
     {

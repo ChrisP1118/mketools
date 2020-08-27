@@ -1,5 +1,5 @@
 ﻿using Microsoft.OpenApi.Models;
-using MkeAlerts.Web.Filters.Support;
+using MkeTools.Web.Filters.Support;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace MkeAlerts.Web.Filters
+namespace MkeTools.Web.Filters
 {
     public class ResponseHeaderOperationFilter : IOperationFilter
     {

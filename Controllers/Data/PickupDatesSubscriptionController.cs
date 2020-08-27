@@ -3,20 +3,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using MkeAlerts.Web.Exceptions;
-using MkeAlerts.Web.Models.Data.Places;
-using MkeAlerts.Web.Models.Data.Subscriptions;
-using MkeAlerts.Web.Models.DTO.Places;
-using MkeAlerts.Web.Models.DTO.Subscriptions;
-using MkeAlerts.Web.Services;
-using MkeAlerts.Web.Utilities;
+using MkeTools.Web.Exceptions;
+using MkeTools.Web.Models.Data.Places;
+using MkeTools.Web.Models.Data.Subscriptions;
+using MkeTools.Web.Models.DTO.Places;
+using MkeTools.Web.Models.DTO.Subscriptions;
+using MkeTools.Web.Services;
+using MkeTools.Web.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Controllers.Data
+namespace MkeTools.Web.Controllers.Data
 {
     [Authorize]
     public class PickupDatesSubscriptionController : EntityWriteController<PickupDatesSubscription, PickupDatesSubscriptionDTO, IEntityWriteService<PickupDatesSubscription, Guid>, Guid>

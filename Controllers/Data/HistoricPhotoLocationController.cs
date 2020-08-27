@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
-using MkeAlerts.Web.Models.Data.Places;
-using MkeAlerts.Web.Services;
-using MkeAlerts.Web.Models.Data.Incidents;
+using MkeTools.Web.Models.Data.Places;
+using MkeTools.Web.Services;
+using MkeTools.Web.Models.Data.Incidents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MkeAlerts.Web.Models.DTO.Incidents;
-using MkeAlerts.Web.Models.Data.HistoricPhotos;
-using MkeAlerts.Web.Models.DTO.HistoricPhotos;
+using MkeTools.Web.Models.DTO.Incidents;
+using MkeTools.Web.Models.Data.HistoricPhotos;
+using MkeTools.Web.Models.DTO.HistoricPhotos;
 
-namespace MkeAlerts.Web.Controllers.Data
+namespace MkeTools.Web.Controllers.Data
 {
     public class HistoricPhotoLocationController : EntityReadController<HistoricPhotoLocation, HistoricPhotoLocationDTO, IEntityReadService<HistoricPhotoLocation, Guid>, Guid>
     {

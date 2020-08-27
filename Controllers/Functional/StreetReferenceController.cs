@@ -3,19 +3,19 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using MkeAlerts.Web.Filters.Support;
-using MkeAlerts.Web.Middleware.Exceptions;
-using MkeAlerts.Web.Models.Data.Places;
-using MkeAlerts.Web.Models.DTO.Functional;
-using MkeAlerts.Web.Services;
-using MkeAlerts.Web.Services.Data;
-using MkeAlerts.Web.Services.Functional;
+using MkeTools.Web.Filters.Support;
+using MkeTools.Web.Middleware.Exceptions;
+using MkeTools.Web.Models.Data.Places;
+using MkeTools.Web.Models.DTO.Functional;
+using MkeTools.Web.Services;
+using MkeTools.Web.Services.Data;
+using MkeTools.Web.Services.Functional;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Controllers.Functional
+namespace MkeTools.Web.Controllers.Functional
 {
     [ApiController]
     [Route("api/[controller]")]

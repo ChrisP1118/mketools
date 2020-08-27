@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using NetTopologySuite.Geometries;
 
-namespace MkeAlerts.Web.Migrations
+namespace MkeTools.Web.Migrations
 {
     public partial class Initial : Migration
     {
@@ -548,7 +548,7 @@ namespace MkeAlerts.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "d5c41c9c-bb3f-4d48-852e-561181cb1963", "cwilson@mkealerts.com", true, null, null, false, null, "cwilson@mkealerts.com", "cwilson@mkealerts.com", "AQAAAAEAACcQAAAAEKSL1hEhkNfMHWL96Vl2GgIGahgLgmegiR/orxlRVQls/1Sz+1X8zDnRJy4D8aHSJg==", null, false, "", false, "cwilson@mkealerts.com" });
+                values: new object[] { new Guid("85f00d40-d578-4988-9f22-4d023175f852"), 0, "d5c41c9c-bb3f-4d48-852e-561181cb1963", "cwilson@mke.tools", true, null, null, false, null, "cwilson@mke.tools", "cwilson@mke.tools", "AQAAAAEAACcQAAAAEKSL1hEhkNfMHWL96Vl2GgIGahgLgmegiR/orxlRVQls/1Sz+1X8zDnRJy4D8aHSJg==", null, false, "", false, "cwilson@mke.tools" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

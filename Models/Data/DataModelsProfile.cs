@@ -3,23 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MkeAlerts.Web.Models.DTO.Accounts;
-using MkeAlerts.Web.Models.Data.Accounts;
-using MkeAlerts.Web.Models.Data.Places;
-using MkeAlerts.Web.Models.DTO.Places;
-using MkeAlerts.Web.Models.Data.Incidents;
-using MkeAlerts.Web.Models.DTO.Incidents;
-using MkeAlerts.Web.Models.Data.Subscriptions;
-using MkeAlerts.Web.Models.DTO.Subscriptions;
-using MkeAlerts.Web.Models.DTO;
-using MkeAlerts.Web.Models.Internal;
-using MkeAlerts.Web.Models.DTO.Geocoding;
-using MkeAlerts.Web.Models.DTO.PickupDates;
+using MkeTools.Web.Models.DTO.Accounts;
+using MkeTools.Web.Models.Data.Accounts;
+using MkeTools.Web.Models.Data.Places;
+using MkeTools.Web.Models.DTO.Places;
+using MkeTools.Web.Models.Data.Incidents;
+using MkeTools.Web.Models.DTO.Incidents;
+using MkeTools.Web.Models.Data.Subscriptions;
+using MkeTools.Web.Models.DTO.Subscriptions;
+using MkeTools.Web.Models.DTO;
+using MkeTools.Web.Models.Internal;
+using MkeTools.Web.Models.DTO.Geocoding;
+using MkeTools.Web.Models.DTO.PickupDates;
 using NetTopologySuite.Geometries;
-using MkeAlerts.Web.Models.Data.HistoricPhotos;
-using MkeAlerts.Web.Models.DTO.HistoricPhotos;
+using MkeTools.Web.Models.Data.HistoricPhotos;
+using MkeTools.Web.Models.DTO.HistoricPhotos;
 
-namespace MkeAlerts.Web.Models.Data
+namespace MkeTools.Web.Models.Data
 {
     public class DataModelsProfile : Profile
     {

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.DTO.HistoricPhotos
+namespace MkeTools.Web.Models.DTO.HistoricPhotos
 {
     public class HistoricPhotoLocationDTO
     {

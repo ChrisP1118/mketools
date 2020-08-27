@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Utilities
+namespace MkeTools.Web.Utilities
 {
     public static class EncryptionUtilities
     {

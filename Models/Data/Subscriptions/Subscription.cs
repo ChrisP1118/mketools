@@ -1,10 +1,10 @@
-﻿using MkeAlerts.Web.Models.Data.Accounts;
+﻿using MkeTools.Web.Models.Data.Accounts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.Subscriptions
+namespace MkeTools.Web.Models.Data.Subscriptions
 {
     public abstract class Subscription : IHasId<Guid>
     {

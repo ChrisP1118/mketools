@@ -1,10 +1,10 @@
-﻿using MkeAlerts.Web.Models.Internal;
+﻿using MkeTools.Web.Models.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Services.Functional
+namespace MkeTools.Web.Services.Functional
 {
     public interface IGeocodingService
     {

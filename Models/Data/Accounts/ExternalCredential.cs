@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Models.Data.Accounts
+namespace MkeTools.Web.Models.Data.Accounts
 {
     public class ExternalCredential : IHasId<Guid>
     {

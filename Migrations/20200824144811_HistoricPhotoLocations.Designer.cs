@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MkeAlerts.Web.Data;
+using MkeTools.Web.Data;
 using NetTopologySuite.Geometries;
 
-namespace MkeAlerts.Web.Migrations
+namespace MkeTools.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20200824144811_HistoricPhotoLocations")]

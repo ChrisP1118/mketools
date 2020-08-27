@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Dynamic.Core.CustomTypeProviders;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Services
+namespace MkeTools.Web.Services
 {
     class CustomDynamicLinqProvider : AbstractDynamicLinqCustomTypeProvider, IDynamicLinkCustomTypeProvider
     {

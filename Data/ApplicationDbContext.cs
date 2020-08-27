@@ -1,4 +1,4 @@
-﻿using MkeAlerts.Web.Models.Data.Accounts;
+﻿using MkeTools.Web.Models.Data.Accounts;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -6,14 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using MkeAlerts.Web.Models.Data;
-using MkeAlerts.Web.Models.Data.Places;
-using MkeAlerts.Web.Models.Data.Incidents;
-using MkeAlerts.Web.Models.Data.Subscriptions;
-using MkeAlerts.Web.Models.Data.AppHealth;
-using MkeAlerts.Web.Models.Data.HistoricPhotos;
+using MkeTools.Web.Models.Data;
+using MkeTools.Web.Models.Data.Places;
+using MkeTools.Web.Models.Data.Incidents;
+using MkeTools.Web.Models.Data.Subscriptions;
+using MkeTools.Web.Models.Data.AppHealth;
+using MkeTools.Web.Models.Data.HistoricPhotos;
 
-namespace MkeAlerts.Web.Data
+namespace MkeTools.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
@@ -231,10 +231,10 @@ namespace MkeAlerts.Web.Data
             modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser()
             {
                 Id = Guid.Parse("85f00d40-d578-4988-9f22-4d023175f852"),
-                UserName = "cwilson@mkealerts.com",
-                NormalizedUserName = "cwilson@mkealerts.com",
-                Email = "cwilson@mkealerts.com",
-                NormalizedEmail = "cwilson@mkealerts.com",
+                UserName = "cwilson@mke.tools",
+                NormalizedUserName = "cwilson@mke.tools",
+                Email = "cwilson@mke.tools",
+                NormalizedEmail = "cwilson@mke.tools",
                 EmailConfirmed = true,
                 PasswordHash = passwordHasher.HashPassword(null, "abc123"),
                 SecurityStamp = string.Empty

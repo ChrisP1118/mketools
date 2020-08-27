@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace MkeAlerts.Web.Services.Functional
+namespace MkeTools.Web.Services.Functional
 {
     public interface IStreetReferenceService
     {

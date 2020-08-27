@@ -171,7 +171,7 @@ router.afterEach((to, from) => {
   //ga('send', 'pageview');
   gtag('config', window.GA_TRACKING_ID, {
     page_path: to.fullPath,
-    app_name: 'MkeAlerts',
+    app_name: 'MkeTools',
     send_page_view: true,
   });
 });

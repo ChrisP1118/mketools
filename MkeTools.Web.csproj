@@ -7,11 +7,11 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-    <RootNamespace>MkeAlerts.Web</RootNamespace>
+    <RootNamespace>MkeTools.Web</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp3.1\MkeAlerts.Web.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netcoreapp3.1\MkeTools.Web.xml</DocumentationFile>
     <OutputPath></OutputPath>
     <NoWarn>1701;1702;1591</NoWarn>
   </PropertyGroup>
