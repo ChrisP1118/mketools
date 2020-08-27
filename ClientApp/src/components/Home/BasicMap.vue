@@ -174,7 +174,10 @@ export default {
       //this.center = newValue;
       //this.zoom = 15;
 
-      this.$refs.basicMap.mapObject.setView(L.latLng(newValue.lat, newValue.lng), 15);
+      if (newValue)
+        this.$refs.basicMap.mapObject.setView(L.latLng(newValue.lat, newValue.lng), 15);
+      else
+        this.circleCenter = null;
 
       this.distanceUpdated(this.distance);
     },

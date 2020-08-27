@@ -349,7 +349,9 @@ export default {
   },
   watch: {
     locationData: function (newValue, oldValue) {
-      console.log(newValue);
+      if (!newValue)
+        return;
+        
       this.center = {
         lat: newValue.lat,
         lng: newValue.lng

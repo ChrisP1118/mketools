@@ -154,7 +154,7 @@ namespace MkeAlerts.Web
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Milwaukee Alerts API",
+                    Title = "MKE Tools API",
                     Version = "v1",
                     Description = @"
 ## Using the API

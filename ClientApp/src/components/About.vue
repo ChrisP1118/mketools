@@ -2,21 +2,11 @@
   <div>
     <page-title title="About This Site" />
     <hr />
-    <b-alert show variant="info">This site is not affiliated with the City of Milwaukee or any official or government agency.</b-alert>
-    <p>
-      This site was originally designed to make data about crime in Milwaukee more accessible. It lets you see police and fire calls near you, receive email notifications
-      whenever there are dispatch calls near you, and see general crime data.
-    </p>
-    <p>
-      I've since added some additional features to it, including information about properties and assessments, notifications for garbage and recycling pickup days, and 
-      a way to explore historic photos of Milwaukee.
-    </p>
+    <p>This site takes data from several government sources and tries to make it a bit more accessible and useful.</p>
     <p>
       This site is also designed with other developers in mind. Milwaukee makes a lot of data publicly available, but it's not always easy to work with. All of
       the data used on this site is regularly updated from official City of Milwaukee sources, and is made available here via RESTful API in the hopes that other
       people will develop applications around this data.
-    <p>
-      <strong>Remember! An increased awareness of crime does not necessarily indicate an increase in crime.</strong>
     </p>
 
     <!-- <h2>Origin</h2>

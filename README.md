@@ -104,5 +104,9 @@ When running .NET stuff, be in the root folder.
 
 # To Do
 * Test SSO w/Google, Facebook
+* Update OAuth site name w/Google, Facebook
+* Refactor namespaces
+* Rename repo
+* Migrate database
 * SQL backups
 * Set up new domain
