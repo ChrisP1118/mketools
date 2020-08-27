@@ -136,3 +136,7 @@ $enable-gradients: true;
   margin-bottom: 8px;
   border: 1px solid #333;
 }
+
+thead.hidden_header tr[role="row"] {
+  display: none;
+}
