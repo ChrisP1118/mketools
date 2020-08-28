@@ -106,7 +106,7 @@ When running .NET stuff, be in the root folder.
 * Test SSO w/Google, Facebook
 * Update OAuth site name w/Google, Facebook
 * Change admin account
-* Verify CPF and DKIM
+* ~~Verify CPF and DKIM~~
 * Status page
 * Server backups
 * Verify SQL backups

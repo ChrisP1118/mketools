@@ -29,19 +29,19 @@ namespace MkeTools.Web.Jobs
 
         public async Task Run()
         {
-            if (!await _dbContext.PoliceDispatchCalls
-                .Where(x => x.ReportedDateTime > DateTime.Now.AddHours(-6))
-                .AnyAsync())
-            {
-                await _mailerService.SendAdminAlert("Police Dispatch Calls Failing", "The most recent police dispatch call is at least 6 hours old.");
-            }
+            //if (!await _dbContext.PoliceDispatchCalls
+            //    .Where(x => x.ReportedDateTime > DateTime.Now.AddHours(-6))
+            //    .AnyAsync())
+            //{
+            //    await _mailerService.SendAdminAlert("Police Dispatch Calls Failing", "The most recent police dispatch call is at least 6 hours old.");
+            //}
 
-            if (!await _dbContext.FireDispatchCalls
-                .Where(x => x.ReportedDateTime > DateTime.Now.AddHours(-6))
-                .AnyAsync())
-            {
-                await _mailerService.SendAdminAlert("Fire Dispatch Calls Failing", "The most recent fire dispatch call is at least 6 hours old.");
-            }
+            //if (!await _dbContext.FireDispatchCalls
+            //    .Where(x => x.ReportedDateTime > DateTime.Now.AddHours(-6))
+            //    .AnyAsync())
+            //{
+            //    await _mailerService.SendAdminAlert("Fire Dispatch Calls Failing", "The most recent fire dispatch call is at least 6 hours old.");
+            //}
         }
     }
 }

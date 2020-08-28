@@ -319,7 +319,7 @@ Here are the original sources for the data exposed through this API. Additional 
 
             services.AddTransient<IStreetReferenceService, StreetReferenceService>();
             services.AddTransient<IGeocodingService, GeocodingService>();
-            services.AddTransient<IMailerService, MailjetMailerService>();
+            services.AddTransient<IMailerService, SendGridMailerService>();
             services.AddTransient<IPickupDatesService, PickupDatesService>();
 
             services.AddSingleton<IValidator<Address>, AddressValidator>();
