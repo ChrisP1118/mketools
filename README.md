@@ -103,14 +103,15 @@ When running .NET stuff, be in the root folder.
     * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/665/full/full/0/default.jpg?highlightTerms=
 
 # To Do
-* Test SSO w/Google, Facebook
-* Update OAuth site name w/Google, Facebook
-* Change admin account
-* ~~Verify CPF and DKIM~~
-* Status page
 * Server backups
-* Verify SQL backups
-* Add offsite (or second drive) SQL backups
+* Offsite backups?
+* ~~Test SSO w/Google, Facebook~~
+* ~~Update OAuth site name w/Google, Facebook~~
+* ~~Change admin account~~
+* ~~Verify CPF and DKIM~~
+* ~~Status page~~
+* ~~Verify SQL backups~~
+* ~~Add offsite (or second drive) SQL backups~~
 * ~~SQL backups~~
 * ~~When logging in, an invalid password doesn't display an error message~~
 * ~~Test sending emails~~

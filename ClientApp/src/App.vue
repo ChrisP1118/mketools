@@ -28,9 +28,15 @@
           </b-navbar-nav>
 
           <b-navbar-nav class="ml-auto">
+            <b-nav-item-dropdown right>
+              <template slot="button-content">
+                MKE Tools
+              </template>
+              <b-dropdown-item right to="/">Home</b-dropdown-item>
+              <b-dropdown-item right to="/about">About</b-dropdown-item>
+              <b-dropdown-item right to="/developers">Developers</b-dropdown-item>
+            </b-nav-item-dropdown>
             <b-nav-item right to="/applicationUser" v-if="isSiteAdmin">Users</b-nav-item>
-            <b-nav-item right to="/about">About</b-nav-item>
-            <b-nav-item right to="/developers">Developers</b-nav-item>
             <b-nav-item-dropdown right v-if="isSiteAdmin">
               <template slot="button-content">
                 Debug
@@ -59,19 +65,25 @@
       <router-view v-else></router-view> -->
       <router-view></router-view>
 
-      <b-row class="mt-3">
-        <b-col>
-          <hr />
-        </b-col>
-      </b-row>
-      <b-row class="mt-3">
-        <b-col>
-          <b-alert show variant="info" class="small text-center">
-            <div>This is not an official City of Milwaukee website. This site is not affiliated in any way with the City of Milwaukee, Milwaukee County, Milwaukee Police Department, Milwaukee Fire Department, Milwaukee Public Library, or any other government agency.</div>
-          </b-alert>
-        </b-col>
-      </b-row>
     </b-container>
+
+      <footer class="container-fluid mt-3">
+        <b-row>
+          <b-col>
+            <hr />
+            <p class="text-center text-muted small">
+              This is not an official City of Milwaukee website. This site is not affiliated in any way with the City of Milwaukee, Milwaukee County, Milwaukee Police Department, Milwaukee Fire Department, Milwaukee Public Library, or any other government agency.
+            </p>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <p class="text-center text-muted small">
+              <b-link to="/privacy">Privacy Policy</b-link>
+            </p>
+          </b-col>
+        </b-row>
+      </footer>      
 
   </div>
 </template>
