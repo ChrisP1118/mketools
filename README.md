@@ -102,21 +102,16 @@ When running .NET stuff, be in the root folder.
     * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/665/full/359,/0/default.jpg?highlightTerms=
     * https://cdm17272.contentdm.oclc.org/digital/iiif/mkenh/665/full/full/0/default.jpg?highlightTerms=
 
-# To Do
-* Server backups
-* Offsite backups?
-* ~~Test SSO w/Google, Facebook~~
-* ~~Update OAuth site name w/Google, Facebook~~
-* ~~Change admin account~~
-* ~~Verify CPF and DKIM~~
-* ~~Status page~~
-* ~~Verify SQL backups~~
-* ~~Add offsite (or second drive) SQL backups~~
-* ~~SQL backups~~
-* ~~When logging in, an invalid password doesn't display an error message~~
-* ~~Test sending emails~~
-* ~~Email setup for mke.tools~~
-* ~~Refactor namespaces~~
-* ~~Rename repo~~
-* ~~Migrate database~~
-* ~~Set up new domain~~
+# GIS Data Sources
+* ParcelShapefile
+  * Source: Milwaukee County
+  * Name: Parcels with Property Information
+  * URL: https://gis-mclio.opendata.arcgis.com/maps/parcels-with-property-information
+* StreetShapefile
+  * Source: Milwaukee County
+  * Name: Street Centerlines
+  * URL: https://gis-mclio.opendata.arcgis.com/maps/street-centerlines
+* AddressShapefile
+  * Source: Milwaukee County
+  * Name: Address Points
+  * URL: https://gis-mclio.opendata.arcgis.com/maps/address-points

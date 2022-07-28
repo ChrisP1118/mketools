@@ -18,8 +18,8 @@
     "bootstrap-vue": "^2.16.0",
     "core-js": "^2.6.5",
     "leaflet": "^1.6.0",
-    "node-sass": "^4.11.0",
-    "sass-loader": "^7.1.0",
+    "node-sass": "^6.0.1",
+    "sass-loader": "^10.2.0",
     "vue": "^2.6.12",
     "vue-facebook-signin-button": "^1.0.1",
     "vue-google-signin-button": "^1.0.4",
@@ -30,9 +30,9 @@
     "vuex": "^3.5.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.5.0",
-    "@vue/cli-plugin-eslint": "^3.5.0",
-    "@vue/cli-service": "^3.5.0",
+    "@vue/cli-plugin-babel": "^3.12.1",
+    "@vue/cli-plugin-eslint": "^3.12.1",
+    "@vue/cli-service": "^3.12.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
@@ -47,7 +47,12 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off",
+      "no-unused-vars": "off",
+      "no-useless-escape": "off",
+      "vue/no-use-v-if-with-v-for": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

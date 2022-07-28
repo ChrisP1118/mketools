@@ -44,7 +44,7 @@ namespace MkeTools.Web.Jobs
         {
             ClaimsPrincipal claimsPrincipal = await GetClaimsPrincipal();
 
-            for (var id = 1; id < 13000; ++id)
+            for (var id = 1; id < 16000; ++id)
             {
                 await ProcessArchiveItem(claimsPrincipal, "MPL", id.ToString(), "https://content.mpl.org/digital", "https://content.mpl.org/digital/api/collections/HstoricPho/items/{0}/false", "https://content.mpl.org/digital/collection/HstoricPho/id/{0}/rec/1");
             }

@@ -28,7 +28,18 @@
               <li v-if="item.owneraddr">Address: <b-link :to="'/parcel?owneraddr=' + item.owneraddr">{{item.owneraddr}}</b-link></li>
               <li v-if="item.ownerctyst">City/State: {{item.ownerctyst}}</li>
               <li v-if="item.ownerzip">Zip Code: {{item.ownerzip}}</li>
-              <li v-if="property && property.last_name_chg">Last Name Change: {{property.last_name_chg}}</li>
+              <li v-if="property && property.last_name_chg">Last Name Change: {{getFormattedDate(property.last_name_chg)}}</li>
+            </ul>            
+          </b-card>
+          <b-card class="mt-3">
+            <h4 slot="header">Taxes and Assessment</h4>
+            <ul>
+              <li v-if="item.tax_yr">Tax Year: {{item.tax_yr}}</li>
+              <li v-if="item.assessedva">Assessed Value: {{getFormattedCurrency(item.assessedva)}}</li>
+              <li v-if="item.fair_mkt_v">Fair Market Value: {{getFormattedCurrency(item.fair_mkt_v)}}</li>
+              <li v-if="item.landvalue">Land Value: {{getFormattedCurrency(item.landvalue)}}</li>
+              <li v-if="item.gross_tax">Gross Tax: {{getFormattedCurrency(item.gross_tax)}}</li>
+              <li v-if="item.net_tax">Net Tax: {{getFormattedCurrency(item.net_tax)}}</li>
             </ul>            
           </b-card>
           <b-card class="mt-3">
@@ -36,6 +47,7 @@
             <ul>
               <li v-if="property">Owner Occupied: {{property.own_ocpd == 'O' ? 'Yes' : 'No'}}</li>
               <li v-if="property">Year Built: {{property.yr_built}}</li>
+              <li v-if="item.acres">Acres: {{item.acres}}</li>
               <!-- This is unreliable with mprop2019 -->
               <!-- <li>Area: {{property.bldg_area}}</li> -->
               <!-- <li>Number of Units: {{property.nr_units}}</li>
@@ -100,9 +112,15 @@ export default {
 
       x += ' ' + this.item.streetdir + ' ' + this.item.streetname + ' ' + this.item.streettype;
       return x;
-    }
+    },
   },
   methods: {
+    getFormattedDate: function (d) {
+      return new moment(d).format('MMM D, YYYY')
+    },
+    getFormattedCurrency: function (c) {
+      return (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })).format(c);
+    },
     load: function () {
       let url = '/api/parcel/' + this.id + '?includes=' + encodeURIComponent('commonParcel,properties,addresses');
 
@@ -118,13 +136,15 @@ export default {
           this.property = this.properties[0];
 
           this.propertiesSimple = this.properties.map(x => ({
-            year: new moment(x.sourceDate).year(),
+            date: this.getFormattedDate(x.sourceDate),
             land: x.c_a_land,
             improvements: x.c_a_imprv,
             total: x.c_a_total,
-            exemptLand: x.c_a_exm_land,
-            exemptImprovements: x.c_a_exm_imprv,
-            exemptTotal: x.c_a_exm_total,
+            //exemptLand: x.c_a_exm_land,
+            //exemptImprovements: x.c_a_exm_imprv,
+            //exemptTotal: x.c_a_exm_total,
+            buildingSqFt: x.bldg_area,
+            lotSqFt: x.lot_area,
             owner: x.owner_name_1 + (x.owner_name_2 ? ', ' + x.owner_name_2 : '') + (x.owner_name_3 ? ', ' + x.owner_name_3 : ''),
             ownerAddress: (x.owner_mail_addr ?  x.owner_mail_addr + ', ' : '') + x.owner_city_state + ' ' + x.owner_zip
           }));
